@@ -2,7 +2,18 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import { getBlogUrl } from '../utils/blog';
+
+// Get all published posts and sort by date
+const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get 4 most recent book reviews and 4 most recent lists
+const bookReviews = sortedPosts.filter(post => post.data.postType === 'review').slice(0, 4);
+const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slice(0, 4);
 ---
 
 <!doctype html>
@@ -13,37 +24,385 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<!-- Recent Book Reviews -->
+			{bookReviews.length > 0 && (
+				<section class="recent-books">
+					<div class="books-row">
+						{bookReviews.map((post) => (
+							<article class="book-item">
+								<a href={getBlogUrl(post.id)} class="book-link">
+									<div class="book-cover">
+										{post.data.heroImage ? (
+											<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+										) : (
+											<div class="placeholder-book">
+												<span>📖</span>
+											</div>
+										)}
+									</div>
+									<div class="book-details">
+										<h3 class="book-title">{post.data.bookTitle || post.data.title}</h3>
+										<p class="book-description">{post.data.description}</p>
+										<div class="book-meta">
+											{post.data.rating && (
+												<div class="rating-small">
+													{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
+												</div>
+											)}
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+									</div>
+								</a>
+							</article>
+						))}
+					</div>
+					<div class="see-more-container">
+						<a href="/book-reviews" class="see-more-link">See All Book Reviews →</a>
+					</div>
+				</section>
+			)}
+
+
+			<!-- Featured Lists -->
+			{bookLists.length > 0 && (
+				<section class="featured-lists">
+					<div class="lists-row">
+						{bookLists.map((post) => (
+							<article class="list-item">
+								<a href={getBlogUrl(post.id)} class="list-link">
+									<div class="list-image">
+										{post.data.heroImage ? (
+											<img src={post.data.heroImage} alt={post.data.title} />
+										) : (
+											<div class="placeholder-list">
+												<span>📚</span>
+											</div>
+										)}
+									</div>
+									<div class="list-details">
+										<h3 class="list-title">{post.data.title}</h3>
+										<p class="list-description">{post.data.description}</p>
+										<div class="list-meta">
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+									</div>
+								</a>
+							</article>
+						))}
+					</div>
+					<div class="see-more-container">
+						<a href="/my-lists" class="see-more-link">See All My Lists →</a>
+					</div>
+				</section>
+			)}
+
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	/* Main Layout */
+	main {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-x: hidden;
+	}
+
+
+	/* Recent Books Row */
+	.recent-books {
+		margin-bottom: 4rem;
+		padding-bottom: 2rem;
+	}
+
+	.books-row {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 3rem;
+	}
+
+	.book-item {
+		transition: none;
+	}
+
+	.book-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.book-cover {
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+
+	.book-cover img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2/3;
+		object-fit: cover;
+		border-radius: 8px;
+		box-shadow: 0 8px 24px rgba(var(--black), 0.15);
+	}
+
+	.placeholder-book {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.4), rgba(var(--accent), 0.1));
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2.5rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.book-title {
+		font-size: 1rem;
+		font-weight: 700;
+		margin-bottom: 0.75rem;
+		color: var(--primary);
+		line-height: 1.2;
+		height: 2.4em;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+
+	.book-description {
+		font-size: 0.85rem;
+		color: rgba(var(--gray-dark), 0.8);
+		line-height: 1.4;
+		margin: 0 0 0.75rem 0;
+		height: 4.2em;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+	}
+
+	.book-meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin-top: auto;
+	}
+
+	.rating-small {
+		font-size: 0.8rem;
+		color: #fbbf24;
+		letter-spacing: 0.05em;
+	}
+
+	.book-details {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	/* See More Links */
+	.see-more-container {
+		display: flex;
+		justify-content: flex-end;
+		margin-top: 2rem;
+		padding-right: 1rem;
+	}
+
+	.see-more-link {
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 500;
+		font-size: 0.95rem;
+		transition: color 0.2s ease;
+	}
+
+	.see-more-link:hover {
+		color: var(--primary);
+		text-decoration: underline;
+	}
+
+	/* Featured Lists Row */
+	.featured-lists {
+		margin-bottom: 2rem;
+		padding-bottom: 2rem;
+	}
+
+	.lists-row {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 3rem;
+	}
+
+	.list-item {
+		transition: none;
+	}
+
+	.list-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.list-image {
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+
+	.list-image img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2/3;
+		object-fit: cover;
+		border-radius: 6px;
+		box-shadow: 0 6px 18px rgba(var(--black), 0.12);
+	}
+
+	.placeholder-list {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.4), rgba(var(--gray), 0.1));
+		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 2rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.list-title {
+		font-size: 1rem;
+		font-weight: 700;
+		margin-bottom: 0.75rem;
+		color: var(--primary);
+		line-height: 1.2;
+		height: 2.4em;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+
+	.list-description {
+		font-size: 0.85rem;
+		color: rgba(var(--gray-dark), 0.8);
+		line-height: 1.4;
+		margin: 0 0 0.75rem 0;
+		height: 4.2em;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+	}
+
+	.list-meta {
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin-top: auto;
+	}
+
+	.list-details {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+
+	/* Mobile Layout */
+	@media (max-width: 768px) {
+		main {
+			padding: 1rem 1rem;
+		}
+
+		/* Mobile Latest Book */
+		.latest-link {
+			flex-direction: column;
+			gap: 1.5rem;
+			text-align: center;
+		}
+
+		.latest-cover {
+			width: 180px;
+			margin: 0 auto;
+		}
+
+		.placeholder-large {
+			width: 180px;
+			height: 270px;
+			margin: 0 auto;
+		}
+
+		.latest-info h1 {
+			font-size: 2rem;
+		}
+
+		.latest-info .book-author {
+			font-size: 1rem;
+		}
+
+		/* Mobile Recent Books - Show 2 columns, hide some items */
+		.books-row {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		.book-item:nth-child(n+3) {
+			display: none;
+		}
+
+		/* Mobile Lists - Show 2 columns, hide some items */
+		.lists-row {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1rem;
+		}
+
+		.list-item:nth-child(n+3) {
+			display: none;
+		}
+
+		.book-cover img, .placeholder-book, .list-image img, .placeholder-list {
+			height: auto;
+		}
+
+		.book-title, .list-title {
+			font-size: 0.85rem;
+			height: 2em;
+			-webkit-line-clamp: 2;
+		}
+
+		.book-description, .list-description {
+			font-size: 0.75rem;
+			height: 2.8em;
+			-webkit-line-clamp: 2;
+		}
+	}
+
+	@media (max-width: 480px) {
+		main {
+			padding: 0.5rem 0.75rem;
+		}
+		
+		.books-row {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.book-item:nth-child(n+2) {
+			display: none;
+		}
+
+		.lists-row {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+
+		.list-item:nth-child(n+2) {
+			display: none;
+		}
+	}
+</style>

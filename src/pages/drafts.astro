@@ -1,0 +1,230 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+
+// Get all draft posts
+const draftPosts = (await getCollection('blog', ({ data }) => data.status === 'draft')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Draft Reviews - A Book in the Hand" description="Preview of unpublished book reviews" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-header">
+				<h1>Draft Reviews</h1>
+				<p class="draft-notice">⚠️ These reviews are not published and won't appear on the live site</p>
+				<p class="draft-count">Total drafts: {draftPosts.length}</p>
+			</div>
+			
+			<div class="posts-gallery">
+				{draftPosts.map((post) => (
+					<article class="post-item">
+						<a href={`/blog/${post.id.replace(/\/(\d{2})-/, '/$1/')}/`} class="post-link">
+							<div class="post-image">
+								{post.data.heroImage ? (
+									<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+								) : (
+									<div class="placeholder-image">
+										<span>📖</span>
+									</div>
+								)}
+							</div>
+							<div class="post-info">
+								<h3>{post.data.bookTitle || post.data.title}</h3>
+								{post.data.author && (
+									<p class="author">by {post.data.author}</p>
+								)}
+								{post.data.rating && (
+									<div class="rating">
+										{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
+									</div>
+								)}
+								<div class="post-date">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<div class="draft-badge">DRAFT</div>
+							</div>
+						</a>
+					</article>
+				))}
+			</div>
+			
+			{draftPosts.length === 0 && (
+				<div class="no-drafts">
+					<p>No draft reviews found. All reviews are published!</p>
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.page-header {
+		margin-bottom: 2rem;
+	}
+
+	.page-header h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--primary);
+		margin-bottom: 1rem;
+	}
+
+	.draft-notice {
+		background: #fff3cd;
+		color: #856404;
+		padding: 0.75rem 1rem;
+		border-radius: 8px;
+		border: 1px solid #ffeaa7;
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.draft-count {
+		font-size: 1.1rem;
+		color: rgba(var(--gray-dark), 0.8);
+		margin: 0;
+	}
+
+	.posts-gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		gap: 2rem;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.post-item {
+		background: transparent;
+		transition: transform 0.2s ease;
+		position: relative;
+	}
+
+	.post-item:hover {
+		transform: translateY(-2px);
+	}
+
+	.post-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.post-image {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.3), rgba(var(--accent), 0.1));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		margin-bottom: 1rem;
+		overflow: hidden;
+	}
+
+	.post-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.placeholder-image {
+		font-size: 2.5rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.post-info h3 {
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		color: var(--primary);
+		line-height: 1.3;
+	}
+
+	.author {
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin-bottom: 0.5rem;
+		font-style: italic;
+	}
+
+	.rating {
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+		color: #fbbf24;
+		letter-spacing: 0.05em;
+	}
+
+	.post-date {
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin-bottom: 0.5rem;
+	}
+
+	.draft-badge {
+		display: inline-block;
+		background: #ff6b6b;
+		color: white;
+		padding: 0.2rem 0.5rem;
+		border-radius: 12px;
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+
+	.no-drafts {
+		text-align: center;
+		padding: 3rem 1rem;
+		color: rgba(var(--gray-dark), 0.7);
+		font-size: 1.1rem;
+	}
+
+	@media (max-width: 768px) {
+		main {
+			padding: 1rem 1rem;
+		}
+		
+		.page-header h1 {
+			font-size: 2rem;
+		}
+		
+		.posts-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+			gap: 1rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		main {
+			padding: 0.75rem 0.75rem;
+		}
+		
+		.posts-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+			gap: 0.75rem;
+		}
+		
+		.post-info h3 {
+			font-size: 0.8rem;
+		}
+	}
+</style>

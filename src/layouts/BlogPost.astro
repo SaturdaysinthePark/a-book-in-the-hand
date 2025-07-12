@@ -4,83 +4,345 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { 
+	title, 
+	description, 
+	pubDate, 
+	updatedDate, 
+	heroImage,
+	bookTitle,
+	author,
+	genre,
+	rating,
+	purchaseLink,
+	tags,
+	postType = 'review'
+} = Astro.props;
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
 	</head>
 
 	<body>
 		<Header />
 		<main>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+			<article class="blog-post">
+				<div class="post-layout">
+					<!-- Left Sidebar: Book Cover & Details -->
+					{postType === 'review' && (
+						<aside class="book-sidebar">
+							<!-- Book Cover -->
+							<div class="book-cover">
+								{heroImage ? (
+									<img src={heroImage} alt={bookTitle || title} />
+								) : (
+									<div class="placeholder-cover">
+										<span>📖</span>
 									</div>
-								)
-							}
+								)}
+							</div>
+
+							<!-- Book Details -->
+							<div class="book-details">
+								{bookTitle && <div class="book-title">{bookTitle}</div>}
+								{author && (
+									<div class="book-author">
+										by <a href={`/authors/${author.toLowerCase().replace(/\s+/g, '-')}/`} class="author-link">{author}</a>
+									</div>
+								)}
+								{rating && (
+									<div class="book-rating">
+										<span class="stars">
+											{'★'.repeat(rating)}{'☆'.repeat(5 - rating)}
+										</span>
+									</div>
+								)}
+								{tags && tags.length > 0 && (
+									<div class="book-tags">
+										{tags.map(tag => (
+											<a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`} class="tag">{tag}</a>
+										))}
+									</div>
+								)}
+							</div>
+						</aside>
+					)}
+
+					<!-- Main Content -->
+					<div class="post-content">
+						<div class="post-header">
+							<div class="post-meta">
+								<FormattedDate date={pubDate} />
+								{updatedDate && (
+									<span class="updated">· Updated <FormattedDate date={updatedDate} /></span>
+								)}
+							</div>
+							<h1 class="post-title">{title}</h1>
 						</div>
-						<h1>{title}</h1>
-						<hr />
+
+						<!-- List posts show hero image and tags in content -->
+						{postType === 'list' && (
+							<div class="list-header">
+								{heroImage && (
+									<div class="list-image">
+										<img src={heroImage} alt={title} />
+									</div>
+								)}
+								{tags && tags.length > 0 && (
+									<div class="list-tags">
+										{tags.map(tag => (
+											<a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`} class="tag">{tag}</a>
+										))}
+									</div>
+								)}
+							</div>
+						)}
+
+						<div class="prose">
+							<slot />
+						</div>
 					</div>
-					<slot />
 				</div>
 			</article>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	/* Main Layout */
+	main {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	.blog-post {
+		width: 100%;
+	}
+
+	.post-layout {
+		display: grid;
+		grid-template-columns: 250px 1fr;
+		gap: 3rem;
+		align-items: start;
+	}
+
+	/* For list posts without sidebar */
+	.post-layout:not(:has(.book-sidebar)) {
+		grid-template-columns: 1fr;
+	}
+
+	/* Book Sidebar */
+	.book-sidebar {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		position: sticky;
+		top: 2rem;
+	}
+
+	.book-cover {
+		width: 100%;
+	}
+
+	.book-cover img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 2/3;
+		object-fit: cover;
+		border-radius: 8px;
+		box-shadow: 0 8px 24px rgba(var(--black), 0.15);
+	}
+
+	.placeholder-cover {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.4), rgba(var(--accent), 0.1));
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 3rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.book-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		text-align: left;
+	}
+
+	.book-title {
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--primary);
+		line-height: 1.3;
+	}
+
+	.book-author {
+		font-size: 0.95rem;
+		color: rgba(var(--gray-dark), 0.8);
+		font-style: italic;
+	}
+
+	.author-link {
+		color: var(--accent);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.author-link:hover {
+		color: var(--primary);
+		text-decoration: underline;
+	}
+
+	.book-rating {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.stars {
+		font-size: 1.1rem;
+		line-height: 1;
+		color: #fbbf24;
+		letter-spacing: 0.1em;
+	}
+
+	.book-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.tag {
+		padding: 0.25rem 0.5rem;
+		background: rgba(var(--accent), 0.1);
+		color: var(--accent);
+		border-radius: 4px;
+		font-size: 0.8rem;
+		text-decoration: none;
+		transition: all 0.2s ease;
+	}
+
+	.tag:hover {
+		background: rgba(var(--accent), 0.2);
+		transform: translateY(-1px);
+	}
+
+	/* Post Content */
+	.post-content {
+		min-width: 0;
+	}
+
+	.post-header {
+		margin-bottom: 2rem;
+		text-align: left;
+	}
+
+	.post-meta {
+		font-size: 0.9rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin-bottom: 1rem;
+	}
+
+	.updated {
+		color: rgba(var(--gray-dark), 0.6);
+	}
+
+	.post-title {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--primary);
+		line-height: 1.2;
+		margin: 0;
+	}
+
+	/* List Post Specific */
+	.list-header {
+		margin-bottom: 2rem;
+	}
+
+	.list-image {
+		margin-bottom: 1.5rem;
+	}
+
+	.list-image img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+		border-radius: 8px;
+	}
+
+	.list-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	/* Prose Content */
+	.prose {
+		line-height: 1.7;
+		color: rgba(var(--gray-dark), 0.9);
+	}
+
+	/* Mobile Layout */
+	@media (max-width: 768px) {
+		main {
+			padding: 1.5rem 1rem;
+		}
+
+		.post-layout {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+
+		.book-sidebar {
+			flex-direction: row;
+			gap: 1.5rem;
+			align-items: flex-start;
+		}
+
+		.book-cover {
+			width: 120px;
+			flex-shrink: 0;
+		}
+
+		.book-details {
+			flex: 1;
+			gap: 0.5rem;
+		}
+
+		.post-title {
+			font-size: 2rem;
+		}
+
+		.list-image img {
+			height: 200px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.book-sidebar {
+			flex-direction: column;
+			text-align: center;
+			gap: 1rem;
+		}
+
+		.book-cover {
+			width: 150px;
+			margin: 0 auto;
+		}
+
+		.post-title {
+			font-size: 1.8rem;
+		}
+	}
+</style>

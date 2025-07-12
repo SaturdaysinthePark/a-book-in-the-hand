@@ -1,0 +1,564 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const allPosts = (await getCollection('blog', ({ data }) => data.status === 'live')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+// Filter to only book reviews (not lists)
+const posts = allPosts.filter(post => post.data.postType === 'review');
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Book Reviews - A Book in the Hand" description="Discover my latest book reviews and reading recommendations" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-header">
+				<h1>All my book reviews</h1>
+			</div>
+			<div class="layout-container">
+				<!-- Sidebar Filters -->
+				<aside class="sidebar-filters">
+					<h3>Filter Reviews</h3>
+					
+					<!-- Primary Genre Filters -->
+					<div class="filter-section">
+						<h4>Genre</h4>
+						<div class="filter-group">
+							<button class="filter-btn active" data-filter="all" data-type="genre">All</button>
+							<button class="filter-btn" data-filter="fiction" data-type="genre">Fiction</button>
+							<button class="filter-btn" data-filter="nonfiction" data-type="genre">Nonfiction</button>
+						</div>
+					</div>
+					
+					<!-- Popular Tags -->
+					<div class="filter-section">
+						<h4>Popular Tags</h4>
+						<div class="tag-group">
+							<button class="tag-btn" data-tag="fiction">Fiction</button>
+							<button class="tag-btn" data-tag="nonfiction">Nonfiction</button>
+							<button class="tag-btn" data-tag="science fiction">Science Fiction</button>
+							<button class="tag-btn" data-tag="fantasy">Fantasy</button>
+							<button class="tag-btn" data-tag="classic">Classic</button>
+							<button class="tag-btn" data-tag="popular science">Popular Science</button>
+						</div>
+						<button class="show-more-tags" id="show-more-tags">Show More Tags →</button>
+					</div>
+					
+					<!-- All Tags (Initially Hidden) -->
+					<div class="filter-section all-tags-section" id="all-tags-section" style="display: none;">
+						<h4>All Tags</h4>
+						<div class="tag-group all-tags">
+							<button class="tag-btn" data-tag="autobiography">Autobiography</button>
+							<button class="tag-btn" data-tag="biography">Biography</button>
+							<button class="tag-btn" data-tag="business">Business</button>
+							<button class="tag-btn" data-tag="education">Education</button>
+							<button class="tag-btn" data-tag="epic poem">Epic Poem</button>
+							<button class="tag-btn" data-tag="finance">Finance</button>
+							<button class="tag-btn" data-tag="historical fiction">Historical Fiction</button>
+							<button class="tag-btn" data-tag="history">History</button>
+							<button class="tag-btn" data-tag="horror">Horror</button>
+							<button class="tag-btn" data-tag="magical realism">Magical Realism</button>
+							<button class="tag-btn" data-tag="mystery">Mystery</button>
+							<button class="tag-btn" data-tag="philosophy">Philosophy</button>
+							<button class="tag-btn" data-tag="play">Play</button>
+							<button class="tag-btn" data-tag="poetry">Poetry</button>
+							<button class="tag-btn" data-tag="politics">Politics</button>
+							<button class="tag-btn" data-tag="popular science">Popular Science</button>
+							<button class="tag-btn" data-tag="psychology">Psychology</button>
+							<button class="tag-btn" data-tag="religion">Religion</button>
+							<button class="tag-btn" data-tag="romance">Romance</button>
+							<button class="tag-btn" data-tag="science">Science</button>
+							<button class="tag-btn" data-tag="self-help">Self-Help</button>
+							<button class="tag-btn" data-tag="social science">Social Science</button>
+							<button class="tag-btn" data-tag="young adult">Young Adult</button>
+						</div>
+						<button class="show-more-tags" id="show-less-tags">← Show Less</button>
+					</div>
+					
+					<!-- Clear Filters -->
+					<button class="clear-filters" id="clear-filters">Clear All Filters</button>
+				</aside>
+				
+				<!-- Posts Gallery -->
+				<div class="posts-gallery">
+					{posts.map((post) => (
+						<article class="post-item" data-tags={post.data.tags ? post.data.tags.join('|') : ''} data-genre={post.data.genre ? post.data.genre.toLowerCase() : ''}>
+							<a href={`/blog/${post.id.replace(/\/(\d{2})-/, '/$1/')}/`} class="post-link">
+								<div class="post-image">
+									{post.data.heroImage ? (
+										<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+									) : (
+										<div class="placeholder-image">
+											<span>📖</span>
+										</div>
+									)}
+								</div>
+								<div class="post-info">
+									<h3>{post.data.bookTitle || post.data.title}</h3>
+									{post.data.rating && (
+										<div class="rating">
+											{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
+										</div>
+									)}
+									<div class="post-date">
+										<FormattedDate date={post.data.pubDate} />
+									</div>
+								</div>
+							</a>
+						</article>
+					))}
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-x: hidden;
+	}
+
+	.layout-container {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		gap: 3rem;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	/* Sidebar Filters */
+	.sidebar-filters {
+		position: sticky;
+		top: 2rem;
+		height: fit-content;
+	}
+
+	.sidebar-filters h3 {
+		font-size: 1.1rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+		color: var(--primary);
+	}
+
+	.filter-section {
+		margin-bottom: 1.5rem;
+	}
+	
+	.filter-section h4 {
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 0.75rem;
+		color: var(--primary);
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+	}
+	
+	.filter-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	
+	.tag-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.filter-btn {
+		padding: 0.5rem 1rem;
+		border: 2px solid var(--accent);
+		background: transparent;
+		color: var(--accent);
+		border-radius: 25px;
+		cursor: pointer;
+		font-size: 0.85rem;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		text-align: left;
+	}
+
+	.filter-btn:hover,
+	.filter-btn.active {
+		background: var(--accent);
+		color: white;
+	}
+	
+	.tag-btn {
+		padding: 0.25rem 0.75rem;
+		border: 1px solid rgba(var(--gray), 0.3);
+		background: var(--background);
+		color: var(--primary);
+		border-radius: 15px;
+		cursor: pointer;
+		font-size: 0.8rem;
+		font-weight: 400;
+		transition: all 0.2s ease;
+		white-space: nowrap;
+	}
+	
+	.tag-btn:hover {
+		background: rgba(var(--accent), 0.1);
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	
+	.tag-btn.active {
+		background: var(--accent);
+		border-color: var(--accent);
+		color: white;
+	}
+	
+	.show-more-tags {
+		padding: 0.4rem 0;
+		background: none;
+		border: none;
+		color: var(--accent);
+		font-size: 0.8rem;
+		cursor: pointer;
+		transition: color 0.2s ease;
+		width: 100%;
+		text-align: left;
+	}
+	
+	.show-more-tags:hover {
+		color: var(--primary);
+	}
+	
+	.clear-filters {
+		padding: 0.6rem 1rem;
+		background: transparent;
+		border: 1px solid rgba(var(--gray), 0.3);
+		color: var(--primary);
+		border-radius: 20px;
+		cursor: pointer;
+		font-size: 0.8rem;
+		transition: all 0.2s ease;
+		width: 100%;
+		margin-top: 1rem;
+	}
+	
+	.clear-filters:hover {
+		background: rgba(var(--gray), 0.1);
+		border-color: var(--accent);
+	}
+
+	/* Posts Gallery */
+	.posts-gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+		gap: 2rem;
+		width: 100%;
+		max-width: 100%;
+		overflow: hidden;
+	}
+
+	.post-item {
+		background: transparent;
+		transition: transform 0.2s ease;
+	}
+
+	.post-item:hover {
+		transform: translateY(-2px);
+	}
+
+	.post-item.hidden {
+		display: none;
+	}
+
+	.post-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.post-image {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.3), rgba(var(--accent), 0.1));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		margin-bottom: 1rem;
+		overflow: hidden;
+	}
+
+	.post-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.placeholder-image {
+		font-size: 2.5rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.post-info h3 {
+		font-size: 0.9rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		color: var(--primary);
+		line-height: 1.3;
+		height: 2.6em;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+
+	.rating {
+		font-size: 0.9rem;
+		margin-bottom: 0.5rem;
+		color: #fbbf24;
+		letter-spacing: 0.05em;
+	}
+
+	.post-date {
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+	}
+
+	/* Page Header */
+	.page-header {
+		margin-bottom: 2rem;
+	}
+
+	.page-header h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--primary);
+		margin: 0;
+		text-align: left;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		.page-header h1 {
+			font-size: 2rem;
+		}
+		main {
+			padding: 1rem 1rem;
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
+		}
+
+		.layout-container {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+			width: 100%;
+			max-width: 100%;
+		}
+
+		.sidebar-filters {
+			position: static;
+			order: 1;
+			margin-bottom: 1rem;
+		}
+
+		.filter-group {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			justify-content: center;
+		}
+
+		.filter-btn {
+			flex: 0 1 auto;
+			min-width: fit-content;
+			text-align: center;
+			padding: 0.4rem 0.8rem;
+			font-size: 0.8rem;
+		}
+		
+		.tag-group {
+			justify-content: center;
+		}
+		
+		.tag-btn {
+			font-size: 0.75rem;
+			padding: 0.2rem 0.6rem;
+		}
+		
+		.filter-section h4 {
+			text-align: center;
+			font-size: 0.85rem;
+		}
+		
+		.posts-gallery {
+			order: 2;
+			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+			gap: 1rem;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+	
+	@media (max-width: 480px) {
+		main {
+			padding: 0.75rem 0.75rem;
+			width: 100%;
+			max-width: 100%;
+		}
+		
+		.posts-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+			gap: 0.75rem;
+		}
+		
+		.post-info h3 {
+			font-size: 0.8rem;
+		}
+		
+		.sidebar-filters h3 {
+			font-size: 1rem;
+			margin-bottom: 0.75rem;
+		}
+		
+		.filter-btn {
+			padding: 0.3rem 0.6rem;
+			font-size: 0.75rem;
+		}
+	}
+</style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const filterButtons = document.querySelectorAll('.filter-btn');
+		const tagButtons = document.querySelectorAll('.tag-btn');
+		const showMoreButton = document.getElementById('show-more-tags');
+		const showLessButton = document.getElementById('show-less-tags');
+		const allTagsSection = document.getElementById('all-tags-section');
+		const clearFiltersButton = document.getElementById('clear-filters');
+		const postItems = document.querySelectorAll('.post-item');
+		
+		let activeGenreFilter = 'all';
+		let activeTagFilters = new Set();
+
+		// Genre filter functionality
+		filterButtons.forEach(button => {
+			button.addEventListener('click', function() {
+				if (this.getAttribute('data-type') === 'genre') {
+					// Remove active class from genre filter buttons only
+					filterButtons.forEach(btn => {
+						if (btn.getAttribute('data-type') === 'genre') {
+							btn.classList.remove('active');
+						}
+					});
+					this.classList.add('active');
+					activeGenreFilter = this.getAttribute('data-filter');
+					applyFilters();
+				}
+			});
+		});
+
+		// Tag filter functionality
+		tagButtons.forEach(button => {
+			button.addEventListener('click', function() {
+				const tag = this.getAttribute('data-tag');
+				
+				if (this.classList.contains('active')) {
+					this.classList.remove('active');
+					activeTagFilters.delete(tag);
+				} else {
+					this.classList.add('active');
+					activeTagFilters.add(tag);
+				}
+				
+				applyFilters();
+			});
+		});
+
+		// Show/hide all tags
+		showMoreButton.addEventListener('click', function() {
+			allTagsSection.style.display = 'block';
+			showMoreButton.style.display = 'none';
+		});
+
+		showLessButton.addEventListener('click', function() {
+			allTagsSection.style.display = 'none';
+			showMoreButton.style.display = 'block';
+		});
+
+		// Clear all filters
+		clearFiltersButton.addEventListener('click', function() {
+			// Reset genre filter
+			filterButtons.forEach(btn => {
+				if (btn.getAttribute('data-type') === 'genre') {
+					btn.classList.remove('active');
+					if (btn.getAttribute('data-filter') === 'all') {
+						btn.classList.add('active');
+					}
+				}
+			});
+			
+			// Reset tag filters
+			tagButtons.forEach(btn => btn.classList.remove('active'));
+			
+			activeGenreFilter = 'all';
+			activeTagFilters.clear();
+			applyFilters();
+		});
+
+		function applyFilters() {
+			postItems.forEach(item => {
+				const tags = (item.getAttribute('data-tags') || '').toLowerCase();
+				const genre = (item.getAttribute('data-genre') || '').toLowerCase();
+				
+				let showItem = true;
+				
+				// Apply genre filter
+				if (activeGenreFilter === 'fiction') {
+					const isFiction = genre.includes('fiction') || tags.includes('fiction');
+					const isNonfiction = genre.includes('memoir') || genre.includes('biography') || 
+										 genre.includes('history') || genre.includes('anthropology') ||
+										 genre.includes('self-help') || tags.includes('memoir') ||
+										 tags.includes('biography') || tags.includes('history') ||
+										 tags.includes('anthropology') || tags.includes('self-help');
+					showItem = isFiction && !isNonfiction;
+				} else if (activeGenreFilter === 'nonfiction') {
+					const isNonfiction = genre.includes('memoir') || genre.includes('biography') || 
+										 genre.includes('history') || genre.includes('anthropology') ||
+										 genre.includes('self-help') || tags.includes('memoir') ||
+										 tags.includes('biography') || tags.includes('history') ||
+										 tags.includes('anthropology') || tags.includes('self-help');
+					showItem = isNonfiction;
+				}
+				
+				// Apply tag filters (if any active)
+				if (activeTagFilters.size > 0 && showItem) {
+					showItem = Array.from(activeTagFilters).some(tag => {
+						const tagLower = tag.toLowerCase();
+						const tagArray = tags.split('|');
+						return tagArray.includes(tagLower) || genre.split('|').includes(tagLower);
+					});
+				}
+				
+				if (showItem) {
+					item.classList.remove('hidden');
+				} else {
+					item.classList.add('hidden');
+				}
+			});
+		}
+	});
+</script>

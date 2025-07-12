@@ -1,0 +1,189 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { getBlogUrl } from '../../utils/blog';
+
+export async function getStaticPaths() {
+	const allPosts = await getCollection('blog');
+	const allAuthors = new Set();
+	
+	allPosts.forEach(post => {
+		if (post.data.author) {
+			allAuthors.add(post.data.author.toLowerCase().replace(/\s+/g, '-'));
+		}
+	});
+	
+	return Array.from(allAuthors).map(author => ({
+		params: { author },
+		props: { author }
+	}));
+}
+
+const { author } = Astro.props;
+const allPosts = await getCollection('blog');
+
+// Filter posts by author
+const authorPosts = allPosts.filter(post => 
+	post.data.author && post.data.author.toLowerCase().replace(/\s+/g, '-') === author
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get the original author name (with proper casing)
+const originalAuthor = authorPosts[0]?.data.author || author;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Books by ${originalAuthor} - A Book in the Hand`} description={`All books by ${originalAuthor}`} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="page-header">
+				<h1>Books by {originalAuthor}</h1>
+				<p class="post-count">{authorPosts.length} book{authorPosts.length !== 1 ? 's' : ''} reviewed</p>
+			</div>
+			
+			<div class="posts-gallery">
+				{authorPosts.map((post) => (
+					<article class="post-item">
+						<a href={getBlogUrl(post.id)} class="post-link">
+							<div class="post-image">
+								{post.data.heroImage ? (
+									<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+								) : (
+									<div class="placeholder-image">
+										<span>{post.data.postType === 'list' ? '📚' : '📖'}</span>
+									</div>
+								)}
+							</div>
+							<div class="post-info">
+								<h3>{post.data.bookTitle || post.data.title}</h3>
+								<div class="post-meta">
+									<FormattedDate date={post.data.pubDate} />
+									{post.data.rating && (
+										<div class="rating">
+											{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
+										</div>
+									)}
+								</div>
+							</div>
+						</a>
+					</article>
+				))}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	.page-header {
+		text-align: left;
+		margin-bottom: 3rem;
+	}
+
+	.page-header h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--primary);
+		margin-bottom: 0.5rem;
+	}
+
+	.post-count {
+		font-size: 1rem;
+		color: rgba(var(--gray-dark), 0.7);
+		margin: 0;
+	}
+
+	.posts-gallery {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 2rem;
+	}
+
+	.post-item {
+		background: transparent;
+		transition: transform 0.2s ease;
+	}
+
+	.post-item:hover {
+		transform: translateY(-4px);
+	}
+
+	.post-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+	}
+
+	.post-image {
+		width: 100%;
+		aspect-ratio: 2/3;
+		background: linear-gradient(135deg, rgba(var(--gray-light), 0.3), rgba(var(--accent), 0.1));
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		margin-bottom: 1rem;
+		overflow: hidden;
+	}
+
+	.post-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.placeholder-image {
+		font-size: 3rem;
+		color: rgba(var(--gray), 0.6);
+	}
+
+	.post-info h3 {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+		color: var(--primary);
+		line-height: 1.3;
+	}
+
+	.post-meta {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		font-size: 0.85rem;
+		color: rgba(var(--gray-dark), 0.7);
+	}
+
+	.rating {
+		color: #fbbf24;
+		font-size: 0.9rem;
+		letter-spacing: 0.05em;
+	}
+
+	/* Responsive Design */
+	@media (max-width: 768px) {
+		main {
+			padding: 1rem;
+		}
+		
+		.posts-gallery {
+			grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+			gap: 1.5rem;
+		}
+
+		.page-header h1 {
+			font-size: 2rem;
+		}
+	}
+</style>
