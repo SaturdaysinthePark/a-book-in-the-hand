@@ -1,14 +1,146 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout
-	title="About Me"
-	description="Learn about the person behind 'A Book in the Hand' and my literary journey"
-	pubDate={new Date('January 06 2025')}
-	heroImage="/sk-notion-face.png"
->
-	<p>
-		Hi, my name is Sabtain. I live in Brooklyn and love to read books and chat about them with friends. I started my more serious reading journey in 2015 and have since read hundreds upon hundreds of books, and I'm not done yet.
-	</p>
-</Layout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="About Me - A Book in the Hand" description="Learn about the person behind 'A Book in the Hand' and my literary journey" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="about-container">
+				<div class="profile-section">
+					<div class="profile-image">
+						<img src="/sk-notion-face.png" alt="Sabtain" />
+					</div>
+					<h1>About Me</h1>
+				</div>
+				
+				<div class="about-content">
+					<p>
+						Hi, my name is Sabtain. I live in Brooklyn and love to read books and chat about them with friends. I started my more serious reading journey in 2015 and have since read hundreds upon hundreds of books, and I'm not done yet.
+					</p>
+					
+					<div class="connect-section">
+						<p>
+							Let's be friends on <a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer">Goodreads</a>!
+						</p>
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 3rem 1rem;
+		min-height: 60vh;
+	}
+
+	.about-container {
+		text-align: center;
+	}
+
+	.profile-section {
+		margin-bottom: 2rem;
+	}
+
+	.profile-image {
+		margin: 0 auto 1.5rem auto;
+		width: 200px;
+		height: 200px;
+	}
+
+	.profile-image img {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 4px solid var(--accent);
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		color: var(--primary);
+		margin: 0;
+		font-family: 'Poppins', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+	}
+
+	.about-content {
+		max-width: 600px;
+		margin: 0 auto;
+		text-align: left;
+	}
+
+	.about-content p {
+		font-size: 1.1rem;
+		line-height: 1.6;
+		color: var(--primary);
+		margin-bottom: 1.5rem;
+	}
+
+	.connect-section {
+		text-align: center;
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(var(--gray), 0.2);
+	}
+
+	.connect-section p {
+		font-size: 1.1rem;
+		margin: 0;
+	}
+
+	.connect-section a {
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 600;
+		border-bottom: 2px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.connect-section a:hover {
+		border-bottom-color: var(--accent);
+	}
+
+	@media (max-width: 768px) {
+		main {
+			padding: 2rem 1rem;
+		}
+
+		.profile-image {
+			width: 150px;
+			height: 150px;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.about-content p {
+			font-size: 1rem;
+			text-align: center;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.profile-image {
+			width: 120px;
+			height: 120px;
+		}
+
+		h1 {
+			font-size: 1.8rem;
+		}
+	}
+</style>

@@ -4,7 +4,12 @@ const today = new Date();
 
 <footer>
 	<div class="footer-content">
-		&copy; {today.getFullYear()} A Book in the Hand. All rights reserved.
+		<div class="footer-links">
+			<p>Let's be friends on <a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer">Goodreads</a>!</p>
+		</div>
+		<div class="footer-copyright">
+			&copy; {today.getFullYear()} A Book in the Hand. All rights reserved.
+		</div>
 	</div>
 </footer>
 <style>
@@ -13,13 +18,41 @@ const today = new Date();
 		background: var(--background);
 		color: rgb(var(--gray));
 		font-size: 0.85rem;
+		border-top: 1px solid rgba(var(--gray), 0.1);
 	}
 	
 	.footer-content {
 		max-width: 1400px;
 		margin: 0 auto;
 		padding: 0 1rem;
-		text-align: left;
+		text-align: center;
+	}
+
+	.footer-links {
+		margin-bottom: 1rem;
+	}
+
+	.footer-links p {
+		margin: 0;
+		font-size: 1rem;
+		color: var(--primary);
+	}
+
+	.footer-links a {
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 600;
+		border-bottom: 2px solid transparent;
+		transition: border-color 0.2s ease;
+	}
+
+	.footer-links a:hover {
+		border-bottom-color: var(--accent);
+	}
+
+	.footer-copyright {
+		color: rgba(var(--gray), 0.7);
+		font-size: 0.85rem;
 	}
 	
 	@media (max-width: 720px) {
