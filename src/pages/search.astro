@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
-const allPosts = (await getCollection('blog')).sort(
+const allPosts = (await getCollection('blog', ({ data }) => data.status === 'live')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 

@@ -345,24 +345,26 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 			font-size: 1rem;
 		}
 
-		/* Mobile Recent Books - Show 2 columns, hide some items */
+		/* Mobile Recent Books - Show 2x2 grid (4 posts) */
 		.books-row {
 			grid-template-columns: repeat(2, 1fr);
 			gap: 1rem;
 		}
 
-		.book-item:nth-child(n+3) {
-			display: none;
+		/* Show all 4 posts on tablet/mobile */
+		.book-item {
+			display: block;
 		}
 
-		/* Mobile Lists - Show 2 columns, hide some items */
+		/* Mobile Lists - Show 2x2 grid (4 lists) */
 		.lists-row {
 			grid-template-columns: repeat(2, 1fr);
 			gap: 1rem;
 		}
 
-		.list-item:nth-child(n+3) {
-			display: none;
+		/* Show all 4 lists on tablet/mobile */
+		.list-item {
+			display: block;
 		}
 
 		.book-cover img, .placeholder-book, .list-image img, .placeholder-list {
@@ -371,7 +373,7 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 
 		.book-title, .list-title {
 			font-size: 0.85rem;
-			height: 2em;
+			height: 2.6em;
 			-webkit-line-clamp: 2;
 		}
 
@@ -387,13 +389,15 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 			padding: 0.5rem 0.75rem;
 		}
 		
+		/* Keep 2x2 grid on phones */
 		.books-row {
-			grid-template-columns: 1fr;
-			gap: 1rem;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.75rem;
 		}
 
-		.book-item:nth-child(n+2) {
-			display: none;
+		/* Show all 4 posts on phone */
+		.book-item {
+			display: block;
 		}
 
 		.lists-row {
