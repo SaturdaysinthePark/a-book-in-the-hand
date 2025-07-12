@@ -25,7 +25,48 @@ const {
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead 
+			title={postType === 'review' && bookTitle && author ? 
+				`${bookTitle} by ${author} - Review | A Book in the Hand` : 
+				title
+			} 
+			description={postType === 'review' && rating ? 
+				`${description} Rating: ${rating}/5 stars. Read my full review of ${bookTitle} by ${author}.` : 
+				description
+			} 
+		/>
+		
+		{/* Structured Data for Book Reviews */}
+		{postType === 'review' && bookTitle && author && rating && (
+			<script type="application/ld+json">
+				{JSON.stringify({
+					"@context": "https://schema.org",
+					"@type": "Review",
+					"itemReviewed": {
+						"@type": "Book",
+						"name": bookTitle,
+						"author": {
+							"@type": "Person",
+							"name": author
+						},
+						"image": heroImage
+					},
+					"reviewRating": {
+						"@type": "Rating",
+						"ratingValue": rating,
+						"bestRating": 5,
+						"worstRating": 1
+					},
+					"author": {
+						"@type": "Person",
+						"name": "Sabtain"
+					},
+					"datePublished": pubDate.toISOString().split('T')[0],
+					"description": description,
+					"url": Astro.url.href
+				})}
+			</script>
+		)}
 	</head>
 
 	<body>
