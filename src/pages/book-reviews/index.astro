@@ -28,7 +28,15 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 			<div class="layout-container">
 				<!-- Sidebar Filters -->
 				<aside class="sidebar-filters">
-					<h3>Filter Reviews</h3>
+					<div class="filter-header">
+						<h3>Filter Reviews</h3>
+						<button class="mobile-filter-toggle" id="mobile-filter-toggle" aria-label="Toggle Filters">
+							<svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<polyline points="6,9 12,15 18,9"></polyline>
+							</svg>
+						</button>
+					</div>
+					<div class="filter-content" id="filter-content">
 					
 					<!-- Primary Genre Filters -->
 					<div class="filter-section">
@@ -87,6 +95,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 					
 					<!-- Clear Filters -->
 					<button class="clear-filters" id="clear-filters">Clear All Filters</button>
+					</div>
 				</aside>
 				
 				<!-- Posts Gallery -->
@@ -149,11 +158,44 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		height: fit-content;
 	}
 
+	.filter-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+	}
+
 	.sidebar-filters h3 {
 		font-size: 1.1rem;
 		font-weight: 600;
-		margin-bottom: 1rem;
+		margin: 0;
 		color: var(--primary);
+	}
+
+	.mobile-filter-toggle {
+		display: none;
+		background: none;
+		border: none;
+		cursor: pointer;
+		padding: 0.5rem;
+		color: var(--primary);
+		transition: all 0.2s ease;
+	}
+
+	.mobile-filter-toggle:hover {
+		color: var(--accent);
+	}
+
+	.chevron-icon {
+		transition: transform 0.3s ease;
+	}
+
+	.mobile-filter-toggle.open .chevron-icon {
+		transform: rotate(180deg);
+	}
+
+	.filter-content {
+		/* No changes needed for desktop */
 	}
 
 	.filter-section {
@@ -373,6 +415,32 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 			position: static;
 			order: 1;
 			margin-bottom: 1rem;
+			background: var(--paper);
+			border: 1px solid rgba(var(--gray), 0.2);
+			border-radius: 8px;
+			padding: 1rem;
+		}
+
+		.mobile-filter-toggle {
+			display: flex;
+		}
+
+		.filter-content {
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.3s ease-out;
+		}
+
+		.filter-content.open {
+			max-height: 600px;
+		}
+
+		.filter-header {
+			margin-bottom: 0;
+		}
+
+		.filter-header h3 {
+			font-size: 1rem;
 		}
 
 		.filter-group {
@@ -450,6 +518,8 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		const allTagsSection = document.getElementById('all-tags-section');
 		const clearFiltersButton = document.getElementById('clear-filters');
 		const postItems = document.querySelectorAll('.post-item');
+		const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+		const filterContent = document.getElementById('filter-content');
 		
 		let activeGenreFilter = 'all';
 		let activeTagFilters = new Set();
@@ -557,6 +627,21 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 					item.classList.remove('hidden');
 				} else {
 					item.classList.add('hidden');
+				}
+			});
+		}
+
+		// Mobile filter toggle functionality
+		if (mobileFilterToggle && filterContent) {
+			mobileFilterToggle.addEventListener('click', function() {
+				const isOpen = filterContent.classList.contains('open');
+				
+				if (isOpen) {
+					filterContent.classList.remove('open');
+					mobileFilterToggle.classList.remove('open');
+				} else {
+					filterContent.classList.add('open');
+					mobileFilterToggle.classList.add('open');
 				}
 			});
 		}
