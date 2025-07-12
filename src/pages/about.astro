@@ -74,6 +74,8 @@ import Footer from '../components/Footer.astro';
 		max-width: 600px;
 		margin: 0 auto;
 		text-align: left;
+		padding: 0 1rem;
+		box-sizing: border-box;
 	}
 
 	.about-content p {
@@ -81,6 +83,8 @@ import Footer from '../components/Footer.astro';
 		line-height: 1.6;
 		color: var(--primary);
 		margin-bottom: 1.5rem;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
 	}
 
 	.connect-section {
@@ -109,7 +113,16 @@ import Footer from '../components/Footer.astro';
 
 	@media (max-width: 768px) {
 		main {
-			padding: 2rem 1rem;
+			padding: 2rem 0.5rem;
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+		}
+
+		.about-container {
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
 		}
 
 		.profile-image {
@@ -121,13 +134,24 @@ import Footer from '../components/Footer.astro';
 			font-size: 2rem;
 		}
 
+		.about-content {
+			max-width: 100%;
+			padding: 0 1rem;
+		}
+
 		.about-content p {
 			font-size: 1rem;
 			text-align: center;
+			hyphens: auto;
+			word-break: break-word;
 		}
 	}
 
 	@media (max-width: 480px) {
+		main {
+			padding: 1.5rem 0.75rem;
+		}
+
 		.profile-image {
 			width: 120px;
 			height: 120px;
@@ -135,6 +159,15 @@ import Footer from '../components/Footer.astro';
 
 		h1 {
 			font-size: 1.8rem;
+		}
+
+		.about-content {
+			padding: 0 0.5rem;
+		}
+
+		.about-content p {
+			font-size: 0.95rem;
+			line-height: 1.5;
 		}
 	}
 </style>
