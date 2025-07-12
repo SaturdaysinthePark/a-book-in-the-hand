@@ -161,10 +161,14 @@ const {
 		max-width: 1400px;
 		margin: 0 auto;
 		padding: 2rem 1rem;
+		width: 100%;
+		box-sizing: border-box;
+		overflow-x: hidden;
 	}
 
 	.blog-post {
 		width: 100%;
+		box-sizing: border-box;
 	}
 
 	.post-layout {
@@ -172,6 +176,8 @@ const {
 		grid-template-columns: 250px 1fr;
 		gap: 3rem;
 		align-items: start;
+		width: 100%;
+		box-sizing: border-box;
 	}
 
 	/* For list posts without sidebar */
@@ -337,18 +343,48 @@ const {
 	/* Mobile Layout */
 	@media (max-width: 768px) {
 		main {
-			padding: 1.5rem 1rem;
+			padding: 1.5rem 0.75rem;
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
+			box-sizing: border-box;
+		}
+
+		.blog-post {
+			width: 100%;
+			max-width: 100%;
+			overflow-x: hidden;
 		}
 
 		.post-layout {
 			grid-template-columns: 1fr;
 			gap: 2rem;
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+		}
+
+		.post-content {
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			overflow-x: hidden;
+		}
+
+		.prose {
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+			word-wrap: break-word;
+			overflow-wrap: break-word;
 		}
 
 		.book-sidebar {
 			flex-direction: row;
 			gap: 1.5rem;
 			align-items: flex-start;
+			width: 100%;
+			box-sizing: border-box;
 		}
 
 		.book-cover {
@@ -359,10 +395,12 @@ const {
 		.book-details {
 			flex: 1;
 			gap: 0.5rem;
+			min-width: 0;
 		}
 
 		.post-title {
 			font-size: 2rem;
+			word-wrap: break-word;
 		}
 
 		.list-image img {
@@ -371,6 +409,10 @@ const {
 	}
 
 	@media (max-width: 480px) {
+		main {
+			padding: 1rem 0.5rem;
+		}
+
 		.book-sidebar {
 			flex-direction: column;
 			text-align: center;
@@ -384,6 +426,13 @@ const {
 
 		.post-title {
 			font-size: 1.8rem;
+			word-wrap: break-word;
+			hyphens: auto;
+		}
+
+		.prose {
+			font-size: 0.95rem;
+			line-height: 1.6;
 		}
 	}
 </style>

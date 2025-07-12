@@ -24,7 +24,79 @@ import { SITE_TITLE } from '../consts';
 				</button>
 				<input type="text" id="global-search" class="search-input" placeholder="Search..." />
 			</div>
-			<button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Menu">
+			<button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Menu" onclick="
+				// SLIDE-DOWN PANEL APPROACH: No z-index issues
+				console.log('Button clicked!');
+				
+				// Only work on mobile
+				if (window.innerWidth > 768) {
+					console.log('Desktop - ignoring click');
+					return;
+				}
+				
+				const header = document.querySelector('header');
+				let panel = document.querySelector('.mobile-slide-panel');
+				
+				console.log('Header found:', !!header);
+				console.log('Panel exists:', !!panel);
+				
+				if (!panel) {
+					console.log('Creating new panel...');
+					// Create slide panel after header
+					panel = document.createElement('div');
+					panel.className = 'mobile-slide-panel';
+					panel.style.cssText = `
+						width: 100%;
+						background: linear-gradient(135deg, rgba(254, 252, 249, 0.98), rgba(254, 252, 249, 0.95));
+						backdrop-filter: blur(10px);
+						border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+						box-shadow: 0 8px 32px rgba(139, 115, 85, 0.15);
+						overflow: hidden;
+						max-height: 0px;
+						transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+						padding: 0px;
+						opacity: 0;
+					`;
+					panel.innerHTML = `
+						<a href='/book-reviews' style='display: block; padding: 1rem 1.5rem; text-decoration: none; color: #2C2C2C; font-size: 1rem; font-weight: 500; border-bottom: 1px solid rgba(139, 115, 85, 0.08); transition: all 0.3s ease;'>Book Reviews</a>
+						<a href='/my-lists' style='display: block; padding: 1rem 1.5rem; text-decoration: none; color: #2C2C2C; font-size: 1rem; font-weight: 500; border-bottom: 1px solid rgba(139, 115, 85, 0.08); transition: all 0.3s ease;'>My Lists</a>
+						<a href='/about' style='display: block; padding: 1rem 1.5rem; text-decoration: none; color: #2C2C2C; font-size: 1rem; font-weight: 500; transition: all 0.3s ease;'>About</a>
+					`;
+					
+					// Insert panel right after header
+					header.parentNode.insertBefore(panel, header.nextSibling);
+					console.log('Panel created and inserted');
+					
+					// Close on link click
+					panel.querySelectorAll('a').forEach(link => {
+						link.onclick = (e) => {
+							panel.classList.remove('show');
+							console.log('Panel closed via link click');
+							// Let the link navigate normally
+						};
+					});
+				}
+				
+				// Toggle panel with direct style manipulation
+				if (panel.classList.contains('show')) {
+					// Close panel
+					panel.style.maxHeight = '0px';
+					panel.style.padding = '0px';
+					panel.style.opacity = '0';
+					panel.classList.remove('show');
+					console.log('Panel closed');
+				} else {
+					// Open panel
+					panel.style.maxHeight = '250px';
+					panel.style.padding = '0.75rem 0';
+					panel.style.opacity = '1';
+					panel.classList.add('show');
+					console.log('Panel opened');
+				}
+				console.log('Panel show class:', panel.classList.contains('show'));
+				console.log('Panel style max-height:', panel.style.maxHeight);
+				console.log('Panel computed max-height:', window.getComputedStyle(panel).maxHeight);
+			">
 				<svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<line x1="3" y1="6" x2="21" y2="6"></line>
 					<line x1="3" y1="12" x2="21" y2="12"></line>
@@ -41,6 +113,7 @@ import { SITE_TITLE } from '../consts';
 		background: var(--background);
 		width: 100%;
 		overflow-x: hidden;
+		overflow-y: visible;
 	}
 	
 	nav {
@@ -53,6 +126,7 @@ import { SITE_TITLE } from '../consts';
 		position: relative;
 		width: 100%;
 		box-sizing: border-box;
+		overflow: visible;
 	}
 	
 	.site-title {
@@ -248,6 +322,7 @@ import { SITE_TITLE } from '../consts';
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
+			max-width: 100%;
 		}
 		
 		h2 {
@@ -269,54 +344,146 @@ import { SITE_TITLE } from '../consts';
 			gap: 0.5rem;
 			align-items: center;
 			position: relative;
+			z-index: 1000;
 		}
 
+		/* Hide navigation links by default on mobile */
 		.internal-links {
 			display: none;
 			position: fixed;
-			top: 5rem;
+			top: 70px;
 			right: 1rem;
-			background: var(--paper);
-			border: 1px solid var(--border);
+			background: white;
+			border: 2px solid var(--accent);
 			border-radius: 8px;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-			padding: 1rem 0;
-			min-width: 160px;
+			box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+			padding: 0.5rem 0;
+			min-width: 140px;
 			flex-direction: column;
 			gap: 0;
-			z-index: 1001;
+			z-index: 999999;
+			transform: translateZ(0);
+			will-change: transform;
 		}
 		
+		/* Show navigation links when .show class is added */
 		.internal-links.show {
-			display: flex;
+			display: flex !important;
 		}
 		
 		.internal-links a {
-			padding: 0.75rem 1.5rem;
+			padding: 0.75rem 1rem;
 			display: block;
 			border-bottom: none;
+			font-size: 1rem;
+			font-weight: 500;
+			text-align: left;
+			transition: all 0.2s ease;
+			white-space: nowrap;
 		}
 		
 		.internal-links a:hover {
-			background: rgba(var(--gray-light), 0.5);
+			background: rgba(139, 115, 85, 0.1);
 		}
 
+		/* Show hamburger button on mobile */
 		.mobile-menu-toggle {
-			display: flex;
+			display: flex !important;
+			align-items: center;
+			justify-content: center;
 		}
 
 		.search-input.active {
 			width: 200px;
 			right: 3.5rem;
 		}
-		
-		.nav-right {
-			gap: 0.5rem;
+	}
+	
+	/* Extra narrow screens */
+	@media (max-width: 480px) {
+		.internal-links {
+			right: 0;
+			min-width: 120px;
+			left: auto;
+			transform: translateX(0);
 		}
-		
-		nav {
-			padding: 0 1rem;
-			max-width: 100%;
+	}
+	
+	/* Very narrow screens like iPhone 12 Pro */
+	@media (max-width: 390px) {
+		.internal-links {
+			right: -0.5rem;
+			min-width: 110px;
+		}
+	}
+	
+	/* SLIDE-DOWN PANEL: Works with document flow, no z-index issues */
+	.mobile-slide-panel {
+		width: 100%;
+		background: linear-gradient(135deg, rgba(254, 252, 249, 0.98), rgba(254, 252, 249, 0.95));
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid rgba(139, 115, 85, 0.2);
+		box-shadow: 0 8px 32px rgba(139, 115, 85, 0.15);
+		overflow: hidden;
+		max-height: 0 !important;
+		transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+		            opacity 0.4s ease,
+		            padding 0.4s ease !important;
+		padding: 0 !important;
+		opacity: 0;
+	}
+	
+	.mobile-slide-panel.show {
+		max-height: 250px !important;
+		padding: 0.75rem 0 !important;
+		opacity: 1;
+	}
+	
+	.mobile-slide-panel a {
+		display: flex;
+		align-items: center;
+		padding: 1rem 1.5rem;
+		text-decoration: none;
+		color: var(--primary);
+		font-size: 1rem;
+		font-weight: 500;
+		border-bottom: 1px solid rgba(139, 115, 85, 0.08);
+		transition: all 0.3s ease;
+		position: relative;
+		background: transparent;
+	}
+	
+	.mobile-slide-panel a:last-child {
+		border-bottom: none;
+	}
+	
+	.mobile-slide-panel a:hover {
+		background: rgba(139, 115, 85, 0.08);
+		color: var(--accent);
+		padding-left: 2rem;
+		transform: translateX(4px);
+	}
+	
+	.mobile-slide-panel a:active {
+		background: rgba(139, 115, 85, 0.15);
+		transform: translateX(2px) scale(0.98);
+	}
+	
+	/* Simpler link animations */
+	.mobile-slide-panel a {
+		opacity: 1;
+	}
+	
+	/* Only show on mobile */
+	@media (max-width: 768px) {
+		.mobile-slide-panel {
+			display: block;
+		}
+	}
+	
+	@media (min-width: 769px) {
+		.mobile-slide-panel {
+			display: none !important;
 		}
 	}
 </style>
@@ -329,6 +496,15 @@ import { SITE_TITLE } from '../consts';
 		const internalLinks = document.querySelector('.internal-links');
 		const header = document.querySelector('header');
 		let lastScrollY = window.scrollY;
+
+		// Debug: Check if elements are found
+		console.log('Elements found:', {
+			searchToggle: !!searchToggle,
+			searchInput: !!searchInput,
+			mobileMenuToggle: !!mobileMenuToggle,
+			internalLinks: !!internalLinks,
+			header: !!header
+		});
 
 		// Search functionality
 		searchToggle.addEventListener('click', function() {
@@ -359,38 +535,42 @@ import { SITE_TITLE } from '../consts';
 			}
 		});
 
-		// Mobile menu functionality
-		mobileMenuToggle.addEventListener('click', function() {
-			internalLinks.classList.toggle('show');
-		});
-
-		// Close mobile menu when clicking outside
+		// SLIDE-DOWN PANEL: Click outside to close
 		document.addEventListener('click', function(e) {
-			if (!mobileMenuToggle.contains(e.target) && !internalLinks.contains(e.target)) {
-				internalLinks.classList.remove('show');
+			const panel = document.querySelector('.mobile-slide-panel');
+			const toggleButton = document.getElementById('mobile-menu-toggle');
+			
+			if (panel && toggleButton && panel.classList.contains('show')) {
+				// Close if clicking outside the panel and not on the toggle button
+				if (!panel.contains(e.target) && !toggleButton.contains(e.target)) {
+					panel.classList.remove('show');
+					console.log('Panel closed by clicking outside');
+				}
 			}
 		});
 
 		// Sticky navigation with scroll behavior
 		window.addEventListener('scroll', function() {
 			const currentScrollY = window.scrollY;
+			const isMenuOpen = internalLinks.classList.contains('show');
 			
 			if (currentScrollY > 100) {
 				header.style.position = 'fixed';
 				header.style.top = '0';
 				header.style.left = '0';
 				header.style.right = '0';
-				header.style.zIndex = '1000';
+				header.style.zIndex = '10000';
 				header.style.backgroundColor = 'rgba(254, 252, 249, 0.95)';
 				header.style.backdropFilter = 'blur(10px)';
 				header.style.borderBottom = '1px solid rgba(232, 229, 224, 0.3)';
 				header.style.transition = 'transform 0.3s ease';
 				
-				if (currentScrollY > lastScrollY) {
+				// Don't hide header if mobile menu is open
+				if (!isMenuOpen && currentScrollY > lastScrollY) {
 					// Scrolling down
 					header.style.transform = 'translateY(-100%)';
 				} else {
-					// Scrolling up
+					// Scrolling up or menu is open
 					header.style.transform = 'translateY(0)';
 				}
 			} else {
