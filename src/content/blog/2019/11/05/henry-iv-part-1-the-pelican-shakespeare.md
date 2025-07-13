@@ -23,23 +23,21 @@ Most of the focus is on Hal and his tavern friends as they play pranks, commit r
 
 It's quite a bit more fun to read this play than Richard II, there's more action, more plotting, and Falstaff and Hal's surrogate father-son relationship, along with the tavern crowd, is amusing to see unfold. Falstaff is quick to think on his feet, and 'save' himself from embarrassing situations with just the right words, below he pretends that his cowardice was all an act:
 
-> 
-FALSTAFF
+> **FALSTAFF**<br>
 By the Lord, I knew ye as well as he that made ye.
 Why, hear you, my masters: was it for me to kill the
 heir-apparent? should I turn upon the true prince?
 why, thou knowest I am as valiant as Hercules: but
 beware instinct; the lion will not touch the true
 prince. Instinct is a great matter; I was now a
-**coward on instinct**. I shall think the better of
+*coward on instinct*. I shall think the better of
 myself and thee during my life; I for a valiant
 lion, and thou for a true prince.
 
 There's also the question of honor. King Henry IV is making the comparison of Hotspur, who resembles an honorable soldier, to his son Hal, the rebel. Its a central theme in the play, exploring the role of honor in kings, princes, soldiers, commoners, and war. Below Falstaff reflect on the meaning of honor, clearly it means nothing to him, as it is 'air':
 
-> 
-FALSTAFF
-Well, 'tis no matter; honour pricks
+> **FALSTAFF** <br>
+>Well, 'tis no matter; honour pricks
 me on. Yea, but how if honour prick me off when I
 come on? how then? Can honour set to a leg? no: or
 an arm? no: or take away the grief of a wound? no.

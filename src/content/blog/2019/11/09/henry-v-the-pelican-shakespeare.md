@@ -21,15 +21,13 @@ Here's a war story up there with the like of many others, where Henry V battles 
 
 Everything from how the Dauphin (French prince) insults Henry V with a gift of tennis balls, implying that he should go play besides himself, to the Battle of Agincourt and Henry's speech to rally the outnumbered troops - make this play witty and gruesome. Its funny to think that just a play ago, Henry V was Prince Hal, a rebellious little rascal prince, and now he is equating himself to Saint George in battle:
 
-> 
-KING HENRY
+> **KING HENRY** <br>
 Follow your spirit, and upon this charge
 Cry 'God for Harry, England, and Saint George!'
 
 Then there is the scene before the Battle of Agincourt, where Henry V disguises himself as a commoner to understand his troops morale and feelings. The troops don't agree with the King, they think the war is pointless, etc.... So, usually when a King does that, he finds out he is doing something wrong or foolish, or being arrogant. But no! King Henry V? He's literally doing God's work, he doesn't feel responsible for their lives, he needs to rally his troops, so he doubles down and delivers one of the most famous speeches ever:
 
-> 
-KING HENRY
+> **KING HENRY** <br>
 We few, we happy few, we band of brothers;
 For he to-day that sheds his blood with me
 Shall be my brother; be he ne'er so vile,
