@@ -1,8 +1,8 @@
 ---
-title: 'Review: Death''s End (Remembrance of Earth's Past, #3)'
-description: 'A thoughtful review of Death''s End (Remembrance of Earth's Past, #3) by Liu Cixin'
+title: "Review: Death's End (Remembrance of Earth's Past, #3)"
+description: "A thoughtful review of Death's End (Remembrance of Earth's Past, #3) by Liu Cixin"
 pubDate: 2019-04-07
-bookTitle: 'Death''s End (Remembrance of Earth's Past, #3)'
+bookTitle: "Death's End (Remembrance of Earth's Past, #3)"
 author: 'Liu Cixin'
 rating: 4
 readingTime: 1
