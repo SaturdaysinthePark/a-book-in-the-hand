@@ -1,8 +1,8 @@
 ---
-title: 'Review: The Dark Forest (Remembrance of Earth's Past, #2)'
-description: 'A thoughtful review of The Dark Forest (Remembrance of Earth's Past, #2) by Liu Cixin'
+title: "Review: The Dark Forest (Remembrance of Earth's Past, #2)"
+description: "A thoughtful review of The Dark Forest (Remembrance of Earth's Past, #2) by Liu Cixin"
 pubDate: 2019-04-01
-bookTitle: 'The Dark Forest (Remembrance of Earth's Past, #2)'
+bookTitle: "The Dark Forest (Remembrance of Earth's Past, #2)"
 author: 'Liu Cixin'
 rating: 4
 readingTime: 1
