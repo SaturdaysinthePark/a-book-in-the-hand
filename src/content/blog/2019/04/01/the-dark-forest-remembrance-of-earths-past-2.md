@@ -16,8 +16,8 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1412064931i/23168817.jpg'
 ---
 
-After reading *The Three-Body Problem* by Liu Cixin and jumping into the sequel, you realize how vulnerable Humanity truly is. You also realize how scared everything else is of the unknown, the name of the game is self-preservation at any cost. The world now has to unite to solve the problem of an alien civilization that is approaching and acting on belief that they are self-preserving. They have to advanced civilization and technology drastically, invent space travel, invent lightspeed travel, and *much* more.
+After reading [*The Three-Body Problem*](/blog/2019/03/26/the-three-body-problem-remembrance-of-earths-past-1/) by [Liu Cixin](/authors/liu-cixin/) and jumping into the sequel, you realize how vulnerable Humanity truly is. You also realize how scared everything else is of the unknown, the name of the game is self-preservation at any cost. The world now has to unite to solve the problem of an alien civilization that is approaching and acting on belief that they are self-preserving. They have to advanced civilization and technology drastically, invent space travel, invent lightspeed travel, and *much* more.
 
 How do you and society act when you know impending doom is surely 400 years away? How do you contribute to saving a generation that your grandchildren's grandchildren will never meet?
 
-In *The Dark Forest* by Liu Cixin, the author delves into cryogenics, communication over distance measured by lightyears, lightspeed, space travel, dark forest concept, and other hard sci-fi topics and its implications even further. Your level of hope and despair will go up and down, and up and down again, after every few chapters.
+In *The Dark Forest* by [Liu Cixin](/authors/liu-cixin/), the author delves into cryogenics, communication over distance measured by lightyears, lightspeed, space travel, dark forest concept, and other hard sci-fi topics and its implications even further. Your level of hope and despair will go up and down, and up and down again, after every few chapters.

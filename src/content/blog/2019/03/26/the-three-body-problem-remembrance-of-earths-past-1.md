@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1415428227i/20518872.jpg'
 ---
 
-The Sci Fi books we read 100 years ago shaped our world today and the approaching century. *The Three-Body Problem* by Liu Cixin will do the same for the next 500-1000 years. 
+The Sci Fi books we read 100 years ago shaped our world today and the approaching century. *The Three-Body Problem* by [Liu Cixin](/authors/liu-cixin/) will do the same for the next 500-1000 years. 
 
 The beginning of a trilogy of sci-fi books that explore first contact, space travel, lightspeed and all the mental, political, ethical and scientific problems involved in a very realistic point of view. This isn't star trek or star wars, this isn't 'cool' fantasy sci-fi... but its mind blowing to those of us who were in awe during Physics class and loved the movie Contact growing up. Its grown up Sci fi. 
 

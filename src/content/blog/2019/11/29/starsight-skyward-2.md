@@ -23,7 +23,7 @@ That's right, Spensa is back, and her and M-Bot are as spunky and snarky as ever
 
 Man oh man! We get to see tons of aliens and tons of space in this book. It is so INTERESTING. Like, where have all the INTERESTING alien species been in fiction? Spensa has to navigate and spy on enemies in person this time, and she is completely out of her element, so we get to see her struggle and grow more and more. While initially I missed the original crew, I QUICKLY fell in love with the newly introduced Hesho, Vapor, and Morriumur. We get to see great character building here, with the extra dimension of each of their aliens' unique attributes and characteristics.
 
-Sanderson does NOT leave you hanging in this book, and the politics and world building of the planet Detritus pale in comparison to the world building and politics that he begins to form here - and if it's one thing I have grown to love about Sanderson, it is his epic World Building. Even Cytonics to me has turned out to be a better 'sci fi power' than say The Force (gasp!). 
+[Brandon Sanderson](/authors/brandon-sanderson/) does NOT leave you hanging in this book, and the politics and world building of the planet Detritus pale in comparison to the world building and politics that he begins to form here - and if it's one thing I have grown to love about Sanderson, it is his epic World Building. Even Cytonics to me has turned out to be a better 'sci fi power' than say The Force (gasp!). 
 
 It's hard to believe this is a YA novel. I am frankly a big fan of the absence of excessive romance in this series, Spensa has priorities, she has something to do and prove. So I 
 

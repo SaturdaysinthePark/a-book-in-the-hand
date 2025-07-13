@@ -28,4 +28,4 @@ Zola also does a terrific job of mocking English detective novels that seemingly
 
 I really enjoyed reading this book, and if you enjoy a fun thrilling novel that spends time analyzing these dark themes with fantastic detail and description, pick this up!
 
-Read this if you enjoyed *Crime and Punishment* by Fyodor Dostoyevsky!
+Read this if you enjoyed *Crime and Punishment* by [Fyodor Dostoevsky](/authors/fyodor-dostoevsky/)!

@@ -10,8 +10,9 @@ export async function getStaticPaths() {
 	const allPosts = await getCollection('blog');
 	const allAuthors = new Set();
 	
+	// Only include authors who have live posts
 	allPosts.forEach(post => {
-		if (post.data.author) {
+		if (post.data.author && post.data.status === 'live') {
 			allAuthors.add(post.data.author.toLowerCase().replace(/\s+/g, '-'));
 		}
 	});
@@ -25,9 +26,11 @@ export async function getStaticPaths() {
 const { author } = Astro.props;
 const allPosts = await getCollection('blog');
 
-// Filter posts by author
+// Filter posts by author (only live posts)
 const authorPosts = allPosts.filter(post => 
-	post.data.author && post.data.author.toLowerCase().replace(/\s+/g, '-') === author
+	post.data.author && 
+	post.data.author.toLowerCase().replace(/\s+/g, '-') === author &&
+	post.data.status === 'live'
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // Get the original author name (with proper casing)

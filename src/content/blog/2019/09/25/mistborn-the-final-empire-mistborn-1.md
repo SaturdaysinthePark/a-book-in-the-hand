@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1617768316i/68428.jpg'
 ---
 
-If you love fantasy and magic, then Brandon Sanderson is a god-send, put on this Earth to write about stories and places that none of us have ever dreamed about. *The Final Empire* is the fourth Sanderson book I have read, and I came in with really high expectations, and I finished with those expectations exceeded.  
+If you love fantasy and magic, then [Brandon Sanderson](/authors/brandon-sanderson/) is a god-send, put on this Earth to write about stories and places that none of us have ever dreamed about. *The Final Empire* is the fourth Sanderson book I have read, and I came in with really high expectations, and I finished with those expectations exceeded.  
 
 **The world building is exquisite and immense.** Sanderson can really build a world, everything is described so well, to the point that I could visually imagine our heroine leaping from building to building and using her environment to navigate the world and cities, and feel the weight of the Lord Ruler's world! Society is described very well, a class system made of a servant and noble class, the scuffles between noble houses, etc.. society is very integral to the story.
 

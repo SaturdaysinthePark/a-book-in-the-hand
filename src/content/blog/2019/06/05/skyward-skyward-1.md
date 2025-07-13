@@ -18,7 +18,7 @@ heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0399555773.01.L.jpg
 
 A young female protagonist led Sci Fi Fantasy Young Adult novel that doesn't fall into the Hunger Games or Twilight trope? Why haven't more people signed up for this? This book should be the *standard* for the genre. 
 
-Everything from Spensa's attitude and character, the talkative and snarky M-BOT (which in my mind I likened to something like GLaDOS to Chell, just not sinister and manipulative), Sanderson's world building, and the overall plot, is fun and exciting to read. Sanderson does not hold back, you become attached to the crew of characters and begin to raise your worries as the stakes grow bigger and bigger in the story.
+Everything from Spensa's attitude and character, the talkative and snarky M-BOT (which in my mind I likened to something like GLaDOS to Chell, just not sinister and manipulative), [Brandon Sanderson](/authors/brandon-sanderson/)'s world building, and the overall plot, is fun and exciting to read. Sanderson does not hold back, you become attached to the crew of characters and begin to raise your worries as the stakes grow bigger and bigger in the story.
 
 I particularly loved how everyone finds a voice and calling, there's value in being the pilot and in being the engineer, like Rodge. Making the decision to pursue what you love and are interested in was something communicated and exemplified through both Spensa and Rodge - a message I value highly!
 
