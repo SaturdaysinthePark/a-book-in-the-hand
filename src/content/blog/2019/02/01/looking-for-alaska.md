@@ -20,4 +20,4 @@ I seem to find myself in a Labyrinth from time to time, and somehow find my way 
 
 Miles' obsession with last words, I thought that was clever... if exiting the Labyrinth means death, last words are just that much more important.. its a state of mind at the end and is very telling of the person. It made me think of what my last words might be.
 
-This book reminded me to read more [a:Gabriel García Márquez|13450|Gabriel García Márquez|https://images.gr-assets.com/authors/1502310670p2/13450.jpg] :)
+This book reminded me to read more Gabriel García Márquez :)

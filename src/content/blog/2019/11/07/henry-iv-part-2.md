@@ -17,8 +17,8 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0143131761.01.L.jpg'
 ---
 
-Compared to [b:King Henry IV, Part 1|13020|King Henry IV, Part 1|William Shakespeare|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1347520897l/13020._SY75_.jpg|3335240], this is much drier, much slower, and more of an extension. Where the first part was about Hal being a rebel, this second part is the aftermath of his squashing of the rebels in battle, and taking his Princely duties much more seriously. This is well contrasted with Falstaff, who has not grown at all since Part 1, and is now cast aside by the Prince.
+Compared to *King Henry IV, Part 1* by William Shakespeare, this is much drier, much slower, and more of an extension. Where the first part was about Hal being a rebel, this second part is the aftermath of his squashing of the rebels in battle, and taking his Princely duties much more seriously. This is well contrasted with Falstaff, who has not grown at all since Part 1, and is now cast aside by the Prince.
 
 It seems like Shakespeare felt he had to take things more seriously here, since King Henry IV passes away, Hal ascends to the throne, and publicly make it known he is taking the duties and responsibilities seriously.
 
-This is all build up for [b:Henry V|37526|Henry V|William Shakespeare|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1331563646l/37526._SY75_.jpg|1493394]...
+This is all build up for *Henry V* by William Shakespeare...

@@ -27,12 +27,12 @@ We tend to to live in our world blind to Black Swan events, and tend to be very 
 
 Some big takeaways I have:
 
-**•** Certain things are susceptible to Black Swans, and others are not. This is helped made distinct by defining *Mediocistian* (not subject to disproportionate impact from black swan) sets of samples and *Extremistan* (subject to disproportionate impact from black swan) sets of samples. Examples: *Mediocistian*: Height, Weight, Income per Hour, Car Accidents. *Extremistan*: Wealth, Book Sales per Author, City Population, Planet Size.
-**•** We overestimate and lean heavily on what we know and our experiences, and underestimate uncertainty - this includes fooling ourselves into thinking we are basing our understandings on cognition.
-**•** 'Silent evidence' or evidence that has failed to exist or be produced, is largely ignored in our understanding and predictions. 
-**•** We build narratives backwards to events that end up having biases in distinguishing the cause and effect of events.
-**•** Randomness can be looked at as incomplete information.
-**•** Battle against (some) Black Swans by making them into Gray Swans; don't be narrow minded, seize opportunities, be wary of precise plans by organizations that need to service themselves to survive, make positive and negative contingencies clear. Every bit helps.
+**-** Certain things are susceptible to Black Swans, and others are not. This is helped made distinct by defining *Mediocistian* (not subject to disproportionate impact from black swan) sets of samples and *Extremistan* (subject to disproportionate impact from black swan) sets of samples. Examples: *Mediocistian*: Height, Weight, Income per Hour, Car Accidents. *Extremistan*: Wealth, Book Sales per Author, City Population, Planet Size.
+**-** We overestimate and lean heavily on what we know and our experiences, and underestimate uncertainty - this includes fooling ourselves into thinking we are basing our understandings on cognition.
+**-** 'Silent evidence' or evidence that has failed to exist or be produced, is largely ignored in our understanding and predictions. 
+**-** We build narratives backwards to events that end up having biases in distinguishing the cause and effect of events.
+**-** Randomness can be looked at as incomplete information.
+**-** Battle against (some) Black Swans by making them into Gray Swans; don't be narrow minded, seize opportunities, be wary of precise plans by organizations that need to service themselves to survive, make positive and negative contingencies clear. Every bit helps.
 
 NNT may have a tone that offends many, but his wisdom is not lost. I think this book opened my mind into my own way of thinking, predicting, and reacting to events. It has definitely made me more aware and hoping the knowledge finds its way into the way I work and regard things in the future.
 

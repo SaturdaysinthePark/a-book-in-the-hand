@@ -17,7 +17,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0307267679.01.L.jpg'
 ---
 
-This didn't quite invoke the same senses that [b:The Year of Magical Thinking|7815|The Year of Magical Thinking|Joan Didion|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327878638l/7815._SY75_.jpg|1659905], its differences being less immediate thought and more reflective. In this memoir, Didion is reflecting on the her departed daughter's life. There is still the trail of obscure thoughts upon tragedy that occur, that interest me quite a bit; like switching a license from California to New York, what does that entail, why do I feel the need to keep this sentimental status of having a California license? or her thoughts on Memory, adoption, parenting, age, suicide etc...
+This didn't quite invoke the same senses that *The Year of Magical Thinking* by Joan Didion, its differences being less immediate thought and more reflective. In this memoir, Didion is reflecting on the her departed daughter's life. There is still the trail of obscure thoughts upon tragedy that occur, that interest me quite a bit; like switching a license from California to New York, what does that entail, why do I feel the need to keep this sentimental status of having a California license? or her thoughts on Memory, adoption, parenting, age, suicide etc...
 
 > "Memory fades, memory adjusts, memory conforms to what we think we remember"
 
@@ -28,4 +28,4 @@ If you've read other writings by Didion, give this a try after her other works, 
 My favorite quote:
 > "Do not whine... Do not complain. Work harder. Spend more time alone."
 
-This book also introduced me to the author [a:Karl A. Menninger|1222827|Karl A. Menninger|https://images.gr-assets.com/authors/1390871090p2/1222827.jpg] who wrote the book [b:Man Against Himself|427995|Man Against Himself|Karl A. Menninger|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1348302912l/427995._SY75_.jpg|2121948] and [b:Number Words and Number Symbols: A Cultural History of Numbers|1598307|Number Words and Number Symbols  A Cultural History of Numbers|Karl A. Menninger|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1328868204l/1598307._SX50_.jpg|1591485], both which I found very insightful.
+This book also introduced me to the author Karl A. Menninger who wrote the book *Man Against Himself* by Karl A. Menninger and *Number Words and Number Symbols: A Cultural History of Numbers* by Karl A. Menninger, both which I found very insightful.

@@ -9,6 +9,18 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://a-book-in-the-hand.netlify.app',
   integrations: [mdx(), sitemap()],
+  
+  markdown: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    shikiConfig: {
+      theme: 'github-light',
+      wrap: true
+    },
+    // Ensure markdown parsing is strict and follows CommonMark
+    gfm: true,
+    smartypants: true
+  },
 
   vite: {
     plugins: [tailwindcss()],

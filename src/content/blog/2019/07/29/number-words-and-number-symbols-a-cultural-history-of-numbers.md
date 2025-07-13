@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0486270963.01.L.jpg'
 ---
 
-[a:Karl Menninger|7763966|Karl Menninger|https://s.gr-assets.com/assets/nophoto/user/u_50x66-632230dc9882b4352d753eedf9396530.png] seemed like a very interesting person to me, based on him being mentioned in [a:Joan Didion|238|Joan Didion|https://images.gr-assets.com/authors/1335450818p2/238.jpg]'s [b:Blue Nights|10252302|Blue Nights|Joan Didion|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1319148558l/10252302._SY75_.jpg|15152485], except it wasn't for this book, it was for [b:Man Against Himself|20588150|Man Against Himself|Karl Menninger|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1555547884l/20588150._SY75_.jpg|39860708]. Nonetheless, what interested me was the big difference in topic since this book is about Numbers/Counting and the latter about Self-Mutilation/Suicide.
+Karl Menninger seemed like a very interesting person to me, based on him being mentioned in Joan Didion's *Blue Nights* by Joan Didion, except it wasn't for this book, it was for *Man Against Himself* by Karl Menninger. Nonetheless, what interested me was the big difference in topic since this book is about Numbers/Counting and the latter about Self-Mutilation/Suicide.
 
 Well, being someone who deals with numbers at home and at work, I sort of was drawn to this textbook for that reason too. You learn a lot about how as a species we developed numbers from having the need to count and record things, all the way to how we symbolized those recordings for easy interpretations and how we derived words and meaning for those numbers/symbols. 
 

@@ -124,6 +124,24 @@ p {
 .prose p {
 	margin-bottom: 2em;
 }
+
+/* Override Tailwind's list resets globally */
+ul {
+	list-style: disc outside !important;
+	margin: 1em 0 !important;
+	padding-left: 2em !important;
+}
+
+ol {
+	list-style: decimal outside !important;
+	margin: 1em 0 !important;
+	padding-left: 2em !important;
+}
+
+li {
+	display: list-item !important;
+	margin-bottom: 0.5em !important;
+}
 textarea {
 	width: 100%;
 	font-size: 16px;

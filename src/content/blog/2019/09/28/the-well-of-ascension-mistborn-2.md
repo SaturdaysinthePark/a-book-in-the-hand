@@ -20,4 +20,4 @@ Wow, Sanderson uses this book to expand *The Final Empire*'s world immensely. In
 
 I really felt the effects of the loss of Keslier in this book, which was felt by the characters too - that just tells you how powerful the characters and the writing is here. There's much more focus now on Vin and Elend, the politics of Luthadel, and everything the Lord Ruler left behind. 
 
-Overall this was terrific even if cursed by being the middle book, and it will definitely get you hyped for [b:The Hero of Ages|2767793|The Hero of Ages (Mistborn, #3)|Brandon Sanderson|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1480717763l/2767793._SY75_.jpg|2793516]
+Overall this was terrific even if cursed by being the middle book, and it will definitely get you hyped for *The Hero of Ages* by Brandon Sanderson

@@ -26,4 +26,4 @@ This isn't as much of a gruesome horror, or a bloody horror, as much as it is a 
 
 Will I ever escape my past, achieve my goals, live the life I plan and yearn for? It made me scared to my stomach and anxious to my bones that I was Jack in some respects..and that I would never escape this isolation.
 
-That being said, you have to read this, whoever you are. I was amazed by [b:11/22/63|10644930|11/22/63|Stephen King|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327876792l/10644930._SY75_.jpg|15553789] and took another shot at [a:Stephen King|3389|Stephen King|https://images.gr-assets.com/authors/1362814142p2/3389.jpg] - this was one terrific book.
+That being said, you have to read this, whoever you are. I was amazed by *11/22/63* by Stephen King and took another shot at Stephen King - this was one terrific book.

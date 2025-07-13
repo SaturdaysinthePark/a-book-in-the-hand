@@ -30,4 +30,4 @@ There are several fascinating examples of this throughout the novel and you thin
 
 Valentine as a character (or Heinlein as an author) is fascinating, to challenging Humans in the way they make love to challenging their religious beliefs and customs. There's a ton of wisdom in this novel, and aspects will resonate with any reader. Hope you pick it up!
 
-Mildly interesting to read if you enjoyed this novel: [b:The Humans|16130537|The Humans|Matt Haig|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1353739654l/16130537._SY75_.jpg|21955852]
+Mildly interesting to read if you enjoyed this novel: *The Humans* by Matt Haig

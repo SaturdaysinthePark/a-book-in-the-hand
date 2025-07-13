@@ -22,4 +22,4 @@ The novel is about David Copperfield, and his coming-of-age... It features every
 
 Read this if you love the English language, enjoy reading a novel with a merry number of colorful characters, and interested in journeying in Dickens' shoes.
 
-Definitely recommended, and I will have to catch up on some other Dickens' novels, apart from [b:A Tale of Two Cities|1953|A Tale of Two Cities|Charles Dickens|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1344922523l/1953._SY75_.jpg|2956372] and [b:Great Expectations|2623|Great Expectations|Charles Dickens|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1327920219l/2623._SY75_.jpg|2612809] which I love.
+Definitely recommended, and I will have to catch up on some other Dickens' novels, apart from *A Tale of Two Cities* by Charles Dickens and *Great Expectations* by Charles Dickens which I love.

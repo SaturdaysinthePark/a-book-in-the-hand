@@ -23,4 +23,4 @@ The book then flips to another story about an island of athletes, and a cut thro
 
 I thought the two stories connected in a very loose way, his attempt here may be to show that the society of the island mimicked the Nazi's in some ways, but it's stretchy and thin. 
 
-Enjoyable, but cannot help but think I should have tried reading [b:A Void|28294|A Void|Georges Perec|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388699493l/28294._SY75_.jpg|2310135] as my second experience of Perec instead - since I have had the pleasure of reading [b:Life: A User's Manual|28293|Life  A User's Manual|Georges Perec|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1416690677l/28293._SY75_.jpg|1953902].
+Enjoyable, but cannot help but think I should have tried reading *A Void* by Georges Perec as my second experience of Perec instead - since I have had the pleasure of reading *Life: A User's Manual* by Georges Perec.

@@ -25,13 +25,13 @@ He gets into experiments where people make decisions while aroused, our sense of
 
 Some big takeaways I got from here were:
 
-• We are irrational when it comes to Free or to 'Zero'
-• Arbitrary coherence between things cause us to behave irrational (in absence of rational understanding)
-• We focus on the easy comparisons when making decisions
-• Social norms and Market norms cause us to make decisions differently
-• Often we focus on what we lose, rather than what we gain
-• Assume that everyone sees things the way we see it
-• We fall in love with what we already have
-• When something is a step removed, we act more irrational towards it
+- We are irrational when it comes to Free or to 'Zero'
+- Arbitrary coherence between things cause us to behave irrational (in absence of rational understanding)
+- We focus on the easy comparisons when making decisions
+- Social norms and Market norms cause us to make decisions differently
+- Often we focus on what we lose, rather than what we gain
+- Assume that everyone sees things the way we see it
+- We fall in love with what we already have
+- When something is a step removed, we act more irrational towards it
 
 A great read especially since I manage a product. Similar to my reasons for reading *Paradox of Choice* I had a high interest in this because of my vocation. Highly recommended!

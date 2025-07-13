@@ -17,7 +17,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1659344306i/43565560.jpg'
 ---
 
-I was really excited for this book, since I really enjoyed [b:The Night Circus|9361589|The Night Circus|Erin Morgenstern|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1387124618l/9361589._SY75_.jpg|14245059]. I don't really believe I truly enjoyed this book.
+I was really excited for this book, since I really enjoyed *The Night Circus* by Erin Morgenstern. I don't really believe I truly enjoyed this book.
 
 Overall, from the structure and the plot this book is a catastrophic mess. Everything is abstracted, torn apart, etc... it's hard to follow anything that is going on. Things seem so superfluous, it felt like Erin was trying very very hard to write something so profound and so groundbreaking that it was nothing at all in the end. Relationships and stories in this book just didn't feel very genuine.
 

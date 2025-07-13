@@ -75,3 +75,47 @@ const { title, description, image = FallbackImage } = Astro.props;
 
   gtag('config', 'G-JNR91EN6Y4');
 </script>
+
+<!-- FORCE LIST STYLES - Load after all other CSS to override Tailwind -->
+<style>
+ul {
+	list-style: disc outside !important;
+	margin: 1em 0 !important;
+	padding-left: 2em !important;
+	display: block !important;
+}
+
+ol {
+	list-style: decimal outside !important;
+	margin: 1em 0 !important;
+	padding-left: 2em !important;
+	display: block !important;
+}
+
+li {
+	display: list-item !important;
+	margin-bottom: 0.5em !important;
+	line-height: 1.6 !important;
+}
+
+/* Ensure lists inside prose content work */
+.prose ul, article ul {
+	list-style: disc outside !important;
+	margin: 1.5em 0 !important;
+	padding-left: 2em !important;
+	display: block !important;
+}
+
+.prose ol, article ol {
+	list-style: decimal outside !important;
+	margin: 1.5em 0 !important;
+	padding-left: 2em !important;
+	display: block !important;
+}
+
+.prose li, article li {
+	display: list-item !important;
+	margin-bottom: 0.75em !important;
+	line-height: 1.7 !important;
+}
+</style>

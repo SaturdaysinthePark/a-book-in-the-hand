@@ -16,9 +16,9 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0525555366.01.L.jpg'
 ---
 
-I thought this was good, but not as good as [b:Looking for Alaska|99561|Looking for Alaska|John Green|https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1394798630l/99561._SY75_.jpg|919292]. I know that the topic is different, and I think this is a great accessible book for those who want to read about a character with a disorder they can relate to. I loved Aza, but I think the overall plot was meh. That doesn't mean its not a decent read.
+I thought this was good, but not as good as *Looking for Alaska* by John Green. I know that the topic is different, and I think this is a great accessible book for those who want to read about a character with a disorder they can relate to. I loved Aza, but I think the overall plot was meh. That doesn't mean its not a decent read.
 
-Green is a great writer, as in, he strings together words that make you ponder deep existential thoughts. You can write a book of John Green quotes and it can read like a collection of [a:Confucius|15321|Confucius|https://images.gr-assets.com/authors/1407613261p2/15321.jpg] - which isn't a bad thing, I love that about John green.
+Green is a great writer, as in, he strings together words that make you ponder deep existential thoughts. You can write a book of John Green quotes and it can read like a collection of Confucius - which isn't a bad thing, I love that about John green.
 
 Here's one of those quotes:
 > 
