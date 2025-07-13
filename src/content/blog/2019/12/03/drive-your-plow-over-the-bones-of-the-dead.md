@@ -24,19 +24,27 @@ I loved this much more than *Flights* by Olga Tokarczuk, this is a much more coh
 Janina asks people in the story, and the reader questions such as *"What sort of world is this where killing and pain are the norm?"*, she's talking about animals; but its beyond that, its the whole ecosystem, its humans, its more. She says, *"Attitude towards animals...show the truth about a country"* which implies that if a country can not even hold respect for an animal, maybe there are other things it will take for granted as time goes on.
 
 There's a lot of funny remarks, observations, etc..:
+
 *"Are you religious?"*
+
 *"Yes...I'm an athiest"*
 
 *"...someone who overuses the phrase 'in truth' is sure to be a liar"*
 
-*"...it seems to me we're living in a world that we fabricate for ourselves. We decide what's good and what isn't...and then we spend our whole lives struggling with what we have invented for ourselves..." *
+*"...it seems to me we're living in a world that we fabricate for ourselves. We decide what's good and what isn't...and then we spend our whole lives struggling with what we have invented for ourselves..."*
 
 This book's mystery and characters are terrific. Its an engrossing read where I really felt like I was in a snow covered remote part of Poland, isolated from society, trying to mind my own business like Janina. I'm glad *Flights* by Olga didn't discourage me from reading this, highly recommended!
 
 Some words I learned:
+
 **Foehn**: A hot southern wind on the northern slopes of the alps.
-**Reconnoiter**: Make a military observation of a region
-**Saturnine**: (of a person) Slow and gloomy; or dark in color, moody, mysterious
-**Chiaroscuro**: Treatment of light and shade in drawing and painting
-**Tenebrism**: Dark, gloomy, mysterious; dramatic illumination
-**Taphonomy**: Branch of paleontology that deals with fossilization
+
+**Reconnoiter**: Make a military observation of a region.
+
+**Saturnine**: (of a person) Slow and gloomy; or dark in color, moody, mysterious.
+
+**Chiaroscuro**: Treatment of light and shade in drawing and painting.
+
+**Tenebrism**: Dark, gloomy, mysterious; dramatic illumination.
+
+**Taphonomy**: Branch of paleontology that deals with fossilization.

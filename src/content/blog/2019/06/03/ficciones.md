@@ -11,7 +11,7 @@ goodreadsId: '426504'
 isbn: '0802130305'
 publishYear: 1994
 status: 'live'
-tags: ['classic', 'fiction']
+tags: ['classic', 'fiction', 'short stories']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0802130305.01.L.jpg'
 ---

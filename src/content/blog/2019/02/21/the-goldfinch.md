@@ -26,6 +26,6 @@ Yet, I would still say its a good book, one that is littered with references to 
 
 A few interesting words I learned while reading:
 
-**Sacrosanct**: (especially of a principle, place, or routine) regarded as too important or valuable to be interfered with.
+**Sacrosanct**: (especially of a principle, place, or routine) regarded as too important or valuable to be interfered with
 
-**Bijou**: (especially of a residence or business establishment) small and elegant; or a jewel/trinket.
+**Bijou**: (especially of a residence or business establishment) small and elegant; or a jewel/trinket

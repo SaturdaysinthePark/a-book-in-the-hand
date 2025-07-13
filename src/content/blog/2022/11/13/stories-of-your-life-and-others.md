@@ -12,7 +12,7 @@ goodreadsId: '1118396'
 isbn: '0765304198'
 publishYear: 2003
 status: 'draft'
-tags: ['ted-chiang', 'general', '2022']
+tags: ['ted-chiang', 'general', '2022', 'short stories', 'science fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765304198.01.L.jpg'
 ---

@@ -1,9 +1,9 @@
 ---
 title: 'Review: Van Gogh: The Life'
-description: 'A thoughtful review of Van Gogh: The Life by Steven Naifeh'
+description: 'A thoughtful review of Van Gogh: The Life by Gregory White Smith and Steven Naifeh'
 pubDate: 2020-01-14
 bookTitle: 'Van Gogh: The Life'
-author: 'Steven Naifeh'
+author: 'Gregory White Smith and Steven Naifeh'
 rating: 4
 readingTime: 3
 purchaseLink: 'https://bookshop.org/books/van-gogh-the-life/9780375758973'
@@ -29,9 +29,15 @@ Naifeh and Smith, who co-wrote this biography as well as Jackson Pollock's (whic
 I highly recommend reading this, you'll be able to have a newfound appreciation for him as an artist when you next visit the MoMA, d'Orsay, or his museum in Amsterdam - or if his works end up on loan. You'll see me at the MoMA staring at the Starry Night once again soon!
 
 Words I learned reading this biography:
+
 **Oeuvre**: The collective works of a painter, composer, or author.
+
 **Truancy**: The act of staying away from school.
+
 **Pedagogue**: A teacher, especially strict.
+
 **Recalcitrant**: Having an obstinately uncooperative attitude towards authority and discipline.
+
 **Casus belli**: An act or situation provoking or justifying war.
+
 **Parveny**: A person of obscure origin who has gained wealth, influence, or celebrity.

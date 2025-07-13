@@ -35,7 +35,11 @@ As a Muslim, I have thought a lot about the above. Our accepted interpretation i
 This book really makes you think and reflect on aspects of your own life. That is essentially what makes this book (or any book) great.
 
 Words I learned from this book:
-- **Supercilious**: Behaving as if one is superior to others
-- **Mendicant**:  Given to begging
-- **Vacillate**: Alternate or waver between different options or actions; be indecisive
-- **Peccadillo**: A small relatively unimportant sin
+
+**Supercilious**: Behaving as if one is superior to others
+
+**Mendicant**: Given to begging
+
+**Vacillate**: Alternate or waver between different options or actions; be indecisive
+
+**Peccadillo**: A small relatively unimportant sin

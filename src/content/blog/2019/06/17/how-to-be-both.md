@@ -30,5 +30,7 @@ Franchesco's story is odd but written beautifully in a stream of consciousness s
 Read this because you like a challenge, you love art and history, and because you're curious about beauty.
 
 Words I learned, that I loved:
+
 **Undulate**: Move or go with a smooth up-and-down motion
-**Cinnabar**: Bright red material consisting of mercury sulfide-vermillion;  used as a pigment
+
+**Cinnabar**: Bright red material consisting of mercury sulfide-vermillion; used as a pigment

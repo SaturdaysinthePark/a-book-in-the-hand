@@ -28,4 +28,5 @@ Schwartz breaks down many of the aspects of what leads up to making a choice, ma
 I would recommend anyone to read this, especially since we're all facing the problem of having to make a decision given a number of choices. I learned a lot, and have a lot to put into practice still.
 
 One new word I learned reading this book:
+
 **Ameliorate**: Make (something bad) better

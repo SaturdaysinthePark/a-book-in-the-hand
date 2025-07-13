@@ -17,7 +17,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0061353248.01.L.jpg'
 ---
 
-This book explores how we behave under certain circumstances, often recreated in the market. I thought it was an interesting thing to read as I was reading [*The Paradox of Choice: Why More Is Less*](/book-reviews/the-paradox-of-choice-why-more-is-less).
+This book explores how we behave under certain circumstances, often recreated in the market. I thought it was an interesting thing to read as I was reading [*The Paradox of Choice: Why More Is Less*](/blog/2019/12/08/the-paradox-of-choice-why-more-is-less/).
 
 There's a number of experiments held in this book each looking at specific scenarios to determine what causes irrational behavior. I thought the experiment where understanding how and when a student will decide to cheat was fascinating. I especially thought that when he threw in the experiment about students who read the ten commandments first.
 

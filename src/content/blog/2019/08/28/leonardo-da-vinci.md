@@ -27,6 +27,9 @@ In terms of art, learning about his techniques and inspirations were very reveal
 I learned quite a bit about his art and the artists that surrounded him, enough to appreciate Leonardo much more, and to look into learning more about the other artists of that time. I don't know if this is the best biography about him, it came recommended and without other context cannot say for sure since I was also quite on the fence about picking this particular one up. In the end, it's probably the most readable one, and worth picking up if you're thinking about reading about Leonardo. Enjoy!
 
 Some words Isaacson passed on while I read:
+
 **Licentious**: Promiscuous and unprincipled in sexual matters
+
 **Amanuensis**: a literary or artistic assistant, in particular, one who took notes
+
 **Burnous**: A long hooded cloak work by arabs

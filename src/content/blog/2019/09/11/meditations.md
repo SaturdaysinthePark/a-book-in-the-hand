@@ -20,16 +20,16 @@ One of those books that I like to call 'required reading'. Marcus Aurelius' writ
 
 The more you read other books (especially philosophy and psychology), and the more experienced you are in life, then the more you'll take out of this. I think I came out with a few big thoughts;
 
-- Life is short,creating happiness within it is to create that state of mind and practice. You can waste your life on others' misgivings, or you can choose your own life and carve your own path. How can I get to the point where I live every day as if its my last, but in the sense of I don't have to change my actions on the impending knowledge of Death approaching? He states to himself *“Do not waste what remains of your life in speculating about your neighbors. Anything that distracts you from fidelity to the Ruler within you— means a loss of opportunity for some other task.”* and *"...life is opinion"*
-- Control myself, I don't have to do everything everywhere all the time, nor do I need to react to everything and everyone around me. I don't need to embellish my life for the sake of embellishment. I don't need to respond to everything that I experience and see. Get to the heart of things, don't sprinkle it with anything 'superfluous'. The lower amount of these distractions will indeed lead to more time to focus on myself and what is most important to me and my surroundings.
+- Life is short,creating happiness within it is to create that state of mind and practice. You can waste your life on others' misgivings, or you can choose your own life and carve your own path. How can I get to the point where I live every day as if its my last, but in the sense of I don't have to change my actions on the impending knowledge of Death approaching? He states to himself *“Do not waste what remains of your life in speculating about your neighbors. Anything that distracts you from fidelity to the Ruler within you— means a loss of opportunity for some other task.”* and *"...life is opinion"*
+- Control myself, I don't have to do everything everywhere all the time, nor do I need to react to everything and everyone around me. I don't need to embellish my life for the sake of embellishment. I don't need to respond to everything that I experience and see. Get to the heart of things, don't sprinkle it with anything 'superfluous'. The lower amount of these distractions will indeed lead to more time to focus on myself and what is most important to me and my surroundings.
 
 Overall, this book is a library of prolific and aphoristic thoughts that are quotable and will make you think and reflect on your own life, thoughts, relationships, and well-being:
 
-*“If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.” *
-*“Very little is needed to make a happy life; it is all within yourself in your way of thinking.” *
-*“The best revenge is not to be like your enemy.” *
-*“You have power over your mind - not outside events. Realize this, and you will find strength.”*
-*“Waste no more time arguing about what a good man should be. Be one.”*
-*“We all love ourselves more than other people, but care more about their opinion than our own.”*
+- *“If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it; and this you have the power to revoke at any moment.”*
+- *“Very little is needed to make a happy life; it is all within yourself in your way of thinking.”*
+- *“The best revenge is not to be like your enemy.”*
+- *“You have power over your mind - not outside events. Realize this, and you will find strength.”*
+- *“Waste no more time arguing about what a good man should be. Be one.”*
+- *“We all love ourselves more than other people, but care more about their opinion than our own.”*
 
 Goes without saying, highly recommended.

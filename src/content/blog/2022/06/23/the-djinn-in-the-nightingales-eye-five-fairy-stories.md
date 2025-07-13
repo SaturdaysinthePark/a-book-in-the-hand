@@ -12,7 +12,7 @@ goodreadsId: '86895'
 isbn: '0679762221'
 publishYear: 1998
 status: 'draft'
-tags: ['a.s.-byatt', 'general', '2022']
+tags: ['a.s.-byatt', 'general', '2022', 'short stories', 'fairy tales']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0679762221.01.L.jpg'
 ---

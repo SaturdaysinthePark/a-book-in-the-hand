@@ -12,7 +12,7 @@ goodreadsId: '5787'
 isbn: '0142437883'
 publishYear: 2004
 status: 'draft'
-tags: ['general', '2022', 'jorge-luis-borges']
+tags: ['general', '2022', 'jorge-luis-borges', 'short stories', 'classic']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0142437883.01.L.jpg'
 ---

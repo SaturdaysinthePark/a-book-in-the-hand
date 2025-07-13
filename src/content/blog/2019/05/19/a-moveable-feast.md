@@ -28,5 +28,6 @@ I love that quote, it encapsulates the feeling of remembering a prior love befor
 
 Some new words I learned that I liked:
 
-*inaccrochable*: A picture that cannot be hung or sold because it cannot be hung.
-*poivrottes*: Female drunkards
+**Inaccrochable**: A picture that cannot be hung or sold because it cannot be hung
+
+**Poivrottes**: Female drunkards

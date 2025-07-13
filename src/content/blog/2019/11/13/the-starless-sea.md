@@ -26,4 +26,5 @@ I will give her kudos to being able to write great settings, descriptions, and d
 In the end this book just seemed empty to me.
 
 Words I learned:
+
 **Intaglio**: Engrace or representative by an engraving

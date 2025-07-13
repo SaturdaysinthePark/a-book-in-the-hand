@@ -12,7 +12,7 @@ goodreadsId: '13419553'
 isbn: '0140449701'
 publishYear: 2006
 status: 'draft'
-tags: ['ryūnosuke-akutagawa', 'general', '2024']
+tags: ['ryūnosuke-akutagawa', 'general', '2024', 'short stories', 'classic']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0140449701.01.L.jpg'
 ---

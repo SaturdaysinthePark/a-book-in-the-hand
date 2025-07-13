@@ -30,4 +30,5 @@ Quotes I loved:
 A couple of new words I learned and that I loved:
 
 **Bellicose**: Demonstrating aggression and willingness to fight
+
 **Squalor**: A state of being extremely dirty and unpleasant, especially as a result of poverty

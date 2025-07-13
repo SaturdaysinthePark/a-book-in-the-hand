@@ -32,9 +32,13 @@ This book is still relevant today, which is a sign of an amazing piece of litera
 *Little Women* will stay with me for a very long time, I could not recommend it enough. I should probably thank Lindsey and Amanda for putting this in my head ~15 years ago in a video rental store. They mentioned it being their favorite movie, I never watched it, but decided to finally read it. Thank you!
 
 Words I learned:
+
 **Blithe**: Showing a casual and carefree indifference considered to be callous or improper
+
 **Capacious**: Having a lot of space inside
 
 Some phrases I loved:
+
 *"smell thunder"* - I never quite understood that, but also completely understand it
+
 *"castle in the air"* - alluding to our dreams which we wish to pursue

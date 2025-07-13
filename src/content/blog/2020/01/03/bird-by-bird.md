@@ -33,5 +33,7 @@ There's more to this book, more about characters, plot, dialogue, etc.. and she 
 A lot more to talk about when it comes to this book, especially if you are a writer. I think I feel more confident in my ability to write after this, and that there are ways to improve that confidence even further, and my skill much more. I think many of us at some point have to write, whether its an email or a novel, I think it helps to read and find ways to improve your ability.
 
 Some words I learned reading this book:
+
 **Kvetch**: Complain
+
 **Priggish**: Self-righteously moralistic and superior

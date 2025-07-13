@@ -1,9 +1,9 @@
 ---
 title: 'Review: Jackson Pollock: An American Saga'
-description: 'A thoughtful review of Jackson Pollock: An American Saga by Gregory White Smith'
+description: 'A thoughtful review of Jackson Pollock: An American Saga by Gregory White Smith and Steven Naifeh'
 pubDate: 2019-06-13
 bookTitle: 'Jackson Pollock: An American Saga'
-author: 'Gregory White Smith'
+author: 'Gregory White Smith and Steven Naifeh'
 genre: 'General'
 rating: 5
 readingTime: 1

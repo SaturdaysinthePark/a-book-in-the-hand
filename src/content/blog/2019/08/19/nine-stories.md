@@ -11,7 +11,7 @@ goodreadsId: '4009'
 isbn: '0316767727'
 publishYear: 2001
 status: 'live'
-tags: ['classic', 'fiction']
+tags: ['classic', 'fiction', 'short stories']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0316767727.01.L.jpg'
 ---
