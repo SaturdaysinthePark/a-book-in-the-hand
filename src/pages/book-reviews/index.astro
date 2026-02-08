@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { filterDisplayTags } from '../../utils/blog';
 
 const allPosts = (await getCollection('blog', ({ data }) => data.status === 'live')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -12,6 +13,42 @@ const allPosts = (await getCollection('blog', ({ data }) => data.status === 'liv
 
 // Filter to only book reviews (not lists)
 const posts = allPosts.filter(post => post.data.postType === 'review');
+
+// Build a set of author name slugs to exclude from tags
+const authorSlugs = new Set(
+	posts
+		.filter(post => post.data.author)
+		.map(post => post.data.author!.toLowerCase().replace(/\s+/g, '-'))
+);
+
+// Extract dynamic tag data, excluding junk tags
+const tagCounts: Record<string, number> = {};
+posts.forEach(post => {
+	filterDisplayTags(post.data.tags || [], authorSlugs).forEach(tag => {
+		tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+	});
+});
+const popularTags = Object.entries(tagCounts)
+	.sort((a, b) => b[1] - a[1])
+	.map(([tag]) => tag)
+	.slice(0, 6);
+const otherTags = Object.entries(tagCounts)
+	.sort((a, b) => b[1] - a[1])
+	.map(([tag]) => tag)
+	.filter(tag => !popularTags.includes(tag));
+
+// Extract dynamic author data
+const authorCounts: Record<string, number> = {};
+posts.forEach(post => {
+	if (post.data.author) {
+		authorCounts[post.data.author] = (authorCounts[post.data.author] || 0) + 1;
+	}
+});
+const sortedAuthors = Object.entries(authorCounts)
+	.sort((a, b) => b[1] - a[1])
+	.map(([author]) => author);
+const popularAuthors = sortedAuthors.slice(0, 8);
+const otherAuthors = sortedAuthors.slice(8);
 ---
 
 <!doctype html>
@@ -37,7 +74,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 						</button>
 					</div>
 					<div class="filter-content" id="filter-content">
-					
+
 					<!-- Primary Genre Filters -->
 					<div class="filter-section">
 						<h4>Genre</h4>
@@ -47,61 +84,70 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 							<button class="filter-btn" data-filter="nonfiction" data-type="genre">Nonfiction</button>
 						</div>
 					</div>
-					
+
+					<!-- Author Filters -->
+					{popularAuthors.length > 0 && (
+						<div class="filter-section">
+							<h4>Authors</h4>
+							<div class="tag-group">
+								{popularAuthors.map(author => (
+									<button class="tag-btn" data-author={author}>{author}</button>
+								))}
+							</div>
+							{otherAuthors.length > 0 && (
+								<button class="show-more-tags" id="show-more-authors">Show More Authors →</button>
+							)}
+						</div>
+					)}
+
+					<!-- All Authors (Initially Hidden) -->
+					{otherAuthors.length > 0 && (
+						<div class="filter-section all-authors-section" id="all-authors-section" style="display: none;">
+							<h4>All Authors</h4>
+							<div class="tag-group">
+								{otherAuthors.map(author => (
+									<button class="tag-btn" data-author={author}>{author}</button>
+								))}
+							</div>
+							<button class="show-more-tags" id="show-less-authors">← Show Less</button>
+						</div>
+					)}
+
 					<!-- Popular Tags -->
 					<div class="filter-section">
 						<h4>Popular Tags</h4>
 						<div class="tag-group">
-							<button class="tag-btn" data-tag="fiction">Fiction</button>
-							<button class="tag-btn" data-tag="nonfiction">Nonfiction</button>
-							<button class="tag-btn" data-tag="science fiction">Science Fiction</button>
-							<button class="tag-btn" data-tag="fantasy">Fantasy</button>
-							<button class="tag-btn" data-tag="classic">Classic</button>
-							<button class="tag-btn" data-tag="popular science">Popular Science</button>
+							{popularTags.map(tag => (
+								<button class="tag-btn" data-tag={tag}>{tag}</button>
+							))}
 						</div>
-						<button class="show-more-tags" id="show-more-tags">Show More Tags →</button>
+						{otherTags.length > 0 && (
+							<button class="show-more-tags" id="show-more-tags">Show More Tags →</button>
+						)}
 					</div>
-					
+
 					<!-- All Tags (Initially Hidden) -->
-					<div class="filter-section all-tags-section" id="all-tags-section" style="display: none;">
-						<h4>All Tags</h4>
-						<div class="tag-group all-tags">
-							<button class="tag-btn" data-tag="autobiography">Autobiography</button>
-							<button class="tag-btn" data-tag="biography">Biography</button>
-							<button class="tag-btn" data-tag="business">Business</button>
-							<button class="tag-btn" data-tag="education">Education</button>
-							<button class="tag-btn" data-tag="epic poem">Epic Poem</button>
-							<button class="tag-btn" data-tag="finance">Finance</button>
-							<button class="tag-btn" data-tag="historical fiction">Historical Fiction</button>
-							<button class="tag-btn" data-tag="history">History</button>
-							<button class="tag-btn" data-tag="horror">Horror</button>
-							<button class="tag-btn" data-tag="magical realism">Magical Realism</button>
-							<button class="tag-btn" data-tag="mystery">Mystery</button>
-							<button class="tag-btn" data-tag="philosophy">Philosophy</button>
-							<button class="tag-btn" data-tag="play">Play</button>
-							<button class="tag-btn" data-tag="poetry">Poetry</button>
-							<button class="tag-btn" data-tag="politics">Politics</button>
-							<button class="tag-btn" data-tag="popular science">Popular Science</button>
-							<button class="tag-btn" data-tag="psychology">Psychology</button>
-							<button class="tag-btn" data-tag="religion">Religion</button>
-							<button class="tag-btn" data-tag="romance">Romance</button>
-							<button class="tag-btn" data-tag="science">Science</button>
-							<button class="tag-btn" data-tag="self-help">Self-Help</button>
-							<button class="tag-btn" data-tag="social science">Social Science</button>
-							<button class="tag-btn" data-tag="young adult">Young Adult</button>
+					{otherTags.length > 0 && (
+						<div class="filter-section all-tags-section" id="all-tags-section" style="display: none;">
+							<h4>All Tags</h4>
+							<div class="tag-group all-tags">
+								{otherTags.map(tag => (
+									<button class="tag-btn" data-tag={tag}>{tag}</button>
+								))}
+							</div>
+							<button class="show-more-tags" id="show-less-tags">← Show Less</button>
 						</div>
-						<button class="show-more-tags" id="show-less-tags">← Show Less</button>
-					</div>
-					
+					)}
+
 					<!-- Clear Filters -->
 					<button class="clear-filters" id="clear-filters">Clear All Filters</button>
 					</div>
 				</aside>
-				
+
 				<!-- Posts Gallery -->
 				<div class="posts-gallery">
 					{posts.map((post) => (
-						<article class="post-item" data-tags={post.data.tags ? post.data.tags.join('|') : ''} data-genre={post.data.genre ? post.data.genre.toLowerCase() : ''}>
+						<article class="post-item" data-tags={post.data.tags ? post.data.tags.join('|') : ''} data-genre={post.data.genre ? post.data.genre.toLowerCase() : ''} data-author={post.data.author ? post.data.author.toLowerCase() : ''}>
 							<a href={`/blog/${post.id.replace(/\/(\d{2})-/, '/$1/')}/`} class="post-link">
 								<div class="post-image">
 									{post.data.heroImage ? (
@@ -114,6 +160,9 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 								</div>
 								<div class="post-info">
 									<h3>{post.data.bookTitle || post.data.title}</h3>
+									{post.data.author && (
+										<div class="post-author">{post.data.author}</div>
+									)}
 									{post.data.rating && (
 										<div class="rating">
 											{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
@@ -201,7 +250,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 	.filter-section {
 		margin-bottom: 1.5rem;
 	}
-	
+
 	.filter-section h4 {
 		font-size: 0.9rem;
 		font-weight: 600;
@@ -210,13 +259,13 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		text-transform: uppercase;
 		letter-spacing: 0.5px;
 	}
-	
+
 	.filter-group {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
 	}
-	
+
 	.tag-group {
 		display: flex;
 		flex-wrap: wrap;
@@ -242,7 +291,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		background: var(--accent);
 		color: white;
 	}
-	
+
 	.tag-btn {
 		padding: 0.25rem 0.75rem;
 		border: 1px solid rgba(var(--gray), 0.3);
@@ -255,19 +304,19 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		transition: all 0.2s ease;
 		white-space: nowrap;
 	}
-	
+
 	.tag-btn:hover {
 		background: rgba(var(--accent), 0.1);
 		border-color: var(--accent);
 		color: var(--accent);
 	}
-	
+
 	.tag-btn.active {
 		background: var(--accent);
 		border-color: var(--accent);
 		color: white;
 	}
-	
+
 	.show-more-tags {
 		padding: 0.4rem 0;
 		background: none;
@@ -279,11 +328,11 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		width: 100%;
 		text-align: left;
 	}
-	
+
 	.show-more-tags:hover {
 		color: var(--primary);
 	}
-	
+
 	.clear-filters {
 		padding: 0.6rem 1rem;
 		background: transparent;
@@ -296,7 +345,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		width: 100%;
 		margin-top: 1rem;
 	}
-	
+
 	.clear-filters:hover {
 		background: rgba(var(--gray), 0.1);
 		border-color: var(--accent);
@@ -357,7 +406,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 	.post-info h3 {
 		font-size: 0.9rem;
 		font-weight: 600;
-		margin-bottom: 0.5rem;
+		margin-bottom: 0.25rem;
 		color: var(--primary);
 		line-height: 1.3;
 		height: 2.6em;
@@ -365,6 +414,16 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
+	}
+
+	.post-author {
+		font-size: 0.8rem;
+		color: rgba(var(--gray-dark), 0.7);
+		font-style: italic;
+		margin-bottom: 0.25rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.rating {
@@ -432,7 +491,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		}
 
 		.filter-content.open {
-			max-height: 600px;
+			max-height: 800px;
 		}
 
 		.filter-header {
@@ -457,21 +516,21 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 			padding: 0.4rem 0.8rem;
 			font-size: 0.8rem;
 		}
-		
+
 		.tag-group {
 			justify-content: center;
 		}
-		
+
 		.tag-btn {
 			font-size: 0.75rem;
 			padding: 0.2rem 0.6rem;
 		}
-		
+
 		.filter-section h4 {
 			text-align: center;
 			font-size: 0.85rem;
 		}
-		
+
 		.posts-gallery {
 			order: 2;
 			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -480,28 +539,28 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 			max-width: 100%;
 		}
 	}
-	
+
 	@media (max-width: 480px) {
 		main {
 			padding: 0.75rem 0.75rem;
 			width: 100%;
 			max-width: 100%;
 		}
-		
+
 		.posts-gallery {
 			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
 			gap: 0.75rem;
 		}
-		
+
 		.post-info h3 {
 			font-size: 0.8rem;
 		}
-		
+
 		.sidebar-filters h3 {
 			font-size: 1rem;
 			margin-bottom: 0.75rem;
 		}
-		
+
 		.filter-btn {
 			padding: 0.3rem 0.6rem;
 			font-size: 0.75rem;
@@ -512,23 +571,27 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 		const filterButtons = document.querySelectorAll('.filter-btn');
-		const tagButtons = document.querySelectorAll('.tag-btn');
-		const showMoreButton = document.getElementById('show-more-tags');
-		const showLessButton = document.getElementById('show-less-tags');
+		const tagButtons = document.querySelectorAll('.tag-btn[data-tag]');
+		const authorButtons = document.querySelectorAll('.tag-btn[data-author]');
+		const showMoreTagsBtn = document.getElementById('show-more-tags');
+		const showLessTagsBtn = document.getElementById('show-less-tags');
 		const allTagsSection = document.getElementById('all-tags-section');
+		const showMoreAuthorsBtn = document.getElementById('show-more-authors');
+		const showLessAuthorsBtn = document.getElementById('show-less-authors');
+		const allAuthorsSection = document.getElementById('all-authors-section');
 		const clearFiltersButton = document.getElementById('clear-filters');
 		const postItems = document.querySelectorAll('.post-item');
 		const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
 		const filterContent = document.getElementById('filter-content');
-		
+
 		let activeGenreFilter = 'all';
 		let activeTagFilters = new Set();
+		let activeAuthorFilters = new Set();
 
 		// Genre filter functionality
 		filterButtons.forEach(button => {
 			button.addEventListener('click', function() {
 				if (this.getAttribute('data-type') === 'genre') {
-					// Remove active class from genre filter buttons only
 					filterButtons.forEach(btn => {
 						if (btn.getAttribute('data-type') === 'genre') {
 							btn.classList.remove('active');
@@ -545,7 +608,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		tagButtons.forEach(button => {
 			button.addEventListener('click', function() {
 				const tag = this.getAttribute('data-tag');
-				
+
 				if (this.classList.contains('active')) {
 					this.classList.remove('active');
 					activeTagFilters.delete(tag);
@@ -553,21 +616,57 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 					this.classList.add('active');
 					activeTagFilters.add(tag);
 				}
-				
+
+				applyFilters();
+			});
+		});
+
+		// Author filter functionality
+		authorButtons.forEach(button => {
+			button.addEventListener('click', function() {
+				const author = this.getAttribute('data-author');
+
+				if (this.classList.contains('active')) {
+					this.classList.remove('active');
+					activeAuthorFilters.delete(author);
+				} else {
+					this.classList.add('active');
+					activeAuthorFilters.add(author);
+				}
+
 				applyFilters();
 			});
 		});
 
 		// Show/hide all tags
-		showMoreButton.addEventListener('click', function() {
-			allTagsSection.style.display = 'block';
-			showMoreButton.style.display = 'none';
-		});
+		if (showMoreTagsBtn && allTagsSection) {
+			showMoreTagsBtn.addEventListener('click', function() {
+				allTagsSection.style.display = 'block';
+				showMoreTagsBtn.style.display = 'none';
+			});
+		}
 
-		showLessButton.addEventListener('click', function() {
-			allTagsSection.style.display = 'none';
-			showMoreButton.style.display = 'block';
-		});
+		if (showLessTagsBtn && showMoreTagsBtn && allTagsSection) {
+			showLessTagsBtn.addEventListener('click', function() {
+				allTagsSection.style.display = 'none';
+				showMoreTagsBtn.style.display = 'block';
+			});
+		}
+
+		// Show/hide all authors
+		if (showMoreAuthorsBtn && allAuthorsSection) {
+			showMoreAuthorsBtn.addEventListener('click', function() {
+				allAuthorsSection.style.display = 'block';
+				showMoreAuthorsBtn.style.display = 'none';
+			});
+		}
+
+		if (showLessAuthorsBtn && showMoreAuthorsBtn && allAuthorsSection) {
+			showLessAuthorsBtn.addEventListener('click', function() {
+				allAuthorsSection.style.display = 'none';
+				showMoreAuthorsBtn.style.display = 'block';
+			});
+		}
 
 		// Clear all filters
 		clearFiltersButton.addEventListener('click', function() {
@@ -580,12 +679,16 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 					}
 				}
 			});
-			
+
 			// Reset tag filters
 			tagButtons.forEach(btn => btn.classList.remove('active'));
-			
+
+			// Reset author filters
+			authorButtons.forEach(btn => btn.classList.remove('active'));
+
 			activeGenreFilter = 'all';
 			activeTagFilters.clear();
+			activeAuthorFilters.clear();
 			applyFilters();
 		});
 
@@ -593,27 +696,35 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 			postItems.forEach(item => {
 				const tags = (item.getAttribute('data-tags') || '').toLowerCase();
 				const genre = (item.getAttribute('data-genre') || '').toLowerCase();
-				
+				const author = (item.getAttribute('data-author') || '').toLowerCase();
+
 				let showItem = true;
-				
+
 				// Apply genre filter
 				if (activeGenreFilter === 'fiction') {
 					const isFiction = genre.includes('fiction') || tags.includes('fiction');
-					const isNonfiction = genre.includes('memoir') || genre.includes('biography') || 
+					const isNonfiction = genre.includes('memoir') || genre.includes('biography') ||
 										 genre.includes('history') || genre.includes('anthropology') ||
 										 genre.includes('self-help') || tags.includes('memoir') ||
 										 tags.includes('biography') || tags.includes('history') ||
 										 tags.includes('anthropology') || tags.includes('self-help');
 					showItem = isFiction && !isNonfiction;
 				} else if (activeGenreFilter === 'nonfiction') {
-					const isNonfiction = genre.includes('memoir') || genre.includes('biography') || 
+					const isNonfiction = genre.includes('memoir') || genre.includes('biography') ||
 										 genre.includes('history') || genre.includes('anthropology') ||
 										 genre.includes('self-help') || tags.includes('memoir') ||
 										 tags.includes('biography') || tags.includes('history') ||
 										 tags.includes('anthropology') || tags.includes('self-help');
 					showItem = isNonfiction;
 				}
-				
+
+				// Apply author filters (if any active)
+				if (activeAuthorFilters.size > 0 && showItem) {
+					showItem = Array.from(activeAuthorFilters).some(filterAuthor => {
+						return author === filterAuthor.toLowerCase();
+					});
+				}
+
 				// Apply tag filters (if any active)
 				if (activeTagFilters.size > 0 && showItem) {
 					showItem = Array.from(activeTagFilters).some(tag => {
@@ -622,7 +733,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 						return tagArray.includes(tagLower) || genre.split('|').includes(tagLower);
 					});
 				}
-				
+
 				if (showItem) {
 					item.classList.remove('hidden');
 				} else {
@@ -635,7 +746,7 @@ const posts = allPosts.filter(post => post.data.postType === 'review');
 		if (mobileFilterToggle && filterContent) {
 			mobileFilterToggle.addEventListener('click', function() {
 				const isOpen = filterContent.classList.contains('open');
-				
+
 				if (isOpen) {
 					filterContent.classList.remove('open');
 					mobileFilterToggle.classList.remove('open');

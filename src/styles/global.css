@@ -4,8 +4,6 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
-
 :root {
 	/* Neutral papyrus-like color scheme */
 	--primary: #2C2C2C; /* Dark charcoal for headings */
@@ -22,20 +20,6 @@
 	--gray-gradient: rgba(var(--gray-light), 50%), var(--background);
 	--box-shadow:
 		0 0 0 1px rgba(0, 0, 0, 0.04);
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
 }
 body {
 	font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -125,23 +109,6 @@ p {
 	margin-bottom: 2em;
 }
 
-/* Override Tailwind's list resets globally */
-ul {
-	list-style: disc outside !important;
-	margin: 1em 0 !important;
-	padding-left: 2em !important;
-}
-
-ol {
-	list-style: decimal outside !important;
-	margin: 1em 0 !important;
-	padding-left: 2em !important;
-}
-
-li {
-	display: list-item !important;
-	margin-bottom: 0.5em !important;
-}
 textarea {
 	width: 100%;
 	font-size: 16px;

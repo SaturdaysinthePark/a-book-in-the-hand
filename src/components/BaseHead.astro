@@ -33,11 +33,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sohne:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<!-- Font preloads -->
-<link rel="preload" href="/fonts/atkinson-regular.woff" as="font" type="font/woff" crossorigin />
-<link rel="preload" href="/fonts/atkinson-bold.woff" as="font" type="font/woff" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -76,46 +72,25 @@ const { title, description, image = FallbackImage } = Astro.props;
   gtag('config', 'G-JNR91EN6Y4');
 </script>
 
-<!-- FORCE LIST STYLES - Load after all other CSS to override Tailwind -->
+<!-- Prose list styles -->
 <style>
-ul {
-	list-style: disc outside !important;
-	margin: 1em 0 !important;
-	padding-left: 2em !important;
-	display: block !important;
-}
-
-ol {
-	list-style: decimal outside !important;
-	margin: 1em 0 !important;
-	padding-left: 2em !important;
-	display: block !important;
-}
-
-li {
-	display: list-item !important;
-	margin-bottom: 0.5em !important;
-	line-height: 1.6 !important;
-}
-
-/* Ensure lists inside prose content work */
 .prose ul, article ul {
-	list-style: disc outside !important;
-	margin: 1.5em 0 !important;
-	padding-left: 2em !important;
-	display: block !important;
+	list-style: disc outside;
+	margin: 1.5em 0;
+	padding-left: 2em;
+	display: block;
 }
 
 .prose ol, article ol {
-	list-style: decimal outside !important;
-	margin: 1.5em 0 !important;
-	padding-left: 2em !important;
-	display: block !important;
+	list-style: decimal outside;
+	margin: 1.5em 0;
+	padding-left: 2em;
+	display: block;
 }
 
 .prose li, article li {
-	display: list-item !important;
-	margin-bottom: 0.75em !important;
-	line-height: 1.7 !important;
+	display: list-item;
+	margin-bottom: 0.75em;
+	line-height: 1.7;
 }
 </style>

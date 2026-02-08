@@ -26,22 +26,16 @@ import { SITE_TITLE } from '../consts';
 			</div>
 			<button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Menu" onclick="
 				// SLIDE-DOWN PANEL APPROACH: No z-index issues
-				console.log('Button clicked!');
-				
+
 				// Only work on mobile
 				if (window.innerWidth > 768) {
-					console.log('Desktop - ignoring click');
 					return;
 				}
-				
+
 				const header = document.querySelector('header');
 				let panel = document.querySelector('.mobile-slide-panel');
-				
-				console.log('Header found:', !!header);
-				console.log('Panel exists:', !!panel);
-				
+
 				if (!panel) {
-					console.log('Creating new panel...');
 					// Create slide panel after header
 					panel = document.createElement('div');
 					panel.className = 'mobile-slide-panel';
@@ -62,21 +56,19 @@ import { SITE_TITLE } from '../consts';
 						<a href='/my-lists' style='display: block; padding: 1rem 1.5rem; text-decoration: none; color: #2C2C2C; font-size: 1rem; font-weight: 500; border-bottom: 1px solid rgba(139, 115, 85, 0.08); transition: all 0.3s ease;'>My Lists</a>
 						<a href='/about' style='display: block; padding: 1rem 1.5rem; text-decoration: none; color: #2C2C2C; font-size: 1rem; font-weight: 500; transition: all 0.3s ease;'>About</a>
 					`;
-					
+
 					// Insert panel right after header
 					header.parentNode.insertBefore(panel, header.nextSibling);
-					console.log('Panel created and inserted');
-					
+
 					// Close on link click
 					panel.querySelectorAll('a').forEach(link => {
 						link.onclick = (e) => {
 							panel.classList.remove('show');
-							console.log('Panel closed via link click');
 							// Let the link navigate normally
 						};
 					});
 				}
-				
+
 				// Toggle panel with direct style manipulation
 				if (panel.classList.contains('show')) {
 					// Close panel
@@ -84,18 +76,13 @@ import { SITE_TITLE } from '../consts';
 					panel.style.padding = '0px';
 					panel.style.opacity = '0';
 					panel.classList.remove('show');
-					console.log('Panel closed');
 				} else {
 					// Open panel
 					panel.style.maxHeight = '250px';
 					panel.style.padding = '0.75rem 0';
 					panel.style.opacity = '1';
 					panel.classList.add('show');
-					console.log('Panel opened');
 				}
-				console.log('Panel show class:', panel.classList.contains('show'));
-				console.log('Panel style max-height:', panel.style.maxHeight);
-				console.log('Panel computed max-height:', window.getComputedStyle(panel).maxHeight);
 			">
 				<svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<line x1="3" y1="6" x2="21" y2="6"></line>
@@ -497,15 +484,6 @@ import { SITE_TITLE } from '../consts';
 		const header = document.querySelector('header');
 		let lastScrollY = window.scrollY;
 
-		// Debug: Check if elements are found
-		console.log('Elements found:', {
-			searchToggle: !!searchToggle,
-			searchInput: !!searchInput,
-			mobileMenuToggle: !!mobileMenuToggle,
-			internalLinks: !!internalLinks,
-			header: !!header
-		});
-
 		// Search functionality
 		searchToggle.addEventListener('click', function() {
 			searchInput.classList.toggle('active');
@@ -539,12 +517,11 @@ import { SITE_TITLE } from '../consts';
 		document.addEventListener('click', function(e) {
 			const panel = document.querySelector('.mobile-slide-panel');
 			const toggleButton = document.getElementById('mobile-menu-toggle');
-			
+
 			if (panel && toggleButton && panel.classList.contains('show')) {
 				// Close if clicking outside the panel and not on the toggle button
 				if (!panel.contains(e.target) && !toggleButton.contains(e.target)) {
 					panel.classList.remove('show');
-					console.log('Panel closed by clicking outside');
 				}
 			}
 		});

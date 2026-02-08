@@ -24,6 +24,38 @@ import Footer from '../components/Footer.astro';
 					<p>
 						Hi, my name is Sabtain. I live in Brooklyn and love to read books and chat about them with friends. I started my more serious reading journey in 2015 and have since read hundreds upon hundreds of books, and I'm not done yet.
 					</p>
+
+					<h2>How I Rate Books</h2>
+					<div class="rating-guide">
+						<div class="rating-item">
+							<strong>⭐ 1 Star:</strong> I don't recommend these. Some come from bad intentions—self-glorifying, arrogant, or just plain dishonest. Others are so derivative you'd be better off reading the book they're copying. There's nuance here, but the bottom line is I can't recommend them.
+						</div>
+						<div class="rating-item">
+							<strong>⭐⭐ 2 Stars:</strong> Still not recommended, though I'll admit this tier is more opinionated on my part. These books are readable, but they don't offer much that's new or interesting. Low literary value, usually derivative.
+						</div>
+						<div class="rating-item">
+							<strong>⭐⭐⭐ 3 Stars:</strong> I recommend it, but I won't push it on everyone. I probably enjoyed reading it. It just didn't hit a certain caliber.
+						</div>
+						<div class="rating-item">
+							<strong>⭐⭐⭐⭐ 4 Stars:</strong> I really recommend this. If it matches what you're looking for, I'll go out of my way to suggest it. These are books I genuinely enjoy. In rare cases, I'll even reread a 4-star book.
+						</div>
+						<div class="rating-item">
+							<strong>⭐⭐⭐⭐⭐ 5 Stars:</strong> I recommend these to almost everyone. Something about them is fundamentally different. They bring new concepts, explore untraversed territory, or are written (or translated) exquisitely. They're timeless. Other books derive from these.
+						</div>
+					</div>
+					<p class="rating-nuance">
+						<em>A note on scoring:</em> To me, 5/5 means 100/100, and 4/5 means 80/100. I hate that there's so little room between them. Some 4-star books feel closer to a 4.25-4.5 or a 85-90 out of 100, but I won't round them up to a 5-star. Same issue at the 3-star level, a 3.5 would be 70/100, but I round down out of principle, even when a book sits awkwardly at 65/100. <br> <br> The scale doesn't capture the nuance I wish it could, and I blame scoring systems such as Goodreads which are based on 1, 2, 3, 4, or 5 stars and no quarter or half star rating assignment.
+					</p>
+
+					<h2>How I Review Books</h2>
+					<p>
+						Many of my reviews are created through conversations with Claude AI. I take personal notes while reading, then prompt Claude to interview me about the book in a dynamic, thoughtful way. The AI asks questions I might not have considered on my own, helping me articulate my thoughts and reactions. From this interview, Claude drafts a review based entirely on my words and insights, which I then edit and refine. It's a collaborative process that helps me get my ideas out more clearly.
+					</p>
+
+					<h2>How I Built This Site</h2>
+					<p>
+						This website was built with help from Claude AI, using Astro, TypeScript, and Tailwind CSS. The design reflects my love for books with a paper-inspired aesthetic.
+					</p>
 				</div>
 			</div>
 		</main>
@@ -87,6 +119,48 @@ import Footer from '../components/Footer.astro';
 		overflow-wrap: break-word;
 	}
 
+	.about-content h2 {
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: var(--primary);
+		margin-top: 2.5rem;
+		margin-bottom: 1rem;
+		font-family: 'Poppins', 'Inter', 'Helvetica Neue', Arial, sans-serif;
+	}
+
+	.rating-guide {
+		margin-bottom: 2rem;
+	}
+
+	.rating-item {
+		font-size: 1rem;
+		line-height: 1.8;
+		color: var(--primary);
+		margin-bottom: 0.75rem;
+	}
+
+	.rating-item strong {
+		color: var(--accent);
+		font-weight: 600;
+	}
+
+	.rating-nuance {
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: var(--primary);
+		margin-top: 1.5rem;
+		padding: 1rem;
+		background: rgba(139, 115, 85, 0.05);
+		border-left: 3px solid var(--accent);
+		border-radius: 4px;
+	}
+
+	.rating-nuance em {
+		font-weight: 600;
+		font-style: normal;
+		color: var(--accent);
+	}
+
 	.connect-section {
 		text-align: center;
 		margin-top: 3rem;
@@ -144,6 +218,24 @@ import Footer from '../components/Footer.astro';
 			text-align: center;
 			hyphens: auto;
 			word-break: break-word;
+		}
+
+		.about-content h2 {
+			font-size: 1.3rem;
+			text-align: center;
+			margin-top: 2rem;
+		}
+
+		.rating-item {
+			font-size: 0.95rem;
+			text-align: left;
+			margin-bottom: 1rem;
+		}
+
+		.rating-nuance {
+			font-size: 0.9rem;
+			text-align: left;
+			padding: 0.75rem;
 		}
 	}
 

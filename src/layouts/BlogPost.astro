@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import { filterDisplayTags } from '../utils/blog';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -21,6 +22,12 @@ const {
 	tags,
 	postType = 'review'
 } = Astro.props;
+
+// Build author slug set for this post's author and filter junk tags
+const authorSlugs = new Set(
+	author ? [author.toLowerCase().replace(/\s+/g, '-')] : []
+);
+const displayTags = tags ? filterDisplayTags(tags, authorSlugs) : [];
 ---
 
 <html lang="en">
@@ -103,9 +110,9 @@ const {
 										</span>
 									</div>
 								)}
-								{tags && tags.length > 0 && (
+								{displayTags.length > 0 && (
 									<div class="book-tags">
-										{tags.map(tag => (
+										{displayTags.map(tag => (
 											<a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`} class="tag">{tag}</a>
 										))}
 									</div>
@@ -134,9 +141,9 @@ const {
 										<img src={heroImage} alt={title} />
 									</div>
 								)}
-								{tags && tags.length > 0 && (
+								{displayTags.length > 0 && (
 									<div class="list-tags">
-										{tags.map(tag => (
+										{displayTags.map(tag => (
 											<a href={`/tags/${tag.toLowerCase().replace(/\s+/g, '-')}/`} class="tag">{tag}</a>
 										))}
 									</div>
@@ -152,6 +159,11 @@ const {
 			</article>
 		</main>
 		<Footer />
+		<button id="back-to-top" class="back-to-top" aria-label="Back to top">
+			<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<polyline points="18,15 12,9 6,15"></polyline>
+			</svg>
+		</button>
 	</body>
 </html>
 
@@ -336,23 +348,34 @@ const {
 	}
 
 	/* Prose Content */
-	.prose {
+		.prose {
+		max-width: 900px;
 		line-height: 1.7;
 		color: rgba(var(--gray-dark), 0.9);
 	}
 	
-	/* Prose-specific list styling */
+		/* Prose-specific list styling */
 	.prose ul {
+		list-style: disc outside;
 		margin: 1.5em 0;
+		padding-left: 2em;
 	}
-	
+
 	.prose ol {
+		list-style: decimal outside;
 		margin: 1.5em 0;
+		padding-left: 2em;
 	}
-	
+
 	.prose li {
+		display: list-item;
 		margin-bottom: 0.75em;
 		line-height: 1.7;
+	}
+
+	.prose ul ul,
+	.prose ol ol {
+		margin: 0.5em 0;
 	}
 
 	/* Mobile Layout */
@@ -450,4 +473,65 @@ const {
 			line-height: 1.6;
 		}
 	}
+
+	/* Back to Top Button */
+	.back-to-top {
+		position: fixed;
+		bottom: 2rem;
+		right: 2rem;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: var(--accent);
+		color: white;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4px 12px rgba(var(--black), 0.2);
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease;
+		z-index: 100;
+	}
+
+	.back-to-top.visible {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.back-to-top:hover {
+		background: var(--accent-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 6px 16px rgba(var(--black), 0.25);
+	}
+
+	@media (max-width: 768px) {
+		.back-to-top {
+			bottom: 1.5rem;
+			right: 1.5rem;
+			width: 44px;
+			height: 44px;
+		}
+	}
 </style>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const backToTopButton = document.getElementById('back-to-top');
+		if (!backToTopButton) return;
+
+		window.addEventListener('scroll', function() {
+			if (window.scrollY > 300) {
+				backToTopButton.classList.add('visible');
+			} else {
+				backToTopButton.classList.remove('visible');
+			}
+		});
+
+		backToTopButton.addEventListener('click', function() {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+	});
+</script>

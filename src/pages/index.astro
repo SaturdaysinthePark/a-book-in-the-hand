@@ -27,6 +27,9 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 			<!-- Recent Book Reviews -->
 			{bookReviews.length > 0 && (
 				<section class="recent-books">
+					<div class="section-header">
+						<h2>Recent Book Reviews</h2>
+					</div>
 					<div class="books-row">
 						{bookReviews.map((post) => (
 							<article class="book-item">
@@ -66,6 +69,9 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 			<!-- Featured Lists -->
 			{bookLists.length > 0 && (
 				<section class="featured-lists">
+					<div class="section-header">
+						<h2>Featured Lists</h2>
+					</div>
 					<div class="lists-row">
 						{bookLists.map((post) => (
 							<article class="list-item">
@@ -102,11 +108,25 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 </html>
 
 <style>
+		/* Section Headers */
+	.section-header {
+		margin-bottom: 1rem;
+	}
+
+	.section-header h2 {
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: var(--primary);
+		margin: 0;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid var(--accent);
+	}
+
 	/* Main Layout */
 	main {
 		max-width: 1400px;
 		margin: 0 auto;
-		padding: 2rem 1rem;
+		padding: 1rem 1rem;
 		width: 100%;
 		box-sizing: border-box;
 		overflow-x: hidden;
@@ -115,8 +135,8 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 
 	/* Recent Books Row */
 	.recent-books {
-		margin-bottom: 4rem;
-		padding-bottom: 2rem;
+		margin-bottom: 2.5rem;
+		padding-bottom: 1rem;
 	}
 
 	.books-row {
@@ -125,8 +145,16 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 		gap: 3rem;
 	}
 
-	.book-item {
-		transition: none;
+		.book-item {
+		transition: transform 0.2s ease;
+	}
+
+	.book-item:hover {
+		transform: translateY(-4px);
+	}
+
+	.book-item:hover .book-cover img {
+		box-shadow: 0 12px 32px rgba(var(--black), 0.2);
 	}
 
 	.book-link {
@@ -211,7 +239,7 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 	.see-more-container {
 		display: flex;
 		justify-content: flex-end;
-		margin-top: 2rem;
+		margin-top: 1.25rem;
 		padding-right: 1rem;
 	}
 
@@ -230,8 +258,8 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 
 	/* Featured Lists Row */
 	.featured-lists {
-		margin-bottom: 2rem;
-		padding-bottom: 2rem;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1rem;
 	}
 
 	.lists-row {
@@ -240,8 +268,16 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 		gap: 3rem;
 	}
 
-	.list-item {
-		transition: none;
+		.list-item {
+		transition: transform 0.2s ease;
+	}
+
+	.list-item:hover {
+		transform: translateY(-4px);
+	}
+
+	.list-item:hover .list-image img {
+		box-shadow: 0 10px 28px rgba(var(--black), 0.18);
 	}
 
 	.list-link {

@@ -4,20 +4,30 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { getBlogUrl } from '../../utils/blog';
+import { getBlogUrl, isJunkTag } from '../../utils/blog';
 
 export async function getStaticPaths() {
-	const allPosts = await getCollection('blog');
-	const allTags = new Set();
-	
+	const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
+
+	// Build set of author slugs to exclude from tag pages
+	const authorSlugs = new Set<string>();
+	allPosts.forEach(post => {
+		if (post.data.author) {
+			authorSlugs.add(post.data.author.toLowerCase().replace(/\s+/g, '-'));
+		}
+	});
+
+	const allTags = new Set<string>();
 	allPosts.forEach(post => {
 		if (post.data.tags) {
 			post.data.tags.forEach(tag => {
-				allTags.add(tag.toLowerCase().replace(/\s+/g, '-'));
+				if (!isJunkTag(tag, authorSlugs)) {
+					allTags.add(tag.toLowerCase().replace(/\s+/g, '-'));
+				}
 			});
 		}
 	});
-	
+
 	return Array.from(allTags).map(tag => ({
 		params: { tag },
 		props: { tag }
@@ -25,7 +35,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
 
 // Filter posts by tag
 const taggedPosts = allPosts.filter(post => 
