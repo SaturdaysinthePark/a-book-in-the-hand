@@ -25,3 +25,25 @@ pnpm-debug.log*
 
 # Planning documents (keep local only)
 ROADMAP.md
+
+# Tool directories
+.serena/
+.claude/
+
+# Personal notes and drafts
+blog-post-*.md
+*-notes.md
+notes/
+
+# Data exports and reference files
+*.csv
+goodreads-*.csv
+goodreads_library_export.csv
+exports/
+data/
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
