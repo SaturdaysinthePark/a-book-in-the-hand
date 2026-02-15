@@ -9,12 +9,12 @@ rating: 4
 readingTime: 3
 purchaseLink: 'https://bookshop.org/books/dionysiaca-volume-i-books-1-15/9780674990562'
 goodreadsId: '10195'
-isbn: '0674990560'
+isbn: '0674993799'
 publishYear: 1940
 status: 'live'
 tags: ['nonnus', 'classics', 'epic', 'greek-mythology', 'ancient-greece']
 postType: 'review'
-heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0674990560.01.L.jpg'
+heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0674993799.01.L.jpg'
 ---
 
 The longest surviving Greek epic at over 20,000 lines. A remnant statue from Jalalabad, Afghanistan that I saw at the MET, in New York City, piqued my interest in Dionysus and how his likeness ended up there.
