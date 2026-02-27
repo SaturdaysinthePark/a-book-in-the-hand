@@ -353,6 +353,11 @@ const displayTags = tags ? filterDisplayTags(tags, authorSlugs) : [];
 		line-height: 1.7;
 		color: rgba(var(--gray-dark), 0.9);
 	}
+
+	/* List posts span full content width */
+	.post-layout:not(:has(.book-sidebar)) .prose {
+		max-width: none;
+	}
 	
 		/* Prose-specific list styling */
 	.prose ul {
