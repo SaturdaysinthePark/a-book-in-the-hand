@@ -5,7 +5,7 @@ pubDate: 2024-06-30
 bookTitle: 'The Origin of Consciousness in the Breakdown of the Bicameral Mind'
 author: 'Julian Jaynes'
 genre: 'Non-fiction'
-rating: 5
+rating: 4
 readingTime: 1
 purchaseLink: 'https://bookshop.org/books/the-origin-of-consciousness-in-the-breakdown-of-the-bicameral-mind/9780618057078'
 goodreadsId: '22478'
@@ -77,4 +77,4 @@ This is a monumental book and one I expect to reference for a long time. The fir
 
 If you have any interest in consciousness, language, or how the mind developed across history, this belongs on your list.
 
-**Rating: ★★★★★**
+**Rating: ★★★★☆**
