@@ -2,264 +2,142 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
+const reviewCount = allPosts.filter(p => p.data.postType === 'review').length;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="About Me - A Book in the Hand" description="Learn about the person behind 'A Book in the Hand' and my literary journey" />
+		<BaseHead title="About — The Brooklyn Reader" description="Sabtain Khan, reading in Brooklyn. Reviews, lists, and recommendations." />
 	</head>
 	<body>
 		<Header />
-		<main>
-			<div class="about-container">
-				<div class="profile-section">
-					<div class="profile-image">
-						<img src="/sk-notion-face.png" alt="Sabtain" />
-					</div>
-					<h1>About Me</h1>
-				</div>
-				
-				<div class="about-content">
-					<p>
-						Hi, my name is Sabtain. I live in Brooklyn and love to read books and chat about them with friends. I started my more serious reading journey in 2015 and have since read hundreds upon hundreds of books, and I'm not done yet.
-					</p>
+		<main class="about-page">
 
-					<h2>How I Rate Books</h2>
-					<div class="rating-guide">
-						<div class="rating-item">
-							<strong>⭐ 1 Star:</strong> I don't recommend these. Some come from bad intentions—self-glorifying, arrogant, or just plain dishonest. Others are so derivative you'd be better off reading the book they're copying. There's nuance here, but the bottom line is I can't recommend them.
-						</div>
-						<div class="rating-item">
-							<strong>⭐⭐ 2 Stars:</strong> Still not recommended, though I'll admit this tier is more opinionated on my part. These books are readable, but they don't offer much that's new or interesting. Low literary value, usually derivative.
-						</div>
-						<div class="rating-item">
-							<strong>⭐⭐⭐ 3 Stars:</strong> I recommend it, but I won't push it on everyone. I probably enjoyed reading it. It just didn't hit a certain caliber.
-						</div>
-						<div class="rating-item">
-							<strong>⭐⭐⭐⭐ 4 Stars:</strong> I really recommend this. If it matches what you're looking for, I'll go out of my way to suggest it. These are books I genuinely enjoy. In rare cases, I'll even reread a 4-star book.
-						</div>
-						<div class="rating-item">
-							<strong>⭐⭐⭐⭐⭐ 5 Stars:</strong> I recommend these to almost everyone. Something about them is fundamentally different. They bring new concepts, explore untraversed territory, or are written (or translated) exquisitely. They're timeless. Other books derive from these.
+			<!-- Hero -->
+			<div class="about-hero">
+				<div class="shell">
+					<div class="avatar-side">
+						<div class="avatar-wrap">
+							<img src="/sk-notion-face.png" alt="Sabtain Khan" />
 						</div>
 					</div>
-					<p class="rating-nuance">
-						<em>A note on scoring:</em> To me, 5/5 means 100/100, and 4/5 means 80/100. I hate that there's so little room between them. Some 4-star books feel closer to a 4.25-4.5 or a 85-90 out of 100, but I won't round them up to a 5-star. Same issue at the 3-star level, a 3.5 would be 70/100, but I round down out of principle, even when a book sits awkwardly at 65/100. <br> <br> The scale doesn't capture the nuance I wish it could, and I blame scoring systems such as Goodreads which are based on 1, 2, 3, 4, or 5 stars and no quarter or half star rating assignment.
-					</p>
-
-					<h2>How I Review Books</h2>
-					<p>
-						Many of my reviews are created through conversations with Claude AI. I take personal notes while reading, then prompt Claude to interview me about the book in a dynamic, thoughtful way. The AI asks questions I might not have considered on my own, helping me articulate my thoughts and reactions. From this interview, Claude drafts a review based entirely on my words and insights, which I then edit and refine. It's a collaborative process that helps me get my ideas out more clearly.
-					</p>
-
-					<h2>How I Built This Site</h2>
-					<p>
-						This website was built with help from Claude AI, using Astro, TypeScript, and Tailwind CSS. The design reflects my love for books with a paper-inspired aesthetic.
-					</p>
+					<div class="bio-side">
+						<p class="crumbs">§ About · the human behind The Brooklyn Reader</p>
+						<h1>Hi, I'm <em>Sabtain.</em></h1>
+						<p class="lede">
+							I live in Brooklyn and love to read books, then talk about them with
+							anyone who'll sit still long enough.
+						</p>
+						<div class="sig-strip">
+							<span><strong>{reviewCount}</strong> books reviewed</span>
+							<span>Brooklyn, NY</span>
+							<a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer">Goodreads ↗</a>
+						</div>
+					</div>
 				</div>
 			</div>
+
+			<!-- Body -->
+			<div class="about-body">
+				<div class="shell">
+					<article>
+						<p class="intro">
+							I've read hundreds of books and I'm not done yet. This site is
+							the reading log I wish someone else kept — a place to think out
+							loud, point at what's good, and leave a trail for whoever's
+							curious enough to follow it.
+						</p>
+						<p>
+							Reviews here aren't recommendations exactly. They're closer to letters to a
+							friend who asked, <em>"So, was it any good?"</em> — the kind of answer that
+							takes a few paragraphs to land properly.
+						</p>
+						<p>
+							I started my more serious reading journey in 2015 and haven't really stopped.
+						</p>
+
+						<h2>How I rate</h2>
+						<div class="rating-key">
+							<div class="rk-stars">★☆☆☆☆</div>
+							<div class="rk-row">
+								<strong>Don't recommend</strong>
+								Derivative or dishonest. Read the source instead.
+							</div>
+
+							<div class="rk-stars">★★☆☆☆</div>
+							<div class="rk-row">
+								<strong>Readable, but offers little</strong>
+								Low literary value; mostly forgettable.
+							</div>
+
+							<div class="rk-stars">★★★☆☆</div>
+							<div class="rk-row">
+								<strong>Recommended, with caveats</strong>
+								I enjoyed it; it won't push it on you.
+							</div>
+
+							<div class="rk-stars">★★★★☆</div>
+							<div class="rk-row">
+								<strong>Really recommend</strong>
+								I'd go out of my way to suggest it.
+							</div>
+
+							<div class="rk-stars">★★★★★</div>
+							<div class="rk-row">
+								<strong>Recommend to almost everyone</strong>
+								Fundamentally different. Timeless.
+							</div>
+						</div>
+
+						<div class="scoring-callout">
+							<div class="lbl">A note on scoring</div>
+							To me, 5/5 means 100/100, and 4/5 means 80/100. The space
+							between them is brutal. Some 4-star books feel closer to a
+							4.25–4.5, but I won't round them up. Same issue at 3-stars.
+							The scale doesn't capture the nuance I wish it could, and
+							I blame scoring systems like Goodreads which only allow
+							whole-star ratings.
+						</div>
+
+						<h2>How I review</h2>
+						<p>
+							I take notes while reading. Then Claude interviews me about the book —
+							question by question, pressing until I've said what I actually think. My
+							answers become the transcript; the transcript becomes the draft.
+						</p>
+						<p>
+							I try to write the review I'd want to read three years from now — when I've
+							forgotten most of it and need something to get me back inside the book.
+						</p>
+
+						<h2>The site</h2>
+						<p>
+							Built in Astro and Tailwind. Set in Newsreader and Geist. The shelves you
+							see are real; the recommendations are too.
+						</p>
+					</article>
+				</div>
+			</div>
+
 		</main>
 		<Footer />
 	</body>
 </html>
 
 <style>
-	main {
-		max-width: 800px;
-		margin: 0 auto;
-		padding: 3rem 1rem;
-		min-height: 60vh;
+/* Column order for this page (avatar left, bio right) */
+.avatar-side { order: 1; }
+.bio-side    { order: 2; }
+
+@media (max-width: 880px) {
+	.about-hero .shell {
+		grid-template-columns: 1fr;
 	}
-
-	.about-container {
-		text-align: center;
-	}
-
-	.profile-section {
-		margin-bottom: 2rem;
-	}
-
-	.profile-image {
-		margin: 0 auto 1.5rem auto;
-		width: 200px;
-		height: 200px;
-	}
-
-	.profile-image img {
-		width: 100%;
-		height: 100%;
-		border-radius: 50%;
-		object-fit: cover;
-		border: 4px solid var(--accent);
-		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-	}
-
-	h1 {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: var(--primary);
-		margin: 0;
-		font-family: 'Poppins', 'Inter', 'Helvetica Neue', Arial, sans-serif;
-	}
-
-	.about-content {
-		max-width: 600px;
-		margin: 0 auto;
-		text-align: left;
-		padding: 0 1rem;
-		box-sizing: border-box;
-	}
-
-	.about-content p {
-		font-size: 1.1rem;
-		line-height: 1.6;
-		color: var(--primary);
-		margin-bottom: 1.5rem;
-		word-wrap: break-word;
-		overflow-wrap: break-word;
-	}
-
-	.about-content h2 {
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: var(--primary);
-		margin-top: 2.5rem;
-		margin-bottom: 1rem;
-		font-family: 'Poppins', 'Inter', 'Helvetica Neue', Arial, sans-serif;
-	}
-
-	.rating-guide {
-		margin-bottom: 2rem;
-	}
-
-	.rating-item {
-		font-size: 1rem;
-		line-height: 1.8;
-		color: var(--primary);
-		margin-bottom: 0.75rem;
-	}
-
-	.rating-item strong {
-		color: var(--accent);
-		font-weight: 600;
-	}
-
-	.rating-nuance {
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: var(--primary);
-		margin-top: 1.5rem;
-		padding: 1rem;
-		background: rgba(139, 115, 85, 0.05);
-		border-left: 3px solid var(--accent);
-		border-radius: 4px;
-	}
-
-	.rating-nuance em {
-		font-weight: 600;
-		font-style: normal;
-		color: var(--accent);
-	}
-
-	.connect-section {
-		text-align: center;
-		margin-top: 3rem;
-		padding-top: 2rem;
-		border-top: 1px solid rgba(var(--gray), 0.2);
-	}
-
-	.connect-section p {
-		font-size: 1.1rem;
-		margin: 0;
-	}
-
-	.connect-section a {
-		color: var(--accent);
-		text-decoration: none;
-		font-weight: 600;
-		border-bottom: 2px solid transparent;
-		transition: border-color 0.2s ease;
-	}
-
-	.connect-section a:hover {
-		border-bottom-color: var(--accent);
-	}
-
-	@media (max-width: 768px) {
-		main {
-			padding: 2rem 0.5rem;
-			width: 100%;
-			max-width: 100%;
-			box-sizing: border-box;
-		}
-
-		.about-container {
-			width: 100%;
-			max-width: 100%;
-			box-sizing: border-box;
-		}
-
-		.profile-image {
-			width: 150px;
-			height: 150px;
-		}
-
-		h1 {
-			font-size: 2rem;
-		}
-
-		.about-content {
-			max-width: 100%;
-			padding: 0 1rem;
-		}
-
-		.about-content p {
-			font-size: 1rem;
-			text-align: center;
-			hyphens: auto;
-			word-break: break-word;
-		}
-
-		.about-content h2 {
-			font-size: 1.3rem;
-			text-align: center;
-			margin-top: 2rem;
-		}
-
-		.rating-item {
-			font-size: 0.95rem;
-			text-align: left;
-			margin-bottom: 1rem;
-		}
-
-		.rating-nuance {
-			font-size: 0.9rem;
-			text-align: left;
-			padding: 0.75rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		main {
-			padding: 1.5rem 0.75rem;
-		}
-
-		.profile-image {
-			width: 120px;
-			height: 120px;
-		}
-
-		h1 {
-			font-size: 1.8rem;
-		}
-
-		.about-content {
-			padding: 0 0.5rem;
-		}
-
-		.about-content p {
-			font-size: 0.95rem;
-			line-height: 1.5;
-		}
-	}
+	.avatar-side { order: 2; }
+	.bio-side    { order: 1; }
+}
 </style>

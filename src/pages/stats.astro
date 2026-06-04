@@ -1,0 +1,401 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE } from '../consts';
+import { computeStats } from '../utils/stats';
+import { barsSVG, hBarsSVG, splitBarSVG } from '../utils/charts';
+
+const s = computeStats();
+const fmt = (n: number) => n.toLocaleString('en-US');
+const compact = (n: number) => new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(n);
+
+// Palette pairs — must mirror CAT_COLORS / GENDER_COLORS in the client script below.
+const CAT_COLORS = ['var(--accent)', 'var(--ink-2)']; // fiction, nonfiction
+const GENDER_COLORS = ['var(--accent-2)', 'var(--muted)']; // female, male
+
+const pct = (v: number, t: number) => (t ? Math.round((v / t) * 100) : 0);
+const fiction = s.category[0].value;
+const nonfiction = s.category[1].value;
+const female = s.gender[0].value;
+const male = s.gender[1].value;
+
+// Headline figures.
+const cards = [
+	{ num: s.booksRead, label: 'Books read' },
+	{ num: s.uniqueBooks, label: 'Unique books' },
+	{ num: s.uniqueAuthors, label: 'Authors' },
+	{ num: s.pagesRead, label: 'Pages read' },
+	{ num: s.avgPagesPerDay, label: 'Pages / day' },
+	{ num: s.yearsReading, label: 'Years reading' },
+];
+
+// Static, build-time charts.
+const initialTimeline = barsSVG(s.timeline.year.books, {
+	width: 1000, height: 440, color: 'var(--accent)', showValues: true,
+	ariaLabel: 'Books read by year', title: 'Books read by year',
+	desc: s.timeline.year.books.map((b) => `${b.label}: ${b.value}`).join(', '),
+});
+const ratingChart = barsSVG(s.ratings, {
+	width: 560, height: 320, color: 'var(--accent)', showValues: true, yTicks: 4,
+	formatTick: (l) => '★'.repeat(Number(l)),
+	ariaLabel: 'Rating distribution, 1 to 5 stars', title: 'Rating distribution',
+	desc: s.ratings.map((r) => `${r.label} star: ${r.value} books`).join(', '),
+});
+const genreChart = hBarsSVG(s.genres.slice(0, 15), {
+	width: 1000, rowH: 30, labelW: 230, color: 'var(--accent)',
+	ariaLabel: 'Books read by genre, top 15', title: 'Books by genre',
+	desc: s.genres.slice(0, 15).map((g) => `${g.label}: ${g.value}`).join(', '),
+});
+const authorChart = hBarsSVG(s.topAuthors, {
+	width: 1000, rowH: 28, labelW: 250, color: 'var(--accent-2)',
+	ariaLabel: 'Top 25 authors by number of books read', title: 'Most-read authors',
+	desc: s.topAuthors.map((a) => `${a.label}: ${a.value}`).join(', '),
+});
+const catSplit = splitBarSVG(
+	[{ label: 'Fiction', value: fiction, color: CAT_COLORS[0] }, { label: 'Non-fiction', value: nonfiction, color: CAT_COLORS[1] }],
+	{ ariaLabel: `Fiction ${pct(fiction, fiction + nonfiction)}%, non-fiction ${pct(nonfiction, fiction + nonfiction)}%`, title: 'Fiction vs non-fiction' },
+);
+const genderSplit = splitBarSVG(
+	[{ label: 'Female', value: female, color: GENDER_COLORS[0] }, { label: 'Male', value: male, color: GENDER_COLORS[1] }],
+	{ ariaLabel: `Female authors ${pct(female, female + male)}%, male authors ${pct(male, female + male)}%`, title: 'Author gender' },
+);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Stats — ${SITE_TITLE}`} description={`A decade of reading by the numbers: ${fmt(s.booksRead)} books, ${fmt(s.pagesRead)} pages, ${s.firstYear}–${s.lastYear}.`} />
+	</head>
+	<body>
+		<Header />
+		<main class="stats-page">
+
+			<!-- Hero -->
+			<div class="shell">
+				<div class="index-hero">
+					<p class="crumbs">§ Index · Statistics</p>
+					<h1>Reading, by the numbers.</h1>
+					<p>Every book on the shelf, counted and charted — {fmt(s.booksRead)} reads across {s.yearsReading} years, from {s.firstYear} to {s.lastYear}.</p>
+				</div>
+			</div>
+
+			<!-- Headline cards -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="stat-grid">
+						{cards.map((c) => (
+							<div class="stat-card">
+								<div class="stat-num">{compact(c.num)}</div>
+								<div class="stat-label">{c.label}</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+
+			<!-- Reading over time (interactive) -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ OVER TIME</p>
+							<h2>Reading over time</h2>
+						</div>
+					</div>
+
+					<div class="chart-card">
+						<div class="controls">
+							<div class="control-group">
+								<span class="fb-label">Show</span>
+								<div class="fb-seg" id="metric-seg" role="group" aria-label="Metric">
+									<button class="fb-seg-btn is-on" data-metric="books">Books</button>
+									<button class="fb-seg-btn" data-metric="pages">Pages</button>
+									<button class="fb-seg-btn" data-metric="pagesPerDay">Pages / day</button>
+								</div>
+							</div>
+							<div class="control-group">
+								<span class="fb-label">By</span>
+								<div class="fb-seg" id="gran-seg" role="group" aria-label="Granularity">
+									<button class="fb-seg-btn" data-gran="month">Month</button>
+									<button class="fb-seg-btn is-on" data-gran="year">Year</button>
+								</div>
+							</div>
+							<div class="control-group">
+								<span class="fb-label">Split</span>
+								<div class="fb-seg" id="split-seg" role="group" aria-label="Split (books only)">
+									<button class="fb-seg-btn is-on" data-split="none">Total</button>
+									<button class="fb-seg-btn" data-split="category">Fiction / Non</button>
+									<button class="fb-seg-btn" data-split="gender">Author gender</button>
+								</div>
+							</div>
+						</div>
+
+						<p class="chart-title" id="timeline-title">Books read</p>
+						<p class="chart-sub" id="timeline-sub">By year</p>
+						<div class="legend" id="timeline-legend" aria-hidden="true"></div>
+						<div class="chart-holder" id="timeline-chart" set:html={initialTimeline} />
+					</div>
+				</div>
+			</section>
+
+			<!-- Composition -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ WHAT I READ</p>
+							<h2>The makeup of the shelf</h2>
+						</div>
+					</div>
+
+					<div class="comp">
+						<div class="chart-card">
+							<p class="chart-title">Fiction vs non-fiction</p>
+							<p class="chart-sub">{s.uniqueBooks} books</p>
+							<div class="split-holder" set:html={catSplit} />
+							<div class="legend legend--counts">
+								<span class="legend-item"><span class="legend-sw" style={`background:${CAT_COLORS[0]}`}></span>Fiction · {fmt(fiction)} ({pct(fiction, fiction + nonfiction)}%)</span>
+								<span class="legend-item"><span class="legend-sw" style={`background:${CAT_COLORS[1]}`}></span>Non-fiction · {fmt(nonfiction)} ({pct(nonfiction, fiction + nonfiction)}%)</span>
+							</div>
+						</div>
+
+						<div class="chart-card">
+							<p class="chart-title">Authors by gender</p>
+							<p class="chart-sub">{s.uniqueBooks} books</p>
+							<div class="split-holder" set:html={genderSplit} />
+							<div class="legend legend--counts">
+								<span class="legend-item"><span class="legend-sw" style={`background:${GENDER_COLORS[0]}`}></span>Women · {fmt(female)} ({pct(female, female + male)}%)</span>
+								<span class="legend-item"><span class="legend-sw" style={`background:${GENDER_COLORS[1]}`}></span>Men · {fmt(male)} ({pct(male, female + male)}%)</span>
+							</div>
+						</div>
+
+						<div class="chart-card span-2">
+							<p class="chart-title">How I rate</p>
+							<p class="chart-sub">Distribution of {fmt(s.ratings.reduce((a, r) => a + r.value, 0))} star ratings</p>
+							<div class="rating-holder" set:html={ratingChart} />
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Genres -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ GENRES</p>
+							<h2>Books by genre</h2>
+						</div>
+					</div>
+					<div class="chart-card">
+						<div class="rank-holder" set:html={genreChart} />
+					</div>
+				</div>
+			</section>
+
+			<!-- Most-read authors -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ MOST READ</p>
+							<h2>Top 25 authors</h2>
+						</div>
+					</div>
+					<div class="chart-card">
+						<div class="rank-holder" set:html={authorChart} />
+					</div>
+					<p class="footnote">
+						<strong>How these are counted.</strong> Figures come straight from my reading log,
+						rebuilt on every deploy. <em>Books read</em> and <em>Pages read</em> count re-reads
+						({s.reReads} of them), and a re-read lands in <em>each</em> year I read it — so the
+						<em>by-year</em> bars sum to all {fmt(s.booksRead)} reads. The monthly view can only place
+						a book once, at its most-recent finish date, and the distributions count each of the
+						{fmt(s.uniqueBooks)} unique books once.
+						Author gender reflects the authors I read, recorded as a binary in the source data.
+					</p>
+				</div>
+			</section>
+
+		</main>
+		<Footer />
+
+		<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M7 11.5V2.5"/><path d="M3 6.5l4-4 4 4"/>
+			</svg>
+		</button>
+
+		<script type="application/json" id="stats-timeline" set:html={JSON.stringify(s.timeline)} />
+	</body>
+</html>
+
+<style>
+.stats-page { padding-top: clamp(8px, 2vw, 24px); padding-bottom: clamp(40px, 6vw, 80px); }
+.stats-section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: 0; }
+.stats-section:first-of-type { padding-top: clamp(28px, 3vw, 44px); }
+
+/* Headline cards */
+.stat-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: clamp(12px, 1.6vw, 20px);
+}
+@media (min-width: 760px) {
+	.stat-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.stat-card {
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	padding: clamp(18px, 2.2vw, 28px);
+}
+.stat-num {
+	font-family: var(--serif);
+	font-weight: 400;
+	font-size: clamp(34px, 4.4vw, 54px);
+	line-height: 1;
+	letter-spacing: -0.03em;
+	color: var(--accent);
+}
+.stat-label {
+	font-family: var(--mono);
+	font-size: 11px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	color: var(--muted);
+	margin-top: 12px;
+}
+
+/* Chart cards */
+.chart-card {
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	padding: clamp(18px, 2.4vw, 32px);
+}
+.chart-title { font-family: var(--sans); font-weight: 500; font-size: 15px; color: var(--ink); margin: 0; }
+.chart-sub {
+	font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+	color: var(--muted); margin: 4px 0 18px;
+}
+.chart-holder { width: 100%; }
+.rank-holder, .rating-holder, .split-holder { width: 100%; }
+.split-holder { border-radius: 3px; overflow: hidden; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 28px); align-items: center; margin-bottom: 22px; }
+.control-group { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.fb-seg.is-disabled { opacity: 0.4; pointer-events: none; }
+
+/* Legend */
+.legend { display: flex; flex-wrap: wrap; gap: 16px 22px; min-height: 18px; margin-bottom: 14px; }
+.legend--counts { margin-top: 16px; margin-bottom: 0; }
+.legend-item { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-size: 13px; color: var(--ink-2); }
+.legend-sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+
+/* Composition grid */
+.comp { display: grid; gap: clamp(16px, 2.2vw, 24px); grid-template-columns: 1fr; }
+@media (min-width: 760px) {
+	.comp { grid-template-columns: 1fr 1fr; }
+	.comp .span-2 { grid-column: 1 / -1; }
+}
+
+.footnote {
+	font-family: var(--sans); font-size: 13px; line-height: 1.65; color: var(--muted);
+	max-width: 74ch; margin: clamp(26px, 3.4vw, 44px) 0 0; padding-top: 18px; border-top: 1px solid var(--rule);
+}
+.footnote strong { color: var(--ink-2); font-weight: 600; }
+</style>
+
+<script>
+import { barsSVG, stackedBarsSVG } from '../utils/charts';
+
+// Must mirror CAT_COLORS / GENDER_COLORS in the frontmatter above.
+const CAT_COLORS = ['var(--accent)', 'var(--ink-2)'];
+const GENDER_COLORS = ['var(--accent-2)', 'var(--muted)'];
+const META: Record<string, string> = { books: 'Books read', pages: 'Pages read', pagesPerDay: 'Pages per day' };
+
+document.addEventListener('DOMContentLoaded', () => {
+	const dataEl = document.getElementById('stats-timeline');
+	const chartEl = document.getElementById('timeline-chart');
+	const titleEl = document.getElementById('timeline-title');
+	const subEl = document.getElementById('timeline-sub');
+	const legendEl = document.getElementById('timeline-legend');
+	if (!dataEl || !chartEl || !titleEl || !subEl || !legendEl) return;
+
+	const timeline = JSON.parse(dataEl.textContent || '{}');
+	let gran: 'month' | 'year' = 'year';
+	let metric: 'books' | 'pages' | 'pagesPerDay' = 'books';
+	let split: 'none' | 'category' | 'gender' = 'none';
+
+	function renderLegend(kind: 'category' | 'gender' | null) {
+		if (!kind) { legendEl!.innerHTML = ''; legendEl!.setAttribute('aria-hidden', 'true'); return; }
+		const items = kind === 'category'
+			? [['Fiction', CAT_COLORS[0]], ['Non-fiction', CAT_COLORS[1]]]
+			: [['Women', GENDER_COLORS[0]], ['Men', GENDER_COLORS[1]]];
+		legendEl!.innerHTML = items
+			.map(([l, c]) => `<span class="legend-item"><span class="legend-sw" style="background:${c}"></span>${l}</span>`)
+			.join('');
+		legendEl!.setAttribute('aria-hidden', 'false');
+	}
+
+	function render() {
+		const g = timeline[gran];
+		const granLabel = gran === 'year' ? 'By year' : 'By month';
+		const tickFmt = gran === 'month'
+			? (l: string) => (l.endsWith('-01') ? l.slice(0, 4) : '')
+			: (l: string) => l;
+		const showValues = gran === 'year';
+		const baseOpts = { width: 1000, height: 440, formatTick: tickFmt, showValues };
+
+		if (metric === 'books' && split !== 'none') {
+			const data = split === 'category' ? g.byCategory : g.byGender;
+			const colors = split === 'category' ? CAT_COLORS : GENDER_COLORS;
+			const label = split === 'category' ? 'type' : 'author gender';
+			chartEl!.innerHTML = stackedBarsSVG(data, { ...baseOpts, colors, showTotals: showValues, ariaLabel: `Books read ${granLabel.toLowerCase()}, split by ${label}` });
+			subEl!.textContent = `${granLabel} · split by ${label}`;
+			renderLegend(split as 'category' | 'gender');
+		} else {
+			chartEl!.innerHTML = barsSVG(g[metric], { ...baseOpts, color: 'var(--accent)', ariaLabel: `${META[metric]} ${granLabel.toLowerCase()}` });
+			subEl!.textContent = granLabel;
+			renderLegend(null);
+		}
+		titleEl!.textContent = META[metric];
+	}
+
+	function syncSplitState() {
+		const splitSeg = document.getElementById('split-seg');
+		if (!splitSeg) return;
+		const disabled = metric !== 'books';
+		splitSeg.classList.toggle('is-disabled', disabled);
+		splitSeg.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach((b) => { b.disabled = disabled; });
+		if (disabled && split !== 'none') {
+			split = 'none';
+			splitSeg.querySelectorAll('.fb-seg-btn').forEach((b) =>
+				(b as HTMLElement).classList.toggle('is-on', (b as HTMLElement).dataset.split === 'none'));
+		}
+	}
+
+	function setupSeg(id: string, onPick: (btn: HTMLElement) => void) {
+		const group = document.getElementById(id);
+		if (!group) return;
+		group.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				if (btn.disabled) return;
+				group.querySelectorAll('.fb-seg-btn').forEach((b) => b.classList.remove('is-on'));
+				btn.classList.add('is-on');
+				onPick(btn);
+			});
+		});
+	}
+
+	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); render(); });
+	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); render(); });
+	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); render(); });
+
+	syncSplitState();
+	render();
+});
+</script>

@@ -3,17 +3,53 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { SITE_TITLE, SITE_DESCRIPTION, CURRENTLY_READING_NOTES } from '../consts';
+import currentlyReadingData from '../data/currently-reading.json';
 import { getCollection } from 'astro:content';
 import { getBlogUrl } from '../utils/blog';
 
-// Get all published posts and sort by date
 const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
-const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sorted   = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-// Get 4 most recent book reviews and 4 most recent lists
-const bookReviews = sortedPosts.filter(post => post.data.postType === 'review').slice(0, 4);
-const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slice(0, 4);
+const reviews  = sorted.filter(p => p.data.postType === 'review');
+const lists    = sorted.filter(p => p.data.postType === 'list');
+
+const hero          = reviews[0];
+const recentReviews = reviews.slice(1, 5);   // 4 after hero
+const featuredList  = lists[0];
+const moreLists     = lists.slice(1, 3);
+const fiveStars     = reviews.filter(p => p.data.rating === 5).slice(0, 8);
+
+// Deterministic cover colour for placeholder covers
+const COVER_COLORS = [
+	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
+	{ bg: '#1e3a4a', ink: '#d8cdb8' }, { bg: '#4a3728', ink: '#f3e8d8' },
+	{ bg: '#3d3a28', ink: '#d8cdb8' }, { bg: '#2a3d4a', ink: '#f3e8d8' },
+	{ bg: '#5a2d45', ink: '#f3e8d8' }, { bg: '#3a4a2d', ink: '#d8cdb8' },
+	{ bg: '#7d3a28', ink: '#f3e8d8' }, { bg: '#283a5a', ink: '#d8cdb8' },
+];
+function cc(seed: string) {
+	let h = 0;
+	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
+	return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
+}
+
+// Currently reading: book auto-synced from the Goodreads export (most-recent first),
+// merged with the hand-written notes (blurb / progress / cover colours) from consts.
+type CurrentBook = { goodreadsId: string; title: string; author: string; coverUrl: string | null };
+const crBook = (currentlyReadingData as CurrentBook[])[0];
+const crNotes = crBook ? (CURRENTLY_READING_NOTES[crBook.goodreadsId] ?? {}) : {};
+const crFallback = crBook ? cc(crBook.title) : null;
+const currentlyReading = crBook && crFallback ? {
+	title: crBook.title,
+	author: crBook.author,
+	cover: crBook.coverUrl,
+	blurb: crNotes.blurb ?? '',
+	progress: crNotes.progress ?? '',
+	coverBg: crNotes.coverBg ?? crFallback.bg,
+	coverInk: crNotes.coverInk ?? crFallback.ink,
+	url: crNotes.url ?? '',
+} : null;
 ---
 
 <!doctype html>
@@ -24,425 +60,311 @@ const bookLists = sortedPosts.filter(post => post.data.postType === 'list').slic
 	<body>
 		<Header />
 		<main>
-			<!-- Recent Book Reviews -->
-			{bookReviews.length > 0 && (
-				<section class="recent-books">
-					<div class="section-header">
-						<h2>Recent Book Reviews</h2>
-					</div>
-					<div class="books-row">
-						{bookReviews.map((post) => (
-							<article class="book-item">
-								<a href={getBlogUrl(post.id)} class="book-link">
-									<div class="book-cover">
-										{post.data.heroImage ? (
-											<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
-										) : (
-											<div class="placeholder-book">
-												<span>📖</span>
-											</div>
-										)}
+
+			{/* ── Hero: latest review ─────────────────────────── */}
+			{hero && (
+				<section class="hero shell">
+					<div class="hero-grid">
+						<div class="hero-head">
+							<p class="hero-eyebrow">
+								<span>§ LATEST REVIEW</span>
+								<span>·</span>
+								<span><FormattedDate date={hero.data.pubDate} /></span>
+							</p>
+							<h1>
+								<a href={getBlogUrl(hero.id)}>{hero.data.bookTitle || hero.data.title}</a>
+							</h1>
+						</div>
+
+						<div class="hero-body">
+							{hero.data.rating && (
+								<div class="hero-rating-row">
+									<span class="rating" aria-label={`${hero.data.rating} out of 5`}>
+										{Array.from({ length: 5 }, (_, i) => (
+											<svg class="star" viewBox="0 0 16 16" fill={i < hero.data.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
+												<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+											</svg>
+										))}
+									</span>
+									{hero.data.author && <span class="hero-by">{hero.data.author}</span>}
+								</div>
+							)}
+
+							{hero.data.description && (
+								<p class="lede">{hero.data.description}</p>
+							)}
+
+							<a href={getBlogUrl(hero.id)} class="hero-cta">
+								Read the review
+								<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+									<path d="M2.5 7h9M7.5 3l4 4-4 4"/>
+								</svg>
+							</a>
+						</div>
+
+						<div class="hero-cover">
+							<a href={getBlogUrl(hero.id)} aria-hidden="true" tabindex="-1">
+								{hero.data.heroImage ? (
+									<div class="cover cover-photo">
+										<img src={hero.data.heroImage} alt={hero.data.bookTitle || hero.data.title} />
 									</div>
-									<div class="book-details">
-										<h3 class="book-title">{post.data.bookTitle || post.data.title}</h3>
-										<p class="book-description">{post.data.description}</p>
-										<div class="book-meta">
-											{post.data.rating && (
-												<div class="rating-small">
-													{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
-												</div>
-											)}
-											<FormattedDate date={post.data.pubDate} />
+								) : (() => {
+									const c = cc(hero.data.bookTitle || hero.data.title);
+									return (
+										<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+											<div class="spine"></div>
+											<div class="gloss"></div>
+											<div class="cover-sub">{hero.data.author}</div>
+											<div class="cover-label">{(hero.data.bookTitle || hero.data.title).toUpperCase()}</div>
 										</div>
-									</div>
-								</a>
-							</article>
-						))}
-					</div>
-					<div class="see-more-container">
-						<a href="/book-reviews" class="see-more-link">See All Book Reviews →</a>
+									);
+								})()}
+							</a>
+						</div>
 					</div>
 				</section>
 			)}
 
-
-			<!-- Featured Lists -->
-			{bookLists.length > 0 && (
-				<section class="featured-lists">
-					<div class="section-header">
-						<h2>Featured Lists</h2>
+			{/* ── Signature list ──────────────────────────────── */}
+			{featuredList && (
+				<section class="signature-list-band">
+					<div class="shell">
+						<a href={getBlogUrl(featuredList.id)} class="signature-list">
+							<div class="sl-body">
+								<p class="sl-eyebrow">§ A FEATURE · THE FLAGSHIP LIST</p>
+								<h2>{featuredList.data.title}</h2>
+								{featuredList.data.description && (
+									<p>{featuredList.data.description}</p>
+								)}
+								<span class="sl-cta">See the full list →</span>
+							</div>
+							<div class="sl-stack">
+								{lists.slice(0, 4).map((l, i) => {
+									const c = cc(l.data.title);
+									const rotations = [-4, 2, -2, 5];
+									return l.data.heroImage ? (
+										<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+											<img src={l.data.heroImage} alt={l.data.title} />
+										</div>
+									) : (
+										<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+											<div class="spine"></div>
+											<div class="gloss"></div>
+											<div class="cover-label">{l.data.title.toUpperCase()}</div>
+										</div>
+									);
+								})}
+							</div>
+						</a>
 					</div>
-					<div class="lists-row">
-						{bookLists.map((post) => (
-							<article class="list-item">
-								<a href={getBlogUrl(post.id)} class="list-link">
-									<div class="list-image">
+				</section>
+			)}
+
+			{/* ── Recent reading ───────────────────────────────── */}
+			{recentReviews.length > 0 && (
+				<section class="section">
+					<div class="shell">
+						<div class="section-head">
+							<div>
+								<p class="index-num">§ RECENT READING</p>
+								<h2>Recent reading</h2>
+							</div>
+							<a href="/book-reviews" class="more">All reviews →</a>
+						</div>
+						<div class="rev-grid" id="recent-grid">
+							{recentReviews.map((post) => {
+								const c = cc(post.data.bookTitle || post.data.title);
+								return (
+									<a href={getBlogUrl(post.id)} class="rev-card">
 										{post.data.heroImage ? (
-											<img src={post.data.heroImage} alt={post.data.title} />
+											<div class="cover cover-photo">
+												<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+											</div>
 										) : (
-											<div class="placeholder-list">
-												<span>📚</span>
+											<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+												<div class="spine"></div>
+												<div class="gloss"></div>
+												<div class="cover-sub">{post.data.author}</div>
+												<div class="cover-label">{(post.data.bookTitle || post.data.title).toUpperCase()}</div>
 											</div>
 										)}
-									</div>
-									<div class="list-details">
-										<h3 class="list-title">{post.data.title}</h3>
-										<p class="list-description">{post.data.description}</p>
-										<div class="list-meta">
-											<FormattedDate date={post.data.pubDate} />
+										<div class="rc-meta">
+											<h3>{post.data.bookTitle || post.data.title}</h3>
+											{post.data.author && <span class="rc-author">{post.data.author}</span>}
+											{post.data.rating && (
+												<span class="rating" aria-label={`${post.data.rating} out of 5`}>
+													{Array.from({ length: 5 }, (_, i) => (
+														<svg class="star" viewBox="0 0 16 16" fill={i < post.data.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
+															<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+														</svg>
+													))}
+												</span>
+											)}
+											{post.data.description && (
+												<p class="rc-blurb">{post.data.description}</p>
+											)}
+											<div class="rc-foot">
+												<FormattedDate date={post.data.pubDate} />
+											</div>
 										</div>
-									</div>
-								</a>
-							</article>
-						))}
+									</a>
+								);
+							})}
+						</div>
 					</div>
-					<div class="see-more-container">
-						<a href="/my-lists" class="see-more-link">See All My Lists →</a>
+				</section>
+			)}
+
+			{/* ── Currently reading band ──────────────────────── */}
+			{currentlyReading && (
+			<section class="band band--ink now-reading">
+				<div class="shell">
+					<div>
+						<p class="label">
+							<span class="dot"></span>
+							Currently reading
+							{currentlyReading.progress && <span class="cr-progress">· {currentlyReading.progress}</span>}
+						</p>
+						<h2>
+							{currentlyReading.url
+								? <a href={currentlyReading.url} style="color:inherit">{currentlyReading.title}</a>
+								: currentlyReading.title}
+						</h2>
+						<p class="cr-by">{currentlyReading.author}</p>
+						{currentlyReading.blurb && <p>{currentlyReading.blurb}</p>}
+					</div>
+					{currentlyReading.cover ? (
+						<div class="cover cover-photo">
+							<img src={currentlyReading.cover} alt={`${currentlyReading.title} cover`} />
+						</div>
+					) : (
+						<div class="cover" style={`background:${currentlyReading.coverBg};color:${currentlyReading.coverInk}`}>
+							<div class="spine"></div>
+							<div class="gloss"></div>
+							<div class="cover-sub">{currentlyReading.author}</div>
+							<div class="cover-label">{currentlyReading.title.toUpperCase()}</div>
+						</div>
+					)}
+				</div>
+			</section>
+			)}
+
+			{/* ── Featured lists strip ─────────────────────────── */}
+			{lists.length > 0 && (
+				<section class="section band--shelf">
+					<div class="shell">
+						<div class="section-head">
+							<div>
+								<p class="index-num">§ CURATED LISTS</p>
+								<h2>Books, ranked</h2>
+							</div>
+							<a href="/my-lists" class="more">All lists →</a>
+						</div>
+						<div class="lists-strip">
+							{lists.slice(0, 3).map((post, i) => {
+								const c = cc(post.data.title);
+								return (
+									<a href={getBlogUrl(post.id)} class={`list-card${i === 0 ? ' is-hero' : ''}`}>
+										<span class="lc-num">List {String(i + 1).padStart(2, '0')}</span>
+										<h3>{post.data.title}</h3>
+										{post.data.description && <p>{post.data.description}</p>}
+										<div class="lc-foot">
+											<FormattedDate date={post.data.pubDate} />
+											<span class="lc-arrow">→</span>
+										</div>
+									</a>
+								);
+							})}
+						</div>
+					</div>
+				</section>
+			)}
+
+			{/* ── 5-star shelf ─────────────────────────────────── */}
+			{fiveStars.length > 0 && (
+				<section class="section band--shelf-curated">
+					<div class="shell">
+						<div class="section-head">
+							<div>
+								<p class="index-num">§ THE FIVE-STAR SHELF</p>
+								<h2>From the 5-star shelf</h2>
+							</div>
+							<a href="/book-reviews?rating=5" class="more">See all →</a>
+						</div>
+						<div class="shelf-grid">
+							{fiveStars.map((post) => {
+								const c = cc(post.data.bookTitle || post.data.title);
+								return (
+									<a href={getBlogUrl(post.id)} class="shelf-card">
+										{post.data.heroImage ? (
+											<div class="cover cover-photo">
+												<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
+											</div>
+										) : (
+											<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+												<div class="spine"></div>
+												<div class="gloss"></div>
+												<div class="cover-label">{(post.data.bookTitle || post.data.title).toUpperCase()}</div>
+											</div>
+										)}
+										<h4>{post.data.bookTitle || post.data.title}</h4>
+										{post.data.author && <span class="sc-author">{post.data.author}</span>}
+									</a>
+								);
+							})}
+						</div>
 					</div>
 				</section>
 			)}
 
 		</main>
 		<Footer />
+
+		<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M7 11.5V2.5"/><path d="M3 6.5l4-4 4 4"/>
+			</svg>
+		</button>
 	</body>
 </html>
 
 <style>
-		/* Section Headers */
-	.section-header {
-		margin-bottom: 1rem;
-	}
+/* Hero link styles */
+.hero h1 a { color: inherit; text-decoration: none; }
+.hero h1 a:hover { color: var(--accent); }
 
-	.section-header h2 {
-		font-size: 1.6rem;
-		font-weight: 700;
-		color: var(--primary);
-		margin: 0;
-		padding-bottom: 0.5rem;
-		border-bottom: 2px solid var(--accent);
-	}
+/* 5-star shelf band */
+.band--shelf-curated {
+	background: var(--bg-2);
+}
 
-	/* Main Layout */
-	main {
-		max-width: 1400px;
+/* Mobile */
+@media (max-width: 720px) {
+	.hero-grid {
+		grid-template-columns: 1fr;
+		gap: 24px;
+	}
+	.hero-grid .hero-cover {
+		max-width: 160px;
 		margin: 0 auto;
-		padding: 1rem 1rem;
-		width: 100%;
-		box-sizing: border-box;
-		overflow-x: hidden;
+		grid-column: 1;
+		grid-row: 1;
 	}
+	.hero-grid .hero-head { grid-row: 2; }
+	.hero-grid .hero-body { grid-row: 3; }
+}
 
-
-	/* Recent Books Row */
-	.recent-books {
-		margin-bottom: 2.5rem;
-		padding-bottom: 1rem;
-	}
-
-	.books-row {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 3rem;
-	}
-
-		.book-item {
-		transition: transform 0.2s ease;
-	}
-
-	.book-item:hover {
-		transform: translateY(-4px);
-	}
-
-	.book-item:hover .book-cover img {
-		box-shadow: 0 12px 32px rgba(var(--black), 0.2);
-	}
-
-	.book-link {
-		text-decoration: none;
-		color: inherit;
-		display: block;
-	}
-
-	.book-cover {
-		width: 100%;
-		margin-bottom: 1rem;
-	}
-
-	.book-cover img {
-		width: 100%;
-		height: auto;
-		aspect-ratio: 2/3;
-		object-fit: cover;
-		border-radius: 8px;
-		box-shadow: 0 8px 24px rgba(var(--black), 0.15);
-	}
-
-	.placeholder-book {
-		width: 100%;
-		aspect-ratio: 2/3;
-		background: linear-gradient(135deg, rgba(var(--gray-light), 0.4), rgba(var(--accent), 0.1));
-		border-radius: 8px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 2.5rem;
-		color: rgba(var(--gray), 0.6);
-	}
-
-	.book-title {
-		font-size: 1rem;
-		font-weight: 700;
-		margin-bottom: 0.75rem;
-		color: var(--primary);
-		line-height: 1.2;
-		height: 2.4em;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-
-	.book-description {
-		font-size: 0.85rem;
-		color: rgba(var(--gray-dark), 0.8);
-		line-height: 1.4;
-		margin: 0 0 0.75rem 0;
-		height: 4.2em;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-	}
-
-	.book-meta {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		font-size: 0.8rem;
-		color: rgba(var(--gray-dark), 0.7);
-		margin-top: auto;
-	}
-
-	.rating-small {
-		font-size: 0.8rem;
-		color: #fbbf24;
-		letter-spacing: 0.05em;
-	}
-
-	.book-details {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-
-	/* See More Links */
-	.see-more-container {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 1.25rem;
-		padding-right: 1rem;
-	}
-
-	.see-more-link {
-		color: var(--accent);
-		text-decoration: none;
-		font-weight: 500;
-		font-size: 0.95rem;
-		transition: color 0.2s ease;
-	}
-
-	.see-more-link:hover {
-		color: var(--primary);
-		text-decoration: underline;
-	}
-
-	/* Featured Lists Row */
-	.featured-lists {
-		margin-bottom: 1.5rem;
-		padding-bottom: 1rem;
-	}
-
-	.lists-row {
-		display: grid;
-		grid-template-columns: repeat(4, 1fr);
-		gap: 3rem;
-	}
-
-		.list-item {
-		transition: transform 0.2s ease;
-	}
-
-	.list-item:hover {
-		transform: translateY(-4px);
-	}
-
-	.list-item:hover .list-image img {
-		box-shadow: 0 10px 28px rgba(var(--black), 0.18);
-	}
-
-	.list-link {
-		text-decoration: none;
-		color: inherit;
-		display: block;
-	}
-
-	.list-image {
-		width: 100%;
-		margin-bottom: 1rem;
-	}
-
-	.list-image img {
-		width: 100%;
-		height: auto;
-		aspect-ratio: 2/3;
-		object-fit: cover;
-		border-radius: 6px;
-		box-shadow: 0 6px 18px rgba(var(--black), 0.12);
-	}
-
-	.placeholder-list {
-		width: 100%;
-		aspect-ratio: 2/3;
-		background: linear-gradient(135deg, rgba(var(--gray-light), 0.4), rgba(var(--gray), 0.1));
-		border-radius: 6px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 2rem;
-		color: rgba(var(--gray), 0.6);
-	}
-
-	.list-title {
-		font-size: 1rem;
-		font-weight: 700;
-		margin-bottom: 0.75rem;
-		color: var(--primary);
-		line-height: 1.2;
-		height: 2.4em;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-
-	.list-description {
-		font-size: 0.85rem;
-		color: rgba(var(--gray-dark), 0.8);
-		line-height: 1.4;
-		margin: 0 0 0.75rem 0;
-		height: 4.2em;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
-	}
-
-	.list-meta {
-		font-size: 0.8rem;
-		color: rgba(var(--gray-dark), 0.7);
-		margin-top: auto;
-	}
-
-	.list-details {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-	}
-
-	/* Mobile Layout */
-	@media (max-width: 768px) {
-		main {
-			padding: 1rem 1rem;
-		}
-
-		/* Mobile Latest Book */
-		.latest-link {
-			flex-direction: column;
-			gap: 1.5rem;
-			text-align: center;
-		}
-
-		.latest-cover {
-			width: 180px;
-			margin: 0 auto;
-		}
-
-		.placeholder-large {
-			width: 180px;
-			height: 270px;
-			margin: 0 auto;
-		}
-
-		.latest-info h1 {
-			font-size: 2rem;
-		}
-
-		.latest-info .book-author {
-			font-size: 1rem;
-		}
-
-		/* Mobile Recent Books - Show 2x2 grid (4 posts) */
-		.books-row {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1rem;
-		}
-
-		/* Show all 4 posts on tablet/mobile */
-		.book-item {
-			display: block;
-		}
-
-		/* Mobile Lists - Show 2x2 grid (4 lists) */
-		.lists-row {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 1rem;
-		}
-
-		/* Show all 4 lists on tablet/mobile */
-		.list-item {
-			display: block;
-		}
-
-		.book-cover img, .placeholder-book, .list-image img, .placeholder-list {
-			height: auto;
-		}
-
-		.book-title, .list-title {
-			font-size: 0.85rem;
-			height: 2.6em;
-			-webkit-line-clamp: 2;
-		}
-
-		.book-description, .list-description {
-			font-size: 0.75rem;
-			height: 2.8em;
-			-webkit-line-clamp: 2;
-		}
-	}
-
-	@media (max-width: 480px) {
-		main {
-			padding: 0.5rem 0.75rem;
-		}
-		
-		/* Keep 2x2 grid on phones */
-		.books-row {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 0.75rem;
-		}
-
-		/* Show all 4 posts on phone */
-		.book-item {
-			display: block;
-		}
-
-		.lists-row {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-		}
-
-		.list-item:nth-child(n+2) {
-			display: none;
-		}
-	}
+@media (max-width: 520px) {
+	.hero-grid .hero-cover { max-width: 140px; }
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	const btn = document.getElementById('back-to-top');
+	if (btn) {
+		window.addEventListener('scroll', () => btn.classList.toggle('is-visible', window.scrollY > 600), { passive: true });
+		btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+	}
+});
+</script>

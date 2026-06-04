@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "shelf": "node scripts/build-shelf.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.0",
@@ -14,7 +15,11 @@
     "@astrojs/sitemap": "^3.4.1",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.11.0",
+    "fuse.js": "^7.4.1",
     "sharp": "^0.34.2",
     "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
   }
 }

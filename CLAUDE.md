@@ -17,7 +17,20 @@ npm run build
 
 # Preview production build locally
 npm run preview
+
+# Regenerate the /book-reviews shelf data + covers from book-analysis/website-books.xlsx
+npm run shelf
 ```
+
+## Bookshelf & covers
+
+The `/book-reviews` page lists **every book read** (reviewed → clickable, others → "review
+coming soon"), built from `book-analysis/website-books.xlsx` via `scripts/build-shelf.mjs`
+(`npm run shelf` → `src/data/shelf.json` → `src/utils/shelf.ts`). Covers are managed in that
+spreadsheet's `Cover URL` column. **See [`COVERS.md`](./COVERS.md) for the full workflow** —
+how covers resolve (`Review`/`Mine`/`Claude`/`None`), editing review covers via `.md`
+`heroImage`, and `--reseed`/`--refresh`. The analysis workbook is read only on first run /
+`--reseed`; `npm run shelf` overwrites `website-books.xlsx`, so close it first.
 
 ## Architecture
 

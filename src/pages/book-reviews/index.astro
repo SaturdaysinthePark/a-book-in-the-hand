@@ -2,759 +2,823 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
-import { filterDisplayTags } from '../../utils/blog';
+import { getCollection } from 'astro:content';
+import { buildShelf } from '../../utils/shelf';
 
-const allPosts = (await getCollection('blog', ({ data }) => data.status === 'live')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+// Live reviews join the Goodreads shelf (src/data/shelf.json) to produce one
+// card per book read: reviewed → clickable, otherwise "review coming soon".
+const reviews = (await getCollection('blog', ({ data }) => data.status === 'live'))
+	.filter(p => p.data.postType === 'review');
 
-// Filter to only book reviews (not lists)
-const posts = allPosts.filter(post => post.data.postType === 'review');
+const { cards, total, reviewedCount } = buildShelf(reviews);
 
-// Build a set of author name slugs to exclude from tags
-const authorSlugs = new Set(
-	posts
-		.filter(post => post.data.author)
-		.map(post => post.data.author!.toLowerCase().replace(/\s+/g, '-'))
-);
-
-// Extract dynamic tag data, excluding junk tags
-const tagCounts: Record<string, number> = {};
-posts.forEach(post => {
-	filterDisplayTags(post.data.tags || [], authorSlugs).forEach(tag => {
-		tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-	});
-});
-const popularTags = Object.entries(tagCounts)
-	.sort((a, b) => b[1] - a[1])
-	.map(([tag]) => tag)
-	.slice(0, 6);
-const otherTags = Object.entries(tagCounts)
-	.sort((a, b) => b[1] - a[1])
-	.map(([tag]) => tag)
-	.filter(tag => !popularTags.includes(tag));
-
-// Extract dynamic author data
+// Author list for filter combobox (across the whole shelf, reviewed or not)
 const authorCounts: Record<string, number> = {};
-posts.forEach(post => {
-	if (post.data.author) {
-		authorCounts[post.data.author] = (authorCounts[post.data.author] || 0) + 1;
-	}
-});
-const sortedAuthors = Object.entries(authorCounts)
-	.sort((a, b) => b[1] - a[1])
-	.map(([author]) => author);
-const popularAuthors = sortedAuthors.slice(0, 8);
-const otherAuthors = sortedAuthors.slice(8);
+cards.forEach(c => { if (c.author) authorCounts[c.author] = (authorCounts[c.author] || 0) + 1; });
+const authors = Object.keys(authorCounts).sort();
+
+// Subgenre list from shelf data, sorted alphabetically
+const subgenreSet = new Set<string>();
+cards.forEach(c => c.subgenres.forEach(s => subgenreSet.add(s)));
+const allSubgenres = [...subgenreSet].sort();
+
+// Per-year counts for the client rail (grouped by year read)
+const yearCounts: Record<string, number> = {};
+cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] || 0) + 1; });
+
+// Cover colors
+const COVER_COLORS = [
+	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
+	{ bg: '#1e3a4a', ink: '#d8cdb8' }, { bg: '#4a3728', ink: '#f3e8d8' },
+	{ bg: '#3d3a28', ink: '#d8cdb8' }, { bg: '#2a3d4a', ink: '#f3e8d8' },
+	{ bg: '#5a2d45', ink: '#f3e8d8' }, { bg: '#3a4a2d', ink: '#d8cdb8' },
+	{ bg: '#7d3a28', ink: '#f3e8d8' }, { bg: '#283a5a', ink: '#d8cdb8' },
+];
+function cc(seed: string) {
+	let h = 0;
+	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
+	return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
+}
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Book Reviews - A Book in the Hand" description="Discover my latest book reviews and reading recommendations" />
+		<BaseHead title="All Book Reviews — The Brooklyn Reader" description="Every book I've reviewed, filterable by genre, author, and tag." />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="page-header">
-				<h1>All my book reviews</h1>
-			</div>
-			<div class="layout-container">
-				<!-- Sidebar Filters -->
-				<aside class="sidebar-filters">
-					<div class="filter-header">
-						<h3>Filter Reviews</h3>
-						<button class="mobile-filter-toggle" id="mobile-filter-toggle" aria-label="Toggle Filters">
-							<svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-								<polyline points="6,9 12,15 18,9"></polyline>
-							</svg>
-						</button>
-					</div>
-					<div class="filter-content" id="filter-content">
 
-					<!-- Primary Genre Filters -->
-					<div class="filter-section">
-						<h4>Genre</h4>
-						<div class="filter-group">
-							<button class="filter-btn active" data-filter="all" data-type="genre">All</button>
-							<button class="filter-btn" data-filter="fiction" data-type="genre">Fiction</button>
-							<button class="filter-btn" data-filter="nonfiction" data-type="genre">Nonfiction</button>
-						</div>
-					</div>
-
-					<!-- Author Filters -->
-					{popularAuthors.length > 0 && (
-						<div class="filter-section">
-							<h4>Authors</h4>
-							<div class="tag-group">
-								{popularAuthors.map(author => (
-									<button class="tag-btn" data-author={author}>{author}</button>
-								))}
-							</div>
-							{otherAuthors.length > 0 && (
-								<button class="show-more-tags" id="show-more-authors">Show More Authors →</button>
-							)}
-						</div>
-					)}
-
-					<!-- All Authors (Initially Hidden) -->
-					{otherAuthors.length > 0 && (
-						<div class="filter-section all-authors-section" id="all-authors-section" style="display: none;">
-							<h4>All Authors</h4>
-							<div class="tag-group">
-								{otherAuthors.map(author => (
-									<button class="tag-btn" data-author={author}>{author}</button>
-								))}
-							</div>
-							<button class="show-more-tags" id="show-less-authors">← Show Less</button>
-						</div>
-					)}
-
-					<!-- Popular Tags -->
-					<div class="filter-section">
-						<h4>Popular Tags</h4>
-						<div class="tag-group">
-							{popularTags.map(tag => (
-								<button class="tag-btn" data-tag={tag}>{tag}</button>
-							))}
-						</div>
-						{otherTags.length > 0 && (
-							<button class="show-more-tags" id="show-more-tags">Show More Tags →</button>
-						)}
-					</div>
-
-					<!-- All Tags (Initially Hidden) -->
-					{otherTags.length > 0 && (
-						<div class="filter-section all-tags-section" id="all-tags-section" style="display: none;">
-							<h4>All Tags</h4>
-							<div class="tag-group all-tags">
-								{otherTags.map(tag => (
-									<button class="tag-btn" data-tag={tag}>{tag}</button>
-								))}
-							</div>
-							<button class="show-more-tags" id="show-less-tags">← Show Less</button>
-						</div>
-					)}
-
-					<!-- Clear Filters -->
-					<button class="clear-filters" id="clear-filters">Clear All Filters</button>
-					</div>
-				</aside>
-
-				<!-- Posts Gallery -->
-				<div class="posts-gallery">
-					{posts.map((post) => (
-						<article class="post-item" data-tags={post.data.tags ? post.data.tags.join('|') : ''} data-genre={post.data.genre ? post.data.genre.toLowerCase() : ''} data-author={post.data.author ? post.data.author.toLowerCase() : ''}>
-							<a href={`/blog/${post.id.replace(/\/(\d{2})-/, '/$1/')}/`} class="post-link">
-								<div class="post-image">
-									{post.data.heroImage ? (
-										<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
-									) : (
-										<div class="placeholder-image">
-											<span>📖</span>
-										</div>
-									)}
-								</div>
-								<div class="post-info">
-									<h3>{post.data.bookTitle || post.data.title}</h3>
-									{post.data.author && (
-										<div class="post-author">{post.data.author}</div>
-									)}
-									{post.data.rating && (
-										<div class="rating">
-											{'★'.repeat(post.data.rating)}{'☆'.repeat(5 - post.data.rating)}
-										</div>
-									)}
-									<div class="post-date">
-										<FormattedDate date={post.data.pubDate} />
-									</div>
-								</div>
-							</a>
-						</article>
-					))}
+			<!-- Page header -->
+			<div class="shell">
+				<div class="index-hero">
+					<p class="crumbs">§ THE BOOKSHELF · {total} BOOKS READ · {reviewedCount} REVIEWED</p>
+					<h1>Every book I've read.</h1>
 				</div>
 			</div>
+
+			<!-- Filter bar (sticky) -->
+			<div class="filter-bar-wrap" id="filter-bar-wrap">
+				<div class="shell filter-bar">
+
+						<!-- Single row: count / genre / author / tag / sort / view / hide -->
+						<div class="fb-row">
+
+							<!-- Persistent toggle — anchored left, never moves -->
+							<button class="fb-collapse-btn fb-toggle" id="fb-toggle-btn" title="Hide filters">− Hide</button>
+
+							<div class="fb-divider"></div>
+
+							<!-- Live result count -->
+							<span class="fb-count" id="result-count">
+								<span id="count-num">{total}</span>
+								<span> books · </span>
+								<span id="reviewed-num">{reviewedCount}</span>
+								<span> reviewed</span>
+							</span>
+
+							<!-- Collapsible controls -->
+							<div class="fb-controls" id="fb-controls">
+								<div class="fb-divider"></div>
+
+								<div class="fb-seg" id="genre-seg" role="group" aria-label="Genre filter">
+									<button class="fb-seg-btn is-on" data-genre="all">All</button>
+									<button class="fb-seg-btn" data-genre="fiction">Fiction</button>
+									<button class="fb-seg-btn" data-genre="nonfiction">Nonfiction</button>
+								</div>
+
+								<div class="fb-combo" id="subgenre-combo">
+									<button class="fb-combo-btn" id="subgenre-combo-btn" aria-haspopup="listbox" aria-expanded="false">
+										<span class="fb-combo-pill">Genre</span>
+										<span class="fb-combo-value" id="subgenre-combo-value">Any</span>
+										<span class="fb-combo-x" aria-label="Clear genre filter">×</span>
+										<svg class="fb-combo-caret" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4">
+											<path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+									<div class="fb-combo-pop" id="subgenre-combo-pop" style="display:none" role="listbox">
+										<div class="fb-combo-search-wrap">
+											<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5.5" cy="5.5" r="3.5"/><line x1="8.2" y1="8.2" x2="11" y2="11" stroke-linecap="round"/></svg>
+											<input class="fb-combo-search" type="text" placeholder="Search genres…" autocomplete="off" />
+										</div>
+										<div class="fb-combo-list" id="subgenre-combo-list">
+											{allSubgenres.map(s => (
+												<button class="fb-combo-opt" role="option" data-subgenre={s}>
+													{s.charAt(0).toUpperCase() + s.slice(1)}
+													<svg class="fb-combo-check" style="display:none" width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 6.5l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+												</button>
+											))}
+										</div>
+									</div>
+								</div>
+
+								<div class="fb-divider"></div>
+
+								<div class="fb-seg" id="status-seg" role="group" aria-label="Review status filter">
+									<button class="fb-seg-btn is-on" data-status="reviewed">Reviewed</button>
+									<button class="fb-seg-btn" data-status="all">Entire Shelf</button>
+								</div>
+
+								<div class="fb-divider"></div>
+
+								<div class="fb-combo" id="author-combo">
+									<button class="fb-combo-btn" id="author-combo-btn" aria-haspopup="listbox" aria-expanded="false">
+										<span class="fb-combo-pill">Author</span>
+										<span class="fb-combo-value" id="author-combo-value">Any</span>
+										<span class="fb-combo-x" aria-label="Clear author filter">×</span>
+										<svg class="fb-combo-caret" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4">
+											<path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</button>
+									<div class="fb-combo-pop" id="author-combo-pop" style="display:none" role="listbox">
+										<div class="fb-combo-search-wrap">
+											<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="5.5" cy="5.5" r="3.5"/><line x1="8.2" y1="8.2" x2="11" y2="11" stroke-linecap="round"/></svg>
+											<input class="fb-combo-search" type="text" placeholder="Search authors…" autocomplete="off" />
+										</div>
+										<div class="fb-combo-list" id="author-combo-list">
+											{authors.map(a => (
+												<button class="fb-combo-opt" role="option" data-author={a}>
+													{a}
+													<svg class="fb-combo-check" style="display:none" width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 6.5l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+												</button>
+											))}
+										</div>
+									</div>
+								</div>
+
+								<div class="fb-spacer"></div>
+
+								<!-- Sort -->
+								<div class="fb-group fb-sort">
+									<span class="fb-label">Sort</span>
+									<div class="fb-select-wrap">
+										<select id="sort-select">
+											<option value="date-desc">Recently read</option>
+											<option value="date-asc">First read</option>
+											<option value="rating">Rating ↓</option>
+											<option value="title">Title A–Z</option>
+										</select>
+										<svg class="fb-select-caret" width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4">
+											<path d="M2 4l3 3 3-3" stroke-linecap="round" stroke-linejoin="round"/>
+										</svg>
+									</div>
+								</div>
+
+								<!-- View toggle -->
+								<div class="fb-view" role="group" aria-label="View">
+									<button class="is-on" id="view-grid" aria-label="Grid view" title="Grid view">
+										<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3">
+											<rect x="1" y="1" width="5" height="5"/><rect x="8" y="1" width="5" height="5"/>
+											<rect x="1" y="8" width="5" height="5"/><rect x="8" y="8" width="5" height="5"/>
+										</svg>
+									</button>
+									<button id="view-list" aria-label="List view" title="List view">
+										<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3">
+											<line x1="1" y1="3" x2="13" y2="3"/><line x1="1" y1="7" x2="13" y2="7"/>
+											<line x1="1" y1="11" x2="13" y2="11"/>
+										</svg>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+
+			<!-- Per-year counts for the client rail (authoritative, build-time) -->
+			<script type="application/json" id="yr-counts" set:html={JSON.stringify(yearCounts)}></script>
+
+			<!-- Results — single continuous grid; years tracked via data-year -->
+			<div class="shell idx-results" id="results-area">
+
+						<!-- Grid view -->
+						<div class="idx-results-grid view-grid">
+								{cards.map((card) => {
+									const c = cc(card.title);
+									const Tag = card.reviewed ? 'a' : 'div';
+									return (
+										<Tag
+											href={card.reviewed ? card.url : undefined}
+											class:list={["post-item rev-card", { "is-coming-soon": !card.reviewed }]}
+											data-year={card.year}
+											data-genre={card.genre.toLowerCase()}
+											data-category={card.category}
+											data-subgenres={card.subgenres.join('|')}
+											data-classic={card.classic ? 'true' : ''}
+											data-author={card.author.toLowerCase()}
+											data-tags={card.tags.join('|').toLowerCase()}
+											data-rating={card.rating || ''}
+											data-date={card.dateRead}
+											data-title={card.title.toLowerCase()}
+											data-status={card.reviewed ? 'reviewed' : 'coming-soon'}
+										>
+											{card.cover ? (
+												<div class="cover cover-photo">
+													<img src={card.cover} alt={card.title} loading="lazy" />
+													{!card.reviewed && <span class="cs-badge">Review coming soon</span>}
+												</div>
+											) : (
+												<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+													<div class="spine"></div>
+													<div class="gloss"></div>
+													<div class="cover-sub">{card.author}</div>
+													<div class="cover-label">{card.title.toUpperCase()}</div>
+													{!card.reviewed && <span class="cs-badge">Review coming soon</span>}
+												</div>
+											)}
+											<div class="rc-meta">
+												{card.author && <span class="rc-author">{card.author}</span>}
+												<h3>{card.title}</h3>
+												{card.rating && (
+													<span class="rating">
+														{Array.from({ length: 5 }, (_, i) => (
+															<svg class="star" viewBox="0 0 16 16" fill={i < card.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
+																<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+															</svg>
+														))}
+													</span>
+												)}
+												{card.blurb && (
+													<p class="rc-blurb">{card.blurb}</p>
+												)}
+												<div class="rc-foot">
+													<FormattedDate date={new Date(card.dateRead)} />
+													{card.readCount > 1 && <span class="rc-reread">Read {card.readCount}×</span>}
+												</div>
+											</div>
+										</Tag>
+									);
+								})}
+							</div>
+
+							<!-- List view -->
+							<div class="idx-results-list view-list" style="display:none">
+								{cards.map((card) => {
+									const c = cc(card.title);
+									const Tag = card.reviewed ? 'a' : 'div';
+									return (
+										<Tag
+											href={card.reviewed ? card.url : undefined}
+											class:list={["lst-row post-item", { "is-coming-soon": !card.reviewed }]}
+											data-year={card.year}
+											data-genre={card.genre.toLowerCase()}
+											data-category={card.category}
+											data-subgenres={card.subgenres.join('|')}
+											data-classic={card.classic ? 'true' : ''}
+											data-author={card.author.toLowerCase()}
+											data-tags={card.tags.join('|').toLowerCase()}
+											data-rating={card.rating || ''}
+											data-date={card.dateRead}
+											data-title={card.title.toLowerCase()}
+											data-status={card.reviewed ? 'reviewed' : 'coming-soon'}
+										>
+											{card.cover ? (
+												<div class="cover cover-photo">
+													<img src={card.cover} alt={card.title} loading="lazy" />
+												</div>
+											) : (
+												<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+													<div class="spine"></div>
+													<div class="gloss"></div>
+													<div class="cover-label">{card.title.toUpperCase()}</div>
+												</div>
+											)}
+											<div>
+												<h3>{card.title}</h3>
+												{card.author && <div class="lst-author">{card.author}</div>}
+											</div>
+											<div class="lst-meta">
+												{card.rating && (
+													<span class="rating">
+														{Array.from({ length: 5 }, (_, i) => (
+															<svg class="star" viewBox="0 0 16 16" fill={i < card.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
+																<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+															</svg>
+														))}
+													</span>
+												)}
+												{!card.reviewed && <span class="cs-pill">Coming soon</span>}
+												<FormattedDate date={new Date(card.dateRead)} />
+												{card.readCount > 1 && <span class="rc-reread">Read {card.readCount}×</span>}
+											</div>
+										</Tag>
+									);
+								})}
+							</div>
+
+				<div class="empty" id="no-results" style="display:none">
+					No books match your filters.
+				</div>
+			</div>
+
 		</main>
 		<Footer />
+
+		<!-- Floating rail (only renders at >1250px via CSS). Adapts to the active
+		     sort: years (date), ghost alphabet (title), or star rating (rating). -->
+		<aside class="year-rail mode-year" id="year-rail" aria-hidden="true">
+			<div class="yr-tick" id="yr-tick">§ Year</div>
+
+			<!-- Year mode -->
+			<div class="yr-now">
+				<span class="yr-now-label" id="yr-now-label"></span>
+			</div>
+			<div class="yr-track">
+				<div class="yr-track-bg"></div>
+				<div class="yr-track-fill" id="yr-track-fill"></div>
+				<div class="yr-track-dot"  id="yr-track-dot"></div>
+			</div>
+			<div class="yr-soon" id="yr-soon" style="display:none">
+				<span class="yr-soon-arrow">↓</span>
+				<span id="yr-soon-label"></span>
+			</div>
+
+			<!-- Alpha mode: ghost alphabet (# A B … Z) -->
+			<div class="yr-alpha" id="yr-alpha">
+				{['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].map(ch => (
+					<span class="yr-alpha-ch" data-ch={ch}>{ch}</span>
+				))}
+			</div>
+
+			<!-- Rating mode: five stars, current rating filled -->
+			<div class="yr-rating" id="yr-rating">
+				{Array.from({ length: 5 }, () => (
+					<svg class="yr-star" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
+						<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+					</svg>
+				))}
+			</div>
+
+			<div class="yr-meta" id="yr-meta"></div>
+		</aside>
+
+		<!-- Sticky pill (only renders at ≤1250px via CSS) -->
+		<div class="year-pill mode-year" id="year-pill" aria-hidden="true">
+			<span class="year-pill-year" id="year-pill-year"></span>
+			<span class="year-pill-stars" id="year-pill-stars">
+				{Array.from({ length: 5 }, () => (
+					<svg class="yr-star" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2">
+						<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
+					</svg>
+				))}
+			</span>
+			<span class="year-pill-meta" id="year-pill-meta"></span>
+		</div>
+
+		<button class="back-to-top" id="back-to-top" aria-label="Back to top">
+			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M7 11.5V2.5"/><path d="M3 6.5l4-4 4 4"/>
+			</svg>
+		</button>
 	</body>
 </html>
 
 <style>
-	main {
-		max-width: 1400px;
-		margin: 0 auto;
-		padding: 2rem 1rem;
-		width: 100%;
-		box-sizing: border-box;
-		overflow-x: hidden;
-	}
+.index-hero {
+	padding-top: clamp(36px, 5vw, 64px);
+	padding-bottom: clamp(20px, 2.5vw, 32px);
+}
 
-	.layout-container {
-		display: grid;
-		grid-template-columns: 200px 1fr;
-		gap: 3rem;
-		width: 100%;
-		max-width: 100%;
-	}
-
-	/* Sidebar Filters */
-	.sidebar-filters {
-		position: sticky;
-		top: 2rem;
-		height: fit-content;
-	}
-
-	.filter-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 1rem;
-	}
-
-	.sidebar-filters h3 {
-		font-size: 1.1rem;
-		font-weight: 600;
-		margin: 0;
-		color: var(--primary);
-	}
-
-	.mobile-filter-toggle {
-		display: none;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0.5rem;
-		color: var(--primary);
-		transition: all 0.2s ease;
-	}
-
-	.mobile-filter-toggle:hover {
-		color: var(--accent);
-	}
-
-	.chevron-icon {
-		transition: transform 0.3s ease;
-	}
-
-	.mobile-filter-toggle.open .chevron-icon {
-		transform: rotate(180deg);
-	}
-
-	.filter-content {
-		/* No changes needed for desktop */
-	}
-
-	.filter-section {
-		margin-bottom: 1.5rem;
-	}
-
-	.filter-section h4 {
-		font-size: 0.9rem;
-		font-weight: 600;
-		margin-bottom: 0.75rem;
-		color: var(--primary);
-		text-transform: uppercase;
-		letter-spacing: 0.5px;
-	}
-
-	.filter-group {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.tag-group {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.4rem;
-		margin-bottom: 0.75rem;
-	}
-
-	.filter-btn {
-		padding: 0.5rem 1rem;
-		border: 2px solid var(--accent);
-		background: transparent;
-		color: var(--accent);
-		border-radius: 25px;
-		cursor: pointer;
-		font-size: 0.85rem;
-		font-weight: 500;
-		transition: all 0.3s ease;
-		text-align: left;
-	}
-
-	.filter-btn:hover,
-	.filter-btn.active {
-		background: var(--accent);
-		color: white;
-	}
-
-	.tag-btn {
-		padding: 0.25rem 0.75rem;
-		border: 1px solid rgba(var(--gray), 0.3);
-		background: var(--background);
-		color: var(--primary);
-		border-radius: 15px;
-		cursor: pointer;
-		font-size: 0.8rem;
-		font-weight: 400;
-		transition: all 0.2s ease;
-		white-space: nowrap;
-	}
-
-	.tag-btn:hover {
-		background: rgba(var(--accent), 0.1);
-		border-color: var(--accent);
-		color: var(--accent);
-	}
-
-	.tag-btn.active {
-		background: var(--accent);
-		border-color: var(--accent);
-		color: white;
-	}
-
-	.show-more-tags {
-		padding: 0.4rem 0;
-		background: none;
-		border: none;
-		color: var(--accent);
-		font-size: 0.8rem;
-		cursor: pointer;
-		transition: color 0.2s ease;
-		width: 100%;
-		text-align: left;
-	}
-
-	.show-more-tags:hover {
-		color: var(--primary);
-	}
-
-	.clear-filters {
-		padding: 0.6rem 1rem;
-		background: transparent;
-		border: 1px solid rgba(var(--gray), 0.3);
-		color: var(--primary);
-		border-radius: 20px;
-		cursor: pointer;
-		font-size: 0.8rem;
-		transition: all 0.2s ease;
-		width: 100%;
-		margin-top: 1rem;
-	}
-
-	.clear-filters:hover {
-		background: rgba(var(--gray), 0.1);
-		border-color: var(--accent);
-	}
-
-	/* Posts Gallery */
-	.posts-gallery {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-		gap: 2rem;
-		width: 100%;
-		max-width: 100%;
-		overflow: hidden;
-	}
-
-	.post-item {
-		background: transparent;
-		transition: transform 0.2s ease;
-	}
-
-	.post-item:hover {
-		transform: translateY(-2px);
-	}
-
-	.post-item.hidden {
-		display: none;
-	}
-
-	.post-link {
-		text-decoration: none;
-		color: inherit;
-		display: block;
-	}
-
-	.post-image {
-		width: 100%;
-		aspect-ratio: 2/3;
-		background: linear-gradient(135deg, rgba(var(--gray-light), 0.3), rgba(var(--accent), 0.1));
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 8px;
-		margin-bottom: 1rem;
-		overflow: hidden;
-	}
-
-	.post-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.placeholder-image {
-		font-size: 2.5rem;
-		color: rgba(var(--gray), 0.6);
-	}
-
-	.post-info h3 {
-		font-size: 0.9rem;
-		font-weight: 600;
-		margin-bottom: 0.25rem;
-		color: var(--primary);
-		line-height: 1.3;
-		height: 2.6em;
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-
-	.post-author {
-		font-size: 0.8rem;
-		color: rgba(var(--gray-dark), 0.7);
-		font-style: italic;
-		margin-bottom: 0.25rem;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.rating {
-		font-size: 0.9rem;
-		margin-bottom: 0.5rem;
-		color: #fbbf24;
-		letter-spacing: 0.05em;
-	}
-
-	.post-date {
-		font-size: 0.8rem;
-		color: rgba(var(--gray-dark), 0.7);
-	}
-
-	/* Page Header */
-	.page-header {
-		margin-bottom: 2rem;
-	}
-
-	.page-header h1 {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: var(--primary);
-		margin: 0;
-		text-align: left;
-	}
-
-	/* Responsive Design */
-	@media (max-width: 768px) {
-		.page-header h1 {
-			font-size: 2rem;
-		}
-		main {
-			padding: 1rem 1rem;
-			width: 100%;
-			max-width: 100%;
-			overflow-x: hidden;
-		}
-
-		.layout-container {
-			grid-template-columns: 1fr;
-			gap: 1.5rem;
-			width: 100%;
-			max-width: 100%;
-		}
-
-		.sidebar-filters {
-			position: static;
-			order: 1;
-			margin-bottom: 1rem;
-			background: var(--paper);
-			border: 1px solid rgba(var(--gray), 0.2);
-			border-radius: 8px;
-			padding: 1rem;
-		}
-
-		.mobile-filter-toggle {
-			display: flex;
-		}
-
-		.filter-content {
-			max-height: 0;
-			overflow: hidden;
-			transition: max-height 0.3s ease-out;
-		}
-
-		.filter-content.open {
-			max-height: 800px;
-		}
-
-		.filter-header {
-			margin-bottom: 0;
-		}
-
-		.filter-header h3 {
-			font-size: 1rem;
-		}
-
-		.filter-group {
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 0.5rem;
-			justify-content: center;
-		}
-
-		.filter-btn {
-			flex: 0 1 auto;
-			min-width: fit-content;
-			text-align: center;
-			padding: 0.4rem 0.8rem;
-			font-size: 0.8rem;
-		}
-
-		.tag-group {
-			justify-content: center;
-		}
-
-		.tag-btn {
-			font-size: 0.75rem;
-			padding: 0.2rem 0.6rem;
-		}
-
-		.filter-section h4 {
-			text-align: center;
-			font-size: 0.85rem;
-		}
-
-		.posts-gallery {
-			order: 2;
-			grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-			gap: 1rem;
-			width: 100%;
-			max-width: 100%;
-		}
-	}
-
-	@media (max-width: 480px) {
-		main {
-			padding: 0.75rem 0.75rem;
-			width: 100%;
-			max-width: 100%;
-		}
-
-		.posts-gallery {
-			grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-			gap: 0.75rem;
-		}
-
-		.post-info h3 {
-			font-size: 0.8rem;
-		}
-
-		.sidebar-filters h3 {
-			font-size: 1rem;
-			margin-bottom: 0.75rem;
-		}
-
-		.filter-btn {
-			padding: 0.3rem 0.6rem;
-			font-size: 0.75rem;
-		}
-	}
 </style>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
-		const filterButtons = document.querySelectorAll('.filter-btn');
-		const tagButtons = document.querySelectorAll('.tag-btn[data-tag]');
-		const authorButtons = document.querySelectorAll('.tag-btn[data-author]');
-		const showMoreTagsBtn = document.getElementById('show-more-tags');
-		const showLessTagsBtn = document.getElementById('show-less-tags');
-		const allTagsSection = document.getElementById('all-tags-section');
-		const showMoreAuthorsBtn = document.getElementById('show-more-authors');
-		const showLessAuthorsBtn = document.getElementById('show-less-authors');
-		const allAuthorsSection = document.getElementById('all-authors-section');
-		const clearFiltersButton = document.getElementById('clear-filters');
-		const postItems = document.querySelectorAll('.post-item');
-		const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
-		const filterContent = document.getElementById('filter-content');
+document.addEventListener('DOMContentLoaded', () => {
 
-		let activeGenreFilter = 'all';
-		let activeTagFilters = new Set();
-		let activeAuthorFilters = new Set();
+	// ── Stick filter bar below header
+	const siteHeader = document.getElementById('site-header');
+	const filterBarWrap = document.getElementById('filter-bar-wrap');
+	if (siteHeader && filterBarWrap) {
+		const setFilterTop = () => { filterBarWrap.style.top = `${siteHeader.offsetHeight}px`; };
+		setFilterTop();
+		window.addEventListener('resize', setFilterTop, { passive: true });
+	}
 
-		// Genre filter functionality
-		filterButtons.forEach(button => {
-			button.addEventListener('click', function() {
-				if (this.getAttribute('data-type') === 'genre') {
-					filterButtons.forEach(btn => {
-						if (btn.getAttribute('data-type') === 'genre') {
-							btn.classList.remove('active');
-						}
-					});
-					this.classList.add('active');
-					activeGenreFilter = this.getAttribute('data-filter');
-					applyFilters();
-				}
-			});
+	// ── Back to top
+	const btt = document.getElementById('back-to-top');
+	if (btt) {
+		window.addEventListener('scroll', () => btt.classList.toggle('is-visible', window.scrollY > 600), { passive: true });
+		btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+	}
+
+	// ── Year rail
+	const yearRail    = document.getElementById('year-rail');
+	const yrTick      = document.getElementById('yr-tick');
+	const yrNowLabel  = document.getElementById('yr-now-label');
+	const yrTrackFill = document.getElementById('yr-track-fill');
+	const yrTrackDot  = document.getElementById('yr-track-dot');
+	const yrSoon      = document.getElementById('yr-soon');
+	const yrSoonLabel = document.getElementById('yr-soon-label');
+	const yrMeta      = document.getElementById('yr-meta');
+	const yrAlpha     = document.getElementById('yr-alpha');
+	const yrRating    = document.getElementById('yr-rating');
+	const resultsArea = document.getElementById('results-area');
+	const yearPill      = document.getElementById('year-pill');
+	const yearPillYear  = document.getElementById('year-pill-year');
+	const yearPillStars = document.getElementById('year-pill-stars');
+	const yearPillMeta  = document.getElementById('year-pill-meta');
+	const gridEl = resultsArea?.querySelector<HTMLElement>('.idx-results-grid') || null;
+
+	// Rail display mode, driven by the active sort. 'year' tracks year blocks,
+	// 'alpha' the first letter of the title, 'rating' the star count.
+	let railMode: 'year' | 'alpha' | 'rating' = 'year';
+	const TICK_LABEL = { year: '§ Year', alpha: '§ A–Z', rating: '§ Rating' };
+
+	// Group key for the current card under whichever dimension railMode tracks.
+	function groupKeyOf(card: HTMLElement): string {
+		if (railMode === 'alpha') {
+			const ch = (card.dataset.title || '').charAt(0).toUpperCase();
+			return ch >= 'A' && ch <= 'Z' ? ch : '#';
+		}
+		if (railMode === 'rating') return card.dataset.rating || '0';
+		return card.dataset.year || '';
+	}
+
+	const PALETTE = ['var(--accent)', 'var(--accent-2)'];
+	let anchors: { key: string; el: HTMLElement }[] = []; // first card of each group, in DOM order
+	let groupCount: Record<string, number> = {};          // group key -> visible card count
+	let presentLetters = new Set<string>();               // first-letters present (alpha mode)
+	let railEnabled = true;
+
+	// Build one anchor per contiguous group block from the (visible) grid cards,
+	// and tally visible counts per group. Scoped to the grid only, so the list-view
+	// copies are never double-counted. O(visible cards), runs only on data changes.
+	function buildYearAnchors() {
+		anchors = [];
+		groupCount = {};
+		presentLetters = new Set();
+		if (!gridEl) return;
+		let lastKey: string | null = null;
+		Array.from(gridEl.querySelectorAll<HTMLElement>('.post-item')).forEach(card => {
+			if (card.classList.contains('is-hidden')) return;
+			const k = groupKeyOf(card);
+			groupCount[k] = (groupCount[k] || 0) + 1;
+			if (railMode === 'alpha') presentLetters.add(k);
+			if (k !== lastKey) { anchors.push({ key: k, el: card }); lastKey = k; }
 		});
+	}
 
-		// Tag filter functionality
-		tagButtons.forEach(button => {
-			button.addEventListener('click', function() {
-				const tag = this.getAttribute('data-tag');
+	let raf = 0;
+	function update() {
+		raf = 0;
+		if (!resultsArea) return;
 
-				if (this.classList.contains('active')) {
-					this.classList.remove('active');
-					activeTagFilters.delete(tag);
-				} else {
-					this.classList.add('active');
-					activeTagFilters.add(tag);
-				}
+		const isDesktop = window.innerWidth > 1250;
+		const filterBottom = filterBarWrap ? filterBarWrap.getBoundingClientRect().bottom : 0;
+		const line = Math.max(window.innerHeight * 0.42, filterBottom + 80);
+		const wrapRect = resultsArea.getBoundingClientRect();
+		const inResults = wrapRect.top < line && wrapRect.bottom > line + 60;
+		const active = railEnabled && inResults && anchors.length >= 2;
 
-				applyFilters();
-			});
-		});
-
-		// Author filter functionality
-		authorButtons.forEach(button => {
-			button.addEventListener('click', function() {
-				const author = this.getAttribute('data-author');
-
-				if (this.classList.contains('active')) {
-					this.classList.remove('active');
-					activeAuthorFilters.delete(author);
-				} else {
-					this.classList.add('active');
-					activeAuthorFilters.add(author);
-				}
-
-				applyFilters();
-			});
-		});
-
-		// Show/hide all tags
-		if (showMoreTagsBtn && allTagsSection) {
-			showMoreTagsBtn.addEventListener('click', function() {
-				allTagsSection.style.display = 'block';
-				showMoreTagsBtn.style.display = 'none';
-			});
+		if (isDesktop) {
+			if (yearRail) yearRail.style.top = `${Math.max(120, filterBottom + 32)}px`;
+			yearRail?.classList.toggle('is-visible', active);
+			yearPill?.classList.remove('is-visible');
+		} else {
+			yearPill?.classList.toggle('is-visible', active);
+			yearRail?.classList.remove('is-visible');
 		}
+		if (!active) return;
 
-		if (showLessTagsBtn && showMoreTagsBtn && allTagsSection) {
-			showLessTagsBtn.addEventListener('click', function() {
-				allTagsSection.style.display = 'none';
-				showMoreTagsBtn.style.display = 'block';
-			});
+		// Current year = last anchor whose top has passed the read line.
+		let idx = 0;
+		for (let i = 0; i < anchors.length; i++) {
+			if (anchors[i].el.getBoundingClientRect().top <= line) idx = i;
 		}
+		const cur = anchors[idx];
+		const nxt = anchors[idx + 1];
+		const curTop = cur.el.getBoundingClientRect().top;
+		const endY   = nxt ? nxt.el.getBoundingClientRect().top : wrapRect.bottom;
+		const span   = Math.max(1, endY - curTop);
+		const t      = Math.max(0, Math.min(1, (line - curTop) / span)); // progress within group (for color)
 
-		// Show/hide all authors
-		if (showMoreAuthorsBtn && allAuthorsSection) {
-			showMoreAuthorsBtn.addEventListener('click', function() {
-				allAuthorsSection.style.display = 'block';
-				showMoreAuthorsBtn.style.display = 'none';
-			});
-		}
+		// Fill is pixel-proportional over the whole results area → smooth, no
+		// per-group-slice jumps regardless of how lopsided the group sizes are.
+		const cursor = Math.max(0, Math.min(1, (line - wrapRect.top) / Math.max(1, wrapRect.height)));
 
-		if (showLessAuthorsBtn && showMoreAuthorsBtn && allAuthorsSection) {
-			showLessAuthorsBtn.addEventListener('click', function() {
-				allAuthorsSection.style.display = 'none';
-				showMoreAuthorsBtn.style.display = 'block';
-			});
-		}
+		const curC  = PALETTE[idx % 2];
+		const nxtC  = PALETTE[(idx + 1) % 2];
+		const blend = `color-mix(in oklab, ${curC} ${Math.round((1 - t) * 100)}%, ${nxtC})`;
+		const n = groupCount[cur.key] || 0;
+		const meta = `${n} book${n !== 1 ? 's' : ''}`;
+		const modeClass = `mode-${railMode}`;
 
-		// Clear all filters
-		clearFiltersButton.addEventListener('click', function() {
-			// Reset genre filter
-			filterButtons.forEach(btn => {
-				if (btn.getAttribute('data-type') === 'genre') {
-					btn.classList.remove('active');
-					if (btn.getAttribute('data-filter') === 'all') {
-						btn.classList.add('active');
+		if (isDesktop && yearRail) {
+			yearRail.classList.remove('mode-year', 'mode-alpha', 'mode-rating');
+			yearRail.classList.add(modeClass);
+			if (yrTick) yrTick.textContent = TICK_LABEL[railMode];
+			if (yrMeta) yrMeta.textContent = meta;
+
+			if (railMode === 'year') {
+				yearRail.style.setProperty('--rail-color', blend);
+				yearRail.style.setProperty('--rail-color-nxt', nxtC);
+				if (yrNowLabel) yrNowLabel.textContent = cur.key;
+				if (yrTrackFill) { yrTrackFill.style.height = `${cursor * 100}%`; yrTrackFill.style.background = blend; }
+				if (yrTrackDot)  { yrTrackDot.style.top = `${cursor * 100}%`;  yrTrackDot.style.background = blend; }
+				if (yrSoon && yrSoonLabel) {
+					if (nxt) {
+						yrSoon.style.display = '';
+						yrSoon.style.color = nxtC;
+						yrSoonLabel.textContent = nxt.key;
+					} else {
+						yrSoon.style.display = 'none';
 					}
 				}
+			} else if (railMode === 'alpha' && yrAlpha) {
+				yrAlpha.querySelectorAll<HTMLElement>('.yr-alpha-ch').forEach(ch => {
+					ch.classList.toggle('is-present', presentLetters.has(ch.dataset.ch || ''));
+					ch.classList.toggle('is-current', ch.dataset.ch === cur.key);
+				});
+			} else if (railMode === 'rating' && yrRating) {
+				const r = parseInt(cur.key, 10) || 0;
+				yrRating.querySelectorAll<SVGElement>('.yr-star').forEach((star, i) => {
+					star.classList.toggle('filled', i < r);
+				});
+			}
+		} else if (!isDesktop) {
+			yearPill?.classList.remove('mode-year', 'mode-alpha', 'mode-rating');
+			yearPill?.classList.add(modeClass);
+			if (yearPillMeta) yearPillMeta.textContent = meta;
+			if (railMode === 'rating') {
+				const r = parseInt(cur.key, 10) || 0;
+				yearPillStars?.querySelectorAll<SVGElement>('.yr-star').forEach((star, i) => {
+					star.classList.toggle('filled', i < r);
+				});
+			} else if (yearPillYear) {
+				yearPillYear.textContent = cur.key;
+			}
+		}
+	}
+
+	if (resultsArea) {
+		buildYearAnchors();
+		const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+		window.addEventListener('scroll', onScroll, { passive: true });
+		window.addEventListener('resize', () => { buildYearAnchors(); onScroll(); });
+		update();
+	}
+
+	// ── Sort
+	let activeSort = 'date-desc';
+	const sortSelect = document.getElementById('sort-select') as HTMLSelectElement;
+
+	function applySort() {
+		// Pick the rail dimension that matches the active sort.
+		railMode = activeSort === 'title' ? 'alpha' : activeSort === 'rating' ? 'rating' : 'year';
+		railEnabled = true;
+
+		// Sort the flat grid and list containers directly.
+		['.idx-results-grid', '.idx-results-list'].forEach(sel => {
+			const container = resultsArea?.querySelector<HTMLElement>(sel);
+			if (!container) return;
+			const items = Array.from(container.children) as HTMLElement[];
+			items.sort((a, b) => {
+				if (activeSort === 'date-desc') return (b.dataset.date || '').localeCompare(a.dataset.date || '');
+				if (activeSort === 'date-asc')  return (a.dataset.date || '').localeCompare(b.dataset.date || '');
+				if (activeSort === 'rating')    return parseInt(b.dataset.rating || '0') - parseInt(a.dataset.rating || '0');
+				if (activeSort === 'title')     return (a.dataset.title || '').localeCompare(b.dataset.title || '');
+				return 0;
 			});
-
-			// Reset tag filters
-			tagButtons.forEach(btn => btn.classList.remove('active'));
-
-			// Reset author filters
-			authorButtons.forEach(btn => btn.classList.remove('active'));
-
-			activeGenreFilter = 'all';
-			activeTagFilters.clear();
-			activeAuthorFilters.clear();
-			applyFilters();
+			items.forEach(item => container.appendChild(item));
 		});
 
-		function applyFilters() {
-			postItems.forEach(item => {
-				const tags = (item.getAttribute('data-tags') || '').toLowerCase();
-				const genre = (item.getAttribute('data-genre') || '').toLowerCase();
-				const author = (item.getAttribute('data-author') || '').toLowerCase();
+		buildYearAnchors();
+		update();
+	}
 
-				let showItem = true;
-
-				// Apply genre filter
-				if (activeGenreFilter === 'fiction') {
-					const isFiction = genre.includes('fiction') || tags.includes('fiction');
-					const isNonfiction = genre.includes('memoir') || genre.includes('biography') ||
-										 genre.includes('history') || genre.includes('anthropology') ||
-										 genre.includes('self-help') || tags.includes('memoir') ||
-										 tags.includes('biography') || tags.includes('history') ||
-										 tags.includes('anthropology') || tags.includes('self-help');
-					showItem = isFiction && !isNonfiction;
-				} else if (activeGenreFilter === 'nonfiction') {
-					const isNonfiction = genre.includes('memoir') || genre.includes('biography') ||
-										 genre.includes('history') || genre.includes('anthropology') ||
-										 genre.includes('self-help') || tags.includes('memoir') ||
-										 tags.includes('biography') || tags.includes('history') ||
-										 tags.includes('anthropology') || tags.includes('self-help');
-					showItem = isNonfiction;
-				}
-
-				// Apply author filters (if any active)
-				if (activeAuthorFilters.size > 0 && showItem) {
-					showItem = Array.from(activeAuthorFilters).some(filterAuthor => {
-						return author === filterAuthor.toLowerCase();
-					});
-				}
-
-				// Apply tag filters (if any active)
-				if (activeTagFilters.size > 0 && showItem) {
-					showItem = Array.from(activeTagFilters).some(tag => {
-						const tagLower = tag.toLowerCase();
-						const tagArray = tags.split('|');
-						return tagArray.includes(tagLower) || genre.split('|').includes(tagLower);
-					});
-				}
-
-				if (showItem) {
-					item.classList.remove('hidden');
-				} else {
-					item.classList.add('hidden');
-				}
-			});
-		}
-
-		// Mobile filter toggle functionality
-		if (mobileFilterToggle && filterContent) {
-			mobileFilterToggle.addEventListener('click', function() {
-				const isOpen = filterContent.classList.contains('open');
-
-				if (isOpen) {
-					filterContent.classList.remove('open');
-					mobileFilterToggle.classList.remove('open');
-				} else {
-					filterContent.classList.add('open');
-					mobileFilterToggle.classList.add('open');
-				}
-			});
-		}
+	sortSelect?.addEventListener('change', () => {
+		activeSort = sortSelect.value;
+		applySort();
+		applyFilters();
 	});
+
+	// ── Filter state
+	let activeGenre    = 'all';
+	let activeStatus   = 'reviewed';
+	let activeAuthor   = '';
+	let activeSubgenre = '';
+	let currentView    = 'grid';
+
+	// ── Apply filters
+	function applyFilters() {
+		// Toggle is-hidden on every card (both grid and list copies share data attrs).
+		document.querySelectorAll<HTMLElement>('.post-item').forEach(item => {
+			const category  = item.dataset.category  || '';
+			const author    = item.dataset.author    || '';
+			const subgenres = item.dataset.subgenres || '';
+
+			let show = true;
+
+			if (activeGenre === 'fiction') {
+				show = category === 'fiction';
+			} else if (activeGenre === 'nonfiction') {
+				show = category === 'nonfiction';
+			}
+
+			if (show && activeSubgenre) {
+				show = subgenres.split('|').includes(activeSubgenre);
+			}
+
+			if (show && activeAuthor) {
+				show = author === activeAuthor.toLowerCase();
+			}
+
+			if (show && activeStatus !== 'all') {
+				show = (item.dataset.status || '') === activeStatus;
+			}
+
+			item.classList.toggle('is-hidden', !show);
+		});
+
+		// Count visible from the grid only (never double-counts the list copy).
+		const scope = gridEl || document;
+		const visible = scope.querySelectorAll('.post-item:not(.is-hidden)').length;
+		const visibleReviewed = scope.querySelectorAll('.post-item[data-status="reviewed"]:not(.is-hidden)').length;
+
+		const countNum = document.getElementById('count-num');
+		if (countNum) countNum.textContent = String(visible);
+		const reviewedNum = document.getElementById('reviewed-num');
+		if (reviewedNum) reviewedNum.textContent = String(visibleReviewed);
+
+		const noResults = document.getElementById('no-results');
+		if (noResults) noResults.style.display = visible === 0 ? '' : 'none';
+
+		buildYearAnchors();
+		update();
+	}
+
+	// ── Segmented filters (genre + review status share the .fb-seg-btn look,
+	// scoped by their container so the two groups don't clear each other).
+	function setupSeg(containerId: string, onPick: (btn: HTMLButtonElement) => void) {
+		const group = document.getElementById(containerId);
+		if (!group) return;
+		group.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach(btn => {
+			btn.addEventListener('click', () => {
+				group.querySelectorAll('.fb-seg-btn').forEach(b => b.classList.remove('is-on'));
+				btn.classList.add('is-on');
+				onPick(btn);
+				applyFilters();
+			});
+		});
+	}
+	setupSeg('genre-seg',  btn => { activeGenre  = btn.dataset.genre  || 'all'; });
+	setupSeg('status-seg', btn => { activeStatus = btn.dataset.status || 'all'; });
+
+	// ── Generic combobox helper
+	function setupCombo(
+		comboEl: HTMLElement,
+		btnEl: HTMLButtonElement,
+		popEl: HTMLElement,
+		listEl: HTMLElement,
+		valueEl: HTMLElement,
+		searchInput: HTMLInputElement,
+		onSelect: (val: string) => void
+	) {
+		let selected = '';
+
+		function open() {
+			popEl.style.display = '';
+			comboEl.classList.add('is-open');
+			btnEl.setAttribute('aria-expanded', 'true');
+			searchInput.value = '';
+			filterOpts('');
+			searchInput.focus();
+		}
+		function close() {
+			popEl.style.display = 'none';
+			comboEl.classList.remove('is-open');
+			btnEl.setAttribute('aria-expanded', 'false');
+		}
+		function filterOpts(q: string) {
+			const opts = listEl.querySelectorAll<HTMLElement>('.fb-combo-opt');
+			const qLow = q.toLowerCase();
+			let hasVisible = false;
+			opts.forEach(opt => {
+				const match = !qLow || (opt.textContent || '').toLowerCase().includes(qLow);
+				opt.style.display = match ? '' : 'none';
+				if (match) hasVisible = true;
+			});
+			let emptyEl = listEl.querySelector('.fb-combo-empty');
+			if (!hasVisible) {
+				if (!emptyEl) {
+					emptyEl = document.createElement('div');
+					emptyEl.className = 'fb-combo-empty';
+					emptyEl.textContent = 'No results';
+					listEl.appendChild(emptyEl);
+				}
+			} else {
+				emptyEl?.remove();
+			}
+		}
+		function select(val: string) {
+			selected = val;
+			const displayVal = val ? val.charAt(0).toUpperCase() + val.slice(1) : 'Any';
+			valueEl.textContent = displayVal;
+			comboEl.classList.toggle('has-value', !!val);
+			listEl.querySelectorAll<HTMLElement>('.fb-combo-opt').forEach(opt => {
+				const isOn = opt.dataset.author === val || opt.dataset.tag === val || opt.dataset.subgenre === val;
+				opt.classList.toggle('is-on', isOn);
+				const check = opt.querySelector<SVGElement>('.fb-combo-check');
+				if (check) check.style.display = isOn ? '' : 'none';
+			});
+			onSelect(val);
+			close();
+		}
+
+		btnEl.addEventListener('click', (e) => {
+			if ((e.target as HTMLElement).closest('.fb-combo-x')) { select(''); return; }
+			comboEl.classList.contains('is-open') ? close() : open();
+		});
+		searchInput.addEventListener('input', () => filterOpts(searchInput.value));
+		listEl.addEventListener('click', (e) => {
+			const opt = (e.target as HTMLElement).closest<HTMLButtonElement>('.fb-combo-opt');
+			if (opt) {
+				const val = opt.dataset.author || opt.dataset.tag || opt.dataset.subgenre || '';
+				select(selected === val ? '' : val);
+			}
+		});
+		document.addEventListener('click', (e) => {
+			if (!comboEl.contains(e.target as Node)) close();
+		});
+
+		// Expose select() so URL params can pre-apply a filter programmatically.
+		return { select };
+	}
+
+	// Author combobox
+	const authorCombo  = document.getElementById('author-combo') as HTMLElement;
+	const authorBtn    = document.getElementById('author-combo-btn') as HTMLButtonElement;
+	const authorPop    = document.getElementById('author-combo-pop') as HTMLElement;
+	const authorList   = document.getElementById('author-combo-list') as HTMLElement;
+	const authorVal    = document.getElementById('author-combo-value') as HTMLElement;
+	const authorSearch = authorPop?.querySelector<HTMLInputElement>('.fb-combo-search')!;
+	let authorApi: { select: (v: string) => void } | null = null;
+	if (authorCombo) {
+		authorApi = setupCombo(authorCombo, authorBtn, authorPop, authorList, authorVal, authorSearch, val => {
+			activeAuthor = val;
+			applyFilters();
+		});
+	}
+
+	// Subgenre combobox
+	const subgenreCombo  = document.getElementById('subgenre-combo') as HTMLElement;
+	const subgenreBtn    = document.getElementById('subgenre-combo-btn') as HTMLButtonElement;
+	const subgenrePop    = document.getElementById('subgenre-combo-pop') as HTMLElement;
+	const subgenreList   = document.getElementById('subgenre-combo-list') as HTMLElement;
+	const subgenreVal    = document.getElementById('subgenre-combo-value') as HTMLElement;
+	const subgenreSearch = subgenrePop?.querySelector<HTMLInputElement>('.fb-combo-search')!;
+	let subgenreApi: { select: (v: string) => void } | null = null;
+	if (subgenreCombo) {
+		subgenreApi = setupCombo(subgenreCombo, subgenreBtn, subgenrePop, subgenreList, subgenreVal, subgenreSearch, val => {
+			activeSubgenre = val;
+			applyFilters();
+		});
+	}
+
+	// ── View toggle
+	const gridBtn = document.getElementById('view-grid') as HTMLButtonElement;
+	const listBtn = document.getElementById('view-list') as HTMLButtonElement;
+
+	function setView(view: string) {
+		currentView = view;
+		gridBtn.classList.toggle('is-on', view === 'grid');
+		listBtn.classList.toggle('is-on', view === 'list');
+		document.querySelectorAll<HTMLElement>('.view-grid').forEach(el => el.style.display = view === 'grid' ? '' : 'none');
+		document.querySelectorAll<HTMLElement>('.view-list').forEach(el => el.style.display = view === 'list' ? '' : 'none');
+	}
+	gridBtn?.addEventListener('click', () => setView('grid'));
+	listBtn?.addEventListener('click', () => setView('list'));
+
+	// ── Collapse / show filters (single toggle that stays put; only the
+	// controls collapse, the count + toggle button never move)
+	const controls  = document.getElementById('fb-controls')!;
+	const toggleBtn  = document.getElementById('fb-toggle-btn')!;
+	let fbCollapsed = false;
+	toggleBtn?.addEventListener('click', () => {
+		fbCollapsed = !fbCollapsed;
+		controls.style.display = fbCollapsed ? 'none' : '';
+		toggleBtn.textContent  = fbCollapsed ? '+ Filters' : '− Hide';
+		update(); // refresh floating year-rail offset after height change
+	});
+
+	// ── Pre-filter from URL params (e.g. header search → author / genre landing).
+	// Coming-soon books are off by default ('reviewed'); a deep-link to an author
+	// or genre flips to "Entire Shelf" so those books show too.
+	const params = new URLSearchParams(location.search);
+	const forceShelf = () =>
+		document.querySelector<HTMLButtonElement>('#status-seg .fb-seg-btn[data-status="all"]')?.click();
+	const paramAuthor = params.get('author');
+	const paramSubgenre = params.get('subgenre');
+	const paramCategory = params.get('category');
+	if (paramAuthor && authorApi) { authorApi.select(paramAuthor); forceShelf(); }
+	if (paramSubgenre && subgenreApi) { subgenreApi.select(paramSubgenre.toLowerCase()); forceShelf(); }
+	if (paramCategory === 'fiction' || paramCategory === 'nonfiction') {
+		document.querySelector<HTMLButtonElement>(`#genre-seg .fb-seg-btn[data-genre="${paramCategory}"]`)?.click();
+		forceShelf();
+	}
+
+	// Apply the default 'reviewed' filter on load
+	applyFilters();
+
+});
 </script>
