@@ -850,7 +850,8 @@
 		"subgenres": [
 			"literary fiction",
 			"satire",
-			"picaresque"
+			"picaresque",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": false,
@@ -873,7 +874,9 @@
 		"originalPubYear": 2012,
 		"category": "fiction",
 		"subgenres": [
-			"essays"
+			"essays",
+			"autofiction",
+			"metafiction"
 		],
 		"gender": "female",
 		"classic": false,
@@ -3710,7 +3713,8 @@
 		"category": "fiction",
 		"subgenres": [
 			"magical realism",
-			"historical fiction"
+			"historical fiction",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": false,
@@ -8057,7 +8061,8 @@
 		"originalPubYear": 1966,
 		"category": "fiction",
 		"subgenres": [
-			"literary fiction"
+			"literary fiction",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": false,
@@ -11180,7 +11185,8 @@
 		"category": "fiction",
 		"subgenres": [
 			"literary fiction",
-			"classics"
+			"classics",
+			"metafiction"
 		],
 		"gender": "female",
 		"classic": true,
@@ -12394,7 +12400,9 @@
 		"originalPubYear": 2000,
 		"category": "nonfiction",
 		"subgenres": [
-			"biography"
+			"biography",
+			"autofiction",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": false,
@@ -12443,7 +12451,8 @@
 		"subgenres": [
 			"historical fiction",
 			"mystery",
-			"classics"
+			"classics",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": true,
@@ -13775,7 +13784,8 @@
 		"subgenres": [
 			"science fiction",
 			"war",
-			"classics"
+			"classics",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": true,
@@ -13848,7 +13858,8 @@
 			"science fiction",
 			"humor",
 			"classics",
-			"absurdism"
+			"absurdism",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": true,
@@ -14185,7 +14196,8 @@
 		"category": "fiction",
 		"subgenres": [
 			"fantasy",
-			"classics"
+			"classics",
+			"metafiction"
 		],
 		"gender": "male",
 		"classic": true,
@@ -14349,7 +14361,8 @@
 		"category": "fiction",
 		"subgenres": [
 			"historical fiction",
-			"mystery"
+			"mystery",
+			"metafiction"
 		],
 		"gender": "female",
 		"classic": false,
