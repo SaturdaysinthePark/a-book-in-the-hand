@@ -11,12 +11,14 @@ purchaseLink: 'https://bookshop.org/books/dungeon-crawler-carl-dungeon-crawler-c
 goodreadsId: '211721806'
 isbn: '059382024X'
 publishYear: 2024
-status: 'draft'
+status: 'live'
 tags: ['general', 'matt-dinniman', '2024']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/059382024X.01.L.jpg'
 ---
 
-Review of **Dungeon Crawler Carl (Dungeon Crawler Carl, #1)** by Matt Dinniman coming soon...
+If you play video games and RPGs, board games or dungeons and dragons, enjoy anime, used to watch saturday morning cartoons, etc.. then this book is for you. Its fun, not serious, just jump in for the ride.
 
-I rated this book 3 stars.
+The basic premise is that Earth gets taken over by aliens, and they turn it into a intergalactic survival gameshow. Think Survivor but Final Fantasy mechanics. We follow Carl and a talking cat named Donut as he tries to survive and make his way through the dungeon. The book reads like a video game, Carl gains levels, has inventory, etc.. Its like a massively multiplayer online role playing game, but the stakes are real and much higher than a video game.
+
+ Don't expect a masterpiece, and don't expect something mind blowing. I really enjoyed reading this, it is hard to put down if it resonates with you.

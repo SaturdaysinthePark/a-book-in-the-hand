@@ -1,5 +1,5 @@
 ---
-title: "The Way of Kings: Sanderson's Epic Masterpiece Worth the Wait"
+title: "The Way of Kings"
 description: 'A masterclass in character development, worldbuilding, and earned progression that justifies every one of its 1,000+ pages.'
 pubDate: 2024-05-08
 bookTitle: 'The Way of Kings (The Stormlight Archive, #1)'
@@ -17,54 +17,15 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765326353.01.L.jpg'
 ---
 
-I deliberately saved **The Way of Kings** for last after reading most of the Cosmere. I wanted to experience Sanderson's magnum opus only after I'd fully appreciated his evolution as a writer. The wait was absolutely worth it—this book exceeded every expectation and reminded me why Brandon Sanderson is considered a master of epic fantasy.
+I'm a big fan of the Cosmere, and have been saving **The Way of Kings** for after I've read most of the other books such as the first era of the **Mistborn** series. At over 1,000 pages, it can be daunting, especially for a book where there is a lot of build up, politics and character building. However, the payoff is worth the journey, and the journey worth the payoff. 
 
-## A Mystery Worth Unraveling
+The biggest thing you need to know about **The Way of Kings** is that the world we are set into is one of generations of historical mystery and legends that nobody quite understands the full story behind. The main characters we get POVs of are Kaladin, Dalinar, and Shallan, all part of the kingdom Alethkar. Each of them have their own personal journey of searching and perservering to change into something better throughout the events of the book. Each has their own approach to how they find that path. Sanderson doesn't leave this purely to our imagination, he does an incredible job of filling us in on their stories and the world around them.
 
-From the opening pages, *The Way of Kings* kept me guessing. The mystery of the past—the fall of the Knights Radiant, the nature of the Desolations, the ancient history of Roshar—created a compelling puzzle that unfolded through visions, fragments, and revelations. Sanderson's approach of exploring this lost history through Dalinar's visions and scattered historical records felt organic and immersive. Rather than dumping exposition, he let the world's secrets emerge naturally, keeping me invested in understanding what had really happened.
+Alethkar is in war with the Parshendi (a completely different species from the Alethkar that are human), which we get the sense has been an endless war with no sight of a conclusion. Sadeas who holds a high title in the army, sends 'bridgemen' to create a path for the army's cavalry, taking on the brunt of the attacks. Kaladin leads one of these bridge crews as a slave of Sadeas. However, throughout the book we see him go from being a member of the bridge crew to leading them and finding safe and new techniques that kept the bridgemen alive. We get to know Kaladin's crew more intimately, and their different roles: Rock, Teft, Moash and more, each have their own story and background. Meanwhile, Dalinar and Shallan are on their own journeys.
 
-The complexity of factions, politics, and hidden motivations created layers that I'm still appreciating. This isn't a simple good-versus-evil story; it's a world where everyone has reasons, where ancient conflicts echo through modern politics, and where the truth about heroism is far more complicated than legend suggests.
+Throughout the book you learn of oaths, honors and ideals, big themes that seeps into the story, and carry a larger meaning. Kaladin meets Syl, a fairy like being who reminds me a little of Navi who follows Link in the Legend of Zelda. Syl is a spirit attracted to and attached to Kaladin, and we see them develop a friendship. Her character also grows through the bond with Kaladin, and ultimately we see Kaladin transform with her. Nothing is more satisfying than when we read Kaladin swearing ideals and oaths and transforming into a hero with the help of Syl and his own personal journey and growth. The same goes for character defining moments that came from the journey we see Dalinar go through during the book. 
 
-## Character Development That Matters
+There's too much to cover in one review, but the biggest takeaway is what I mentioned earlier: the journey and the payoff are worth it. If you're a fan of fantasy, have read the other Cosmere series such as **Mistborn** then I highly recommend **The Way of Kings**. 
 
-What elevated this book to five-star territory was Sanderson's commitment to character growth that feels genuinely earned. Kaladin's journey from slave to leader resonated most powerfully with me, primarily because of the time and care Sanderson invested in his development. The bridge runs weren't just action sequences—they were crucibles that forged both Kaladin's leadership style and his relationship with his crew.
+> "Life before death. Strength before weakness. Journey before destination."
 
-Kaladin's approach to leadership, his ability to rally people behind him while maintaining his humanity, felt inspiring without being unrealistic. His relationship with Syl provided both magical progression and emotional anchor. Characters like Rock, Teft, and Moash emerged as distinct individuals rather than faceless followers, making every bridge run feel personal.
-
-Dalinar's parallel journey of leadership provided fascinating contrast. Watching both characters grapple with command, honor, and the weight of responsibility created rich thematic depth. The book explores different models of leadership—Kaladin's grassroots inspiration versus Dalinar's institutional authority—without declaring either approach superior.
-
-## Roshar as Living World
-
-The worldbuilding transported me to a place that felt genuinely alien yet believable. I imagine Roshar as rocky, harsh terrain that wouldn't be easy to traverse—a world shaped by storms both literal and metaphorical. The ecology, from rockbuds to chasmfiends, created an environment that felt lived-in and logical. The spren added a layer of wonder that made the magical elements feel integrated rather than imposed.
-
-The storms themselves became characters in their own right, shaping culture, architecture, and daily life. This wasn't just exotic window dressing; it was worldbuilding that affected every aspect of how society functioned.
-
-## Magic That Feels Earned
-
-While Sanderson's magic systems weren't the primary emphasis, I loved how Surgebinding developed slowly through character growth. The progression felt earned rather than handed out as plot convenience. When Kaladin finally swears his ideals—especially those first crucial oaths—the moments landed with genuine emotional weight because we'd experienced every step of his journey toward them.
-
-The magic emerged from character development rather than driving it, which made the fantastical elements feel grounded in human struggle and growth.
-
-## Perfect Epic Pacing
-
-At over 1,000 pages, *The Way of Kings* could have felt bloated, but every page served the larger journey. The length wasn't padding—it was necessary space for the kind of character development that makes you truly care about these people. If Sanderson had compressed Kaladin's arc or rushed the worldbuilding, the emotional payoffs wouldn't have carried the same impact.
-
-The book worked beautifully as both a complete story and the foundation for a larger series. While it left me desperately wanting to continue immediately, the character arcs felt satisfying and complete. The journey mattered as much as the destination.
-
-## Memorable Moments That Linger
-
-Certain scenes remain vivid long after finishing: Kaladin swearing his ideals, Dalinar's decision to give up Oathbringer, the moments when leadership principles were tested under pressure. These weren't just plot points—they were character-defining moments that emerged naturally from everything that came before.
-
-The exploration of honor, duty, and what it means to be a true leader provided thematic weight that elevated the fantasy elements into something meaningful.
-
-## A Word on Reading Order
-
-I strongly recommend experiencing other Sanderson works before tackling *The Way of Kings*. If you start here, you might find his earlier books disappointing by comparison. This represents Sanderson at his absolute peak—save it for when you can fully appreciate the culmination of everything he'd learned about character, worldbuilding, and storytelling.
-
-## Final Thoughts
-
-*The Way of Kings* earns its five-star rating through overall execution that brings together everything that makes epic fantasy special. It's the culmination of Sanderson's development as a writer, demonstrating his ability to create characters we understand and care about while building worlds that feel both fantastic and real.
-
-This isn't just a great fantasy novel—it's a masterclass in how to take time to develop characters properly, how to build mystery that pays off, and how to create epic scope without losing human emotion. It reminded me why I love epic fantasy and set an incredibly high bar for everything that would follow.
-
-For readers who've followed Sanderson's journey, *The Way of Kings* represents everything we hoped he could achieve. It was worth the wait.

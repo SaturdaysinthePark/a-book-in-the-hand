@@ -8,7 +8,7 @@ genre: 'Classics'
 rating: 4
 readingTime: 3
 purchaseLink: 'https://bookshop.org/books/dionysiaca-volume-i-books-1-15/9780674990562'
-goodreadsId: '10195'
+goodreadsId: '551635'
 isbn: '0674993799'
 publishYear: 1940
 status: 'live'
@@ -17,14 +17,15 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0674993799.01.L.jpg'
 ---
 
-The longest surviving Greek epic at over 20,000 lines. A remnant statue from Jalalabad, Afghanistan that I saw at the MET, in New York City, piqued my interest in Dionysus and how his likeness ended up there.
+
+I discovered this book after visiting the MET in New York City and seeing a statue of the head of Dionysus. That particular statue was found in Jalalabad, where my great great grandparents were from. I had to ask myself, "why was there a statue of Dionysus from there?" After doing some research I stumbled upon the **Dionysiaca**, the 20,000 line epic about the thrice born Dionysus and his journey from Greece to India, a journey that Alexander the Great himself took.
 
 
 ## Proving yourself among gods
 
-The *Dionysiaca* is about earning your place. Dionysus is the youngest Olympian, illegitimate son of Zeus, twice born under tragedy. He needs to prove he belongs among the gods. His task: conquer India.
+The *Dionysiaca* is about earning your place. As the youngest Olympian and illegitimate son of Zeus, Dionysus has to prive he belonged amongst the gods. So he takes on the task of conquering India.
 
-Nonnos opens with Zeus battling Typhon. Cosmological warfare that sets the scale. Then he cycles through Dionysus's origins. First the Zagreus myth: the original Dionysus, torn apart by Titans as a shapeshifting infant. Then Semele's story: Zeus's mortal lover who asked to see his true form and was instantly incinerated. Baby Dionysus sewn into Zeus's thigh until his proper birth. Thrice born: from Persephone, from Semele, from Zeus himself.
+Nonnos, the author of this epic, opens with Zeus battling Typhon. Cosmological warfare that sets the scale. Then he cycles through Dionysus's origins. First the Zagreus myth, who was the original Dionysus that gets torn apart by the Titans as a shapeshifting infant. Then the story of Semele, the mortal lover of Zeus who while pregnant with Dionysus had asked to see Zeus' true form and was instantly incinerated. Zeus saves baby Dionysus by sewing him into his thigh until his proper birth. So in legend he is sometimes alluded to as the thrice born: once from Persephone, once from Semele, and once from Zeus himself.
 
 This matters because Dionysus *is* transformation. God of wine, madness, ecstasy, the untamed. That shapeshifting baby prefigures everything he becomes.
 
@@ -36,23 +37,21 @@ Nonnos makes the grief real. This isn't just origin myth mechanics. The loss fee
 
 ## Conquering with intoxication
 
-The India campaign consumes the bulk of the epic. Dionysus marches east from Greece, gathering his army of satyrs and bacchants. He passes through Asia Minor, Mesopotamia, following a route that will later belong to Alexander. When Dionysus reaches the Hydaspes River, the parallel is deliberate. This is where Alexander will fight Porus centuries later in mythological time.
+The India campaign consumes the bulk of the epic. Dionysus marches east from Greece, gathering his army of satyrs and bacchants. He passes through Asia Minor, Mesopotamia, following the route that  later belonged to Alexander the Great. When Dionysus reaches the Hydaspes River, the parallel is deliberate. This is where Alexander will fight Porus centuries later in mythological time.
 
-King Deriades of India refuses to submit. He's proud, martial, backed by Hera who nurses her eternal grudge against Zeus's illegitimate children. The war sprawls across dozens of books: battles, river crossings, sieges, funeral games in the Homeric tradition.
+King Deriades of India refuses to submit. He's proud, martial, backed by Hera who nurses an eternal grudge against Zeus's illegitimate children. The war sprawls across dozens of books: battles, river crossings, sieges, funeral games in the Homeric tradition.
 
-But Dionysus doesn't fight like Achilles or Hector. His weapon is the thyrsus, a fennel staff topped with a pinecone. His strategy is wine itself. He defeats armies by making them drunk, driving them mad, entangling them in vines and ivy. His followers aren't soldiers. They're revelers turned into a weapon.
+But Dionysus doesn't fight like Achilles or Hector. His weapon is the thyrsus, a fennel staff topped with a pinecone. His strategy is to deploy wine itself to turn armies drunk, driving them mad, entangling them in vines and ivy. His followers aren't soldiers,  they're revelers turned into weapons.
 
-I found this fascinating. War isn't just about swords and shields. It's about breaking your enemy's coherence, making them unable to function as a unit. Dionysus weaponizes confusion and transformation. It's psychological warfare rendered as myth.
+It's fascinating how Dionysus employs very different means for war than the storeis of other heroes, its not all about spears, swords and shields. Somtimes war is about breaking your enemy's coherence, making them unable to function as a unit. Dionysus weaponizes confusion and transformation. It's psychological warfare rendered as myth.
 
 Does it get repetitive? Sometimes. There are only so many ways to describe wine-induced battlefield chaos. But Rouse's translation carries you through with its baroque style. Lush, hypnotic, endlessly decorated. This isn't Homer's clean brutality. It's stranger, more dreamlike.
 
 ## Fighting without stakes
 
-Dionysus is a god. Not a demigod like Hercules, not a clever mortal like Odysseus. He's immortal, invincible. You know he can't lose.
+Dionysus is a god, not a demigod like Hercules, not a clever mortal like Odysseus, or a skilled soldier and fighter like Achilles. He's immortal, invincible, so you know he can't lose.
 
-This changes the reading experience completely. The *Iliad* works because Achilles can die. The *Odyssey* grips you because Odysseus might fail. The *Dionysiaca* offers something different. Less tension, more spectacle. You're not worried about the outcome. You're watching transformation ripple outward, watching how Dionysus reshapes the world to accommodate himself.
-
-It's processional rather than dramatic. A different kind of satisfaction.
+That changes the reading experience completely. The *Iliad* works because Achilles can die. The *Odyssey* grips you because Odysseus might fail. The *Dionysiaca* brings less tension and more spectacle to the journey. As Dionysus makes his way, you witness how Dionysus reshapes the world to accommodate himself. It's processional rather than dramatic. A different kind of satisfaction.
 
 ## Late antiquity looking backward
 

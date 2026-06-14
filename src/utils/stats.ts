@@ -12,6 +12,7 @@
 
 import shelfData from '../data/shelf.json';
 import type { ShelfBook } from './shelf';
+import { ISO_ALPHA2 } from './iso-countries';
 
 const shelf = shelfData as ShelfBook[];
 
@@ -46,6 +47,15 @@ export interface Stats {
 	gender: Bars; // Female / Male → count
 	genres: Bars; // subgenre → book count, sorted desc (title-cased)
 	topAuthors: Bars; // author → distinct books, top 25
+	longestBooks: Bars; // top 10 books by page count (label = title)
+	lengthDistribution: Bars; // page-count buckets → book count
+	avgPagesByYear: Bars; // year → mean pages per book read that year
+	avgRatingByGenre: Bars; // subgenre → mean rating, genres with ≥8 books, top 12
+	pubEra: Bars; // era of original publication → book count
+	countryStats: { country: string; books: number; isoCode: string }[]; // all countries, sorted desc
+	topCountries: Bars; // top 10 countries → book count (ready for hBarsSVG)
+	languageStats: { language: string; books: number }[]; // all languages, sorted desc
+	topLanguages: Bars; // top 12 languages → book count
 }
 
 const ISO = /^(\d{4})-(\d{2})-(\d{2})/;
@@ -58,6 +68,24 @@ function daysBetween(aIso: string, bIso: string): number {
 	const b = new Date(bIso + 'T00:00:00Z').getTime();
 	return Math.max(1, Math.round((b - a) / 86400000) + 1);
 }
+
+const todayIso = new Date().toISOString().slice(0, 10);
+
+// Full period length, but capped at days elapsed for an in-progress period, so the
+// current month/year reflects the real reading pace instead of being divided by days
+// that haven't happened yet. Completed (or future) periods use their full length.
+const monthDenom = (y: number, m: number): number => {
+	const full = daysInMonth(y, m);
+	const start = `${y}-${String(m).padStart(2, '0')}-01`;
+	const end = `${y}-${String(m).padStart(2, '0')}-${String(full).padStart(2, '0')}`;
+	if (todayIso < start || todayIso >= end) return full;
+	return daysBetween(start, todayIso);
+};
+
+const yearDenom = (y: number): number => {
+	if (todayIso < `${y}-01-01` || todayIso >= `${y}-12-31`) return daysInYear(y);
+	return daysBetween(`${y}-01-01`, todayIso);
+};
 
 export function computeStats(): Stats {
 	const books = shelf.filter((b) => ISO.test(b.dateRead || ''));
@@ -118,7 +146,7 @@ export function computeStats(): Stats {
 		const [y, m] = key.split('-').map(Number);
 		month.books.push({ label: key, value: bk.count });
 		month.pages.push({ label: key, value: bk.pages });
-		month.pagesPerDay.push({ label: key, value: Math.round(bk.pages / daysInMonth(y, m)) });
+		month.pagesPerDay.push({ label: key, value: Math.round(bk.pages / monthDenom(y, m)) });
 		month.byCategory.rows.push({ label: key, values: [bk.fiction, bk.nonfiction] });
 		month.byGender.rows.push({ label: key, values: [bk.female, bk.male] });
 	}
@@ -157,7 +185,7 @@ export function computeStats(): Stats {
 		const label = String(y);
 		year.books.push({ label, value: yb.count });
 		year.pages.push({ label, value: yb.pages });
-		year.pagesPerDay.push({ label, value: Math.round(yb.pages / daysInYear(y)) });
+		year.pagesPerDay.push({ label, value: Math.round(yb.pages / yearDenom(y)) });
 		year.byCategory.rows.push({ label, values: [yb.fiction, yb.nonfiction] });
 		year.byGender.rows.push({ label, values: [yb.female, yb.male] });
 	}
@@ -184,15 +212,30 @@ export function computeStats(): Stats {
 	];
 
 	const genreMap = new Map<string, number>();
+	const genreRating = new Map<string, { sum: number; n: number }>(); // for avg rating by genre
 	for (const b of books) {
 		for (const g of b.subgenres || []) {
 			if (!g) continue;
 			genreMap.set(g, (genreMap.get(g) || 0) + 1);
+			if (b.rating && b.rating >= 1 && b.rating <= 5) {
+				const gr = genreRating.get(g) || { sum: 0, n: 0 };
+				gr.sum += b.rating;
+				gr.n += 1;
+				genreRating.set(g, gr);
+			}
 		}
 	}
 	const genres: Bars = [...genreMap.entries()]
 		.map(([label, value]) => ({ label: titleCase(label), value }))
 		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
+
+	// Mean rating per genre, restricted to genres with a meaningful sample (≥8 rated
+	// books), sorted by rating desc, top 12.
+	const avgRatingByGenre: Bars = [...genreRating.entries()]
+		.filter(([, gr]) => gr.n >= 8)
+		.map(([label, gr]) => ({ label: titleCase(label), value: Math.round((gr.sum / gr.n) * 10) / 10 }))
+		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
+		.slice(0, 12);
 
 	const authorMap = new Map<string, number>();
 	for (const b of books) {
@@ -203,6 +246,77 @@ export function computeStats(): Stats {
 		.map(([label, value]) => ({ label, value }))
 		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
 		.slice(0, 25);
+
+	// ── Length & era ─────────────────────────────────────────────────────────────
+	// Top 10 longest books by page count (unique books). Titles are longer than the
+	// genre/author labels, so truncate for the ranking chart.
+	const longestBooks: Bars = books
+		.filter((b) => b.pages > 0)
+		.sort((a, b) => b.pages - a.pages || a.title.localeCompare(b.title))
+		.slice(0, 10)
+		.map((b) => ({ label: b.title, value: b.pages }));
+
+	// Page-count distribution across buckets.
+	const lengthBuckets: { label: string; test: (p: number) => boolean }[] = [
+		{ label: '<200', test: (p) => p < 200 },
+		{ label: '200–299', test: (p) => p >= 200 && p < 300 },
+		{ label: '300–399', test: (p) => p >= 300 && p < 400 },
+		{ label: '400–599', test: (p) => p >= 400 && p < 600 },
+		{ label: '600–799', test: (p) => p >= 600 && p < 800 },
+		{ label: '800+', test: (p) => p >= 800 },
+	];
+	const lengthDistribution: Bars = lengthBuckets.map((bucket) => ({
+		label: bucket.label,
+		value: books.filter((b) => b.pages > 0 && bucket.test(b.pages)).length,
+	}));
+
+	// Mean pages per book read each year — reuses the yearMap buckets (count + pages).
+	const avgPagesByYear: Bars = [];
+	for (let y = firstChartYear; y <= lastChartYear; y++) {
+		const yb = yearMap.get(y) || blank();
+		avgPagesByYear.push({ label: String(y), value: yb.count ? Math.round(yb.pages / yb.count) : 0 });
+	}
+
+	// Era of original publication: coarse bins for antiquity, finer toward the present.
+	const eraBuckets: { label: string; test: (y: number) => boolean }[] = [
+		{ label: 'BCE', test: (y) => y < 0 },
+		{ label: '0–500', test: (y) => y >= 0 && y < 500 },
+		{ label: '500–1000', test: (y) => y >= 500 && y < 1000 },
+		{ label: '1000–1500', test: (y) => y >= 1000 && y < 1500 },
+		{ label: '1500–1700', test: (y) => y >= 1500 && y < 1700 },
+		{ label: '1700–1900', test: (y) => y >= 1700 && y < 1900 },
+		{ label: '1900–29', test: (y) => y >= 1900 && y < 1930 },
+		{ label: '1930–59', test: (y) => y >= 1930 && y < 1960 },
+		{ label: '1960–89', test: (y) => y >= 1960 && y < 1990 },
+		{ label: '1990–2009', test: (y) => y >= 1990 && y < 2010 },
+		{ label: '2010–19', test: (y) => y >= 2010 && y < 2020 },
+		{ label: '2020+', test: (y) => y >= 2020 },
+	];
+	const pubEra: Bars = eraBuckets.map((bucket) => ({
+		label: bucket.label,
+		value: books.filter((b) => b.originalPubYear != null && bucket.test(b.originalPubYear)).length,
+	}));
+
+	// ── Country distribution ───────────────────────────────────────────────────
+	const countryMap = new Map<string, number>();
+	for (const b of books) {
+		if (b.country) countryMap.set(b.country, (countryMap.get(b.country) ?? 0) + 1);
+	}
+	const countryStats = [...countryMap.entries()]
+		.map(([country, cnt]) => ({ country, books: cnt, isoCode: ISO_ALPHA2[country] ?? '' }))
+		.sort((a, b) => b.books - a.books || a.country.localeCompare(b.country));
+	const topCountries: Bars = countryStats.slice(0, 16).map(({ country, books: cnt }) => ({ label: country, value: cnt }));
+
+	// ── Language distribution ──────────────────────────────────────────────────
+	const langMap = new Map<string, number>();
+	for (const b of books) {
+		const lang = (b as ShelfBook & { language?: string }).language;
+		if (lang) langMap.set(lang, (langMap.get(lang) ?? 0) + 1);
+	}
+	const languageStats = [...langMap.entries()]
+		.map(([language, cnt]) => ({ language, books: cnt }))
+		.sort((a, b) => b.books - a.books || a.language.localeCompare(b.language));
+	const topLanguages: Bars = languageStats.slice(0, 12).map(({ language, books: cnt }) => ({ label: language, value: cnt }));
 
 	return {
 		booksRead,
@@ -220,5 +334,14 @@ export function computeStats(): Stats {
 		gender,
 		genres,
 		topAuthors,
+		longestBooks,
+		lengthDistribution,
+		avgPagesByYear,
+		avgRatingByGenre,
+		pubEra,
+		countryStats,
+		topCountries,
+		languageStats,
+		topLanguages,
 	};
 }

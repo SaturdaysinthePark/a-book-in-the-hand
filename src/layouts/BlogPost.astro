@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -27,6 +28,21 @@ const {
 const authorSlug    = author ? author.toLowerCase().replace(/\s+/g, '-') : '';
 const authorSlugs   = new Set(authorSlug ? [authorSlug] : []);
 const displayTags   = tags ? filterDisplayTags(tags, authorSlugs) : [];
+
+// Resolve pick covers from linked review posts when cover is absent
+let resolvedPicks = picks;
+if (picks?.length) {
+	const allEntries = await getCollection('blog');
+	const heroBySlug = new Map(allEntries.map(e => [e.id, e.data.heroImage]));
+	resolvedPicks = picks.map(pick => {
+		if (pick.cover && pick.cover !== 'TK') return pick;
+		if (!pick.reviewUrl) return pick;
+		// reviewUrl: "/blog/2025/02/25/taiwan-travelogue/" → slug: "2025/02/25/taiwan-travelogue"
+		const slug = decodeURIComponent(pick.reviewUrl.replace(/^\/blog\//, '').replace(/\/$/, ''));
+		const hero = heroBySlug.get(slug);
+		return hero ? { ...pick, cover: hero } : pick;
+	});
+}
 
 // Deterministic cover color for books without photos
 const COVER_COLORS = [
@@ -158,9 +174,9 @@ function stars(n: number) {
 							</p>
 						</div>
 
-						{picks && picks.length > 0 && (
+						{resolvedPicks && resolvedPicks.length > 0 && (
 							<div class="lp-entries">
-								{picks.map((pick, i) => {
+								{resolvedPicks.map((pick, i) => {
 									const c = getCoverColor(pick.bookTitle);
 									return (
 										<article class="lp-entry">

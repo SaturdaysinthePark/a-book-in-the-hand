@@ -1,6 +1,6 @@
 ---
 title: 'Review: Gliff'
-description: "In Ali Smith's near-future Britain, you don't exist unless the state says you do. A fragmented, language-focused dystopia where wordplay does more work than action."
+description: "In near future Britain, you don't exist unless the state can verify you. A fragmented, language focused dystopia where doubelspeak and workplay tell many stories."
 pubDate: 2025-04-18
 bookTitle: 'Gliff'
 author: 'Ali Smith'
@@ -17,22 +17,14 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0593701569.01.L.jpg'
 ---
 
-Ali Smith's *Gliff* is set in a near-future Britain under surveillance and environmental collapse. Two siblings live outside the state's documentation system, making them "unverifiables" and targets for capture. The premise is familiar (authoritarian surveillance, fugitive protagonists, erasure of identity), but Smith cares less about dystopian world-building than about how language itself becomes resistance.
+Ali Smith's *Gliff* is set in a future Britain that is under surveillance and environmental collapse. The story is about two siblings (their names Briar and Rose) who live off grid, undocumented and labeled as 'unverifiable', making them targets for capture. Some of the story revolves around their series of physical displacement, but the broader story is more about language, freedom, identity, and resistance. As you read you'll gain a sense that the world Rose and Briar occupte is one of a surveillance state that our current world is slowly moving towards.
 
-The book doesn't follow a linear narrative. Briar's first-person account assembles fragments and memories, jumping between time periods. We only learn Briar is non-binary when another character asks about it, a detail that emerges sideways rather than announced. Existing outside bureaucratic categories mirrors existing outside rigid social constructs like gender. The fractured structure puts us in Briar's position, learning alongside someone who lives on society's edges with incomplete information about how the system operates. This approach worked for me, though it means the book prioritizes atmosphere and language over plot momentum.
+There isn't a complete answer as to how the world ended up this way, and that does bring a sense of realism for Briar and Rose's perspective, since it's a world in which they barely have all the details. I got the sense that it was very much like the outskirts of society in *1984* or along those lines, since there is a lot of double speak in the jargon and language. 
 
-## Two siblings, two fates
+At some point Rose meets a horse in the book and names it 'Gliff', and Briar comments that it sounds like 'Glyph', and that the word perfectly describes the horse as 'something unpindownable' since a glyph is a 'substitute for any word'. At some point you notice how Briar refers to themselves in a non-binary way, indicating Brian is hard to pindown as well. That theme is extended into a scene where Briar escapes a plot of the system they live in, or how their name is sometimes Bri or Brice and not just Briar. A couple of quotes from Briar hold this up:
 
-The contrast between Briar and Rose sharpens as the book progresses. Briar is the protector, more mature and cautious. Rose is the dreamer, almost naively hopeful in her attachment to the horse and her refusal to accept the state's authority. When the narrative jumps five years forward, we find Briar re-educated and working within the system, seemingly having forgotten (or been forced to suppress) the bond with Rose. The system's goal isn't just surveillance but erasure of previous identities and relationships. Rose remains free, still unverifiable, still undefined. The ending hints at potential reunion, but Smith doesn't offer easy optimism. Briar's absorption into the machinery feels inevitable rather than tragic, which is the bleaker reading.
+> "It was always exciting to me the number of things a single word could mean" 
 
-## Wordplay as resistance
+> "my briar self is back, prickly and twined"
 
-Rose names a horse "Gliff," a Scottish term with multiple meanings (a fright, a glimpse, a moment in time). Briar notes it sounds close to "glyph." Briar describes the name as "something unpindownable," saying the horse "can be everything and anything." This refusal of fixed meaning mirrors how authoritarian systems rely on categorization and documentation to exert control. The unverifiables resist not just the surveillance state but the act of definition itself. If you can't be pinned down, you can't be processed. Smith threads this wordplay throughout, making language evasive rather than clear.
-
-## Quieter than Orwell and Huxley
-
-The influence of [*1984*](/blog/2020/01/19/1984) and *Brave New World* is evident (surveillance, re-education, state control of language and identity), but Smith's approach is more understated. Where Orwell and Huxley foregrounded the mechanics of their dystopias, Smith keeps the world-building intentionally sparse. This works thematically (we see only what Briar sees from the margins) but also creates distance. The vagueness sometimes felt less like artistic restraint and more like Smith assumed familiarity with dystopian conventions would fill the gaps. The writing has a studied quality, every choice foregrounded as deliberate, which occasionally calls attention to itself. I wanted more specificity about how this world actually functions, even from Briar's limited vantage point.
-
-*Gliff* reads less as a warning about the future and more as a commentary on the present. We're already moving toward the world Briar and Rose inhabit. Smith's focus on language and definition over action or plot won't work for everyone, but the thematic coherence holds together.
-
-I totally recommend reading this book, I know I rated it 3 stars. The ideas are sharp, the structure effective, but the sparse world-building and the occasionally mannered prose keep it from landing with full force. In a world that demands you declare what you are, refusing to be any one thing is its own form of survival and identity.
+You'll enjoy reading this if you are interested in dystopian settings, some mystery, like books such as *1984* or *Fahrenheit 451*. Overall, I felt *Gliff* is a smart book, and that Ali Smith treats her readers with great wordplay and language, but ultimately I was hoping to learn more about this world and felt it was incomplete. I do hope the follow up novel *Glyph* expands upon the story!

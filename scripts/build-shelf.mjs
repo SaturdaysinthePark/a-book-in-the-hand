@@ -88,11 +88,12 @@ function normaliseCategory(g) {
 	return '';
 }
 
-// Build subgenres array from Genre B + Genre C (Genre D ignored — rarely used, max 2 subgenres).
-function normaliseSubgenres(b, c) {
-	const clean = (v) => (v || '').toString().trim();
-	const result = [clean(b), clean(c)].filter(Boolean).map(s => s.toLowerCase());
-	return [...new Set(result)]; // deduplicate
+// Build subgenres array from the comma-separated "Genres" column.
+function normaliseSubgenres(genres) {
+	return String(genres || '').split(',')
+		.map(s => s.trim().toLowerCase())
+		.filter(Boolean)
+		.filter((g, i, a) => a.indexOf(g) === i);
 }
 
 // Author Gender: 'Male' → 'male', 'Female' → 'female', anything else → '' (unknown).
@@ -193,7 +194,9 @@ function readSheetRows(path, sheet) {
 	const wb = XLSX.readFile(path, { cellDates: true });
 	const ws = wb.Sheets[sheet];
 	if (!ws) return null;
-	return XLSX.utils.sheet_to_json(ws, { raw: true });
+	// defval:'' ensures every row has every column key (even empty ones), so
+	// writeBooksFile's Object.keys(rows[0]) never silently drops sparse columns.
+	return XLSX.utils.sheet_to_json(ws, { raw: true, defval: '' });
 }
 
 // Write website-books.xlsx: the owner's rows, with exactly two managed cover
@@ -210,11 +213,13 @@ function writeBooksFile(rows, byId) {
 	const header = [...base, COVER_COL, SOURCE_COL];
 
 	if (existsSync(BOOKS_PATH)) copyFileSync(BOOKS_PATH, BOOKS_BACKUP_PATH);
-	const ws = XLSX.utils.json_to_sheet(rows, { header });
-	const wb = XLSX.utils.book_new();
-	XLSX.utils.book_append_sheet(wb, ws, BOOKS_SHEET);
+	const ws = XLSX.utils.json_to_sheet(rows, { header, cellDates: true });
+	// Read existing workbook to preserve non-books sheets (e.g. genre-reference).
+	const wb = existsSync(BOOKS_PATH) ? XLSX.readFile(BOOKS_BACKUP_PATH) : XLSX.utils.book_new();
+	wb.Sheets[BOOKS_SHEET] = ws;
+	if (!wb.SheetNames.includes(BOOKS_SHEET)) wb.SheetNames.unshift(BOOKS_SHEET);
 	mkdirSync(dirname(BOOKS_PATH), { recursive: true });
-	XLSX.writeFile(wb, BOOKS_PATH);
+	XLSX.writeFile(wb, BOOKS_PATH, { cellDates: true });
 }
 
 // ── Main ───────────────────────────────────────────────────────────────────
@@ -285,10 +290,13 @@ async function main() {
 					return ys.length ? ys : (date ? [parseInt(date.slice(0, 4), 10)] : []);
 				})(),
 				pages: parseInt(String(r['Number of Pages'] || '0'), 10) || 0,
+				originalPubYear: parseInt(String(r['Original Publication Year'] ?? r['Year Published'] ?? ''), 10) || null,
 				category: normaliseCategory(r['Genre A']),
-				subgenres: normaliseSubgenres(r['Genre B'], r['Genre C']),
+				subgenres: normaliseSubgenres(r['Genres']),
 				gender: normaliseGender(r['Gender']),
-				classic: !!(r['Classics?'] && String(r['Classics?']).trim()),
+				classic: normaliseSubgenres(r['Genres']).includes('classics'),
+				country: String(r['Country'] || '').trim(),
+				language: String(r['Language'] || '').trim(),
 			});
 		}
 	}
@@ -384,7 +392,8 @@ async function main() {
 	const output = books.map((b) => ({
 		goodreadsId: b.goodreadsId, title: b.title, author: b.author, isbn13: b.isbn13,
 		rating: b.rating, dateRead: b.dateRead, readCount: b.readCount, readYears: b.readYears, pages: b.pages,
-		category: b.category, subgenres: b.subgenres, gender: b.gender, classic: b.classic,
+		originalPubYear: b.originalPubYear,
+		category: b.category, subgenres: b.subgenres, gender: b.gender, classic: b.classic, country: b.country, language: b.language,
 		coverUrl: b.coverUrl,
 	}));
 	mkdirSync(dirname(SHELF_PATH), { recursive: true });

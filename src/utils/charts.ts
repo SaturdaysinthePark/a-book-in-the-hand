@@ -89,6 +89,70 @@ export function barsSVG(bars: Bar[], opts: BarsOpts = {}): string {
 	return frame(g, W, H, opts.ariaLabel ?? opts.title ?? 'Bar chart', opts.title, opts.desc);
 }
 
+// ── smooth area / line curve (distribution "bell") ──────────────────────────────
+// Plots one point per bar at its slot centre and connects them with a Catmull-Rom
+// spline (converted to cubic béziers), drawing a soft area fill under the curve
+// plus a stroke on top. Shares barsSVG's padding, scale, gridlines and x-ticks so
+// it drops in wherever a small distribution chart is wanted.
+export function curveSVG(bars: Bar[], opts: BarsOpts = {}): string {
+	const W = opts.width ?? 1000;
+	const H = opts.height ?? 420;
+	const color = opts.color ?? 'var(--accent)';
+	const fmtV = opts.formatValue ?? fmtInt;
+	const yTicks = opts.yTicks ?? 4;
+	const padL = 50, padR = 16, padT = opts.showValues ? 30 : 16, padB = 36;
+	const plotW = W - padL - padR, plotH = H - padT - padB;
+	const n = Math.max(1, bars.length);
+	const max = bars.reduce((m, b) => Math.max(m, b.value), 0);
+	const nmax = niceMax(max, yTicks);
+	const baseline = padT + plotH;
+	const yOf = (v: number) => padT + plotH - (v / nmax) * plotH;
+	// Spread points edge-to-edge: first on the left axis, last on the right edge.
+	const step = n > 1 ? plotW / (n - 1) : 0;
+	const pts = bars.map((b, i) => ({ x: padL + i * step, y: yOf(b.value) }));
+
+	let g = '';
+	// y gridlines + labels (identical to barsSVG)
+	for (let t = 0; t <= yTicks; t++) {
+		const v = (nmax / yTicks) * t;
+		const y = yOf(v);
+		g += `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${W - padR}" y2="${y.toFixed(1)}" stroke="${RULE}" stroke-width="1"/>`;
+		g += `<text x="${padL - 8}" y="${(y + 3.5).toFixed(1)}" text-anchor="end" font-size="11" fill="${AXIS}">${fmtV(v)}</text>`;
+	}
+
+	// Catmull-Rom → cubic bézier, clamping control points within the plot so the
+	// spline can't overshoot below the baseline or above the top.
+	const clampY = (y: number) => Math.max(padT, Math.min(baseline, y));
+	let d = `M${pts[0].x.toFixed(1)},${pts[0].y.toFixed(1)}`;
+	for (let i = 0; i < pts.length - 1; i++) {
+		const p0 = pts[i - 1] || pts[i];
+		const p1 = pts[i];
+		const p2 = pts[i + 1];
+		const p3 = pts[i + 2] || p2;
+		const c1x = p1.x + (p2.x - p0.x) / 6;
+		const c1y = clampY(p1.y + (p2.y - p0.y) / 6);
+		const c2x = p2.x - (p3.x - p1.x) / 6;
+		const c2y = clampY(p2.y - (p3.y - p1.y) / 6);
+		d += `C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${p2.x.toFixed(1)},${p2.y.toFixed(1)}`;
+	}
+	// area fill: curve closed down to the baseline
+	const area = `${d}L${pts[pts.length - 1].x.toFixed(1)},${baseline.toFixed(1)}L${pts[0].x.toFixed(1)},${baseline.toFixed(1)}Z`;
+	g += `<path d="${area}" fill="${color}" fill-opacity="0.12"/>`;
+	g += `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+
+	// points, value labels, x-ticks
+	bars.forEach((b, i) => {
+		const p = pts[i];
+		g += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="3" fill="${color}"><title>${esc(b.label)}: ${fmtV(b.value)}</title></circle>`;
+		if (opts.showValues)
+			g += `<text x="${p.x.toFixed(1)}" y="${(p.y - 10).toFixed(1)}" text-anchor="middle" font-size="11" fill="var(--ink-2)">${fmtV(b.value)}</text>`;
+		const tick = opts.formatTick ? opts.formatTick(b.label, i) : b.label;
+		if (tick)
+			g += `<text x="${p.x.toFixed(1)}" y="${H - 12}" text-anchor="middle" font-size="11" fill="${AXIS}">${esc(tick)}</text>`;
+	});
+	return frame(g, W, H, opts.ariaLabel ?? opts.title ?? 'Distribution curve', opts.title, opts.desc);
+}
+
 // ── vertical stacked bar chart (splits over time) ───────────────────────────────
 export interface StackedOpts extends Omit<BarsOpts, 'color'> {
 	colors?: string[]; // aligned to stacked.keys
@@ -144,6 +208,7 @@ export interface HBarsOpts {
 	rowH?: number;
 	labelW?: number;
 	color?: string;
+	colors?: string[]; // optional per-bar fill, index-aligned to bars; falls back to `color`
 	ariaLabel?: string;
 	title?: string;
 	desc?: string;
@@ -166,9 +231,9 @@ export function hBarsSVG(bars: Bar[], opts: HBarsOpts = {}): string {
 	bars.forEach((b, i) => {
 		const yMid = padT + i * rowH + rowH / 2;
 		const len = (b.value / max) * plotW;
-		g += `<text x="${labelW - 10}" y="${(yMid + 4).toFixed(1)}" text-anchor="end" font-size="12.5" fill="var(--ink-2)" font-family="var(--sans)">${esc(b.label)}<title>${esc(b.label)}: ${fmtV(b.value)}</title></text>`;
-		g += `<rect x="${labelW}" y="${(yMid - bh / 2).toFixed(1)}" width="${Math.max(1, len).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="${color}"/>`;
-		g += `<text x="${(labelW + len + 7).toFixed(1)}" y="${(yMid + 4).toFixed(1)}" font-size="12" fill="${AXIS}">${fmtV(b.value)}</text>`;
+		g += `<text x="${labelW - 10}" y="${(yMid + 4).toFixed(1)}" text-anchor="end" font-size="13.5" fill="var(--ink-2)" font-family="var(--sans)">${esc(b.label)}<title>${esc(b.label)}: ${fmtV(b.value)}</title></text>`;
+		g += `<rect x="${labelW}" y="${(yMid - bh / 2).toFixed(1)}" width="${Math.max(1, len).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="${opts.colors?.[i] ?? color}"/>`;
+		g += `<text x="${(labelW + len + 7).toFixed(1)}" y="${(yMid + 4).toFixed(1)}" font-size="12.5" fill="${AXIS}">${fmtV(b.value)}</text>`;
 	});
 	return frame(g, W, H, opts.ariaLabel ?? opts.title ?? 'Ranking', opts.title, opts.desc);
 }

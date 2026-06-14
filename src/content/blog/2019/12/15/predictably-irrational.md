@@ -1,5 +1,5 @@
 ---
-title: 'The Science Behind Our Flawed Decision-Making'
+title: 'Predictably Irrational'
 description: 'Dan Ariely uses clever experiments to reveal the hidden psychological forces that shape our supposedly rational choices.'
 pubDate: 2019-12-15
 bookTitle: 'Predictably Irrational: The Hidden Forces That Shape Our Decisions'

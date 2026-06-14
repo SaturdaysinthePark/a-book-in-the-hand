@@ -17,33 +17,30 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0735224048.01.L.jpg'
 ---
 
-**The Bright Sword** exceeded my expectations in ways I didn't anticipate. Having grown up reading *The Once and Future King* and loving Arthurian legend, I was curious how Lev Grossman would approach this well-trodden territory. His answer was brilliant: don't retell the legend—explore what happens after it ends.
+Having grown up reading **The Once and Future King** and loving Arthurian legend, I was curious how Lev Grossman would approach his book. I was pleased to see **The Bright Sword** position itself as a post-Arthurian story, one that I don't think has been explored much.
 
 ## The Post-Arthur World
 
-Grossman's decision to focus on the aftermath of Arthur's death rather than rehashing familiar stories was inspired. The book opens with Collum, an aspiring knight arriving at Camelot only to discover he's too late—Arthur is dead, the Round Table is shattered, and only a handful of knights remain. This setup immediately subverts expectations and creates space for fresh storytelling within a beloved mythology.
-
-What struck me most was how Grossman connected Arthurian legend to actual British history. The traces of Roman civilization that Collum encounters on his journey—paved roads, ruins, the political aftermath of Roman withdrawal—grounded the fantasy in historical reality. As someone who's studied Roman history, I found this historical layering fascinating and often overlooked in other Arthurian adaptations.
+The story starts with Collum, an aspiring knight, arriving at Camelot and discovering King Arthur is dead, the Round Table shattered, and just a few knights remaining. Right away the rug is pulled under the reader and Collum, and creates space for quite an interesting story. During this set up we get more of a sense of England during this time, particularly of the paved roads and ruins that remain after the Romans abandoned England, grounding the legend of Arthur back to our real world.
 
 ## Character Work and Storytelling
 
-Collum works brilliantly as our entry point, though he's more conduit than protagonist. Through him, we learn the stories of knights I knew little about—Galahad, Palomides, and especially Bedivere. The structure of present-day action interwoven with flashbacks to Arthur's reign was expertly handled, revealing character depths and motivations organically.
+I felt that Collum as a character was okay, but him acting as a framing device to explore the remaining knights was a great tactic by Grossman. We get to read about Galahad, Palomides and Bedivere. For each we get a mix of present day action, and flashbacks to Arthur's time. 
 
-Palomides' background as an Arab from Baghdad who played polo and studied the Quran added welcome diversity to the Round Table, while Bedivere's intimate perspective on Arthur's rise revealed the human cost of legend-making. Grossman's Arthur isn't a perfect king but a young man thrust into impossible circumstances, capable of "chilling his soul down to the temperature necessary for the sacrifice of loyal men."
+Palomides' background as an Arab from Baghdad who played polo and studied the Quran added some welcome diversity to the Round Table. Bedivere's intimate perspective on Arthur's rise revealed the human cost of legend making. Grossman's Arthur isn't a perfect king but a young man thrust into impossible circumstances, capable of "chilling his soul down to the temperature necessary for the sacrifice of loyal men."
 
-## Themes of Heroism and Disillusionment
+>  "a lot of heroes hate themselves, it's why they work so hard to make everybody love them."
 
-The book's central theme—the gap between heroic ideals and messy reality—resonated deeply. As one character observes, "a lot of heroes hate themselves, it's why they work so hard to make everybody love them." Collum's journey embodies the old warning about never meeting your heroes. His romantic notions of knighthood crash against the reality of what heroism actually costs.
+The book's central theme danced around the gap between the ideals of a hero and the messy reality of that ideal. The old saying 'never meet your heroes' seems to hit Collum hard as his romantic notion of knighthood vanishes upon meeting the remaining knights.
 
-The exploration of empire and legacy felt particularly relevant: "An Empire that builds its walls in stone has stopped growing. And an empire that is not growing is dying." Grossman uses Arthurian legend to examine how myths survive the collapse of the systems that created them.
+The life of a myth is an explored topic throughout the book. Grossman uses Arthurian legend to examine how myths survive the collapse of the systems that created them.
+
+> "An Empire that builds its walls in stone has stopped growing. And an empire that is not growing is dying."
+
 
 ## Final Thoughts
 
-*The Bright Sword* succeeds as both a fresh take on familiar material and a respectful treatment of its sources. Grossman's prose is elegant without being overwrought, and the pacing kept me engaged throughout. The book stands alone beautifully—you don't need extensive Arthurian knowledge to appreciate it, though familiarity with the legends adds layers of meaning.
-
-I'd especially recommend this to anyone who loves Arthurian legend and wants a new perspective on it. Rather than retreading Arthur's rise, Grossman explores what heroism means when the heroic age is over. It's a meditation on legacy, disillusionment, and the stories we tell ourselves about greatness.
-
-This book reminded me why Arthurian legend endures: not because of the knights' perfection, but because of their very human struggles with ideals they can never quite reach.
+I enjoyed reading **The Bright Sword**  and would recommend it, especially to anyone who is familiar with the Arthurian legend. I got to learn more about some of the knights I never paid attention to such as Galahad and Palomides, which are now way more cemented in my memory, and more interesting to me than perhaps stories of Lancelot. The book also continues to evoke a central theme that Arthurian legend usually tells, that even the legends of the idealistic kingdom of Camelot contained human flaws and the knights are no exception to that.
 
 ## Words I Learned
 

@@ -1,5 +1,5 @@
 ---
-title: 'Death Science with a Side of Humor'
+title: 'Stiff'
 description: 'Mary Roach transforms the morbid topic of human cadavers into an entertaining and educational exploration of what happens after we die.'
 pubDate: 2019-12-12
 bookTitle: 'Stiff: The Curious Lives of Human Cadavers'

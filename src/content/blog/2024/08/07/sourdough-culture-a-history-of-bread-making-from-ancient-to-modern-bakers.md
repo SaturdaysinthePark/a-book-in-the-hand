@@ -17,6 +17,4 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/1572843012.01.L.jpg'
 ---
 
-Review of **Sourdough Culture: A History of Bread Making from Ancient to Modern Bakers** by Eric Pallant coming soon...
-
-I rated this book 2 stars.
+Overall i thought this was a decent book, but I also felt like it was very stretched out. 

@@ -20,6 +20,14 @@ const featuredList  = lists[0];
 const moreLists     = lists.slice(1, 3);
 const fiveStars     = reviews.filter(p => p.data.rating === 5).slice(0, 8);
 
+// Deterministic list card colours (matches my-lists palette)
+const LIST_COLORS = ['#1e3a2a','#2d1e3a','#3a1e1e','#1e2d3a','#3a2d1e','#1e3a38','#3a3018','#2d1e30'];
+function listColor(seed: string) {
+	let h = 0;
+	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
+	return LIST_COLORS[Math.abs(h) % LIST_COLORS.length];
+}
+
 // Deterministic cover colour for placeholder covers
 const COVER_COLORS = [
 	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
@@ -126,39 +134,56 @@ const currentlyReading = crBook && crFallback ? {
 			)}
 
 			{/* ── Signature list ──────────────────────────────── */}
-			{featuredList && (
-				<section class="signature-list-band">
-					<div class="shell">
-						<a href={getBlogUrl(featuredList.id)} class="signature-list">
-							<div class="sl-body">
-								<p class="sl-eyebrow">§ A FEATURE · THE FLAGSHIP LIST</p>
-								<h2>{featuredList.data.title}</h2>
-								{featuredList.data.description && (
-									<p>{featuredList.data.description}</p>
-								)}
-								<span class="sl-cta">See the full list →</span>
-							</div>
-							<div class="sl-stack">
-								{lists.slice(0, 4).map((l, i) => {
-									const c = cc(l.data.title);
-									const rotations = [-4, 2, -2, 5];
-									return l.data.heroImage ? (
-										<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-											<img src={l.data.heroImage} alt={l.data.title} />
-										</div>
-									) : (
-										<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-											<div class="spine"></div>
-											<div class="gloss"></div>
-											<div class="cover-label">{l.data.title.toUpperCase()}</div>
-										</div>
-									);
-								})}
-							</div>
-						</a>
-					</div>
-				</section>
-			)}
+			{featuredList && (() => {
+				const slBg = listColor(featuredList.data.title);
+				const slPicks = featuredList.data.picks ?? [];
+				const rotations = [-4, 2, -2, 5];
+				return (
+					<section class="signature-list-band sl-dark" style={`--sl-bg:${slBg}`}>
+						<div class="shell">
+							<a href={getBlogUrl(featuredList.id)} class="signature-list">
+								<div class="sl-body">
+									<p class="sl-eyebrow">§ A FEATURE · THE FLAGSHIP LIST</p>
+									<h2>{featuredList.data.title}</h2>
+									{featuredList.data.description && (
+										<p>{featuredList.data.description}</p>
+									)}
+									<span class="sl-cta">See the full list →</span>
+								</div>
+								<div class="sl-stack">
+									{slPicks.length > 0 ? slPicks.slice(0, 4).map((pick, i) => {
+										const c = cc(pick.bookTitle);
+										return pick.cover && pick.cover !== 'TK' ? (
+											<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+												<img src={pick.cover} alt={pick.bookTitle} />
+											</div>
+										) : (
+											<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+												<div class="spine"></div>
+												<div class="gloss"></div>
+												<div class="cover-label">{pick.bookTitle.toUpperCase()}</div>
+											</div>
+										);
+									}) : lists.slice(0, 4).map((l, i) => {
+										const c = cc(l.data.title);
+										return l.data.heroImage ? (
+											<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+												<img src={l.data.heroImage} alt={l.data.title} />
+											</div>
+										) : (
+											<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
+												<div class="spine"></div>
+												<div class="gloss"></div>
+												<div class="cover-label">{l.data.title.toUpperCase()}</div>
+											</div>
+										);
+									})}
+								</div>
+							</a>
+						</div>
+					</section>
+				);
+			})()}
 
 			{/* ── Recent reading ───────────────────────────────── */}
 			{recentReviews.length > 0 && (

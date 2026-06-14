@@ -7,33 +7,36 @@ const isActive = (path: string) =>
 ---
 
 <header class="hdr" id="site-header">
-	<!-- Brooklyn Bridge spanning logo -->
-	<a href="/" class="lockup-span" aria-label="The Brooklyn Reader — home">
-		<span class="title-row">
-			<span class="the">the</span><span class="borough">Brooklyn</span> Reader
+	<!-- Brooklyn Reader — Masthead MID lockup (wordmark over mid bridge) -->
+	<a href="/" class="bk-logo" aria-label="The Brooklyn Reader — home">
+		<span class="nm">
+			<span class="the">the</span><span class="bk">Brooklyn</span> Reader<span class="dot">.</span>
 		</span>
-		<span class="bridge-row" aria-hidden="true">
-			<svg viewBox="0 0 600 40" preserveAspectRatio="none">
-				<path d="M 8 38 Q 90 6 150 4 Q 300 32 450 4 Q 510 6 592 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-				<g stroke="currentColor" stroke-width="1">
-					<line x1="40"  y1="28" x2="40"  y2="36"/>
-					<line x1="70"  y1="20" x2="70"  y2="36"/>
-					<line x1="100" y1="12" x2="100" y2="36"/>
-					<line x1="130" y1="6"  x2="130" y2="36"/>
-					<line x1="180" y1="10" x2="180" y2="36"/>
-					<line x1="220" y1="18" x2="220" y2="36"/>
-					<line x1="260" y1="24" x2="260" y2="36"/>
-					<line x1="300" y1="28" x2="300" y2="36"/>
-					<line x1="340" y1="24" x2="340" y2="36"/>
-					<line x1="380" y1="18" x2="380" y2="36"/>
-					<line x1="420" y1="10" x2="420" y2="36"/>
-					<line x1="470" y1="6"  x2="470" y2="36"/>
-					<line x1="500" y1="12" x2="500" y2="36"/>
-					<line x1="530" y1="20" x2="530" y2="36"/>
+		<span class="bridge" aria-hidden="true">
+			<svg viewBox="0 0 600 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M 6,52 Q 78,10 149,3 Q 300,42 451,3 Q 522,10 594,52" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+				<g stroke="currentColor" stroke-width="0.9">
+					<line x1="42"  y1="33" x2="42"  y2="50"/>
+					<line x1="76"  y1="21" x2="76"  y2="50"/>
+					<line x1="108" y1="12" x2="108" y2="50"/>
+					<line x1="192" y1="12" x2="192" y2="50"/>
+					<line x1="222" y1="19" x2="222" y2="50"/>
+					<line x1="254" y1="27" x2="254" y2="50"/>
+					<line x1="278" y1="34" x2="278" y2="50"/>
+					<line x1="300" y1="38" x2="300" y2="50"/>
+					<line x1="322" y1="34" x2="322" y2="50"/>
+					<line x1="346" y1="27" x2="346" y2="50"/>
+					<line x1="378" y1="19" x2="378" y2="50"/>
+					<line x1="408" y1="12" x2="408" y2="50"/>
+					<line x1="492" y1="12" x2="492" y2="50"/>
+					<line x1="524" y1="21" x2="524" y2="50"/>
+					<line x1="558" y1="33" x2="558" y2="50"/>
 				</g>
-				<rect x="142" y="0"  width="14" height="36" fill="currentColor"/>
-				<rect x="444" y="0"  width="14" height="36" fill="#9c4a2a"/>
-				<rect x="0"   y="36" width="600" height="4"  fill="currentColor"/>
+				<path fill-rule="evenodd" fill="currentColor" d="M 132,0 L 166,0 L 166,80 L 149,63 L 132,80 Z M 136,50 L 136,26 Q 136,8 142,5 Q 148,8 148,26 L 148,50 Z M 150,50 L 150,26 Q 150,8 156,5 Q 162,8 162,26 L 162,50 Z"/>
+				<path fill-rule="evenodd" fill="#9c4a2a" d="M 434,0 L 468,0 L 468,80 L 451,63 L 434,80 Z M 438,50 L 438,26 Q 438,8 444,5 Q 450,8 450,26 L 450,50 Z M 452,50 L 452,26 Q 452,8 458,5 Q 464,8 464,26 L 464,50 Z"/>
+				<rect x="0" y="50" width="600" height="4" fill="currentColor"/>
+				<path d="M 0 65 Q 12 60 25 65 T 50 65 T 75 65 T 100 65 T 125 65 T 150 65 T 175 65 T 200 65 T 225 65 T 250 65 T 275 65 T 300 65 T 325 65 T 350 65 T 375 65 T 400 65 T 425 65 T 450 65 T 475 65 T 500 65 T 525 65 T 550 65 T 575 65 T 600 65" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.5"/>
+				<path d="M 14 75 Q 26 70 39 75 T 64 75 T 89 75 T 114 75 T 139 75 T 164 75 T 189 75 T 214 75 T 239 75 T 264 75 T 289 75 T 314 75 T 339 75 T 364 75 T 389 75 T 414 75 T 439 75 T 464 75 T 489 75 T 514 75 T 539 75 T 564 75 T 589 75" fill="none" stroke="currentColor" stroke-width="1.1" opacity="0.26"/>
 			</svg>
 		</span>
 	</a>
@@ -42,8 +45,8 @@ const isActive = (path: string) =>
 	<nav class="hdr-nav" aria-label="Site navigation">
 		<a href="/book-reviews" class={isActive('/book-reviews') ? 'is-active' : ''}>Reviews</a>
 		<a href="/my-lists"     class={isActive('/my-lists')     ? 'is-active' : ''}>Lists</a>
-		<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
 		<a href="/stats"        class={isActive('/stats')        ? 'is-active' : ''}>Stats</a>
+		<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
 		<button class="hdr-search" id="search-btn" aria-label="Search">
 			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
 				<circle cx="7" cy="7" r="4.5"/>
@@ -51,6 +54,14 @@ const isActive = (path: string) =>
 			</svg>
 		</button>
 	</nav>
+
+	<!-- Mobile search (surfaced outside the hamburger for faster access) -->
+	<button class="hdr-search hdr-search-m" id="search-btn-m" aria-label="Search">
+		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+			<circle cx="7" cy="7" r="4.5"/>
+			<line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke-linecap="round"/>
+		</svg>
+	</button>
 
 	<!-- Mobile hamburger -->
 	<button class="hdr-menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
@@ -67,8 +78,8 @@ const isActive = (path: string) =>
 	<nav class="hdr-drawer-links">
 		<a href="/book-reviews" class={isActive('/book-reviews') ? 'is-active' : ''}>Reviews</a>
 		<a href="/my-lists"     class={isActive('/my-lists')     ? 'is-active' : ''}>Lists</a>
-		<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
 		<a href="/stats"        class={isActive('/stats')        ? 'is-active' : ''}>Stats</a>
+		<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
 		<a href="#" id="drawer-search">Search</a>
 	</nav>
 </div>
@@ -300,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	searchBtn.addEventListener('click', openSearch);
+	document.getElementById('search-btn-m')?.addEventListener('click', openSearch);
 	if (drawerSearch) drawerSearch.addEventListener('click', (e) => { e.preventDefault(); openSearch(); });
 	searchClose.addEventListener('click', closeSearch);
 

@@ -4,15 +4,16 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
 import { computeStats } from '../utils/stats';
-import { barsSVG, hBarsSVG, splitBarSVG } from '../utils/charts';
+import { barsSVG } from '../utils/charts';
+import { renderSpec, barsHeight, type ChartSpec } from '../utils/stats-charts';
+import { CAT_COLORS, GENDER_COLORS } from '../utils/viz';
 
 const s = computeStats();
 const fmt = (n: number) => n.toLocaleString('en-US');
 const compact = (n: number) => new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 }).format(n);
-
-// Palette pairs — must mirror CAT_COLORS / GENDER_COLORS in the client script below.
-const CAT_COLORS = ['var(--accent)', 'var(--ink-2)']; // fiction, nonfiction
-const GENDER_COLORS = ['var(--accent-2)', 'var(--muted)']; // female, male
+const toFlag = (iso: string) =>
+	iso ? [...iso.toUpperCase()].map(c => String.fromCodePoint(0x1F1E6 + c.charCodeAt(0) - 65)).join('') : '🌍';
+const top16Countries = s.countryStats.slice(0, 16);
 
 const pct = (v: number, t: number) => (t ? Math.round((v / t) * 100) : 0);
 const fiction = s.category[0].value;
@@ -30,36 +31,61 @@ const cards = [
 	{ num: s.yearsReading, label: 'Years reading' },
 ];
 
-// Static, build-time charts.
+// Charts are described once as serialisable specs and rendered through the shared
+// renderSpec() — server-side here (first paint / no-JS) and again client-side at each
+// chart's real container width so SVG text stays crisp at any screen size (see the
+// script below). Colour convention: counts/magnitudes use --viz-primary; averages
+// use --viz-secondary; categorical splits draw from --viz-cat-* (see src/utils/viz.ts).
+// Per-bar accents (hbars `colors`): rank-#1 in --ink; pub-era fades --viz-gray → rust at 1960.
+const rankColors = (bars: { label: string }[]) =>
+	bars.map((_, i) => (i === 0 ? 'var(--ink)' : 'var(--viz-primary)'));
+const PRE_1960 = new Set(['BCE', '0–500', '500–1000', '1000–1500', '1500–1700', '1700–1900', '1900–29', '1930–59']);
+const eraColors = s.pubEra.map((b) => (PRE_1960.has(b.label) ? 'var(--viz-gray)' : 'var(--viz-primary)'));
+const chartSpecs: ChartSpec[] = [
+	{ id: 'chart-rating', kind: 'curve', data: s.ratings, color: 'var(--viz-primary)', tick: 'stars', yTicks: 4, showValues: true,
+		ariaLabel: 'Rating distribution, 1 to 5 stars', title: 'Rating distribution',
+		desc: s.ratings.map((r) => `${r.label} star: ${r.value} books`).join(', ') },
+	{ id: 'chart-genres', kind: 'hbars', data: s.genres.slice(0, 15), color: 'var(--viz-primary)', labelWRatio: 0.30, rowH: 30,
+		ariaLabel: 'Books read by genre, top 15', title: 'Books by genre',
+		desc: s.genres.slice(0, 15).map((g) => `${g.label}: ${g.value}`).join(', '), mobile: { maxRows: 10 } },
+	{ id: 'chart-avg-rating-genre', kind: 'hbars', data: s.avgRatingByGenre, color: 'var(--viz-secondary)', value: 'rating1', labelWRatio: 0.30, rowH: 30,
+		ariaLabel: 'Average rating by genre, highest first', title: 'Highest-rated genres',
+		desc: s.avgRatingByGenre.map((g) => `${g.label}: ${g.value.toFixed(1)} stars`).join(', '), mobile: { maxRows: 8 } },
+	{ id: 'chart-longest', kind: 'hbars', data: s.longestBooks, color: 'var(--viz-primary)', colors: rankColors(s.longestBooks), value: 'pp', labelWRatio: 0.42, rowH: 32,
+		ariaLabel: 'Top 10 longest books read, by page count', title: 'Longest books read',
+		desc: s.longestBooks.map((b) => `${b.label}: ${b.value} pages`).join(', ') },
+	{ id: 'chart-length-dist', kind: 'bars', data: s.lengthDistribution, color: 'var(--viz-primary)', showValues: true,
+		ariaLabel: 'Distribution of books by page count', title: 'Book length distribution',
+		desc: s.lengthDistribution.map((b) => `${b.label} pages: ${b.value} books`).join(', ') },
+	{ id: 'chart-avg-pages', kind: 'bars', data: s.avgPagesByYear, color: 'var(--viz-secondary)', showValues: true,
+		ariaLabel: 'Average book length by year, in pages', title: 'Average book length by year',
+		desc: s.avgPagesByYear.map((b) => `${b.label}: ${b.value} pages`).join(', '), mobile: { thin: 2, hideValues: true } },
+	{ id: 'chart-pub-era', kind: 'hbars', data: s.pubEra, color: 'var(--viz-primary)', colors: eraColors, labelWRatio: 0.20, rowH: 30,
+		ariaLabel: 'Books by era of original publication', title: 'Books by era of publication',
+		desc: s.pubEra.map((b) => `${b.label}: ${b.value} books`).join(', ') },
+	{ id: 'chart-authors', kind: 'hbars', data: s.topAuthors, color: 'var(--viz-primary)', colors: rankColors(s.topAuthors), labelWRatio: 0.34, rowH: 28,
+		ariaLabel: 'Top 25 authors by number of books read', title: 'Most-read authors',
+		desc: s.topAuthors.map((a) => `${a.label}: ${a.value}`).join(', '), mobile: { maxRows: 10 } },
+	{ id: 'chart-languages', kind: 'hbars', data: s.topLanguages, color: 'var(--viz-primary)', labelWRatio: 0.28, rowH: 30,
+		ariaLabel: 'Books by original language, top 12', title: 'Books by original language',
+		desc: s.topLanguages.map((l) => `${l.label}: ${l.value}`).join(', ') },
+	{ id: 'chart-cat-split', kind: 'split',
+		data: [{ label: 'Fiction', value: fiction, color: CAT_COLORS[0] }, { label: 'Non-fiction', value: nonfiction, color: CAT_COLORS[1] }],
+		ariaLabel: `Fiction ${pct(fiction, fiction + nonfiction)}%, non-fiction ${pct(nonfiction, fiction + nonfiction)}%`, title: 'Fiction vs non-fiction' },
+	{ id: 'chart-gender-split', kind: 'split',
+		data: [{ label: 'Female', value: female, color: GENDER_COLORS[0] }, { label: 'Male', value: male, color: GENDER_COLORS[1] }],
+		ariaLabel: `Female authors ${pct(female, female + male)}%, male authors ${pct(male, female + male)}%`, title: 'Author gender' },
+];
+
+// Default server-render width; the client re-renders each chart to its real container px.
+const SSR_W = 920;
+const ssr: Record<string, string> = Object.fromEntries(chartSpecs.map((sp) => [sp.id, renderSpec(sp, SSR_W, false)]));
+
 const initialTimeline = barsSVG(s.timeline.year.books, {
-	width: 1000, height: 440, color: 'var(--accent)', showValues: true,
+	width: SSR_W, height: barsHeight(SSR_W, false), color: 'var(--viz-primary)', showValues: true,
 	ariaLabel: 'Books read by year', title: 'Books read by year',
 	desc: s.timeline.year.books.map((b) => `${b.label}: ${b.value}`).join(', '),
 });
-const ratingChart = barsSVG(s.ratings, {
-	width: 560, height: 320, color: 'var(--accent)', showValues: true, yTicks: 4,
-	formatTick: (l) => '★'.repeat(Number(l)),
-	ariaLabel: 'Rating distribution, 1 to 5 stars', title: 'Rating distribution',
-	desc: s.ratings.map((r) => `${r.label} star: ${r.value} books`).join(', '),
-});
-const genreChart = hBarsSVG(s.genres.slice(0, 15), {
-	width: 1000, rowH: 30, labelW: 230, color: 'var(--accent)',
-	ariaLabel: 'Books read by genre, top 15', title: 'Books by genre',
-	desc: s.genres.slice(0, 15).map((g) => `${g.label}: ${g.value}`).join(', '),
-});
-const authorChart = hBarsSVG(s.topAuthors, {
-	width: 1000, rowH: 28, labelW: 250, color: 'var(--accent-2)',
-	ariaLabel: 'Top 25 authors by number of books read', title: 'Most-read authors',
-	desc: s.topAuthors.map((a) => `${a.label}: ${a.value}`).join(', '),
-});
-const catSplit = splitBarSVG(
-	[{ label: 'Fiction', value: fiction, color: CAT_COLORS[0] }, { label: 'Non-fiction', value: nonfiction, color: CAT_COLORS[1] }],
-	{ ariaLabel: `Fiction ${pct(fiction, fiction + nonfiction)}%, non-fiction ${pct(nonfiction, fiction + nonfiction)}%`, title: 'Fiction vs non-fiction' },
-);
-const genderSplit = splitBarSVG(
-	[{ label: 'Female', value: female, color: GENDER_COLORS[0] }, { label: 'Male', value: male, color: GENDER_COLORS[1] }],
-	{ ariaLabel: `Female authors ${pct(female, female + male)}%, male authors ${pct(male, female + male)}%`, title: 'Author gender' },
-);
 ---
 
 <!doctype html>
@@ -153,7 +179,7 @@ const genderSplit = splitBarSVG(
 						<div class="chart-card">
 							<p class="chart-title">Fiction vs non-fiction</p>
 							<p class="chart-sub">{s.uniqueBooks} books</p>
-							<div class="split-holder" set:html={catSplit} />
+							<div class="split-holder" id="chart-cat-split" set:html={ssr['chart-cat-split']} />
 							<div class="legend legend--counts">
 								<span class="legend-item"><span class="legend-sw" style={`background:${CAT_COLORS[0]}`}></span>Fiction · {fmt(fiction)} ({pct(fiction, fiction + nonfiction)}%)</span>
 								<span class="legend-item"><span class="legend-sw" style={`background:${CAT_COLORS[1]}`}></span>Non-fiction · {fmt(nonfiction)} ({pct(nonfiction, fiction + nonfiction)}%)</span>
@@ -163,7 +189,7 @@ const genderSplit = splitBarSVG(
 						<div class="chart-card">
 							<p class="chart-title">Authors by gender</p>
 							<p class="chart-sub">{s.uniqueBooks} books</p>
-							<div class="split-holder" set:html={genderSplit} />
+							<div class="split-holder" id="chart-gender-split" set:html={ssr['chart-gender-split']} />
 							<div class="legend legend--counts">
 								<span class="legend-item"><span class="legend-sw" style={`background:${GENDER_COLORS[0]}`}></span>Women · {fmt(female)} ({pct(female, female + male)}%)</span>
 								<span class="legend-item"><span class="legend-sw" style={`background:${GENDER_COLORS[1]}`}></span>Men · {fmt(male)} ({pct(male, female + male)}%)</span>
@@ -173,7 +199,7 @@ const genderSplit = splitBarSVG(
 						<div class="chart-card span-2">
 							<p class="chart-title">How I rate</p>
 							<p class="chart-sub">Distribution of {fmt(s.ratings.reduce((a, r) => a + r.value, 0))} star ratings</p>
-							<div class="rating-holder" set:html={ratingChart} />
+							<div class="rating-holder" id="chart-rating" set:html={ssr['chart-rating']} />
 						</div>
 					</div>
 				</div>
@@ -189,7 +215,60 @@ const genderSplit = splitBarSVG(
 						</div>
 					</div>
 					<div class="chart-card">
-						<div class="rank-holder" set:html={genreChart} />
+						<p class="chart-title">Most-read genres</p>
+						<p class="chart-sub">Top 15 by books read</p>
+						<div class="rank-holder" id="chart-genres" set:html={ssr['chart-genres']} />
+					</div>
+					{s.avgRatingByGenre.length > 0 && (
+						<div class="chart-card" style="margin-top: clamp(16px, 2.2vw, 24px)">
+							<p class="chart-title">Highest-rated genres</p>
+							<p class="chart-sub">Mean rating · genres with 8+ books</p>
+							<div class="rank-holder" id="chart-avg-rating-genre" set:html={ssr['chart-avg-rating-genre']} />
+						</div>
+					)}
+				</div>
+			</section>
+
+			<!-- How long the books run -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ LENGTH</p>
+							<h2>How long the books run</h2>
+						</div>
+					</div>
+					<div class="chart-card">
+						<p class="chart-title">Longest books read</p>
+						<p class="chart-sub">Top 10 by page count</p>
+						<div class="rank-holder" id="chart-longest" set:html={ssr['chart-longest']} />
+					</div>
+					<div class="chart-card" style="margin-top: clamp(16px, 2.2vw, 24px)">
+						<p class="chart-title">Book length distribution</p>
+						<p class="chart-sub">{fmt(s.lengthDistribution.reduce((a, b) => a + b.value, 0))} books by page count</p>
+						<div class="chart-holder" id="chart-length-dist" set:html={ssr['chart-length-dist']} />
+					</div>
+					<div class="chart-card" style="margin-top: clamp(16px, 2.2vw, 24px)">
+						<p class="chart-title">Average book length by year</p>
+						<p class="chart-sub">Mean pages per book</p>
+						<div class="chart-holder" id="chart-avg-pages" set:html={ssr['chart-avg-pages']} />
+					</div>
+				</div>
+			</section>
+
+			<!-- When the books were written -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ WHEN WRITTEN</p>
+							<h2>When the books were written</h2>
+						</div>
+					</div>
+					<div class="chart-card">
+						<p class="chart-title">Books by era of publication</p>
+						<p class="chart-sub">Original publication year · {fmt(s.pubEra.reduce((a, b) => a + b.value, 0))} books</p>
+						<div class="chart-holder" id="chart-pub-era" set:html={ssr['chart-pub-era']} />
 					</div>
 				</div>
 			</section>
@@ -204,17 +283,45 @@ const genderSplit = splitBarSVG(
 						</div>
 					</div>
 					<div class="chart-card">
-						<div class="rank-holder" set:html={authorChart} />
+						<div class="rank-holder" id="chart-authors" set:html={ssr['chart-authors']} />
 					</div>
-					<p class="footnote">
-						<strong>How these are counted.</strong> Figures come straight from my reading log,
-						rebuilt on every deploy. <em>Books read</em> and <em>Pages read</em> count re-reads
-						({s.reReads} of them), and a re-read lands in <em>each</em> year I read it — so the
-						<em>by-year</em> bars sum to all {fmt(s.booksRead)} reads. The monthly view can only place
-						a book once, at its most-recent finish date, and the distributions count each of the
-						{fmt(s.uniqueBooks)} unique books once.
-						Author gender reflects the authors I read, recorded as a binary in the source data.
-					</p>
+				</div>
+			</section>
+
+			<!-- Reading by geography -->
+			<section class="section stats-section">
+				<div class="shell">
+					<div class="section-head">
+						<div>
+							<p class="index-num">§ GEOGRAPHY</p>
+							<h2>Where the authors come from</h2>
+						</div>
+					</div>
+					<div class="chart-card">
+						<p class="chart-title">Books by country of origin</p>
+						<p class="chart-sub">{s.countryStats.length} countries · {s.uniqueBooks} books</p>
+						<div id="world-map" class="world-map" aria-label="World map showing books read by country of origin">
+							<p class="world-map-loading">Loading map…</p>
+						</div>
+					</div>
+					<div class="chart-card" style="margin-top: clamp(16px, 2.2vw, 24px)">
+						<p class="chart-title">Top 16 countries</p>
+						<p class="chart-sub">By books read</p>
+						<div class="flag-grid">
+							{top16Countries.map(c => (
+								<div class="flag-card">
+									<span class="flag-emoji">{toFlag(c.isoCode)}</span>
+									<span class="flag-name">{c.country}</span>
+									<span class="flag-count">{c.books}</span>
+								</div>
+							))}
+						</div>
+					</div>
+					<div class="chart-card" style="margin-top: clamp(16px, 2.2vw, 24px)">
+						<p class="chart-title">Books by original language</p>
+						<p class="chart-sub">{s.languageStats.filter((l) => l.language !== 'English').reduce((a, l) => a + l.books, 0)} of {s.uniqueBooks} books read in translation</p>
+						<div class="rank-holder" id="chart-languages" set:html={ssr['chart-languages']} />
+					</div>
 				</div>
 			</section>
 
@@ -228,11 +335,13 @@ const genderSplit = splitBarSVG(
 		</button>
 
 		<script type="application/json" id="stats-timeline" set:html={JSON.stringify(s.timeline)} />
+		<script type="application/json" id="stats-charts" set:html={JSON.stringify(chartSpecs)} />
+		<script type="application/json" id="stats-countries" set:html={JSON.stringify(s.countryStats)} />
 	</body>
 </html>
 
 <style>
-.stats-page { padding-top: clamp(8px, 2vw, 24px); padding-bottom: clamp(40px, 6vw, 80px); }
+.stats-page { padding-top: clamp(8px, 2vw, 24px); padding-bottom: clamp(40px, 6vw, 80px); overflow-x: clip; }
 .stats-section { padding-top: clamp(40px, 5vw, 72px); padding-bottom: 0; }
 .stats-section:first-of-type { padding-top: clamp(28px, 3vw, 44px); }
 
@@ -257,7 +366,7 @@ const genderSplit = splitBarSVG(
 	font-size: clamp(34px, 4.4vw, 54px);
 	line-height: 1;
 	letter-spacing: -0.03em;
-	color: var(--accent);
+	color: var(--viz-primary);
 }
 .stat-label {
 	font-family: var(--mono);
@@ -282,6 +391,41 @@ const genderSplit = splitBarSVG(
 }
 .chart-holder { width: 100%; }
 .rank-holder, .rating-holder, .split-holder { width: 100%; }
+
+/* Flag grid */
+.flag-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: clamp(8px, 1.2vw, 12px);
+	margin-top: clamp(14px, 1.8vw, 20px);
+}
+@media (max-width: 540px) {
+	.flag-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.flag-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+	padding: clamp(10px, 1.4vw, 16px) 8px;
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: 4px;
+	text-align: center;
+}
+.flag-emoji { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; }
+.flag-name {
+	font-family: var(--sans);
+	font-size: clamp(10px, 1.1vw, 12px);
+	color: var(--ink-2);
+	line-height: 1.2;
+}
+.flag-count {
+	font-family: var(--serif);
+	font-size: clamp(15px, 1.8vw, 20px);
+	color: var(--viz-primary);
+	line-height: 1;
+}
 .split-holder { border-radius: 3px; overflow: hidden; }
 
 /* Controls */
@@ -302,67 +446,114 @@ const genderSplit = splitBarSVG(
 	.comp .span-2 { grid-column: 1 / -1; }
 }
 
+/* World map */
+.world-map {
+	width: 100%;
+	background: var(--bg);             /* ocean / no-data = page bg */
+	border-radius: 3px;
+	overflow: hidden;
+	position: relative;
+	--map-land: #e4ddd1;              /* countries with 0 books */
+	--map-border: rgba(22,19,16,0.15);
+	--map-accent: var(--viz-primary); /* choropleth ceiling — rust */
+}
+.world-map svg { display: block; width: 100%; height: auto; }
+.world-map-loading {
+	position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+	font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+	color: var(--muted); margin: 0;
+}
+
 .footnote {
 	font-family: var(--sans); font-size: 13px; line-height: 1.65; color: var(--muted);
 	max-width: 74ch; margin: clamp(26px, 3.4vw, 44px) 0 0; padding-top: 18px; border-top: 1px solid var(--rule);
 }
 .footnote strong { color: var(--ink-2); font-weight: 600; }
+
+/* Mobile: stack the timeline controls into labeled, full-width segmented groups so
+   nothing overflows the viewport (the global .fb-* mobile rules target the reviews
+   filter bar, not these wrappers). */
+@media (max-width: 640px) {
+	.controls { flex-direction: column; align-items: stretch; gap: 14px; }
+	.control-group { flex-direction: column; align-items: stretch; gap: 6px; }
+	.controls .fb-label { display: block; }
+	.fb-seg { width: 100%; }
+	.fb-seg-btn { flex: 1; text-align: center; min-height: 38px; }
+}
 </style>
 
 <script>
 import { barsSVG, stackedBarsSVG } from '../utils/charts';
+import { renderSpec, barsHeight, type ChartSpec } from '../utils/stats-charts';
+import { thinTicks } from '../utils/chart-format';
+import { CAT_COLORS, GENDER_COLORS } from '../utils/viz';
 
-// Must mirror CAT_COLORS / GENDER_COLORS in the frontmatter above.
-const CAT_COLORS = ['var(--accent)', 'var(--ink-2)'];
-const GENDER_COLORS = ['var(--accent-2)', 'var(--muted)'];
 const META: Record<string, string> = { books: 'Books read', pages: 'Pages read', pagesPerDay: 'Pages per day' };
+const MOBILE = window.matchMedia('(max-width: 640px)');
+const isMobile = () => MOBILE.matches;
+const widthOf = (el: HTMLElement) => Math.round(el.clientWidth) || 600;
 
 document.addEventListener('DOMContentLoaded', () => {
+	// ── Static charts: re-render each to its container width (crisp text on any screen) ──
+	const specsEl = document.getElementById('stats-charts');
+	const specs: ChartSpec[] = specsEl ? JSON.parse(specsEl.textContent || '[]') : [];
+	function renderStatic() {
+		const mobile = isMobile();
+		for (const spec of specs) {
+			const holder = document.getElementById(spec.id);
+			if (holder) holder.innerHTML = renderSpec(spec, widthOf(holder), mobile);
+		}
+	}
+
+	// ── Interactive timeline ──
 	const dataEl = document.getElementById('stats-timeline');
 	const chartEl = document.getElementById('timeline-chart');
 	const titleEl = document.getElementById('timeline-title');
 	const subEl = document.getElementById('timeline-sub');
 	const legendEl = document.getElementById('timeline-legend');
-	if (!dataEl || !chartEl || !titleEl || !subEl || !legendEl) return;
-
-	const timeline = JSON.parse(dataEl.textContent || '{}');
+	const timeline = dataEl ? JSON.parse(dataEl.textContent || '{}') : null;
 	let gran: 'month' | 'year' = 'year';
 	let metric: 'books' | 'pages' | 'pagesPerDay' = 'books';
 	let split: 'none' | 'category' | 'gender' = 'none';
 
 	function renderLegend(kind: 'category' | 'gender' | null) {
-		if (!kind) { legendEl!.innerHTML = ''; legendEl!.setAttribute('aria-hidden', 'true'); return; }
+		if (!legendEl) return;
+		if (!kind) { legendEl.innerHTML = ''; legendEl.setAttribute('aria-hidden', 'true'); return; }
 		const items = kind === 'category'
 			? [['Fiction', CAT_COLORS[0]], ['Non-fiction', CAT_COLORS[1]]]
 			: [['Women', GENDER_COLORS[0]], ['Men', GENDER_COLORS[1]]];
-		legendEl!.innerHTML = items
+		legendEl.innerHTML = items
 			.map(([l, c]) => `<span class="legend-item"><span class="legend-sw" style="background:${c}"></span>${l}</span>`)
 			.join('');
-		legendEl!.setAttribute('aria-hidden', 'false');
+		legendEl.setAttribute('aria-hidden', 'false');
 	}
 
-	function render() {
+	function renderTimeline() {
+		if (!chartEl || !titleEl || !subEl || !timeline) return;
+		const mobile = isMobile();
 		const g = timeline[gran];
 		const granLabel = gran === 'year' ? 'By year' : 'By month';
-		const tickFmt = gran === 'month'
+		let tickFmt = gran === 'month'
 			? (l: string) => (l.endsWith('-01') ? l.slice(0, 4) : '')
 			: (l: string) => l;
-		const showValues = gran === 'year';
-		const baseOpts = { width: 1000, height: 440, formatTick: tickFmt, showValues };
+		if (mobile && gran === 'year') tickFmt = thinTicks(tickFmt, 2);
+		const W = widthOf(chartEl);
+		const showValues = gran === 'year' && !mobile;
+		const baseOpts = { width: W, height: barsHeight(W, mobile), formatTick: tickFmt, showValues };
 
 		if (metric === 'books' && split !== 'none') {
 			const data = split === 'category' ? g.byCategory : g.byGender;
 			const colors = split === 'category' ? CAT_COLORS : GENDER_COLORS;
 			const label = split === 'category' ? 'type' : 'author gender';
-			chartEl!.innerHTML = stackedBarsSVG(data, { ...baseOpts, colors, showTotals: showValues, ariaLabel: `Books read ${granLabel.toLowerCase()}, split by ${label}` });
-			subEl!.textContent = `${granLabel} · split by ${label}`;
+			chartEl.innerHTML = stackedBarsSVG(data, { ...baseOpts, colors, showTotals: showValues, ariaLabel: `Books read ${granLabel.toLowerCase()}, split by ${label}` });
+			subEl.textContent = `${granLabel} · split by ${label}`;
 			renderLegend(split as 'category' | 'gender');
 		} else {
-			chartEl!.innerHTML = barsSVG(g[metric], { ...baseOpts, color: 'var(--accent)', ariaLabel: `${META[metric]} ${granLabel.toLowerCase()}` });
-			subEl!.textContent = granLabel;
+			chartEl.innerHTML = barsSVG(g[metric], { ...baseOpts, color: 'var(--viz-primary)', ariaLabel: `${META[metric]} ${granLabel.toLowerCase()}` });
+			subEl.textContent = granLabel;
 			renderLegend(null);
 		}
-		titleEl!.textContent = META[metric];
+		titleEl.textContent = META[metric];
 	}
 
 	function syncSplitState() {
@@ -391,11 +582,86 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); render(); });
-	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); render(); });
-	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); render(); });
+	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); renderTimeline(); });
+	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); renderTimeline(); });
+	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); renderTimeline(); });
 
+	// Re-render everything on resize (debounced) so charts always fit their container.
+	let raf = 0;
+	window.addEventListener('resize', () => {
+		clearTimeout(raf);
+		raf = window.setTimeout(() => { renderStatic(); renderTimeline(); }, 150);
+	});
+
+	renderStatic();
 	syncSplitState();
-	render();
+	renderTimeline();
+
+	// ── World map choropleth ────────────────────────────────────────────────────
+	const countriesEl = document.getElementById('stats-countries');
+	type CountryStat = { country: string; books: number; isoCode: string };
+	const countryStats: CountryStat[] = countriesEl ? JSON.parse(countriesEl.textContent || '[]') : [];
+
+	// Parse a CSS colour string (e.g. "#8B7355" or "rgb(139,115,85)") into [r,g,b].
+	function parseColor(css: string): [number, number, number] {
+		const tmp = document.createElement('div');
+		tmp.style.color = css;
+		document.body.appendChild(tmp);
+		const c = getComputedStyle(tmp).color;
+		document.body.removeChild(tmp);
+		const m = c.match(/\d+/g) ?? ['200','196','190'];
+		return [parseInt(m[0]), parseInt(m[1]), parseInt(m[2])];
+	}
+
+	async function renderWorldMap() {
+		const container = document.getElementById('world-map');
+		if (!container || countryStats.length === 0) return;
+
+		const res = await fetch('/world-map.svg').catch(() => null);
+		if (!res?.ok) return;
+		const svgText = await res.text();
+
+		// Inject SVG inline so we can style individual paths.
+		const loading = container.querySelector('.world-map-loading');
+		if (loading) loading.remove();
+		container.insertAdjacentHTML('beforeend', svgText);
+		const svg = container.querySelector('svg');
+		if (!svg) return;
+		svg.setAttribute('width', '100%');
+		svg.removeAttribute('height');
+		svg.style.display = 'block';
+
+		// Resolve palette colours from CSS vars before touching paths.
+		const cs = getComputedStyle(container);
+		const landFill = cs.getPropertyValue('--map-land').trim() || '#e4ddd1';
+		const borderFill = cs.getPropertyValue('--map-border').trim() || 'rgba(22,19,16,0.15)';
+
+		// Set default fill/stroke on every path now (no embedded <style> in the SVG).
+		for (const p of svg.querySelectorAll('path')) {
+			p.setAttribute('fill', landFill);
+			p.setAttribute('stroke', borderFill);
+			p.setAttribute('stroke-width', '0.5');
+		}
+
+		// Build isoCode → books map.
+		const byIso = new Map<string, number>(countryStats.map((c) => [c.isoCode, c.books]));
+
+		// Stepped choropleth: discrete rust opacity buckets by book count.
+		const [r, g, b] = parseColor(cs.getPropertyValue('--map-accent').trim() || '#9c4a2a');
+		const bucketFill = (books: number): string =>
+			books >= 16 ? `rgb(${r},${g},${b})`
+			: books >= 9 ? `rgba(${r},${g},${b},0.70)`
+			: books >= 4 ? `rgba(${r},${g},${b},0.40)`
+			: `rgba(${r},${g},${b},0.15)`; // 1–3
+
+		for (const [iso, books] of byIso) {
+			if (!iso) continue;
+			const el = svg.getElementById(iso) as SVGPathElement | null;
+			if (!el) continue;
+			el.style.fill = bucketFill(books);
+		}
+	}
+
+	renderWorldMap();
 });
 </script>

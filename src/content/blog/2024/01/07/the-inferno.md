@@ -17,7 +17,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0451527984.01.L.jpg'
 ---
 
-I've always put away reading Dante's *Inferno*, but so glad I finally got to it. Accompanying Virgil and Dante, descending into hell, each circle represents increasingly severe sins. Hidden between the lines are Dante's point of views, biases, critiques, judgement, and more. Dante cared less about sins of passion than sins of malice and treachery.
+I've always put away reading Dante's *Inferno*, but so glad I finally got to it. Accompanying Virgil and Dante, descending into hell, each circle represents increasingly severe sins. Hidden between the lines are Dante's point of views, biases, critiques, judgement, and more. Dante cared less about sins of passion and more about sins of malice and treachery.
 
 ## The logic of punishment
 
@@ -33,7 +33,7 @@ The Christian bias runs even deeper. Placing Islam's Prophet Muhammad in Circle 
 
 Julius Caesar's placement is the most telling. He's in Limbo - the first circle - with other pre-Christian souls. Not punished, not rewarded. But his assassins Brutus and Cassius are at the absolute center of Hell, eternally chewed in Satan's mouth alongside Judas. Judas gets the center mouth. Brutus and Cassius get the side mouths. For Dante, Christ was the perfect manifestation of the divine, Caesar the perfect manifestation of the secular. Betraying either deserved Hell's worst punishment. His fixation on Rome runs deep.
 
-The bias didn't pull me out of the work, I just didn't agree with it, and that disagreement became part of the reading experience.
+The bias didn't pull me out of the work, I just didn't agree with it.
 
 ## The footnotes are a lifesaver, especially given the historical distance
 
@@ -56,6 +56,6 @@ The final image of three-faced Satan, a twisted inversion of the Holy Trinity, d
 
 I might be slightly over-critical, but the bias and historical distance kept me from thinking this is a perfect piece of work, it felt like a hit piece at times. It has clearly lasted the test of time, and that's because its brilliant depsite that bias point of view that Dante seeped in, and I think it resonated well in the place and time it was written and published. My partiality to ancient Greek perspectives means I disagree with some of Dante's core judgments. That being said, I am glad I read it. The depiction of Hell, the structure of the descent, the imagery, the quality of the writing - it's impressive, even as a translation. This shaped Western culture's conception of damnation and moral judgment for seven centuries.
 
-My advice is to get a good annotated edition, and don't be afraid to brush up on some historical context as you read through to appreicate the cleverness and poetic.
+My advice is to get a good annotated edition, and don't be afraid to brush up on some historical context as you read through to appreciate the cleverness and poetic.
 
 **Rating: ★★★★☆**
