@@ -2,12 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
-import shelfData from '../../data/shelf.json';
-
-const shelfByGid = new Map<string, string[]>(
-	(shelfData as { goodreadsId: string; subgenres: string[] }[])
-		.map(b => [b.goodreadsId, b.subgenres])
-);
+import { tagsForPost } from '../../utils/blog';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => data.status === 'live');
@@ -23,8 +18,7 @@ const { Content } = await render(post);
 
 // For review posts with a shelf entry, use shelf subgenres as tags.
 // Non-review posts (lists, discussions) keep their frontmatter tags.
-const gid = post.data.goodreadsId ? String(post.data.goodreadsId) : '';
-const tags = (gid && shelfByGid.has(gid)) ? shelfByGid.get(gid)! : (post.data.tags || []);
+const tags = tagsForPost(post, new Set());
 ---
 
 <BlogPost {...post.data} tags={tags}>

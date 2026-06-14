@@ -1,6 +1,26 @@
+import type { CollectionEntry } from 'astro:content';
+import shelfData from '../data/shelf.json';
+
 export function getBlogUrl(postId: string): string {
   // Post ID is already in the format "2025/01/05/the-midnight-library"
   return `/blog/${postId}/`;
+}
+
+const _shelfByGid = new Map<string, string[]>(
+  (shelfData as { goodreadsId: string; subgenres: string[] }[])
+    .map(b => [b.goodreadsId, b.subgenres])
+);
+
+/**
+ * Returns tags for a post: shelf subgenres for review posts (matched by goodreadsId),
+ * or filtered frontmatter tags for non-review posts (lists, discussions).
+ */
+export function tagsForPost(post: CollectionEntry<'blog'>, authorSlugs: Set<string>): string[] {
+  const gid = post.data.goodreadsId ? String(post.data.goodreadsId) : '';
+  if (gid && _shelfByGid.has(gid)) {
+    return _shelfByGid.get(gid)!;
+  }
+  return (post.data.tags || []).filter((t: string) => !isJunkTag(t, authorSlugs));
 }
 
 /**
