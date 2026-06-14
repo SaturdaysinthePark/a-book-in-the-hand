@@ -7,7 +7,7 @@
 // Publishing a draft review auto-flips its card — no other change needed.
 
 import type { CollectionEntry } from 'astro:content';
-import { getBlogUrl, filterDisplayTags } from './blog';
+import { getBlogUrl } from './blog';
 import shelfData from '../data/shelf.json';
 
 export interface ShelfBook {
@@ -20,11 +20,14 @@ export interface ShelfBook {
 	readCount: number;
 	readYears: number[]; // every year the book was read (from Goodreads year shelves)
 	pages: number; // Number of Pages (0 if unknown)
+	originalPubYear: number | null; // Original Publication Year (BCE negative; null if unknown)
 	coverUrl: string | null;
 	category: string; // 'fiction' | 'nonfiction' | ''
 	subgenres: string[]; // e.g. ['fantasy', 'mythology']
 	gender: string; // author gender: 'male' | 'female' | ''
 	classic: boolean;
+	country?: string;
+	language?: string;
 }
 
 export interface ShelfCard {
@@ -98,7 +101,7 @@ export function buildShelf(reviews: Review[]) {
 			url: reviewed ? getBlogUrl(review!.id) : undefined,
 			blurb: reviewed ? review!.data.description : undefined,
 			genre: reviewed ? review!.data.genre || '' : '',
-			tags: reviewed ? filterDisplayTags(review!.data.tags || [], authorSlugs) : [],
+			tags: reviewed ? b.subgenres : [],
 			category: (b.category === 'fiction' || b.category === 'nonfiction') ? b.category : '',
 			subgenres: b.subgenres || [],
 			classic: !!b.classic,
