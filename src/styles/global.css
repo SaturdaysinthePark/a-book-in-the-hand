@@ -480,14 +480,15 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .hero-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   column-gap: 72px;
   row-gap: 0;
   align-items: start;
 }
-.hero-grid .hero-head { grid-column: 1; grid-row: 1; padding-bottom: 16px; }
-.hero-grid .hero-body { grid-column: 1; grid-row: 2; }
-.hero-grid .hero-cover { grid-column: 2; grid-row: 1 / span 2; align-self: center; width: 100%; max-width: 320px; margin-left: auto; }
+.hero-grid > .hero-eyebrow { grid-column: 1; grid-row: 1; }
+.hero-grid > h1             { grid-column: 1; grid-row: 2; padding-bottom: 16px; }
+.hero-grid > .hero-body     { grid-column: 1; grid-row: 3; }
+.hero-grid > .hero-cover    { grid-column: 2; grid-row: 1 / span 3; align-self: center; width: 100%; max-width: 320px; margin-left: auto; }
 .hero h1 {
   font-family: var(--serif);
   font-weight: 400;
@@ -751,21 +752,25 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 /* ── Signature list promo ─────────────────────────────────── */
 .signature-list-band { padding: clamp(48px, 7vw, 88px) 0; background: var(--paper); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
 .signature-list-band.sl-dark { background: var(--sl-bg, #1e3a2a); border-color: transparent; }
-.signature-list-band.sl-dark .signature-list .sl-eyebrow { color: rgba(255,255,255,0.45); }
-.signature-list-band.sl-dark .signature-list .sl-body h2 { color: #f5efe6; }
-.signature-list-band.sl-dark .signature-list .sl-body p { color: rgba(245,239,230,0.72); }
+.signature-list-band.sl-dark .signature-list .sl-intro .sl-eyebrow { color: rgba(255,255,255,0.45); }
+.signature-list-band.sl-dark .signature-list .sl-intro h2 { color: #f5efe6; }
+.signature-list-band.sl-dark .signature-list .sl-outro p { color: rgba(245,239,230,0.72); }
 .signature-list-band.sl-dark .signature-list .sl-cta { color: rgba(245,239,230,0.55); }
 .signature-list-band.sl-dark .signature-list:hover .sl-cta { color: rgba(245,239,230,0.9); }
 .signature-list {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
+  grid-template-rows: auto auto;
   gap: clamp(36px, 5vw, 80px);
   align-items: center;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
 }
-.signature-list .sl-body .sl-eyebrow {
+.signature-list .sl-intro { grid-column: 1; grid-row: 1; }
+.signature-list .sl-stack { grid-column: 2; grid-row: 1 / span 2; }
+.signature-list .sl-outro { grid-column: 1; grid-row: 2; }
+.signature-list .sl-intro .sl-eyebrow {
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.2em;
@@ -773,7 +778,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   color: var(--muted);
   margin: 0 0 14px;
 }
-.signature-list .sl-body h2 {
+.signature-list .sl-intro h2 {
   font-family: var(--serif);
   font-weight: 400;
   font-size: clamp(28px, 4.2vw, 52px);
@@ -781,7 +786,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   line-height: 1;
   margin: 0 0 18px;
 }
-.signature-list .sl-body p {
+.signature-list .sl-outro p {
   font-family: var(--serif);
   font-size: 18px;
   line-height: 1.5;
@@ -1759,7 +1764,9 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .lp-entry .lp-cover a { display: block; }
 .lp-entry .lp-cover .cover { transition: transform 220ms; }
 .lp-entry .lp-cover a:hover .cover { transform: translateY(-4px); }
-.lp-entry .lp-body h3 {
+.lp-entry .lp-title-mobile { display: none; }
+.lp-entry .lp-body h3,
+.lp-entry .lp-title-mobile h3 {
   font-family: var(--serif);
   font-weight: 500;
   font-size: clamp(24px, 2.6vw, 32px);
@@ -1799,8 +1806,11 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
     padding: 36px 0;
   }
   .lp-entry .lp-num { font-size: clamp(32px, 9vw, 48px); }
-  .lp-entry .lp-cover { grid-column: 2; width: 140px; }
+  .lp-entry .lp-title-mobile { display: block; grid-column: 2; align-self: center; }
+  .lp-entry .lp-title-mobile h3 { font-size: clamp(20px, 5vw, 26px); margin: 0; }
+  .lp-entry .lp-cover { grid-column: 1 / -1; width: 140px; }
   .lp-entry .lp-body { grid-column: 1 / -1; }
+  .lp-entry .lp-body .lp-title-desktop { display: none; }
 }
 
 /* ── About page ───────────────────────────────────────────── */
@@ -2353,8 +2363,24 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .idx-results-grid .rev-card h3 { font-size: 13px; }
 
   .review-page .review-grid { grid-template-columns: 1fr; }
-  .review-page .side { flex-direction: column; }
-  .review-page .side .cover { width: 100%; max-width: 200px; margin: 0 auto; }
+  .review-page .side {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 8px 14px;
+    align-items: start;
+  }
+  .review-page .side .cover {
+    grid-column: 1;
+    grid-row: 1 / 6;
+    width: 120px;
+    max-width: 120px;
+    margin: 0;
+  }
+  .review-page .side h2     { grid-column: 2; margin: 0; font-size: 18px; }
+  .review-page .side .by    { grid-column: 2; }
+  .review-page .side .rating { grid-column: 2; }
+  .review-page .side .meta-list { grid-column: 2; }
 }
 
 /* ── Accessibility ────────────────────────────────────────── */
@@ -2365,4 +2391,142 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+/* ── Mobile polish ≤ 880px ────────────────────────────────── */
+@media (max-width: 880px) {
+  /* Safe-area insets for iPhone notch / Dynamic Island */
+  .hdr {
+    padding-top: max(8px, env(safe-area-inset-top));
+    padding-left: max(var(--gutter), env(safe-area-inset-left));
+    padding-right: max(var(--gutter), env(safe-area-inset-right));
+  }
+  .ftr { padding-bottom: max(20px, calc(env(safe-area-inset-bottom) + 12px)); }
+
+  /* Prevent iOS auto-zoom on focused inputs */
+  input, select, textarea { font-size: 16px !important; }
+
+  /* iOS touch polish */
+  * { -webkit-tap-highlight-color: transparent; }
+  a, button { touch-action: manipulation; }
+}
+
+/* ── Homepage mobile layout ≤ 640px ──────────────────────── */
+@media (max-width: 640px) {
+  /* Tighter section padding — 64px desktop clamps are too tall on mobile */
+  .section { padding-top: 32px !important; padding-bottom: 32px !important; }
+
+  /* ── Signature list: flex column — HTML order already correct ── */
+  .signature-list {
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .signature-list .sl-stack {
+    display: flex !important;
+    align-items: flex-end;
+    min-height: 140px;
+    padding: 12px 0 4px;
+  }
+  .signature-list .sl-stack .cover {
+    width: clamp(100px, 24vw, 130px) !important;
+    margin-right: -22px !important;
+    box-shadow:
+      0 8px 20px rgba(0,0,0,0.55),
+      inset 0 0 0 1px rgba(255,255,255,0.12);
+  }
+
+  /* ── Recent reading: horizontal scroll, cover-on-top cards ── */
+  /* The ≤720px rules already set flex-direction:row + overflow-x:auto.
+     Here we ensure card internals are vertical (cover top, text below). */
+  .rev-grid .rev-card {
+    flex: 0 0 170px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    border-bottom: none !important;
+    /* Undo any grid layout from earlier passes */
+    grid-template-columns: unset !important;
+  }
+  .rev-grid .rev-card .cover {
+    grid-column: unset;
+    grid-row: unset;
+    width: 100% !important;
+    order: unset;
+  }
+  .rev-grid .rev-card .rc-meta {
+    grid-column: unset;
+    grid-row: unset;
+    order: unset;
+  }
+  .rev-grid .rev-card h3 {
+    font-size: 14px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+  .rev-grid .rev-card .rc-blurb { display: none !important; }
+
+  /* ── Five-star shelf: horizontal scroll, same card style as recent reading ── */
+  .band--shelf-curated .shelf-grid,
+  .section .shelf-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 14px !important;
+    padding-bottom: 20px !important;
+    padding-right: 20px;
+    scrollbar-width: none;
+  }
+  .band--shelf-curated .shelf-grid::-webkit-scrollbar,
+  .section .shelf-grid::-webkit-scrollbar { display: none; }
+  .band--shelf-curated .shelf-grid .shelf-card,
+  .section .shelf-grid .shelf-card {
+    flex: 0 0 160px !important;
+    width: 160px !important;
+    scroll-snap-align: start !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px;
+  }
+  .shelf-grid .shelf-card .cover { transform: none !important; }
+  .shelf-grid .shelf-card:nth-child(n+1) { display: flex !important; }
+  .shelf-grid .shelf-card h4 {
+    font-size: 13px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    margin: 4px 0 2px !important;
+  }
+
+  /* ── Books, ranked: light background on hero card ── */
+  .list-card.is-hero {
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+  }
+  .list-card.is-hero h3   { color: var(--ink) !important; }
+  .list-card.is-hero p    { color: var(--ink-2) !important; opacity: 1 !important; }
+  .list-card.is-hero .lc-num   { color: var(--muted) !important; }
+  .list-card.is-hero .lc-arrow { color: var(--accent) !important; }
+  .lists-strip { display: flex !important; flex-direction: column; gap: 12px; }
+  .list-card { min-height: 0 !important; padding: 20px !important; }
+
+  /* ── Currently reading: side-by-side, tighter padding ── */
+  .now-reading .shell {
+    display: grid !important;
+    grid-template-columns: 1fr 90px !important;
+    gap: 18px !important;
+    align-items: center !important;
+  }
+  .now-reading .cover { width: 90px !important; max-width: 90px !important; margin: 0 !important; }
+  .now-reading .shell > div > p:not(.label):not(.cr-by) { display: none; }
+  .band.now-reading { padding-top: 40px !important; padding-bottom: 40px !important; }
+  .now-reading h2 { font-size: clamp(22px, 6vw, 30px) !important; margin: 8px 0 !important; }
 }

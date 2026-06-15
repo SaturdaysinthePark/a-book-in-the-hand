@@ -22,7 +22,8 @@ const {
 	purchaseLink,
 	tags,
 	postType = 'review',
-	picks
+	picks,
+	publishYear
 } = Astro.props;
 
 const authorSlug    = author ? author.toLowerCase().replace(/\s+/g, '-') : '';
@@ -107,8 +108,7 @@ function stars(n: number) {
 				<div class="review-page">
 					<div class="shell">
 						<p class="crumbs">
-							§ <a href="/book-reviews">All Reviews</a>
-							{genre && <> · {genre}</>}
+							§ <a href="/book-reviews">Review</a> · <FormattedDate date={pubDate} />
 						</p>
 						<div class="review-grid">
 							<!-- Sidebar -->
@@ -141,7 +141,7 @@ function stars(n: number) {
 									</span>
 								)}
 								<div class="meta-list">
-									<div><span>Published</span><strong><FormattedDate date={pubDate} /></strong></div>
+									{publishYear && <div><span>Published</span><strong>{publishYear}</strong></div>}
 									{genre && <div><span>Genre</span><strong>{genre}</strong></div>}
 									{displayTags.length > 0 && (
 										<div><span>Tags</span><strong>{displayTags.slice(0, 3).join(', ')}</strong></div>
@@ -152,7 +152,6 @@ function stars(n: number) {
 							<!-- Article -->
 							<article>
 								<h1>{title}</h1>
-								{description && <p class="stand-first">{description}</p>}
 								<slot />
 							</article>
 						</div>
@@ -168,10 +167,7 @@ function stars(n: number) {
 							</p>
 							<h1>{title}</h1>
 							{description && <p>{description}</p>}
-							<p class="lp-meta">
-								<FormattedDate date={pubDate} />
-								{updatedDate && <> · Updated <FormattedDate date={updatedDate} /></>}
-							</p>
+							{updatedDate && <p class="lp-meta">Updated <FormattedDate date={updatedDate} /></p>}
 						</div>
 
 						{resolvedPicks && resolvedPicks.length > 0 && (
@@ -181,6 +177,7 @@ function stars(n: number) {
 									return (
 										<article class="lp-entry">
 											<div class="lp-num">{String(i + 1).padStart(2, '0')}</div>
+											<div class="lp-title-mobile"><h3>{pick.bookTitle}</h3></div>
 											<div class="lp-cover">
 												{pick.reviewUrl ? (
 													<a href={pick.reviewUrl}>
@@ -207,7 +204,7 @@ function stars(n: number) {
 												)}
 											</div>
 											<div class="lp-body">
-												<h3>{pick.bookTitle}</h3>
+												<h3 class="lp-title-desktop">{pick.bookTitle}</h3>
 												{pick.author && (
 													<div class="lp-author">
 														{pick.author}

@@ -73,16 +73,35 @@ const currentlyReading = crBook && crFallback ? {
 			{hero && (
 				<section class="hero shell">
 					<div class="hero-grid">
-						<div class="hero-head">
-							<p class="hero-eyebrow">
-								<span>§ LATEST REVIEW</span>
-								<span>·</span>
-								<span><FormattedDate date={hero.data.pubDate} /></span>
-							</p>
-							<h1>
-								<a href={getBlogUrl(hero.id)}>{hero.data.bookTitle || hero.data.title}</a>
-							</h1>
+						<p class="hero-eyebrow">
+							<span>§ LATEST REVIEW</span>
+							<span>·</span>
+							<span><FormattedDate date={hero.data.pubDate} /></span>
+						</p>
+
+						<div class="hero-cover">
+							<a href={getBlogUrl(hero.id)} aria-hidden="true" tabindex="-1">
+								{hero.data.heroImage ? (
+									<div class="cover cover-photo">
+										<img src={hero.data.heroImage} alt={hero.data.bookTitle || hero.data.title} />
+									</div>
+								) : (() => {
+									const c = cc(hero.data.bookTitle || hero.data.title);
+									return (
+										<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
+											<div class="spine"></div>
+											<div class="gloss"></div>
+											<div class="cover-sub">{hero.data.author}</div>
+											<div class="cover-label">{(hero.data.bookTitle || hero.data.title).toUpperCase()}</div>
+										</div>
+									);
+								})()}
+							</a>
 						</div>
+
+						<h1>
+							<a href={getBlogUrl(hero.id)}>{hero.data.bookTitle || hero.data.title}</a>
+						</h1>
 
 						<div class="hero-body">
 							{hero.data.rating && (
@@ -109,26 +128,6 @@ const currentlyReading = crBook && crFallback ? {
 								</svg>
 							</a>
 						</div>
-
-						<div class="hero-cover">
-							<a href={getBlogUrl(hero.id)} aria-hidden="true" tabindex="-1">
-								{hero.data.heroImage ? (
-									<div class="cover cover-photo">
-										<img src={hero.data.heroImage} alt={hero.data.bookTitle || hero.data.title} />
-									</div>
-								) : (() => {
-									const c = cc(hero.data.bookTitle || hero.data.title);
-									return (
-										<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
-											<div class="spine"></div>
-											<div class="gloss"></div>
-											<div class="cover-sub">{hero.data.author}</div>
-											<div class="cover-label">{(hero.data.bookTitle || hero.data.title).toUpperCase()}</div>
-										</div>
-									);
-								})()}
-							</a>
-						</div>
 					</div>
 				</section>
 			)}
@@ -142,13 +141,9 @@ const currentlyReading = crBook && crFallback ? {
 					<section class="signature-list-band sl-dark" style={`--sl-bg:${slBg}`}>
 						<div class="shell">
 							<a href={getBlogUrl(featuredList.id)} class="signature-list">
-								<div class="sl-body">
+								<div class="sl-intro">
 									<p class="sl-eyebrow">§ A FEATURE · THE FLAGSHIP LIST</p>
 									<h2>{featuredList.data.title}</h2>
-									{featuredList.data.description && (
-										<p>{featuredList.data.description}</p>
-									)}
-									<span class="sl-cta">See the full list →</span>
 								</div>
 								<div class="sl-stack">
 									{slPicks.length > 0 ? slPicks.slice(0, 4).map((pick, i) => {
@@ -178,6 +173,12 @@ const currentlyReading = crBook && crFallback ? {
 											</div>
 										);
 									})}
+								</div>
+								<div class="sl-outro">
+									{featuredList.data.description && (
+										<p>{featuredList.data.description}</p>
+									)}
+									<span class="sl-cta">See the full list →</span>
 								</div>
 							</a>
 						</div>
@@ -363,24 +364,21 @@ const currentlyReading = crBook && crFallback ? {
 	background: var(--bg-2);
 }
 
-/* Mobile */
-@media (max-width: 720px) {
+/* Mobile — hero single column, cover centred */
+@media (max-width: 640px) {
 	.hero-grid {
-		grid-template-columns: 1fr;
-		gap: 24px;
+		display: flex !important;
+		flex-direction: column !important;
+		gap: 12px !important;
 	}
-	.hero-grid .hero-cover {
-		max-width: 160px;
-		margin: 0 auto;
-		grid-column: 1;
-		grid-row: 1;
+	.hero-grid > .hero-cover {
+		align-self: center !important;
+		width: min(200px, 56vw) !important;
+		max-width: none !important;
+		margin: 4px 0 !important;
 	}
-	.hero-grid .hero-head { grid-row: 2; }
-	.hero-grid .hero-body { grid-row: 3; }
-}
-
-@media (max-width: 520px) {
-	.hero-grid .hero-cover { max-width: 140px; }
+	.hero h1 { font-size: clamp(26px, 7vw, 40px) !important; margin: 0 !important; }
+	.hero-rating-row { margin-bottom: 6px !important; }
 }
 </style>
 
