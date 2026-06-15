@@ -55,6 +55,15 @@ const isActive = (path: string) =>
 		</button>
 	</nav>
 
+	<!-- Mobile books icon (links to all reviews) -->
+	<a href="/book-reviews" class:list={['hdr-search hdr-books-m', isActive('/book-reviews') ? 'is-active' : '']} aria-label="All reviews">
+		<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+			<path d="M4 19V6a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v14"/>
+			<path d="M4 19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-1H5a1 1 0 0 0-1 1z"/>
+			<line x1="9" y1="4" x2="9" y2="20"/>
+		</svg>
+	</a>
+
 	<!-- Mobile search (surfaced outside the hamburger for faster access) -->
 	<button class="hdr-search hdr-search-m" id="search-btn-m" aria-label="Search">
 		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">

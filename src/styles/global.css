@@ -148,6 +148,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 }
 .hdr-search:hover { background: var(--highlight); color: var(--ink); }
 .hdr-search-m { display: none; }
+.hdr-books-m  { display: none; }
 
 /* Hamburger */
 .hdr-menu-btn {
@@ -2240,7 +2241,8 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   :root { --gutter: clamp(16px, 4vw, 28px); }
   .bk-logo { font-size: 21px; }
   .hdr-nav { display: none; }
-  .hdr-search-m { display: inline-flex; margin-left: auto; }
+  .hdr-books-m { display: inline-flex; margin-left: auto; }
+  .hdr-search-m { display: inline-flex; margin-left: 4px; }
   .hdr-menu-btn { display: inline-flex; margin-left: 4px; }
 
   .rev-grid {
