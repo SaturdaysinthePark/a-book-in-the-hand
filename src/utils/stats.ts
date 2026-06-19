@@ -250,11 +250,18 @@ export function computeStats(): Stats {
 	// ── Length & era ─────────────────────────────────────────────────────────────
 	// Top 10 longest books by page count (unique books). Titles are longer than the
 	// genre/author labels, so truncate for the ranking chart.
-	const longestBooks: Bars = books
-		.filter((b) => b.pages > 0)
-		.sort((a, b) => b.pages - a.pages || a.title.localeCompare(b.title))
-		.slice(0, 10)
-		.map((b) => ({ label: b.title, value: b.pages }));
+	const topLongest = (pred: (b: (typeof books)[number]) => boolean): Bars =>
+		books
+			.filter((b) => b.pages > 0 && pred(b))
+			.sort((a, b) => b.pages - a.pages || a.title.localeCompare(b.title))
+			.slice(0, 10)
+			.map((b) => ({ label: b.title, value: b.pages }));
+	const longestBooks = topLongest(() => true);
+	const longestBooksByCategory = {
+		all: longestBooks,
+		fiction: topLongest((b) => b.category === 'fiction'),
+		nonfiction: topLongest((b) => b.category === 'nonfiction'),
+	};
 
 	// Page-count distribution across buckets.
 	const lengthBuckets: { label: string; test: (p: number) => boolean }[] = [
@@ -335,6 +342,7 @@ export function computeStats(): Stats {
 		genres,
 		topAuthors,
 		longestBooks,
+		longestBooksByCategory,
 		lengthDistribution,
 		avgPagesByYear,
 		avgRatingByGenre,

@@ -1,6 +1,6 @@
 ---
 title: "Top Books I Read in 2025"
-description: "Some of my favorite books from 2025"
+description: "I read over 40 books in this year, but people love a curated list so here are a select few I think are worth everyone's time."
 pubDate: 2026-02-08
 bookTitle: "Top Books I Read in 2025"
 author: "Sabtain"

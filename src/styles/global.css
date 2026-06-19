@@ -85,10 +85,6 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 
 /* ── Header ───────────────────────────────────────────────── */
 .hdr {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px var(--gutter);
   border-bottom: 1px solid var(--rule);
   position: sticky;
   top: 0;
@@ -101,6 +97,15 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .hdr.is-scrolled {
   background: color-mix(in oklab, var(--bg) 94%, transparent);
   box-shadow: 0 1px 0 var(--rule);
+}
+.hdr-shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 8px var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .hdr-brand {
@@ -121,9 +126,10 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .hdr-nav a {
   font-family: var(--sans);
   font-size: 14px;
+  font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--ink-2);
-  padding: 4px 0;
+  padding: 10px 0;
   border-bottom: 1px solid transparent;
   transition: color 200ms, border-color 200ms;
 }
@@ -214,38 +220,20 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .hdr-drawer-links a.is-active { color: var(--ink); }
 .hdr-drawer-links a:hover { color: var(--accent); }
 
-/* ── Brooklyn Reader logo — Masthead MID lockup ───────────── */
+/* ── Site logo — "Saturdays in a Book" wordmark ─────────────── */
 .bk-logo {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
-  line-height: 1;
-  gap: 0.12em;
-  font-size: 23px;            /* bridge ≈ 1.408em = 32px tall */
   text-decoration: none;
   color: inherit;
   cursor: pointer;
 }
 .bk-logo:hover { color: inherit; }
-.bk-logo .nm {
-  font-family: "Cormorant Garamond", var(--serif);
-  font-weight: 600;
-  font-size: 1em;
-  letter-spacing: -0.008em;
-  white-space: nowrap;
-  color: var(--ink);
-}
-.bk-logo .nm .the { font-style: italic; font-weight: 400; opacity: 0.52; margin-right: 0.2em; }
-.bk-logo .nm .bk  { color: #9c4a2a; }
-.bk-logo .nm .dot { opacity: 0.38; font-weight: 400; }
-/* Spanning mid bridge beneath the wordmark (9.6 : 1.408 = 600 : 88 — scales uniformly) */
-.bk-logo .bridge {
+.bk-logo-img {
   display: block;
-  width: 9.6em;
-  height: 1.408em;
-  color: var(--ink);
+  height: 52px;
+  width: auto;
 }
-.bk-logo .bridge svg { display: block; width: 100%; height: 100%; }
 
 /* ── Footer ───────────────────────────────────────────────── */
 .ftr {
@@ -265,6 +253,16 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 }
 .ftr a { color: var(--ink-2); transition: color 200ms; }
 .ftr a:hover { color: var(--accent); }
+.ftr-colophon {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+}
 
 /* ── Book covers ──────────────────────────────────────────── */
 .cover {
@@ -1816,14 +1814,14 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 
 /* ── About page ───────────────────────────────────────────── */
 .about-hero {
-  padding: clamp(64px, 10vw, 140px) 0 clamp(40px, 5vw, 72px);
+  padding: clamp(64px, 10vw, 140px) 0 clamp(16px, 2vw, 32px);
   border-bottom: 1px solid var(--rule);
 }
 .about-hero .shell {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: clamp(40px, 6vw, 96px);
-  align-items: center;
+  align-items: start;
 }
 .about-hero .crumbs {
   font-family: var(--mono);
@@ -1874,6 +1872,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 }
 .about-hero .sig-strip {
   display: flex;
+  align-items: center;
   gap: 24px;
   flex-wrap: wrap;
   margin-top: 24px;
@@ -1883,19 +1882,19 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   text-transform: uppercase;
   color: var(--muted);
 }
-.about-hero .sig-strip strong { color: var(--ink); font-weight: 500; }
+.about-hero .sig-strip strong { color: var(--ink); font-weight: 600; font-size: 16px; }
 .about-hero .sig-strip a { color: var(--ink-2); transition: color 200ms; }
 .about-hero .sig-strip a:hover { color: var(--accent); }
 
-.about-body { padding: clamp(56px, 7vw, 104px) 0; }
-.about-body .shell { max-width: 720px; }
+.about-body { padding: clamp(28px, 3.5vw, 52px) 0; }
 .about-body article p {
   font-family: var(--serif);
   font-size: 20px;
   line-height: 1.6;
   margin: 0 0 22px;
-  max-width: 62ch;
+  max-width: 68ch;
 }
+.about-body article em { text-decoration: none; }
 .about-body article p.intro { font-size: 24px; line-height: 1.45; color: var(--ink); }
 .about-body article h2 {
   font-family: var(--serif);
@@ -1907,7 +1906,15 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   border-top: 1px solid var(--rule);
 }
 
-.rating-key { display: grid; grid-template-columns: 80px 1fr; gap: 18px 24px; align-items: start; margin-top: 8px; }
+.rating-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 8px;
+}
+.rating-key { display: grid; grid-template-columns: 72px 1fr; gap: 18px 20px; align-items: start; overflow: visible; }
+.rating-section .scoring-callout { margin: 0; }
 .rating-key .rk-stars { font-family: var(--sans); font-size: 13px; color: var(--accent); padding-top: 2px; }
 .rating-key .rk-row { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--ink-2); }
 .rating-key .rk-row strong { color: var(--ink); font-weight: 500; display: block; }
@@ -1915,19 +1922,32 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .scoring-callout {
   background: var(--ink);
   color: var(--bg);
-  padding: 32px clamp(24px, 3.5vw, 44px);
+  padding: 24px clamp(20px, 3vw, 36px);
   margin: 36px 0;
   font-family: var(--serif);
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.55;
+}
+.about-body .scoring-callout p {
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0 0 12px;
+  max-width: none;
 }
 .scoring-callout .lbl {
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--accent-2);
+  color: color-mix(in oklab, var(--accent-2) 70%, white);
   margin-bottom: 12px;
+}
+
+.about-ctas {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 28px;
 }
 
 /* ── Reading progress bar ─────────────────────────────────── */
@@ -2100,7 +2120,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   margin: 0 0 10px;
 }
 .index-hero p { font-family: var(--serif); font-size: 18px; color: var(--ink-2); max-width: 60ch; margin: 0; }
-.index-hero .crumbs { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; }
+.index-hero .crumbs { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 0 0 20px; white-space: nowrap; }
 
 
 /* ── Lists index grid ─────────────────────────────────────── */
@@ -2207,7 +2227,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .now-reading .shell { grid-template-columns: 1fr; gap: 28px; }
   .now-reading .cover { width: min(180px, 100%); }
 
-  .bk-logo { font-size: 22px; }
+  .bk-logo-img { height: 46px; }
   .hdr-nav { gap: 20px; }
   .hdr-nav a { font-size: 13px; }
 
@@ -2215,9 +2235,11 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .lists-strip { grid-template-columns: repeat(2, 1fr); gap: 14px; }
   .lists-strip .list-card.is-hero { min-height: 240px; padding: 24px; }
 
-  .about-hero .shell { grid-template-columns: 1fr; gap: 28px; }
-  .about-hero .avatar-wrap { max-width: 180px; }
+  .about-hero .shell { grid-template-columns: 160px 1fr; gap: 24px; }
+  .about-hero .avatar-wrap { max-width: 160px; }
+  .rating-section { grid-template-columns: 1fr; gap: 24px; }
   .rating-key { grid-template-columns: 72px 1fr; gap: 12px 16px; }
+  .scoring-callout { margin: 0; }
 
   .review-page .review-grid { grid-template-columns: 1fr; gap: 28px; }
   .review-page .side { position: relative; top: 0; flex-direction: row; align-items: flex-start; }
@@ -2239,7 +2261,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 
 @media (max-width: 720px) {
   :root { --gutter: clamp(16px, 4vw, 28px); }
-  .bk-logo { font-size: 21px; }
+  .bk-logo-img { height: 40px; }
   .hdr-nav { display: none; }
   .hdr-books-m { display: inline-flex; margin-left: auto; }
   .hdr-search-m { display: inline-flex; margin-left: 4px; }
@@ -2267,6 +2289,19 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .signature-list { grid-template-columns: 1fr; gap: 24px; }
   .signature-list .sl-stack .cover:nth-child(n+4) { display: none; }
   .signature-list .sl-stack .cover { width: 72px; margin-right: -18px; }
+
+  .about-hero { padding-top: clamp(32px, 5vw, 56px); padding-bottom: 16px; }
+  .about-hero .shell { display: block; }
+  .about-hero .shell::after { content: ''; display: block; clear: both; }
+  .about-hero .avatar-side { float: right; margin-left: 14px; margin-bottom: 8px; }
+  .about-hero .avatar-wrap { max-width: 72px; }
+  .about-body { padding-top: 28px; padding-bottom: 40px; }
+  .about-body article { overflow: visible; }
+  .about-body article h2 { margin-top: 36px; padding-top: 20px; }
+
+  .index-hero .crumbs { white-space: normal; }
+  .index-hero .crumbs .crumbs-sep { display: none; }
+  .index-hero .crumbs .crumbs-stats { display: block; }
 
   .shelf-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 14px; }
   .shelf-grid .shelf-card:nth-child(n+5) { display: none; }
@@ -2356,7 +2391,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 }
 
 @media (max-width: 520px) {
-  .bk-logo { font-size: 20px; }
+  .bk-logo-img { height: 36px; }
   .rev-grid .rev-card { flex: 0 0 150px; }
   .rev-card .rc-blurb { display: none; }
 
@@ -2398,7 +2433,7 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 /* ── Mobile polish ≤ 880px ────────────────────────────────── */
 @media (max-width: 880px) {
   /* Safe-area insets for iPhone notch / Dynamic Island */
-  .hdr {
+  .hdr-shell {
     padding-top: max(8px, env(safe-area-inset-top));
     padding-left: max(var(--gutter), env(safe-area-inset-left));
     padding-right: max(var(--gutter), env(safe-area-inset-right));

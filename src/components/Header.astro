@@ -7,79 +7,51 @@ const isActive = (path: string) =>
 ---
 
 <header class="hdr" id="site-header">
-	<!-- Brooklyn Reader — Masthead MID lockup (wordmark over mid bridge) -->
-	<a href="/" class="bk-logo" aria-label="The Brooklyn Reader — home">
-		<span class="nm">
-			<span class="the">the</span><span class="bk">Brooklyn</span> Reader<span class="dot">.</span>
-		</span>
-		<span class="bridge" aria-hidden="true">
-			<svg viewBox="0 0 600 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M 6,52 Q 78,10 149,3 Q 300,42 451,3 Q 522,10 594,52" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
-				<g stroke="currentColor" stroke-width="0.9">
-					<line x1="42"  y1="33" x2="42"  y2="50"/>
-					<line x1="76"  y1="21" x2="76"  y2="50"/>
-					<line x1="108" y1="12" x2="108" y2="50"/>
-					<line x1="192" y1="12" x2="192" y2="50"/>
-					<line x1="222" y1="19" x2="222" y2="50"/>
-					<line x1="254" y1="27" x2="254" y2="50"/>
-					<line x1="278" y1="34" x2="278" y2="50"/>
-					<line x1="300" y1="38" x2="300" y2="50"/>
-					<line x1="322" y1="34" x2="322" y2="50"/>
-					<line x1="346" y1="27" x2="346" y2="50"/>
-					<line x1="378" y1="19" x2="378" y2="50"/>
-					<line x1="408" y1="12" x2="408" y2="50"/>
-					<line x1="492" y1="12" x2="492" y2="50"/>
-					<line x1="524" y1="21" x2="524" y2="50"/>
-					<line x1="558" y1="33" x2="558" y2="50"/>
-				</g>
-				<path fill-rule="evenodd" fill="currentColor" d="M 132,0 L 166,0 L 166,80 L 149,63 L 132,80 Z M 136,50 L 136,26 Q 136,8 142,5 Q 148,8 148,26 L 148,50 Z M 150,50 L 150,26 Q 150,8 156,5 Q 162,8 162,26 L 162,50 Z"/>
-				<path fill-rule="evenodd" fill="#9c4a2a" d="M 434,0 L 468,0 L 468,80 L 451,63 L 434,80 Z M 438,50 L 438,26 Q 438,8 444,5 Q 450,8 450,26 L 450,50 Z M 452,50 L 452,26 Q 452,8 458,5 Q 464,8 464,26 L 464,50 Z"/>
-				<rect x="0" y="50" width="600" height="4" fill="currentColor"/>
-				<path d="M 0 65 Q 12 60 25 65 T 50 65 T 75 65 T 100 65 T 125 65 T 150 65 T 175 65 T 200 65 T 225 65 T 250 65 T 275 65 T 300 65 T 325 65 T 350 65 T 375 65 T 400 65 T 425 65 T 450 65 T 475 65 T 500 65 T 525 65 T 550 65 T 575 65 T 600 65" fill="none" stroke="currentColor" stroke-width="1.6" opacity="0.5"/>
-				<path d="M 14 75 Q 26 70 39 75 T 64 75 T 89 75 T 114 75 T 139 75 T 164 75 T 189 75 T 214 75 T 239 75 T 264 75 T 289 75 T 314 75 T 339 75 T 364 75 T 389 75 T 414 75 T 439 75 T 464 75 T 489 75 T 514 75 T 539 75 T 564 75 T 589 75" fill="none" stroke="currentColor" stroke-width="1.1" opacity="0.26"/>
-			</svg>
-		</span>
-	</a>
+	<div class="hdr-shell">
+		<a href="/" class="bk-logo" aria-label="Saturdays in a Book — home">
+			<img class="bk-logo-img" src="/saturdaysinabooklogo.png" alt="Saturdays in a Book" width="2428" height="817" />
+		</a>
 
-	<!-- Desktop nav -->
-	<nav class="hdr-nav" aria-label="Site navigation">
-		<a href="/book-reviews" class={isActive('/book-reviews') ? 'is-active' : ''}>Reviews</a>
-		<a href="/my-lists"     class={isActive('/my-lists')     ? 'is-active' : ''}>Lists</a>
-		<a href="/stats"        class={isActive('/stats')        ? 'is-active' : ''}>Stats</a>
-		<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
-		<button class="hdr-search" id="search-btn" aria-label="Search">
+		<!-- Desktop nav -->
+		<nav class="hdr-nav" aria-label="Site navigation">
+			<a href="/book-reviews" class={isActive('/book-reviews') ? 'is-active' : ''}>Reviews</a>
+			<a href="/my-lists"     class={isActive('/my-lists')     ? 'is-active' : ''}>Lists</a>
+			<a href="/stats"        class={isActive('/stats')        ? 'is-active' : ''}>Stats</a>
+			<a href="/about"        class={isActive('/about')        ? 'is-active' : ''}>About</a>
+			<button class="hdr-search" id="search-btn" aria-label="Search">
+				<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+					<circle cx="7" cy="7" r="4.5"/>
+					<line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke-linecap="round"/>
+				</svg>
+			</button>
+		</nav>
+
+		<!-- Mobile books icon (links to all reviews) -->
+		<a href="/book-reviews" class:list={['hdr-search hdr-books-m', isActive('/book-reviews') ? 'is-active' : '']} aria-label="All reviews">
+			<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M4 19V6a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v14"/>
+				<path d="M4 19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-1H5a1 1 0 0 0-1 1z"/>
+				<line x1="9" y1="4" x2="9" y2="20"/>
+			</svg>
+		</a>
+
+		<!-- Mobile search (surfaced outside the hamburger for faster access) -->
+		<button class="hdr-search hdr-search-m" id="search-btn-m" aria-label="Search">
 			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
 				<circle cx="7" cy="7" r="4.5"/>
 				<line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke-linecap="round"/>
 			</svg>
 		</button>
-	</nav>
 
-	<!-- Mobile books icon (links to all reviews) -->
-	<a href="/book-reviews" class:list={['hdr-search hdr-books-m', isActive('/book-reviews') ? 'is-active' : '']} aria-label="All reviews">
-		<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-			<path d="M4 19V6a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v14"/>
-			<path d="M4 19a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-1H5a1 1 0 0 0-1 1z"/>
-			<line x1="9" y1="4" x2="9" y2="20"/>
-		</svg>
-	</a>
-
-	<!-- Mobile search (surfaced outside the hamburger for faster access) -->
-	<button class="hdr-search hdr-search-m" id="search-btn-m" aria-label="Search">
-		<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
-			<circle cx="7" cy="7" r="4.5"/>
-			<line x1="10.4" y1="10.4" x2="13.5" y2="13.5" stroke-linecap="round"/>
-		</svg>
-	</button>
-
-	<!-- Mobile hamburger -->
-	<button class="hdr-menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
-		<span aria-hidden="true">
-			<span class="ham-line"></span>
-			<span class="ham-line"></span>
-			<span class="ham-line"></span>
-		</span>
-	</button>
+		<!-- Mobile hamburger -->
+		<button class="hdr-menu-btn" id="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
+			<span aria-hidden="true">
+				<span class="ham-line"></span>
+				<span class="ham-line"></span>
+				<span class="ham-line"></span>
+			</span>
+		</button>
+	</div>
 </header>
 
 <!-- Mobile drawer (full-screen overlay) -->

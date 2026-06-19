@@ -131,7 +131,17 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 					</div>
 
 					<div class="chart-card">
-						<div class="controls">
+						<div class="controls-wrap">
+						<div class="chart-head">
+							<p class="chart-title" id="timeline-title">Books read</p>
+							<button class="controls-toggle" id="timeline-filter-btn" type="button" aria-expanded="false" aria-controls="timeline-controls">
+								<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+									<path d="M2 4h10M3.5 7h7M5 10h4"/>
+								</svg>
+								<span>Filter</span>
+							</button>
+						</div>
+						<div class="controls" id="timeline-controls">
 							<div class="control-group">
 								<span class="fb-label">Show</span>
 								<div class="fb-seg" id="metric-seg" role="group" aria-label="Metric">
@@ -156,8 +166,8 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 								</div>
 							</div>
 						</div>
+						</div>
 
-						<p class="chart-title" id="timeline-title">Books read</p>
 						<p class="chart-sub" id="timeline-sub">By year</p>
 						<div class="legend" id="timeline-legend" aria-hidden="true"></div>
 						<div class="chart-holder" id="timeline-chart" set:html={initialTimeline} />
@@ -239,7 +249,27 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 						</div>
 					</div>
 					<div class="chart-card">
-						<p class="chart-title">Longest books read</p>
+						<div class="controls-wrap">
+						<div class="chart-head">
+							<p class="chart-title">Longest books read</p>
+							<button class="controls-toggle" id="longest-filter-btn" type="button" aria-expanded="false" aria-controls="longest-controls">
+								<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+									<path d="M2 4h10M3.5 7h7M5 10h4"/>
+								</svg>
+								<span>Filter</span>
+							</button>
+						</div>
+						<div class="controls" id="longest-controls">
+							<div class="control-group">
+								<span class="fb-label">Show</span>
+								<div class="fb-seg" id="longest-seg" role="group" aria-label="Longest books category">
+									<button class="fb-seg-btn is-on" data-cat="all">All</button>
+									<button class="fb-seg-btn" data-cat="fiction">Fiction</button>
+									<button class="fb-seg-btn" data-cat="nonfiction">Non-fiction</button>
+								</div>
+							</div>
+						</div>
+						</div>
 						<p class="chart-sub">Top 10 by page count</p>
 						<div class="rank-holder" id="chart-longest" set:html={ssr['chart-longest']} />
 					</div>
@@ -336,6 +366,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 		<script type="application/json" id="stats-timeline" set:html={JSON.stringify(s.timeline)} />
 		<script type="application/json" id="stats-charts" set:html={JSON.stringify(chartSpecs)} />
+		<script type="application/json" id="stats-longest" set:html={JSON.stringify(s.longestBooksByCategory)} />
 		<script type="application/json" id="stats-countries" set:html={JSON.stringify(s.countryStats)} />
 	</body>
 </html>
@@ -400,7 +431,12 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	margin-top: clamp(14px, 1.8vw, 20px);
 }
 @media (max-width: 540px) {
-	.flag-grid { grid-template-columns: repeat(2, 1fr); }
+	/* Compact horizontal rows so the 16-country grid isn't a tall scroll: flag · name · count. */
+	.flag-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	.flag-card { flex-direction: row; align-items: center; gap: 8px; padding: 8px 10px; text-align: left; }
+	.flag-emoji { font-size: 20px; }
+	.flag-name { flex: 1; min-width: 0; font-size: 11px; }
+	.flag-count { margin-left: auto; font-size: 15px; }
 }
 .flag-card {
 	display: flex;
@@ -429,9 +465,29 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 .split-holder { border-radius: 3px; overflow: hidden; }
 
 /* Controls */
-.controls { display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 28px); align-items: center; margin-bottom: 22px; }
+.controls-wrap { display: flex; flex-direction: column; }
+.chart-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.controls { display: flex; flex-wrap: wrap; gap: clamp(14px, 2vw, 28px); align-items: center; margin-bottom: 22px; order: -1; }
 .control-group { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .fb-seg.is-disabled { opacity: 0.4; pointer-events: none; }
+
+/* Mobile-only "Filter" toggle that collapses the timeline controls (hidden on desktop) */
+.controls-toggle {
+	display: none;
+	align-items: center;
+	gap: 8px;
+	padding: 8px 14px;
+	font-family: var(--sans);
+	font-size: 12px;
+	letter-spacing: 0.02em;
+	color: var(--ink-2);
+	background: var(--paper);
+	border: 1px solid var(--rule);
+	border-radius: 999px;
+	cursor: pointer;
+}
+.controls-toggle svg { flex: none; }
+.controls-toggle.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
 /* Legend */
 .legend { display: flex; flex-wrap: wrap; gap: 16px 22px; min-height: 18px; margin-bottom: 14px; }
@@ -474,7 +530,9 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
    nothing overflows the viewport (the global .fb-* mobile rules target the reviews
    filter bar, not these wrappers). */
 @media (max-width: 640px) {
-	.controls { flex-direction: column; align-items: stretch; gap: 14px; }
+	.controls-toggle { display: inline-flex; }
+	.controls { display: none; order: 0; flex-direction: column; align-items: stretch; gap: 14px; margin-top: 14px; }
+	.controls.is-open { display: flex; }
 	.control-group { flex-direction: column; align-items: stretch; gap: 6px; }
 	.controls .fb-label { display: block; }
 	.fb-seg { width: 100%; }
@@ -582,9 +640,40 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
+	// Mobile: collapse a card's controls behind a "Filter" button that expands inline.
+	function setupFilterToggle(btnId: string, controlsId: string) {
+		const btn = document.getElementById(btnId);
+		const ctrl = document.getElementById(controlsId);
+		if (!btn || !ctrl) return;
+		btn.addEventListener('click', () => {
+			const open = ctrl.classList.toggle('is-open');
+			btn.classList.toggle('is-on', open);
+			btn.setAttribute('aria-expanded', String(open));
+		});
+	}
+	setupFilterToggle('timeline-filter-btn', 'timeline-controls');
+	setupFilterToggle('longest-filter-btn', 'longest-controls');
+
 	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); renderTimeline(); });
 	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); renderTimeline(); });
 	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); renderTimeline(); });
+
+	// ── Longest-books category toggle (All / Fiction / Non-fiction) ──
+	// Swaps the chart-longest spec's data in place; renderStatic() re-renders it from the
+	// same spec object on resize, so the selected category persists automatically.
+	const longestEl = document.getElementById('stats-longest');
+	const longestData: Record<string, { label: string; value: number }[]> =
+		longestEl ? JSON.parse(longestEl.textContent || '{}') : {};
+	const longestSpec = specs.find((sp) => sp.id === 'chart-longest');
+	setupSeg('longest-seg', (btn) => {
+		if (!longestSpec) return;
+		const cat = btn.dataset.cat || 'all';
+		const data = longestData[cat] || [];
+		longestSpec.data = data;
+		longestSpec.colors = data.map((_, i) => (i === 0 ? 'var(--ink)' : 'var(--viz-primary)'));
+		const holder = document.getElementById('chart-longest');
+		if (holder) holder.innerHTML = renderSpec(longestSpec, widthOf(holder), isMobile());
+	});
 
 	// Re-render everything on resize (debounced) so charts always fit their container.
 	let raf = 0;

@@ -54,7 +54,7 @@ function cc(seed: string) {
 			<!-- Page header -->
 			<div class="shell">
 				<div class="index-hero">
-					<p class="crumbs">§ THE BOOKSHELF · {total} BOOKS READ · {reviewedCount} REVIEWED</p>
+					<p class="crumbs">§ THE BOOKSHELF<span class="crumbs-sep"> · </span><span class="crumbs-stats">{total} BOOKS READ · {reviewedCount} REVIEWED</span></p>
 					<h1>Every book I've read.</h1>
 				</div>
 			</div>
@@ -1014,6 +1014,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const paramAuthor = params.get('author');
 	const paramSubgenre = params.get('subgenre');
 	const paramCategory = params.get('category');
+	const paramStatus = params.get('status');
+	if (paramStatus === 'all') { forceShelf(); }
 	if (paramAuthor && authorApi) { authorApi.select(paramAuthor); forceShelf(); }
 	if (paramSubgenre && subgenreApi) { subgenreApi.select(paramSubgenre.toLowerCase()); forceShelf(); }
 	if (paramCategory === 'fiction' || paramCategory === 'nonfiction') {
