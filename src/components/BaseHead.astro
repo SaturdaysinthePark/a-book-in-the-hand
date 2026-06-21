@@ -2,19 +2,19 @@
 import '../styles/global.css';
 import '../styles/magazine.css';
 import { SITE_TITLE } from '../consts';
-import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import type { ImageMetadata } from 'astro';
 
 interface Props {
 	title: string;
 	description: string;
-	image?: ImageMetadata;
+	/** Path to a branded OG card, e.g. "/og/reviews/<id>.png". Defaults to the site card. */
+	ogImage?: string;
 	type?: 'website' | 'article';
 	robots?: string;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const { title, description, image = FallbackImage, type = 'website', robots = 'index, follow' } = Astro.props;
+const { title, description, ogImage = '/og/default.png', type = 'website', robots = 'index, follow' } = Astro.props;
+const ogUrl = new URL(ogImage, Astro.site);
 ---
 
 <!-- Global Metadata -->
@@ -54,7 +54,10 @@ const { title, description, image = FallbackImage, type = 'website', robots = 'i
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image.src, Astro.url)} />
+<meta property="og:image" content={ogUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
 <meta property="og:site_name" content={SITE_TITLE} />
 <meta property="article:author" content="Sabtain Khan" />
 
@@ -63,7 +66,7 @@ const { title, description, image = FallbackImage, type = 'website', robots = 'i
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+<meta property="twitter:image" content={ogUrl} />
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JNR91EN6Y4"></script>
