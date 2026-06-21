@@ -19,8 +19,12 @@ const { Content } = await render(post);
 // For review posts with a shelf entry, use shelf subgenres as tags.
 // Non-review posts (lists, discussions) keep their frontmatter tags.
 const tags = tagsForPost(post, new Set());
+
+const ogImage = post.data.postType === 'review' ? `/og/reviews/${post.id}.png`
+	: post.data.postType === 'list' ? `/og/lists/${post.id}.png`
+	: undefined;
 ---
 
-<BlogPost {...post.data} tags={tags}>
+<BlogPost {...post.data} tags={tags} ogImage={ogImage}>
 	<Content />
 </BlogPost>

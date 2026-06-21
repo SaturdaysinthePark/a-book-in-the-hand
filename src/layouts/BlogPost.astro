@@ -8,7 +8,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import { filterDisplayTags } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string };
 
 const {
 	title,
@@ -24,7 +24,8 @@ const {
 	tags,
 	postType = 'review',
 	picks,
-	publishYear
+	publishYear,
+	ogImage,
 } = Astro.props;
 
 const authorSlug    = author ? author.toLowerCase().replace(/\s+/g, '-') : '';
@@ -63,7 +64,7 @@ function stars(n: number) {
 
 <html lang="en">
 	<head>
-		<BaseHead title={pageTitle} description={pageDesc} type="article" />
+		<BaseHead title={pageTitle} description={pageDesc} type="article" ogImage={ogImage} />
 
 		{postType === 'review' && bookTitle && author && rating && (
 			<script type="application/ld+json">
