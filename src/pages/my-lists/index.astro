@@ -3,6 +3,8 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
+import PageMasthead from '../../components/PageMasthead.astro';
+import EditorialCell from '../../components/EditorialCell.astro';
 import { getCollection } from 'astro:content';
 import { getBlogUrl } from '../../utils/blog';
 
@@ -10,166 +12,80 @@ const allPosts = (await getCollection('blog', ({ data }) => data.status === 'liv
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const posts = allPosts.filter(p => p.data.postType === 'list');
 
-const featuredLists = posts.slice(0, 4);  // hero + 3 secondary
-const moreLists     = posts.slice(4);
+const featuredLists = posts.slice(0, 6);  // editorial cells
+const moreLists     = posts.slice(6);     // "more lists" table
 
-// Deterministic card colours (warm/editorial palette)
-const LIST_COLORS = [
-	'#1e3a2a', // forest dark
-	'#2d1e3a', // plum
-	'#3a1e1e', // burgundy
-	'#1e2d3a', // slate
-	'#3a2d1e', // warm brown
-	'#1e3a38', // teal
-	'#3a3018', // olive
-	'#2d1e30', // deep purple
-];
-function listColor(seed: string, i: number) {
-	let h = 0;
-	for (let c = 0; c < seed.length; c++) { h = ((h << 5) - h) + seed.charCodeAt(c); h |= 0; }
-	return LIST_COLORS[Math.abs(h + i) % LIST_COLORS.length];
-}
+// Per-position cell styling, echoing the homepage §05–08 cells.
+const CELL_STYLES = [
+	{ color: 'green', cols: 4, max: 4, caps: false },
+	{ color: 'cream', cols: 5, max: 5, caps: true  },
+	{ color: 'rust',  cols: 4, max: 4, caps: false },
+	{ color: 'dark',  cols: 3, max: 3, caps: false },
+	{ color: 'slate', cols: 4, max: 4, caps: false },
+	{ color: 'plum',  cols: 4, max: 4, caps: false },
+] as const;
 
-// Cover colours for stacked book covers inside cards
-const COVER_COLORS = [
-	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
-	{ bg: '#1e3a4a', ink: '#d8cdb8' }, { bg: '#4a3728', ink: '#f3e8d8' },
-	{ bg: '#3d3a28', ink: '#d8cdb8' }, { bg: '#2a3d4a', ink: '#f3e8d8' },
-];
-function cc(seed: string) {
-	let h = 0;
-	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
-	return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
-}
-
-// Fallback covers from reviews (used when a list has no picks with covers)
-const reviews = allPosts.filter(p => p.data.postType === 'review' && p.data.heroImage).slice(0, 16);
-function getStackCovers(offset: number) {
-	return reviews.slice(offset * 4, offset * 4 + 4);
-}
-// Extract covers from a list's own picks array
-function picksCovers(post: typeof posts[0], max: number) {
-	const covers = (post.data.picks ?? []).filter(p => p.cover).slice(0, max);
-	return covers;
-}
+const cover = (url?: string | null) => (url && url !== 'TK' ? url : null);
+const mapPicks = (post: (typeof posts)[number]) =>
+	(post.data.picks ?? []).map((p) => ({ title: p.bookTitle, author: p.author ?? null, cover: cover(p.cover) }));
+const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Curated Lists — The Brooklyn Reader" description="Ranked and curated reading lists from my shelves." />
+		<BaseHead title="Curated Lists — Saturdays in a Book" description="Ranked and curated reading lists from my shelves." />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="shell">
-				<!-- Page header -->
-				<div class="index-hero">
-					<p class="crumbs">§ Index · All Lists</p>
-					<h1>Curated reading lists.</h1>
+			<PageMasthead eyebrow="All Lists" title="Curated reading lists." num={posts.length || null} />
+
+			{featuredLists.length > 0 && (
+				<div class="cells-band">
+					{featuredLists.map((post, i) => {
+						const s = CELL_STYLES[i % CELL_STYLES.length];
+						return (
+							<EditorialCell
+								href={getBlogUrl(post.id)}
+								title={post.data.title}
+								blurb={post.data.description}
+								num={String(i + 1).padStart(2, '0')}
+								color={s.color}
+								picks={mapPicks(post)}
+								cols={s.cols}
+								maxPicks={s.max}
+								captions={s.caps}
+								count={(post.data.picks ?? []).length}
+								footRight={monthYear(post.data.pubDate)}
+							/>
+						);
+					})}
 				</div>
+			)}
 
-				<!-- Featured lists grid -->
-				{featuredLists.length > 0 && (
-					<div class="lists-grid">
-						{featuredLists.map((post, i) => {
-							const bgColor = listColor(post.data.title, i);
-							const stackCovers = getStackCovers(i);
-							const isHero = i === 0;
-							return (
-								<a
-									href={getBlogUrl(post.id)}
-									class={`lgc${isHero ? ' lgc-hero' : ' lgc-sec'}`}
-									style={`background:${bgColor}`}
-								>
-									<div class="lgc-meta">
-										List {String(i + 1).padStart(2, '0')} · {post.data.tags ? post.data.tags.filter(t => !/^\d{4}$/.test(t)).slice(0, 2).join(', ') : ''}
-									</div>
-									{isHero ? (
-										<div class="lgc-body">
-											<div>
-												<h2>{post.data.title}</h2>
-												{post.data.description && <p class="lgc-blurb">{post.data.description}</p>}
-											</div>
-											<div>
-												<div class="lgc-covers">
-													{(() => {
-														const ownCovers = picksCovers(post, 4);
-														const rotations = [-3, 2, -1, 4];
-														if (ownCovers.length > 0) {
-															return ownCovers.map((pick, ci) => (
-																<div class="cover cover-photo" style={`transform:rotate(${rotations[ci]}deg)`}>
-																	<img src={pick.cover} alt="" aria-hidden="true" loading="lazy" />
-																</div>
-															));
-														}
-														return stackCovers.map((r, ci) => (
-															<div class="cover cover-photo" style={`transform:rotate(${rotations[ci]}deg)`}>
-																<img src={r.data.heroImage} alt="" aria-hidden="true" loading="lazy" />
-															</div>
-														));
-													})()}
-												</div>
-											</div>
-										</div>
-									) : (
-										<>
-											<h3>{post.data.title}</h3>
-											{post.data.description && <p class="lgc-blurb">{post.data.description}</p>}
-											<div class="lgc-covers">
-												{(() => {
-													const ownCovers = picksCovers(post, 3);
-													const rotations = [-2, 1, -1];
-													if (ownCovers.length > 0) {
-														return ownCovers.map((pick, ci) => (
-															<div class="cover cover-photo" style={`transform:rotate(${rotations[ci]}deg)`}>
-																<img src={pick.cover} alt="" aria-hidden="true" loading="lazy" />
-															</div>
-														));
-													}
-													return stackCovers.slice(0, 3).map((r, ci) => (
-														<div class="cover cover-photo" style={`transform:rotate(${rotations[ci]}deg)`}>
-															<img src={r.data.heroImage} alt="" aria-hidden="true" loading="lazy" />
-														</div>
-													));
-												})()}
-											</div>
-										</>
-									)}
-									<div class="lgc-foot">
-										<FormattedDate date={post.data.pubDate} />
-										<span class="lgc-arrow">→</span>
-									</div>
-								</a>
-							);
-						})}
+			{moreLists.length > 0 && (
+				<div class="bleed lists-more">
+					<div class="lists-more-heading">More lists</div>
+					<div class="lists-table">
+						{moreLists.map((post, i) => (
+							<a href={getBlogUrl(post.id)} class="lt-row">
+								<span class="lt-num">List {String(i + featuredLists.length + 1).padStart(2, '0')}</span>
+								<div class="lt-content">
+									<span class="lt-title">{post.data.title}</span>
+									{post.data.description && <span class="lt-blurb">{post.data.description}</span>}
+								</div>
+								<span class="lt-date"><FormattedDate date={post.data.pubDate} /></span>
+								<span class="lt-arrow-row">→</span>
+							</a>
+						))}
 					</div>
-				)}
+				</div>
+			)}
 
-				<!-- More lists table -->
-				{moreLists.length > 0 && (
-					<div class="lists-more">
-						<div class="lists-more-heading">More lists</div>
-						<div class="lists-table">
-							{moreLists.map((post, i) => (
-								<a href={getBlogUrl(post.id)} class="lt-row">
-									<span class="lt-num">List {String(i + featuredLists.length + 1).padStart(2, '0')}</span>
-									<div class="lt-content">
-										<span class="lt-title">{post.data.title}</span>
-										{post.data.description && <span class="lt-blurb">{post.data.description}</span>}
-									</div>
-									<span class="lt-date"><FormattedDate date={post.data.pubDate} /></span>
-									<span class="lt-arrow-row">→</span>
-								</a>
-							))}
-						</div>
-					</div>
-				)}
-
-				{posts.length === 0 && (
-					<div class="empty">No lists yet — check back soon.</div>
-				)}
-			</div>
+			{posts.length === 0 && (
+				<div class="bleed"><div class="empty">No lists yet — check back soon.</div></div>
+			)}
 		</main>
 		<Footer />
 
@@ -183,8 +99,7 @@ function picksCovers(post: typeof posts[0], max: number) {
 
 <style>
 main { padding-bottom: clamp(48px, 6vw, 88px); }
-.index-hero { padding-bottom: clamp(20px, 3vw, 32px); }
-.lists-grid { margin-bottom: clamp(16px, 2vw, 28px); }
+.lists-more { margin-top: clamp(40px, 5vw, 72px); }
 </style>
 
 <script>

@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import PageMasthead from '../../components/PageMasthead.astro';
 import { getBlogUrl } from '../../utils/blog';
 
 export async function getStaticPaths() {
@@ -40,15 +41,16 @@ const originalAuthor = authorPosts[0]?.data.author || author;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Books by ${originalAuthor} - A Book in the Hand`} description={`All books by ${originalAuthor}`} />
+		<BaseHead title={`Books by ${originalAuthor} — Saturdays in a Book`} description={`All books by ${originalAuthor}`} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="page-header">
-				<h1>Books by {originalAuthor}</h1>
-				<p class="post-count">{authorPosts.length} book{authorPosts.length !== 1 ? 's' : ''} reviewed</p>
-			</div>
+			<PageMasthead eyebrow="Author" title={`Books by ${originalAuthor}`} num={authorPosts.length}>
+				<Fragment slot="meta">
+					<span class="eyebrow-mono">{authorPosts.length} book{authorPosts.length !== 1 ? 's' : ''} reviewed</span>
+				</Fragment>
+			</PageMasthead>
 			
 			<div class="posts-gallery">
 				{authorPosts.map((post) => (

@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import PageMasthead from '../../components/PageMasthead.astro';
 import { getBlogUrl, tagsForPost } from '../../utils/blog';
 
 export async function getStaticPaths() {
@@ -50,15 +51,16 @@ const originalTag = tag.replace(/-/g, ' ');
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={`Posts tagged "${originalTag}" - A Book in the Hand`} description={`All posts tagged with ${originalTag}`} />
+		<BaseHead title={`Posts tagged "${originalTag}" — Saturdays in a Book`} description={`All posts tagged with ${originalTag}`} />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<div class="page-header">
-				<h1>Posts tagged "{originalTag}"</h1>
-				<p class="post-count">{taggedPosts.length} post{taggedPosts.length !== 1 ? 's' : ''} found</p>
-			</div>
+			<PageMasthead eyebrow="Tag" title={`Posts tagged &ldquo;${originalTag}&rdquo;`} num={taggedPosts.length}>
+				<Fragment slot="meta">
+					<span class="eyebrow-mono">{taggedPosts.length} post{taggedPosts.length !== 1 ? 's' : ''}</span>
+				</Fragment>
+			</PageMasthead>
 			
 			<div class="posts-gallery">
 				{taggedPosts.map((post) => (

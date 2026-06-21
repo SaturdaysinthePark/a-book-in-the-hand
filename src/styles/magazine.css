@@ -1,0 +1,201 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   Magazine design language — shared, engine-free primitives.
+
+   The visual vocabulary proven on the homepage, lifted out so every page can
+   reuse it WITHOUT loading the scroll engine: full-bleed bands, readable prose
+   measure, hard ink rules, the § watermark/eyebrow motif, mono micro-labels,
+   colored editorial cells, and finale-style stat cards.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Layout: full-bleed band vs. readable prose ────────────────────────── */
+.bleed {
+	width: 100%;
+	padding-inline: var(--bleed-gutter);
+}
+.measure {
+	width: 100%;
+	max-width: calc(var(--measure) + 2 * var(--bleed-gutter));
+	margin-inline: auto;
+	padding-inline: var(--bleed-gutter);
+}
+
+/* ── Hard ink rules ────────────────────────────────────────────────────── */
+.rule { border: 0; border-top: 3px solid var(--ink); margin: 0; }
+.rule--seam { border-top-width: var(--seam); }
+.rule--hair { border-top-width: 1px; border-top-color: var(--rule); }
+
+/* ── Mono micro-label / § eyebrow ──────────────────────────────────────── */
+.eyebrow-mono {
+	font-family: var(--mono);
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--muted);
+	margin: 0;
+}
+.eyebrow-mono .mark { color: var(--accent); }
+
+/* ── § watermark numeral ───────────────────────────────────────────────── */
+.wm-num {
+	position: absolute;
+	font-family: var(--serif);
+	font-weight: 300;
+	line-height: 1;
+	letter-spacing: -0.04em;
+	color: rgba(26, 22, 20, 0.06);
+	pointer-events: none;
+	user-select: none;
+	z-index: 0;
+}
+
+/* ── Page masthead (full-bleed header band) ────────────────────────────── */
+.masthead {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	padding: clamp(30px, 4.5vw, 64px) var(--bleed-gutter) clamp(18px, 2.6vw, 30px);
+	border-bottom: 3px solid var(--ink);
+}
+.masthead__eyebrow { margin: 0 0 clamp(12px, 1.6vw, 20px); position: relative; z-index: 1; }
+.masthead h1 {
+	font-family: var(--serif);
+	font-weight: 400;
+	font-size: clamp(34px, 5vw, 72px);
+	letter-spacing: -0.035em;
+	line-height: 0.98;
+	margin: 0;
+	color: var(--ink);
+	position: relative;
+	z-index: 1;
+}
+.masthead h1 em { font-style: italic; color: var(--accent); }
+.masthead__lede {
+	font-family: var(--serif);
+	font-style: italic;
+	font-size: clamp(15px, 1.4vw, 20px);
+	line-height: 1.55;
+	color: var(--ink-2);
+	margin: clamp(12px, 1.4vw, 18px) 0 0;
+	max-width: 58ch;
+	position: relative;
+	z-index: 1;
+}
+.masthead__meta {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 18px;
+	margin: clamp(14px, 1.8vw, 22px) 0 0;
+	position: relative;
+	z-index: 1;
+}
+.masthead .wm-num {
+	right: var(--bleed-gutter);
+	bottom: -0.16em;
+	font-size: clamp(96px, 16vw, 220px);
+}
+
+/* ── Colored editorial cells (homepage §05–08 palette) ─────────────────── */
+.ed-cell {
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: clamp(16px, 2.4vw, 32px);
+	padding: clamp(22px, 2.6vw, 40px);
+	color: var(--paper);
+	text-decoration: none;
+	min-height: clamp(240px, 30vw, 380px);
+	transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ed-cell:hover { color: var(--paper); }
+.ed-cell--green { background: #1e3a2a; }
+.ed-cell--cream { background: var(--paper); color: var(--ink); }
+.ed-cell--cream:hover { color: var(--ink); }
+.ed-cell--rust  { background: #5a2010; }
+.ed-cell--dark  { background: #2d2318; }
+.ed-cell--slate { background: #1e2d3a; }
+.ed-cell--plum  { background: #2d1e3a; }
+.ed-cell h2 {
+	font-family: var(--serif);
+	font-weight: 400;
+	font-style: italic;
+	letter-spacing: -0.025em;
+	line-height: 1.05;
+	margin: 0 0 8px;
+	font-size: clamp(22px, 2.6vw, 40px);
+}
+.ed-cell__blurb {
+	font-family: var(--serif);
+	font-style: italic;
+	font-size: clamp(11px, 1vw, 14px);
+	line-height: 1.55;
+	margin: 0;
+	opacity: 0.55;
+}
+.ed-cell__count {
+	font-family: var(--mono);
+	font-size: 10px;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	opacity: 0.5;
+	margin: 0;
+}
+.ed-cell__foot {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-family: var(--mono);
+	font-size: 10px;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	opacity: 0.6;
+}
+.ed-cell__books { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
+.ed-cell__head { position: relative; z-index: 1; }
+.ed-cell__grid { display: grid; gap: 8px; }
+.ed-cell__cap { font-family: var(--sans); font-size: clamp(7px, 0.7vw, 9px); letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.42; margin: 0; }
+.ed-cell .wm-num { right: 14px; top: 10px; font-size: clamp(56px, 7vw, 110px); }
+.ed-cell--cream .wm-num { color: rgba(26, 22, 20, 0.12); }
+.ed-cell:not(.ed-cell--cream) .wm-num { color: rgba(243, 236, 224, 0.16); }
+
+/* ── Full-bleed band of editorial cells (ink seams between) ────────────── */
+.cells-band {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: var(--seam);
+	background: var(--ink);
+	width: 100%;
+}
+
+/* ── Finale-style stat card ────────────────────────────────────────────── */
+.stat-card {
+	background: #faf6ec;
+	border: 1px solid rgba(26, 22, 20, 0.08);
+	padding: clamp(16px, 2vw, 28px) clamp(18px, 2.2vw, 30px);
+	display: flex;
+	flex-direction: column;
+	gap: clamp(6px, 1vh, 12px);
+}
+.stat-card__num {
+	font-family: var(--serif);
+	font-weight: 400;
+	font-size: clamp(34px, 4.4vw, 68px);
+	line-height: 0.9;
+	letter-spacing: -0.02em;
+	color: var(--accent-2);
+}
+.stat-card__label {
+	font-family: var(--mono);
+	font-size: clamp(9px, 0.85vw, 12px);
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: rgba(90, 78, 66, 0.62);
+}
+
+/* ── Light entrance motion (no scroll-hijack on content pages) ─────────── */
+@keyframes mzFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.mz-rise { animation: mzFadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) { .mz-rise { animation: none; } }

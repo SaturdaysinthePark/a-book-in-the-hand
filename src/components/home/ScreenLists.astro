@@ -1,0 +1,67 @@
+---
+// Screen 03 (§05–08) — a 4-cell editorial quadrant mixing real content types:
+// list / collection cells (a capped cover grid) and review cells (one big cover +
+// pull-quote). Cells are NOT a single link — the title and each cover link to their
+// own post, so a reader can jump straight to any book.
+import BookCover from '../BookCover.astro';
+
+interface Pick { title: string; author?: string | null; cover?: string | null; url?: string | null; }
+interface Props { cells: any[]; }
+const { cells } = Astro.props;
+
+const POS = [
+	{ cls: 'hx-cell--green', num: '05' },
+	{ cls: 'hx-cell--cream', num: '06' },
+	{ cls: 'hx-cell--rust',  num: '07' },
+	{ cls: 'hx-cell--dark',  num: '08' },
+];
+const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) : '');
+const arrow = `<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>`;
+const shown = cells.slice(0, 4);
+---
+
+<section class="hx-screen hx-s03" id="hx-s03" data-cells={shown.length} aria-label="Featured posts">
+	{shown.map((cell, i) => {
+		const p = POS[i];
+		if (cell.type === 'review') {
+			const b = cell.book;
+			return (
+				<div class={`hx-cell hx-cell--review hx-cell--${i} ${p.cls}`} id={`hx-cell-${i}`}>
+					<span class="hx-watermark" aria-hidden="true">{p.num}</span>
+					<div class="hx-cell__head">
+						{cell.kicker && <p class="hx-cell__kicker">{cell.kicker}</p>}
+						<h2><a href={cell.href}>{b.title}</a></h2>
+						<p class="hx-cell__byline">{b.author}{b.rating && <span class="hx-cell__stars"> · {stars(b.rating)}</span>}</p>
+					</div>
+					<div class="hx-cell__review">
+						<a href={cell.href} class="hx-cell__review-cover" aria-label={b.title}><BookCover title={b.title} author={b.author} cover={b.cover} /></a>
+						{b.quote && <p class="hx-cell__quote">{b.quote}</p>}
+					</div>
+					<a href={cell.href} class="hx-cta hx-cell__cta">Read the review <Fragment set:html={arrow} /></a>
+				</div>
+			);
+		}
+		return (
+			<div class={`hx-cell hx-cell--${i} ${p.cls}`} id={`hx-cell-${i}`}>
+				<span class="hx-watermark" aria-hidden="true">{p.num}</span>
+				<div class="hx-cell__head">
+					<h2><a href={cell.href}>{cell.title}</a></h2>
+					{cell.blurb && <p class="hx-cell__blurb">{cell.blurb}</p>}
+				</div>
+				<div class="hx-cell__books">
+					<div class="hx-cell__grid">
+						{cell.picks.slice(0, 8).map((pk: Pick) => (
+							pk.url
+								? <a href={pk.url} class="hx-cell__cover" aria-label={pk.title}><BookCover title={pk.title} author={pk.author} cover={pk.cover} /></a>
+								: <BookCover title={pk.title} author={pk.author} cover={pk.cover} class="hx-cell__cover" />
+						))}
+					</div>
+					<div class="hx-cell__foot">
+						<span class="hx-cell__count">{cell.count} books</span>
+						<a href={cell.href} class="hx-cell__more">View <Fragment set:html={arrow} /></a>
+					</div>
+				</div>
+			</div>
+		);
+	})}
+</section>

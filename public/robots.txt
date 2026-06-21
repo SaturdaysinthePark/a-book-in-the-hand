@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /drafts
+
+Sitemap: https://saturdaysinabook.com/sitemap-index.xml

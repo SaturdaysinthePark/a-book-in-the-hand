@@ -5,6 +5,8 @@ import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { getCollection } from 'astro:content';
 import { buildShelf } from '../../utils/shelf';
+import { getCoverColor as cc } from '../../utils/blog';
+import PageMasthead from '../../components/PageMasthead.astro';
 
 // Live reviews join the Goodreads shelf (src/data/shelf.json) to produce one
 // card per book read: reviewed → clickable, otherwise "review coming soon".
@@ -27,41 +29,27 @@ const allSubgenres = [...subgenreSet].sort();
 const yearCounts: Record<string, number> = {};
 cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] || 0) + 1; });
 
-// Cover colors
-const COVER_COLORS = [
-	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
-	{ bg: '#1e3a4a', ink: '#d8cdb8' }, { bg: '#4a3728', ink: '#f3e8d8' },
-	{ bg: '#3d3a28', ink: '#d8cdb8' }, { bg: '#2a3d4a', ink: '#f3e8d8' },
-	{ bg: '#5a2d45', ink: '#f3e8d8' }, { bg: '#3a4a2d', ink: '#d8cdb8' },
-	{ bg: '#7d3a28', ink: '#f3e8d8' }, { bg: '#283a5a', ink: '#d8cdb8' },
-];
-function cc(seed: string) {
-	let h = 0;
-	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
-	return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
-}
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="All Book Reviews — The Brooklyn Reader" description="Every book I've reviewed, filterable by genre, author, and tag." />
+		<BaseHead title="All Book Reviews — Saturdays in a Book" description="Every book I've reviewed, filterable by genre, author, and tag." />
 	</head>
 	<body>
 		<Header />
 		<main>
 
 			<!-- Page header -->
-			<div class="shell">
-				<div class="index-hero">
-					<p class="crumbs">§ THE BOOKSHELF<span class="crumbs-sep"> · </span><span class="crumbs-stats">{total} BOOKS READ · {reviewedCount} REVIEWED</span></p>
-					<h1>Every book I've read.</h1>
-				</div>
-			</div>
+			<PageMasthead eyebrow="The Bookshelf" title="Every book I've read." num={total}>
+				<Fragment slot="meta">
+					<span class="eyebrow-mono">{total} books read · {reviewedCount} reviewed</span>
+				</Fragment>
+			</PageMasthead>
 
 			<!-- Filter bar (sticky) -->
 			<div class="filter-bar-wrap" id="filter-bar-wrap">
-				<div class="shell filter-bar">
+				<div class="bleed filter-bar">
 
 						<!-- Desktop: [Viewing X / Y books] ‖ [filters in two rows]. Mobile: hidden (pill). -->
 						<div class="fb-row">
@@ -224,7 +212,7 @@ function cc(seed: string) {
 			<script type="application/json" id="yr-counts" set:html={JSON.stringify(yearCounts)}></script>
 
 			<!-- Results — single continuous grid; years tracked via data-year -->
-			<div class="shell idx-results" id="results-area">
+			<div class="bleed idx-results" id="results-area">
 
 						<!-- Grid view -->
 						<div class="idx-results-grid view-grid">
@@ -684,6 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let activeStatus   = 'reviewed';
 	let activeAuthor   = '';
 	let activeSubgenre = '';
+	let activeRating   = '';
 	let currentView    = 'grid';
 
 	// ── Apply filters
@@ -712,6 +701,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			if (show && activeStatus !== 'all') {
 				show = (item.dataset.status || '') === activeStatus;
+			}
+
+			if (show && activeRating) {
+				show = (item.dataset.rating || '') === activeRating;
 			}
 
 			item.classList.toggle('is-hidden', !show);
@@ -1015,7 +1008,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const paramSubgenre = params.get('subgenre');
 	const paramCategory = params.get('category');
 	const paramStatus = params.get('status');
+	const paramRating = params.get('rating');
 	if (paramStatus === 'all') { forceShelf(); }
+	if (paramRating && /^[1-5]$/.test(paramRating)) { activeRating = paramRating; forceShelf(); }
 	if (paramAuthor && authorApi) { authorApi.select(paramAuthor); forceShelf(); }
 	if (paramSubgenre && subgenreApi) { subgenreApi.select(paramSubgenre.toLowerCase()); forceShelf(); }
 	if (paramCategory === 'fiction' || paramCategory === 'nonfiction') {

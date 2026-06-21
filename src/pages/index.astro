@@ -2,62 +2,131 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import HomeExperience from '../components/home/HomeExperience.astro';
 import { SITE_TITLE, SITE_DESCRIPTION, CURRENTLY_READING_NOTES } from '../consts';
 import currentlyReadingData from '../data/currently-reading.json';
 import { getCollection } from 'astro:content';
-import { getBlogUrl } from '../utils/blog';
+import { getBlogUrl, getCoverColor } from '../utils/blog';
+import { computeStats } from '../utils/stats';
+import shelfData from '../data/shelf.json';
 
 const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
 const sorted   = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const reviews  = sorted.filter(p => p.data.postType === 'review');
-const lists    = sorted.filter(p => p.data.postType === 'list');
+const reviews = sorted.filter((p) => p.data.postType === 'review');
+const lists   = sorted.filter((p) => p.data.postType === 'list');
 
-const hero          = reviews[0];
-const recentReviews = reviews.slice(1, 5);   // 4 after hero
-const featuredList  = lists[0];
-const moreLists     = lists.slice(1, 3);
-const fiveStars     = reviews.filter(p => p.data.rating === 5).slice(0, 8);
+const cover = (url?: string | null) => (url && url !== 'TK' ? url : null);
+const mapPicks = (post: (typeof lists)[number]) =>
+	(post.data.picks ?? []).map((p) => ({ title: p.bookTitle, author: p.author ?? null, cover: cover(p.cover), url: p.reviewUrl ?? null }));
 
-// Deterministic list card colours (matches my-lists palette)
-const LIST_COLORS = ['#1e3a2a','#2d1e3a','#3a1e1e','#1e2d3a','#3a2d1e','#1e3a38','#3a3018','#2d1e30'];
-function listColor(seed: string) {
-	let h = 0;
-	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
-	return LIST_COLORS[Math.abs(h) % LIST_COLORS.length];
-}
+// ── Screen 01 — latest review ───────────────────────────────────────────────
+const latestPost = reviews[0];
+const latest = latestPost && {
+	title: latestPost.data.bookTitle || latestPost.data.title,
+	author: latestPost.data.author ?? null,
+	rating: latestPost.data.rating ?? null,
+	date: latestPost.data.pubDate,
+	blurb: latestPost.data.description ?? null,
+	cover: cover(latestPost.data.heroImage),
+	url: getBlogUrl(latestPost.id),
+};
 
-// Deterministic cover colour for placeholder covers
-const COVER_COLORS = [
-	{ bg: '#2d4a3e', ink: '#d8cdb8' }, { bg: '#6b2737', ink: '#f3e8d8' },
-	{ bg: '#1e3a4a', ink: '#d8cdb8' }, { bg: '#4a3728', ink: '#f3e8d8' },
-	{ bg: '#3d3a28', ink: '#d8cdb8' }, { bg: '#2a3d4a', ink: '#f3e8d8' },
-	{ bg: '#5a2d45', ink: '#f3e8d8' }, { bg: '#3a4a2d', ink: '#d8cdb8' },
-	{ bg: '#7d3a28', ink: '#f3e8d8' }, { bg: '#283a5a', ink: '#d8cdb8' },
-];
-function cc(seed: string) {
-	let h = 0;
-	for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
-	return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
-}
-
-// Currently reading: book auto-synced from the Goodreads export (most-recent first),
-// merged with the hand-written notes (blurb / progress / cover colours) from consts.
+// ── Screen 01 §02 — currently reading ───────────────────────────────────────
 type CurrentBook = { goodreadsId: string; title: string; author: string; coverUrl: string | null };
 const crBook = (currentlyReadingData as CurrentBook[])[0];
-const crNotes = crBook ? (CURRENTLY_READING_NOTES[crBook.goodreadsId] ?? {}) : {};
-const crFallback = crBook ? cc(crBook.title) : null;
-const currentlyReading = crBook && crFallback ? {
+const crNotes = crBook ? CURRENTLY_READING_NOTES[crBook.goodreadsId] ?? {} : {};
+const crFallback = crBook ? getCoverColor(crBook.title) : null;
+const current = crBook && crFallback ? {
 	title: crBook.title,
 	author: crBook.author,
-	cover: crBook.coverUrl,
-	blurb: crNotes.blurb ?? '',
-	progress: crNotes.progress ?? '',
+	cover: cover(crBook.coverUrl),
 	coverBg: crNotes.coverBg ?? crFallback.bg,
 	coverInk: crNotes.coverInk ?? crFallback.ink,
+	progress: crNotes.progress ?? '',
 	url: crNotes.url ?? '',
 } : null;
+
+// ── Screen 01 §03 — featured-list teaser ────────────────────────────────────
+const featuredPost = lists[0];
+const featured = featuredPost && {
+	title: featuredPost.data.title,
+	blurb: featuredPost.data.description ?? null,
+	picks: mapPicks(featuredPost),
+	count: (featuredPost.data.picks ?? []).length,
+	date: featuredPost.data.pubDate,
+	url: getBlogUrl(featuredPost.id),
+};
+
+// ── Screen 02 — recent reading (next reviews after the latest) ──────────────
+const recent = reviews.slice(1, 33).map((p) => ({
+	title: p.data.bookTitle || p.data.title,
+	author: p.data.author ?? null,
+	rating: p.data.rating ?? null,
+	cover: cover(p.data.heroImage),
+	url: getBlogUrl(p.id),
+}));
+const recentRow1 = recent.slice(0, 16);
+const recentRow2 = recent.slice(16, 32);
+
+// ── Screen 03 — 4-cell editorial quadrant: 1 list + 2 archive gems + the 5★ shelf
+const shelfByGid = new Map(shelfData.map((b: any) => [String(b.goodreadsId), b]));
+const gid = (p: (typeof reviews)[number]) => String(p.data.goodreadsId ?? '');
+// First substantive line of the review body — a real pull-quote (the meta `description`
+// on older reviews is a generic "A thoughtful review of …" placeholder).
+const firstLine = (body?: string): string | null => {
+	const para = (body ?? '').split('\n').map((l) => l.trim())
+		.find((l) => l && !/^[#>|]/.test(l) && !l.startsWith('![') && !l.startsWith('<'));
+	if (!para) return null;
+	const c = para.replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`#]/g, '').trim();
+	return c.length > 30 ? c : null;
+};
+const reviewBook = (p: (typeof reviews)[number]) => ({
+	title: p.data.bookTitle || p.data.title,
+	author: p.data.author ?? null,
+	rating: p.data.rating ?? null,
+	quote: firstLine(p.body) ?? p.data.description ?? null,
+	cover: cover(p.data.heroImage),
+	url: getBlogUrl(p.id),
+});
+
+// Books already on screen 1/2, so the archive surfaces things you'd otherwise miss.
+const shown = new Set([latestPost, ...reviews.slice(1, 21)].filter(Boolean).map(gid));
+
+// Archive gems — top-rated reviewed books read in 2019, not already shown.
+const archivePool = reviews.filter((p) => {
+	const s = shelfByGid.get(gid(p));
+	return s && (s.readYears ?? []).includes(2019) && p.data.rating === 5 && !shown.has(gid(p));
+}).sort((a, b) => (b.body?.length ?? 0) - (a.body?.length ?? 0)); // most substantive reviews first
+const archiveGems = archivePool.slice(0, 2).map(reviewBook);
+const gemGids = new Set(archivePool.slice(0, 2).map(gid));
+
+// The Five-Star Shelf — 5★ reviews not already featured.
+const fiveStarAll = reviews.filter((p) => p.data.rating === 5);
+const fiveStarPicks = fiveStarAll
+	.filter((p) => !shown.has(gid(p)) && !gemGids.has(gid(p)))
+	.slice(0, 8)
+	.map((p) => ({ title: p.data.bookTitle || p.data.title, author: p.data.author ?? null, cover: cover(p.data.heroImage), url: getBlogUrl(p.id) }));
+
+// The list cell — the list NOT teased on screen 1 (lists[0]).
+const listCellPost = lists[1] ?? lists[0];
+const listCell = listCellPost && {
+	type: 'list' as const, href: getBlogUrl(listCellPost.id),
+	title: listCellPost.data.title, blurb: listCellPost.data.description ?? null,
+	count: (listCellPost.data.picks ?? []).length, picks: mapPicks(listCellPost),
+};
+
+// Quadrant order = cell position 0..3 (tall-left, wide-top, bottom-mid, bottom-right).
+const quadCells = [
+	archiveGems[0] && { type: 'review' as const, href: archiveGems[0].url, kicker: 'From the archive · 2019', book: archiveGems[0] },
+	listCell,
+	archiveGems[1] && { type: 'review' as const, href: archiveGems[1].url, kicker: 'From the archive · 2019', book: archiveGems[1] },
+	fiveStarPicks.length ? { type: 'collection' as const, href: '/book-reviews?rating=5', title: 'The Five-Star Shelf', blurb: 'Every book I gave the full five stars.', count: fiveStarAll.length, picks: fiveStarPicks } : null,
+].filter(Boolean);
+
+// ── Screen 04 — reading stats (real aggregates) ─────────────────────────────
+const stats = computeStats();
+const years = stats.timeline.year.books;
 ---
 
 <!doctype html>
@@ -68,326 +137,20 @@ const currentlyReading = crBook && crFallback ? {
 	<body>
 		<Header />
 		<main>
-
-			{/* ── Hero: latest review ─────────────────────────── */}
-			{hero && (
-				<section class="hero shell">
-					<div class="hero-grid">
-						<p class="hero-eyebrow">
-							<span>§ LATEST REVIEW</span>
-							<span>·</span>
-							<span><FormattedDate date={hero.data.pubDate} /></span>
-						</p>
-
-						<div class="hero-cover">
-							<a href={getBlogUrl(hero.id)} aria-hidden="true" tabindex="-1">
-								{hero.data.heroImage ? (
-									<div class="cover cover-photo">
-										<img src={hero.data.heroImage} alt={hero.data.bookTitle || hero.data.title} />
-									</div>
-								) : (() => {
-									const c = cc(hero.data.bookTitle || hero.data.title);
-									return (
-										<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
-											<div class="spine"></div>
-											<div class="gloss"></div>
-											<div class="cover-sub">{hero.data.author}</div>
-											<div class="cover-label">{(hero.data.bookTitle || hero.data.title).toUpperCase()}</div>
-										</div>
-									);
-								})()}
-							</a>
-						</div>
-
-						<h1>
-							<a href={getBlogUrl(hero.id)}>{hero.data.bookTitle || hero.data.title}</a>
-						</h1>
-
-						<div class="hero-body">
-							{hero.data.rating && (
-								<div class="hero-rating-row">
-									<span class="rating" aria-label={`${hero.data.rating} out of 5`}>
-										{Array.from({ length: 5 }, (_, i) => (
-											<svg class="star" viewBox="0 0 16 16" fill={i < hero.data.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
-												<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
-											</svg>
-										))}
-									</span>
-									{hero.data.author && <span class="hero-by">{hero.data.author}</span>}
-								</div>
-							)}
-
-							{hero.data.description && (
-								<p class="lede">{hero.data.description}</p>
-							)}
-
-							<a href={getBlogUrl(hero.id)} class="hero-cta">
-								Read the review
-								<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M2.5 7h9M7.5 3l4 4-4 4"/>
-								</svg>
-							</a>
-						</div>
-					</div>
-				</section>
+			{latest && (
+				<HomeExperience
+					latest={latest}
+					current={current}
+					featured={featured}
+					recentRow1={recentRow1}
+					recentRow2={recentRow2}
+					cells={quadCells}
+					stats={{ uniqueBooks: stats.uniqueBooks, uniqueAuthors: stats.uniqueAuthors, pagesRead: stats.pagesRead }}
+					years={years}
+					urls={{ allReviews: '/book-reviews', stats: '/stats', shelf: '/book-reviews' }}
+				/>
 			)}
-
-			{/* ── Signature list ──────────────────────────────── */}
-			{featuredList && (() => {
-				const slBg = listColor(featuredList.data.title);
-				const slPicks = featuredList.data.picks ?? [];
-				const rotations = [-4, 2, -2, 5];
-				return (
-					<section class="signature-list-band sl-dark" style={`--sl-bg:${slBg}`}>
-						<div class="shell">
-							<a href={getBlogUrl(featuredList.id)} class="signature-list">
-								<div class="sl-intro">
-									<p class="sl-eyebrow">§ A FEATURE · THE FLAGSHIP LIST</p>
-									<h2>{featuredList.data.title}</h2>
-								</div>
-								<div class="sl-stack">
-									{slPicks.length > 0 ? slPicks.slice(0, 4).map((pick, i) => {
-										const c = cc(pick.bookTitle);
-										return pick.cover && pick.cover !== 'TK' ? (
-											<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-												<img src={pick.cover} alt={pick.bookTitle} />
-											</div>
-										) : (
-											<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-												<div class="spine"></div>
-												<div class="gloss"></div>
-												<div class="cover-label">{pick.bookTitle.toUpperCase()}</div>
-											</div>
-										);
-									}) : lists.slice(0, 4).map((l, i) => {
-										const c = cc(l.data.title);
-										return l.data.heroImage ? (
-											<div class="cover cover-photo" style={`--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-												<img src={l.data.heroImage} alt={l.data.title} />
-											</div>
-										) : (
-											<div class="cover" style={`background:${c.bg};color:${c.ink};--r:${rotations[i]}deg;transform:rotate(${rotations[i]}deg)`}>
-												<div class="spine"></div>
-												<div class="gloss"></div>
-												<div class="cover-label">{l.data.title.toUpperCase()}</div>
-											</div>
-										);
-									})}
-								</div>
-								<div class="sl-outro">
-									{featuredList.data.description && (
-										<p>{featuredList.data.description}</p>
-									)}
-									<span class="sl-cta">See the full list →</span>
-								</div>
-							</a>
-						</div>
-					</section>
-				);
-			})()}
-
-			{/* ── Recent reading ───────────────────────────────── */}
-			{recentReviews.length > 0 && (
-				<section class="section">
-					<div class="shell">
-						<div class="section-head">
-							<div>
-								<p class="index-num">§ RECENT READING</p>
-								<h2>Recent reading</h2>
-							</div>
-							<a href="/book-reviews" class="more">All reviews →</a>
-						</div>
-						<div class="rev-grid" id="recent-grid">
-							{recentReviews.map((post) => {
-								const c = cc(post.data.bookTitle || post.data.title);
-								return (
-									<a href={getBlogUrl(post.id)} class="rev-card">
-										{post.data.heroImage ? (
-											<div class="cover cover-photo">
-												<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
-											</div>
-										) : (
-											<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
-												<div class="spine"></div>
-												<div class="gloss"></div>
-												<div class="cover-sub">{post.data.author}</div>
-												<div class="cover-label">{(post.data.bookTitle || post.data.title).toUpperCase()}</div>
-											</div>
-										)}
-										<div class="rc-meta">
-											<h3>{post.data.bookTitle || post.data.title}</h3>
-											{post.data.author && <span class="rc-author">{post.data.author}</span>}
-											{post.data.rating && (
-												<span class="rating" aria-label={`${post.data.rating} out of 5`}>
-													{Array.from({ length: 5 }, (_, i) => (
-														<svg class="star" viewBox="0 0 16 16" fill={i < post.data.rating! ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.2">
-															<path d="M8 1.5l2 4.5 4.8.4-3.6 3.2 1.1 4.8L8 11.9 3.7 14.4l1.1-4.8L1.2 6.4 6 6z" stroke-linejoin="round" stroke-linecap="round"/>
-														</svg>
-													))}
-												</span>
-											)}
-											{post.data.description && (
-												<p class="rc-blurb">{post.data.description}</p>
-											)}
-											<div class="rc-foot">
-												<FormattedDate date={post.data.pubDate} />
-											</div>
-										</div>
-									</a>
-								);
-							})}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* ── Currently reading band ──────────────────────── */}
-			{currentlyReading && (
-			<section class="band band--ink now-reading">
-				<div class="shell">
-					<div>
-						<p class="label">
-							<span class="dot"></span>
-							Currently reading
-							{currentlyReading.progress && <span class="cr-progress">· {currentlyReading.progress}</span>}
-						</p>
-						<h2>
-							{currentlyReading.url
-								? <a href={currentlyReading.url} style="color:inherit">{currentlyReading.title}</a>
-								: currentlyReading.title}
-						</h2>
-						<p class="cr-by">{currentlyReading.author}</p>
-						{currentlyReading.blurb && <p>{currentlyReading.blurb}</p>}
-					</div>
-					{currentlyReading.cover ? (
-						<div class="cover cover-photo">
-							<img src={currentlyReading.cover} alt={`${currentlyReading.title} cover`} />
-						</div>
-					) : (
-						<div class="cover" style={`background:${currentlyReading.coverBg};color:${currentlyReading.coverInk}`}>
-							<div class="spine"></div>
-							<div class="gloss"></div>
-							<div class="cover-sub">{currentlyReading.author}</div>
-							<div class="cover-label">{currentlyReading.title.toUpperCase()}</div>
-						</div>
-					)}
-				</div>
-			</section>
-			)}
-
-			{/* ── Featured lists strip ─────────────────────────── */}
-			{lists.length > 0 && (
-				<section class="section band--shelf">
-					<div class="shell">
-						<div class="section-head">
-							<div>
-								<p class="index-num">§ CURATED LISTS</p>
-								<h2>Books, ranked</h2>
-							</div>
-							<a href="/my-lists" class="more">All lists →</a>
-						</div>
-						<div class="lists-strip">
-							{lists.slice(0, 3).map((post, i) => {
-								const c = cc(post.data.title);
-								return (
-									<a href={getBlogUrl(post.id)} class={`list-card${i === 0 ? ' is-hero' : ''}`}>
-										<span class="lc-num">List {String(i + 1).padStart(2, '0')}</span>
-										<h3>{post.data.title}</h3>
-										{post.data.description && <p>{post.data.description}</p>}
-										<div class="lc-foot">
-											<FormattedDate date={post.data.pubDate} />
-											<span class="lc-arrow">→</span>
-										</div>
-									</a>
-								);
-							})}
-						</div>
-					</div>
-				</section>
-			)}
-
-			{/* ── 5-star shelf ─────────────────────────────────── */}
-			{fiveStars.length > 0 && (
-				<section class="section band--shelf-curated">
-					<div class="shell">
-						<div class="section-head">
-							<div>
-								<p class="index-num">§ THE FIVE-STAR SHELF</p>
-								<h2>From the 5-star shelf</h2>
-							</div>
-							<a href="/book-reviews?rating=5" class="more">See all →</a>
-						</div>
-						<div class="shelf-grid">
-							{fiveStars.map((post) => {
-								const c = cc(post.data.bookTitle || post.data.title);
-								return (
-									<a href={getBlogUrl(post.id)} class="shelf-card">
-										{post.data.heroImage ? (
-											<div class="cover cover-photo">
-												<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
-											</div>
-										) : (
-											<div class="cover" style={`background:${c.bg};color:${c.ink}`}>
-												<div class="spine"></div>
-												<div class="gloss"></div>
-												<div class="cover-label">{(post.data.bookTitle || post.data.title).toUpperCase()}</div>
-											</div>
-										)}
-										<h4>{post.data.bookTitle || post.data.title}</h4>
-										{post.data.author && <span class="sc-author">{post.data.author}</span>}
-									</a>
-								);
-							})}
-						</div>
-					</div>
-				</section>
-			)}
-
 		</main>
 		<Footer />
-
-		<button class="back-to-top" id="back-to-top" aria-label="Back to top">
-			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M7 11.5V2.5"/><path d="M3 6.5l4-4 4 4"/>
-			</svg>
-		</button>
 	</body>
 </html>
-
-<style>
-/* Hero link styles */
-.hero h1 a { color: inherit; text-decoration: none; }
-.hero h1 a:hover { color: var(--accent); }
-
-/* 5-star shelf band */
-.band--shelf-curated {
-	background: var(--bg-2);
-}
-
-/* Mobile — hero single column, cover centred */
-@media (max-width: 640px) {
-	.hero-grid {
-		display: flex !important;
-		flex-direction: column !important;
-		gap: 12px !important;
-	}
-	.hero-grid > .hero-cover {
-		align-self: center !important;
-		width: min(200px, 56vw) !important;
-		max-width: none !important;
-		margin: 4px 0 !important;
-	}
-	.hero h1 { font-size: clamp(26px, 7vw, 40px) !important; margin: 0 !important; }
-	.hero-rating-row { margin-bottom: 6px !important; }
-}
-</style>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-	const btn = document.getElementById('back-to-top');
-	if (btn) {
-		window.addEventListener('scroll', () => btn.classList.toggle('is-visible', window.scrollY > 600), { passive: true });
-		btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-	}
-});
-</script>

@@ -1,0 +1,56 @@
+---
+// Reusable 2:3 book cover. Renders a real cover photo when one exists, otherwise a
+// deterministic CSS-drawn colour cover (author eyebrow + uppercase title), matching the
+// site's `.cover` construction. Sizing/typography is controlled by the parent via `class`.
+import { getCoverColor } from '../utils/blog';
+
+interface Props {
+	title: string;
+	author?: string | null;
+	/** Real cover image URL. 'TK' or empty falls back to a colour cover. */
+	cover?: string | null;
+	/** Explicit colour overrides (e.g. currently-reading notes). */
+	coverBg?: string;
+	coverInk?: string;
+	/** Hash seed for the deterministic colour (defaults to title). */
+	seed?: string;
+	/** 'full' shows author + title text; 'block' is colour only (for mini grids). */
+	variant?: 'full' | 'block';
+	alt?: string;
+	loading?: 'lazy' | 'eager';
+	class?: string;
+	style?: string;
+}
+
+const {
+	title,
+	author = null,
+	cover = null,
+	coverBg,
+	coverInk,
+	seed,
+	variant = 'full',
+	alt,
+	loading = 'lazy',
+	class: className = '',
+	style = '',
+} = Astro.props;
+
+const hasPhoto = !!cover && cover !== 'TK';
+const c = getCoverColor(seed ?? title);
+const bg = coverBg ?? c.bg;
+const ink = coverInk ?? c.ink;
+---
+
+{hasPhoto ? (
+	<div class:list={['cover', 'cover-photo', className]} style={style}>
+		<img src={cover} alt={alt ?? title} loading={loading} />
+	</div>
+) : (
+	<div class:list={['cover', className]} style={`background:${bg};color:${ink};${style}`}>
+		<div class="spine"></div>
+		<div class="gloss"></div>
+		{variant === 'full' && author && <div class="cover-sub">{author}</div>}
+		{variant === 'full' && <div class="cover-label">{title.toUpperCase()}</div>}
+	</div>
+)}

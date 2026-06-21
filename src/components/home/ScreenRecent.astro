@@ -1,0 +1,57 @@
+---
+// Screen 02 (§04) — Recent reading: two rows that counter-scroll under .fx-on.
+import BookCover from '../BookCover.astro';
+
+interface Book { title: string; author?: string | null; rating?: number | null; cover?: string | null; url?: string; }
+interface Props { row1: Book[]; row2: Book[]; allReviewsUrl: string; }
+const { row1, row2, allReviewsUrl } = Astro.props;
+const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) : '');
+---
+
+<section class="hx-screen hx-s02" id="hx-s02" aria-label="Recent reading">
+	<!-- Top half: header + row 1 -->
+	<div class="hx-s02__top" id="hx-s02-top">
+		<div class="hx-s02__head">
+			<div class="hx-s02__head-l">
+				<span class="hx-s02__num">04</span>
+				<h2>Recently Reviewed</h2>
+			</div>
+			<a href={allReviewsUrl} class="hx-cta" style="gap:8px">All reviews
+				<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
+			</a>
+		</div>
+		<div class="hx-s02__rowwrap">
+			<div class="hx-s02__row" id="hx-row-1">
+				{row1.map((b) => (
+					<a class="hx-book" href={b.url ?? allReviewsUrl}>
+						<BookCover title={b.title} author={b.author} cover={b.cover} class="hx-book__cover" />
+						<div class="hx-book__meta">
+							<span class="hx-book__author">{b.author}</span>
+							<span class="hx-book__title">{b.title}</span>
+							{b.rating && <span class="hx-book__stars" aria-label={`${b.rating} out of 5`}>{stars(b.rating)}</span>}
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</div>
+
+	<!-- Bottom half: row 2 + progress -->
+	<div class="hx-s02__bot" id="hx-s02-bot">
+		<div class="hx-s02__rowwrap">
+			<div class="hx-s02__row" id="hx-row-2">
+				{row2.map((b) => (
+					<a class="hx-book" href={b.url ?? allReviewsUrl}>
+						<BookCover title={b.title} author={b.author} cover={b.cover} class="hx-book__cover" />
+						<div class="hx-book__meta">
+							<span class="hx-book__author">{b.author}</span>
+							<span class="hx-book__title">{b.title}</span>
+							{b.rating && <span class="hx-book__stars" aria-label={`${b.rating} out of 5`}>{stars(b.rating)}</span>}
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+		<div class="hx-s02__progress"><div id="hx-progress"></div></div>
+	</div>
+</section>

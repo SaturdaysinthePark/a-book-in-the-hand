@@ -6,6 +6,31 @@ export function getBlogUrl(postId: string): string {
   return `/blog/${postId}/`;
 }
 
+/**
+ * Deterministic palette for CSS-drawn book covers (used when a book has no real
+ * cover image). The same seed always maps to the same colour, so a given title
+ * looks identical everywhere it appears.
+ */
+export type CoverColor = { bg: string; ink: string };
+export const COVER_COLORS: CoverColor[] = [
+  { bg: '#2d4a3e', ink: '#d8cdb8' },
+  { bg: '#6b2737', ink: '#f3e8d8' },
+  { bg: '#1e3a4a', ink: '#d8cdb8' },
+  { bg: '#4a3728', ink: '#f3e8d8' },
+  { bg: '#3d3a28', ink: '#d8cdb8' },
+  { bg: '#2a3d4a', ink: '#f3e8d8' },
+  { bg: '#5a2d45', ink: '#f3e8d8' },
+  { bg: '#3a4a2d', ink: '#d8cdb8' },
+  { bg: '#7d3a28', ink: '#f3e8d8' },
+  { bg: '#283a5a', ink: '#d8cdb8' },
+];
+
+export function getCoverColor(seed: string): CoverColor {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) { h = ((h << 5) - h) + seed.charCodeAt(i); h |= 0; }
+  return COVER_COLORS[Math.abs(h) % COVER_COLORS.length];
+}
+
 const _shelfByGid = new Map<string, string[]>(
   (shelfData as { goodreadsId: string; subgenres: string[] }[])
     .map(b => [b.goodreadsId, b.subgenres])

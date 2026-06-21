@@ -5,6 +5,11 @@ import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
 
+// Internal preview tool only — never built for production, never indexable.
+if (!import.meta.env.DEV) {
+	return Astro.redirect('/404');
+}
+
 // Get all draft posts
 const draftPosts = (await getCollection('blog', ({ data }) => data.status === 'draft')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -14,7 +19,7 @@ const draftPosts = (await getCollection('blog', ({ data }) => data.status === 'd
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Draft Reviews - A Book in the Hand" description="Preview of unpublished book reviews" />
+		<BaseHead title="Draft Reviews - Saturdays in a Book" description="Preview of unpublished book reviews" robots="noindex, nofollow" />
 	</head>
 	<body>
 		<Header />

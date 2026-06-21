@@ -1,0 +1,85 @@
+---
+// Screen 01 — the opening spread: latest review (left) + currently-reading (§02)
+// and featured-list teaser (§03) stacked on the right.
+import BookCover from '../BookCover.astro';
+import FormattedDate from '../FormattedDate.astro';
+
+interface Pick { title: string; author?: string | null; cover?: string | null; }
+interface Props {
+	latest: { title: string; author?: string | null; rating?: number | null; date: Date; blurb?: string | null; cover?: string | null; url: string };
+	current: { title: string; author?: string | null; cover?: string | null; coverBg?: string; coverInk?: string; progress?: string; url?: string } | null;
+	featured: { title: string; blurb?: string | null; picks: Pick[]; count: number; date: Date; url: string } | null;
+}
+const { latest, current, featured } = Astro.props;
+const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) : '');
+---
+
+<section class="hx-screen hx-s01" id="hx-s01" aria-label="Latest review">
+	<!-- Left: latest review (§01) -->
+	<div class="hx-s01__left" id="hx-s01-left">
+		<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(180px,22vw,300px);color:rgba(26,22,20,.024);top:44%;left:48%;transform:translate(-50%,-50%);">§</span>
+		<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(70px,9vw,130px);color:rgba(26,22,20,.055);right:16px;bottom:18px;">01</span>
+
+		<div class="hx-s01__main hx-ha hx-ha2">
+			<a href={latest.url} class="hx-s01__cover" aria-hidden="true" tabindex="-1">
+				<BookCover title={latest.title} author={latest.author} cover={latest.cover} loading="eager" />
+			</a>
+			<div class="hx-s01__text" id="hx-s01-text">
+				<h1 class="hx-ha hx-ha3"><a href={latest.url}>{latest.title}</a></h1>
+				{latest.author && <p class="hx-eyebrow hx-s01__eyebrow">{latest.author}</p>}
+				<span class="hx-s01__date">{<FormattedDate date={latest.date} />}</span>
+				{latest.rating && <span class="hx-stars" style="font-size:12px" aria-label={`${latest.rating} out of 5`}>{stars(latest.rating)}</span>}
+				{latest.blurb && <p class="hx-s01__blurb hx-ha hx-ha4">{latest.blurb}</p>}
+				<a href={latest.url} class="hx-cta hx-ha hx-ha5">
+					Read the review <span class="hx-cta-line"></span>
+					<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
+				</a>
+			</div>
+		</div>
+
+		<div class="hx-scroll-hint" aria-hidden="true">
+			<span>Scroll</span>
+			<div class="hx-drain-track"><div class="hx-drain"></div></div>
+		</div>
+	</div>
+
+	<!-- Right: §02 currently reading + §03 featured list -->
+	<div class="hx-s01__right" id="hx-s01-right">
+		{current && (
+			<div class="hx-s01__rt" id="hx-s01-rt">
+				<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(34px,4.5vw,62px);color:rgba(26,22,20,.07);right:10px;bottom:6px;">02</span>
+				<p class="hx-s01__rt-label">
+					Currently Reading
+					<span class="hx-dots"><span></span><span></span><span></span></span>
+				</p>
+				<div class="hx-s01__rt-book">
+					<BookCover title={current.title} author={current.author} cover={current.cover} coverBg={current.coverBg} coverInk={current.coverInk} class="hx-s01__rt-cover" />
+					<div>
+						<h3>{current.url ? <a href={current.url} style="color:inherit">{current.title}</a> : current.title}</h3>
+						<p class="hx-eyebrow" style="font-size:9px;color:rgba(26,22,20,.45)">{current.author}</p>
+					</div>
+				</div>
+			</div>
+		)}
+
+		{featured && (
+			<div class="hx-s01__rb" id="hx-s01-rb">
+				<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(34px,4.5vw,62px);color:rgba(243,236,224,.13);right:14px;top:14px;">03</span>
+				<h2><a href={featured.url} set:html={featured.title.replace(/ (?=\S+$)/, '<br/>')} /></h2>
+				{featured.blurb && <p class="hx-s01__rb-blurb">{featured.blurb}</p>}
+				<div class="hx-s01__rb-books">
+					{featured.picks.slice(0, 6).map((p) => (
+						<BookCover title={p.title} author={p.author} cover={p.cover} variant="block" />
+					))}
+				</div>
+				<div class="hx-s01__rb-foot">
+					<span class="hx-s01__rb-meta"><span class="hx-meta-count">{featured.count} books</span><span class="hx-meta-date"> · {<FormattedDate date={featured.date} />}</span></span>
+					<a href={featured.url} class="hx-cta hx-cta--light" style="font-size:10px;gap:7px">
+						See the list
+						<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
+					</a>
+				</div>
+			</div>
+		)}
+	</div>
+</section>
