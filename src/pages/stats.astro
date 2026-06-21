@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE } from '../consts';
+import PageMasthead from '../components/PageMasthead.astro';
 import { computeStats } from '../utils/stats';
 import { barsSVG } from '../utils/charts';
 import { renderSpec, barsHeight, type ChartSpec } from '../utils/stats-charts';
@@ -98,17 +99,16 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 		<main class="stats-page">
 
 			<!-- Hero -->
-			<div class="shell">
-				<div class="index-hero">
-					<p class="crumbs">§ Index · Statistics</p>
-					<h1>Reading, by the numbers.</h1>
-					<p>Every book on the shelf, counted and charted — {fmt(s.booksRead)} reads across {s.yearsReading} years, from {s.firstYear} to {s.lastYear}.</p>
-				</div>
-			</div>
+			<PageMasthead
+				eyebrow="Statistics"
+				title="Reading, by the numbers."
+				num={s.uniqueBooks}
+				lede={`Every book on the shelf, counted and charted — ${fmt(s.booksRead)} reads across ${s.yearsReading} years, from ${s.firstYear} to ${s.lastYear}.`}
+			/>
 
 			<!-- Headline cards -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="stat-grid">
 						{cards.map((c) => (
 							<div class="stat-card">
@@ -122,7 +122,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- Reading over time (interactive) -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ OVER TIME</p>
@@ -177,7 +177,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- Composition -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ WHAT I READ</p>
@@ -217,7 +217,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- Genres -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ GENRES</p>
@@ -241,7 +241,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- How long the books run -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ LENGTH</p>
@@ -288,7 +288,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- When the books were written -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ WHEN WRITTEN</p>
@@ -305,7 +305,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- Most-read authors -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ MOST READ</p>
@@ -320,7 +320,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 
 			<!-- Reading by geography -->
 			<section class="section stats-section">
-				<div class="shell">
+				<div class="bleed">
 					<div class="section-head">
 						<div>
 							<p class="index-num">§ GEOGRAPHY</p>
@@ -386,9 +386,9 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	.stat-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .stat-card {
-	background: var(--paper);
-	border: 1px solid var(--rule);
-	border-radius: 4px;
+	background: #faf6ec;
+	border: 1px solid rgba(26, 22, 20, 0.08);
+	border-radius: 0;
 	padding: clamp(18px, 2.2vw, 28px);
 }
 .stat-num {
@@ -397,7 +397,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	font-size: clamp(34px, 4.4vw, 54px);
 	line-height: 1;
 	letter-spacing: -0.03em;
-	color: var(--viz-primary);
+	color: var(--accent-2);
 }
 .stat-label {
 	font-family: var(--mono);

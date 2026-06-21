@@ -7,7 +7,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://a-book-in-the-hand.netlify.app',
+  site: 'https://saturdaysinabook.com',
   integrations: [mdx(), sitemap()],
   
   markdown: {

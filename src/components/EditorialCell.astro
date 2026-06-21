@@ -1,0 +1,57 @@
+---
+// Colored editorial cell — the homepage §05–08 / my-lists card pattern, generalized.
+// § watermark numeral + italic title + blurb + a cover grid + a count/foot line.
+import BookCover from './BookCover.astro';
+
+interface Pick { title: string; author?: string | null; cover?: string | null; }
+interface Props {
+	href: string;
+	title: string;
+	blurb?: string | null;
+	num?: string | null;
+	color?: 'green' | 'cream' | 'rust' | 'dark' | 'slate' | 'plum';
+	picks?: Pick[];
+	cols?: number;
+	maxPicks?: number;
+	captions?: boolean;
+	count?: number | null;
+	footRight?: string | null;
+	class?: string;
+}
+const {
+	href, title, blurb, num = null, color = 'green',
+	picks = [], cols = 4, maxPicks = 4, captions = false,
+	count = null, footRight = null, class: className = '',
+} = Astro.props;
+const shown = picks.slice(0, maxPicks);
+---
+
+<a href={href} class:list={['ed-cell', `ed-cell--${color}`, 'mz-rise', className]}>
+	{num && <span class="wm-num" aria-hidden="true">{num}</span>}
+	<div class="ed-cell__head">
+		<h2>{title}</h2>
+		{blurb && <p class="ed-cell__blurb">{blurb}</p>}
+	</div>
+	<div class="ed-cell__books">
+		{shown.length > 0 && (
+			<div class="ed-cell__grid" style={`grid-template-columns:repeat(${cols},1fr)`}>
+				{shown.map((p) => (
+					captions ? (
+						<div style="display:flex;flex-direction:column;gap:6px">
+							<BookCover title={p.title} author={p.author} cover={p.cover} />
+							<p class="ed-cell__cap">{p.author ?? p.title}</p>
+						</div>
+					) : (
+						<BookCover title={p.title} author={p.author} cover={p.cover} />
+					)
+				))}
+			</div>
+		)}
+		{(count != null || footRight) && (
+			<div class="ed-cell__foot">
+				{count != null && <span class="ed-cell__count">{count} books</span>}
+				{footRight && <span>{footRight}</span>}
+			</div>
+		)}
+	</div>
+</a>

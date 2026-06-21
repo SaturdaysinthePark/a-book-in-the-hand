@@ -1,0 +1,67 @@
+---
+// Screen 04 (§09) — Reading, by the numbers. Stat count-ups + books-per-year chart.
+// SSR renders final values (correct with no JS); the engine resets to 0 and animates under .fx-on.
+interface Props {
+	uniqueBooks: number;
+	uniqueAuthors: number;
+	pagesRead: number;
+	years: { label: number | string; value: number }[];
+	statsUrl: string;
+	shelfUrl: string;
+}
+const { uniqueBooks, uniqueAuthors, pagesRead, years, statsUrl, shelfUrl } = Astro.props;
+
+const pagesK = (pagesRead / 1000).toFixed(1);
+const maxYear = Math.max(1, ...years.map((y) => y.value));
+const bars = years.map((y) => ({ ...y, h: Math.round((y.value / maxYear) * 100) }));
+---
+
+<section class="hx-screen hx-s04" id="hx-s04" aria-label="Reading statistics">
+	<span class="hx-watermark hx-s04__wm" aria-hidden="true">09</span>
+
+	<h2 class="hx-s04__title">Reading, by the numbers.</h2>
+
+	<div class="hx-s04__stats" id="hx-s04-stats">
+		<div class="hx-stat">
+			<span class="hx-stat__num" data-count={uniqueBooks}>{uniqueBooks}</span>
+			<span class="hx-stat__label">Unique Books</span>
+		</div>
+		<div class="hx-stat">
+			<span class="hx-stat__num" data-count={uniqueAuthors}>{uniqueAuthors}</span>
+			<span class="hx-stat__label">Authors</span>
+		</div>
+		<div class="hx-stat">
+			<span class="hx-stat__num" data-count={pagesK} data-dec="1" data-suffix="K">{pagesK}K</span>
+			<span class="hx-stat__label">Pages Read</span>
+		</div>
+	</div>
+
+	<div class="hx-s04__chartwrap" id="hx-s04-chartwrap">
+		<div class="hx-s04__chart-label">
+			<i>Books read</i><span>By Year</span>
+		</div>
+		<div class="hx-chart-inner">
+			<div class="hx-chart" id="hx-s04-chart">
+				<div class="hx-chart__grid"><div></div><div></div><div></div><div></div></div>
+				{bars.map((b) => (
+					<div class="hx-col">
+						<span class="hx-col__val">{b.value}</span>
+						<div class="hx-bar" data-h={b.h} style={`--h:${b.h}%`}></div>
+					</div>
+				))}
+			</div>
+			<div class="hx-s04__axis">
+				{bars.map((b) => <span>{b.label}</span>)}
+			</div>
+		</div>
+	</div>
+
+	<div class="hx-s04__foot">
+		<a href={shelfUrl} class="hx-cta hx-cta--ghost" style="color:var(--muted)">Browse the full shelf
+			<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
+		</a>
+		<a href={statsUrl} class="hx-cta">See all reading stats
+			<svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
+		</a>
+	</div>
+</section>

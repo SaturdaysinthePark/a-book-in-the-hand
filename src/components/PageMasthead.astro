@@ -1,0 +1,21 @@
+---
+// Full-bleed page header band: § eyebrow (mono) + big serif H1 + optional lede,
+// closed by a 3px ink rule and backed by an optional § watermark numeral.
+// `title` accepts inline markup (e.g. <em>…</em>); a `meta` slot holds stat lines.
+interface Props {
+	eyebrow: string;
+	title: string;
+	lede?: string;
+	num?: string | number | null;
+}
+const { eyebrow, title, lede, num = null } = Astro.props;
+const hasMeta = Astro.slots.has('meta');
+---
+
+<header class="masthead bleed">
+	{num != null && <span class="wm-num" aria-hidden="true">{num}</span>}
+	<p class="masthead__eyebrow eyebrow-mono"><span class="mark">§</span> {eyebrow}</p>
+	<h1 set:html={title} />
+	{lede && <p class="masthead__lede" set:html={lede} />}
+	{hasMeta && <div class="masthead__meta"><slot name="meta" /></div>}
+</header>

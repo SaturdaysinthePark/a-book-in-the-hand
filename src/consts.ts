@@ -1,4 +1,4 @@
-export const SITE_TITLE = 'The Brooklyn Reader';
+export const SITE_TITLE = 'Saturdays in a Book';
 export const SITE_DESCRIPTION = 'A reading log from Brooklyn — reviews, lists, and recommendations.';
 
 // Editorial notes for the home-page "Currently reading" band. The book itself (title,

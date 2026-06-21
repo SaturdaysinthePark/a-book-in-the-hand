@@ -1,0 +1,66 @@
+---
+// Orchestrates the four-screen "peel" homepage. Renders every screen as real,
+// crawlable, server-side content in normal flow (the accessible fallback), and —
+// when JS + motion are available — enhances into the scroll-choreographed view.
+import '../../styles/home.css';
+import ScreenLatest from './ScreenLatest.astro';
+import ScreenRecent from './ScreenRecent.astro';
+import ScreenLists from './ScreenLists.astro';
+import ScreenStats from './ScreenStats.astro';
+
+interface Pick { title: string; author?: string | null; cover?: string | null; }
+interface Book { title: string; author?: string | null; rating?: number | null; cover?: string | null; url?: string; }
+interface Props {
+	latest: { title: string; author?: string | null; rating?: number | null; date: Date; blurb?: string | null; cover?: string | null; url: string };
+	current: { title: string; author?: string | null; cover?: string | null; coverBg?: string; coverInk?: string; progress?: string; url?: string } | null;
+	featured: { title: string; blurb?: string | null; picks: Pick[]; count: number; date: Date; url: string } | null;
+	recentRow1: Book[];
+	recentRow2: Book[];
+	cells: any[];
+	stats: { uniqueBooks: number; uniqueAuthors: number; pagesRead: number };
+	years: { label: number | string; value: number }[];
+	urls: { allReviews: string; stats: string; shelf: string };
+}
+const { latest, current, featured, recentRow1, recentRow2, cells, stats, years, urls } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+{/* Enhancement gate — runs synchronously before the screens paint, so the fx
+    layout applies from first paint (no flash of the stacked fallback). */}
+<script is:inline>
+	(function () {
+		try {
+			if (window.matchMedia && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+				document.documentElement.classList.add('fx-on');
+			}
+		} catch (e) {}
+	})();
+</script>
+
+<div class="home-exp">
+	<ScreenLatest latest={latest} current={current} featured={featured} />
+	<ScreenRecent row1={recentRow1} row2={recentRow2} allReviewsUrl={urls.allReviews} />
+	{cells.length > 0 && <ScreenLists cells={cells} />}
+	<ScreenStats
+		uniqueBooks={stats.uniqueBooks}
+		uniqueAuthors={stats.uniqueAuthors}
+		pagesRead={stats.pagesRead}
+		years={years}
+		statsUrl={urls.stats}
+		shelfUrl={urls.shelf}
+	/>
+</div>
+
+<footer class="hx-foot" aria-label="Site footer">
+	<span>© Sabtain Khan {year}</span>
+	<a href="/rss.xml">RSS</a>
+	<a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer">Goodreads</a>
+	<span class="hx-foot__colophon">Built with Astro · Typeset in Newsreader &amp; Geist</span>
+</footer>
+
+<div id="hx-section-ind" aria-hidden="true">01 — Latest Review</div>
+
+<script>
+	import { initHomeScroll } from '../../scripts/home-scroll';
+	initHomeScroll();
+</script>
