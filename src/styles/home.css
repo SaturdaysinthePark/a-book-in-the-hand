@@ -237,18 +237,9 @@
 	.hx-cell--review .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; max-height: clamp(190px,30vh,300px); aspect-ratio: 2/3; }
 	.hx-cell--review .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 5; }
 }
-@media (min-width: 1025px) {
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0.hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; gap: clamp(12px,2vh,24px); }
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover { flex: 1 1 0; min-height: 0; width: auto; display: flex; align-items: center; justify-content: center; }
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; max-height: clamp(220px,34vh,360px); aspect-ratio: 2/3; }
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 6; }
-
-	/* Collection cell (08) covers: height-driven so both rows fit the short bottom cell on
-	   wide screens (instead of width-stretched covers that overflow). Override the base
-	   ≥701 collection grid's center/stretch only here, where the cell height is definite. */
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--collection .hx-cell__grid { align-items: stretch; justify-items: center; }
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--collection .hx-cell__cover .cover { width: auto; height: 100%; max-width: 100%; }
-}
+/* Desktop fx-on review/collection cover sizing is handled by the container-query
+   block at the end of this file (was a high-specificity @media (min-width:1025px)
+   block here). */
 .hx-cell__quote { font-family: var(--serif); font-style: italic; font-size: clamp(13px,1.15vw,19px); line-height: 1.5; margin: 0; opacity: .82; flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 .hx-cell__cta { margin-top: auto; position: relative; z-index: 1; }
 .hx-cell--review .hx-cta { color: inherit; opacity: .85; }
@@ -469,4 +460,70 @@ html:not(.fx-on) #hx-section-ind { display: none; }
    ══════════════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
 	.hx-ha, .hx-dots span, .hx-scroll-hint .hx-drain, .hx-m-cue .hx-drain { animation: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Screen 03 — container-query cover scaling (fx-on only).
+
+   Each cell is its own size container; covers are sized from the cell's own box
+   (cqw/cqh) and the review/grid layout reflows on the cell's ASPECT RATIO — so
+   covers fill big cells and go fewer-but-larger when a cell is tall & narrow
+   (mobile swipe cards, a narrow docked window). Covers keep aspect-ratio:2/3 and
+   are driven on ONE axis (width) with height auto, so they never distort.
+
+   Scoped to html.fx-on: the fallback page sizes cells with min-height (no
+   definite height), where container-type:size would collapse — it keeps the
+   width-breakpoint rules above. This block is last so it wins under fx-on.
+   ══════════════════════════════════════════════════════════════════════════ */
+html.fx-on .hx-cell { container: hxcell / size; }
+/* Title + foot/CTA always paint above the covers, so a slightly over-sized cover
+   can never hide them. */
+html.fx-on .hx-cell__head, html.fx-on .hx-cell__foot, html.fx-on .hx-cell__cta { position: relative; z-index: 2; }
+
+/* one sizing model under fx-on: drop the px/vh caps from the rules above */
+html.fx-on .hx-cell--review .hx-cell__review-cover .cover,
+html.fx-on .hx-cell__cover .cover { width: 100%; height: auto; max-width: 100%; max-height: none; }
+
+/* ── Review cells (05/07): cover beside the quote when the cell is wide, stacked
+   (and larger) when the cell is squarish/tall. ── */
+@container hxcell (aspect-ratio >= 1.2) {
+	html.fx-on .hx-cell--review .hx-cell__review { flex-direction: row; align-items: center; justify-content: flex-start; }
+	html.fx-on .hx-cell--review .hx-cell__review-cover { flex: 0 0 auto; width: min(36cqw, 38cqh, 300px); }
+	html.fx-on .hx-cell--review .hx-cell__quote { text-align: left; }
+}
+@container hxcell (aspect-ratio < 1.2) {
+	html.fx-on .hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; }
+	html.fx-on .hx-cell--review .hx-cell__review-cover { flex: 0 1 auto; width: min(74cqw, 24cqh, 440px); }
+	html.fx-on .hx-cell--review .hx-cell__quote { text-align: center; }
+}
+/* Genuinely tall cell → larger stacked cover (plenty of room above the quote). */
+@container hxcell (aspect-ratio < 0.65) {
+	html.fx-on .hx-cell--review .hx-cell__review-cover { width: min(78cqw, 42cqh, 440px); }
+}
+
+/* ── List/collection grids (06/08): covers sized to FIT the cell — rows fill the
+   books box so the grid can never overflow the title — scaling with the cell's
+   size + cover count. Wide/short cells fill height-driven; tall/narrow cells go
+   width-driven with fewer, larger covers. books:overflow-hidden is a safety net
+   so covers can never paint over the head. ── */
+html.fx-on .hx-cell__books { justify-content: center; overflow: hidden; }
+html.fx-on .hx-cell__grid { justify-content: center; align-content: center; gap: clamp(8px, 1.4cqw, 16px); overflow: hidden; }
+
+/* Wide / short cell → height-driven; rows fill the books area (no overflow). One
+   driven axis (height) keeps covers 2:3; column counts keep a cover's width inside
+   its column. list ≤5 → 3 cols (square-ish) / 5 cols (very wide); collection 8 → 4×2. */
+@container hxcell (aspect-ratio >= 0.8) {
+	html.fx-on .hx-cell__grid { grid-auto-rows: 1fr; align-content: stretch; align-items: stretch; }
+	html.fx-on .hx-cell__cover .cover { height: 100%; width: auto; max-width: 100%; }
+	html.fx-on .hx-cell--list .hx-cell__grid { grid-template-columns: repeat(3, auto); }
+	html.fx-on .hx-cell--collection .hx-cell__grid { grid-template-columns: repeat(4, auto); }
+}
+@container hxcell (aspect-ratio >= 1.8) {
+	html.fx-on .hx-cell--list .hx-cell__grid { grid-template-columns: repeat(5, auto); }
+}
+/* Tall / narrow cell → width-driven covers, two columns, fewer shown (large). */
+@container hxcell (aspect-ratio < 0.8) {
+	html.fx-on .hx-cell__grid { grid-template-columns: repeat(2, min(46cqw, 26cqh)); grid-auto-rows: auto; }
+	html.fx-on .hx-cell__cover .cover { width: 100%; height: auto; max-width: 100%; }
+	html.fx-on .hx-cell__grid > *:nth-child(n+5) { display: none; }
 }
