@@ -33,8 +33,10 @@ export interface CardOpts {
 	title: string;
 	subtitle?: string;       // tagline / figure line / author
 	rating?: number | null;  // review only
+	blurb?: string;          // review: short description
 	cover?: string | null;   // review: heroImage URL
-	spines?: Spine[];        // default/section decorative row
+	covers?: string[];       // default: real cover art of the last few books read
+	spines?: Spine[];        // default/section decorative row (fallback)
 	watermark?: string;      // big faint glyph, defaults to "§"
 }
 
@@ -85,8 +87,8 @@ async function coverDataUri(url?: string | null): Promise<string | null> {
 }
 
 // ── shared shell ──────────────────────────────────────────────────────────
-const eyebrow = (text: string) =>
-	h('div', { display: 'flex', alignItems: 'center', fontFamily: 'Geist', fontSize: 22, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.muted }, [
+const eyebrow = (text: string, size = 22) =>
+	h('div', { display: 'flex', alignItems: 'center', fontFamily: 'Geist', fontSize: size, fontWeight: 600, letterSpacing: '0.18em', textTransform: 'uppercase', color: C.muted }, [
 		h('span', { color: C.accent, marginRight: 10 }, '§'),
 		text,
 	]);
@@ -108,7 +110,7 @@ function spineRow(spines: Spine[]) {
 	);
 }
 
-function build(o: CardOpts, coverUri: string | null): Node {
+function build(o: CardOpts, coverUri: string | null, coverUris: string[]): Node {
 	const shell = (children: unknown[]) =>
 		h('div', {
 			display: 'flex', flexDirection: 'column', width: 1200, height: 630,
@@ -128,16 +130,36 @@ function build(o: CardOpts, coverUri: string | null): Node {
 				}, [h('div', { fontFamily: 'Geist', fontSize: 14, letterSpacing: '0.16em', opacity: 0.7 }, o.subtitle || ''), h('div', {}, o.title)]);
 
 		return shell([
-			h('div', { display: 'flex', alignItems: 'center', gap: 50 }, [
+			h('div', { display: 'flex', alignItems: 'center', gap: 56 }, [
 				cover,
 				h('div', { display: 'flex', flexDirection: 'column', flex: 1 }, [
-					eyebrow('Saturdays in a Book'),
-					h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: 64, lineHeight: 1.02, letterSpacing: '-0.02em', margin: '22px 0 0' }, o.title),
-					o.subtitle ? h('div', { display: 'flex', fontFamily: 'Geist', fontSize: 24, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.muted, margin: '16px 0 0' }, o.subtitle) : h('div', {}, ''),
-					o.rating ? img(starsDataUri(o.rating), 200, 32, { margin: '22px 0 0' }) : h('div', {}, ''),
+					eyebrow('Book Review', 24),
+					h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: 58, lineHeight: 1.03, letterSpacing: '-0.02em', margin: '28px 0 0' }, o.title),
+					o.subtitle ? h('div', { display: 'flex', fontFamily: 'Geist', fontSize: 22, fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: C.muted, margin: '20px 0 0' }, o.subtitle) : h('div', {}, ''),
+					o.rating ? img(starsDataUri(o.rating), 200, 32, { margin: '26px 0 0' }) : h('div', {}, ''),
+					o.blurb ? h('div', { display: 'flex', fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: 24, lineHeight: 1.4, color: C.ink2, margin: '30px 0 0', maxWidth: 660 }, o.blurb) : h('div', {}, ''),
 				]),
 			]),
 			h('div', {}, ''),
+		]);
+	}
+
+	// default with covers: text left, the last few books read fanned out on the right
+	if (o.kind === 'default' && coverUris.length) {
+		return shell([
+			h('div', { display: 'flex', alignItems: 'center', justifyContent: 'space-between', flex: 1, gap: 48 }, [
+				h('div', { display: 'flex', flexDirection: 'column', maxWidth: 560 }, [
+					eyebrow(o.eyebrow || 'Saturdays in a Book', 26),
+					h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: 62, lineHeight: 1.03, letterSpacing: '-0.025em', margin: '30px 0 0' }, o.title),
+					o.subtitle ? h('div', { display: 'flex', fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: 28, color: C.ink2, margin: '26px 0 0' }, o.subtitle) : h('div', {}, ''),
+				]),
+				h('div', { display: 'flex', flexWrap: 'wrap', width: 306, gap: 18 },
+					coverUris.map((u) => img(u, 144, 216, {
+						objectFit: 'cover', borderRadius: 3,
+						boxShadow: '0 18px 36px -16px rgba(0,0,0,0.5)',
+					})),
+				),
+			]),
 		]);
 	}
 
@@ -153,8 +175,11 @@ function build(o: CardOpts, coverUri: string | null): Node {
 }
 
 export async function renderCard(o: CardOpts): Promise<Buffer> {
-	const coverUri = o.kind === 'review' ? await coverDataUri(o.cover) : null;
-	const svg = await satori(build(o, coverUri) as never, { width: 1200, height: 630, fonts });
+	const coverUri = o.cover ? await coverDataUri(o.cover) : null;
+	const coverUris = o.covers?.length
+		? (await Promise.all(o.covers.map((u) => coverDataUri(u)))).filter((x): x is string => !!x)
+		: [];
+	const svg = await satori(build(o, coverUri, coverUris) as never, { width: 1200, height: 630, fonts });
 	const png = new Resvg(svg, { fitTo: { mode: 'width', value: 1200 } }).render().asPng();
 	return png;
 }

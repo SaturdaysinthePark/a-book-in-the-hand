@@ -1,5 +1,9 @@
 export const SITE_TITLE = 'Saturdays in a Book';
 export const SITE_DESCRIPTION = 'A reading log from Brooklyn — reviews, lists, and recommendations.';
+// Homepage-only description: drives the link-preview gray strip + the homepage <meta
+// description>. Kept separate from SITE_DESCRIPTION so the RSS feed and blog archive keep
+// the neutral line (this one ends in a call-to-action).
+export const HOME_DESCRIPTION = 'A reading log with book reviews and recommendations. Open to see my latest review and more!';
 
 // Editorial notes for the home-page "Currently reading" band. The book itself (title,
 // author, cover) is auto-synced from the Goodreads export into src/data/currently-reading.json

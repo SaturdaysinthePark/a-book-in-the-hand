@@ -88,7 +88,7 @@
 }
 .hx-s01__right { display: grid; grid-template-rows: 32fr 68fr; border-left: var(--seam) solid var(--seam-color); transform-origin: right center; }
 .hx-s01__main { position: relative; z-index: 1; flex: 1; display: flex; gap: clamp(22px,3.2vw,52px); align-items: center; min-height: 0; }
-.hx-s01__cover { flex: 0 0 auto; display: block; height: min(clamp(200px,54vh,420px), calc(100% - 10px)); aspect-ratio: 2/3; }
+.hx-s01__cover { flex: 0 0 auto; display: block; height: min(clamp(220px,58vh,600px), calc(100% - 10px)); aspect-ratio: 2/3; }
 .hx-s01__cover > .cover { width: 100%; height: 100%; }
 .hx-s01__text { display: flex; flex-direction: column; justify-content: center; gap: clamp(8px,1.4vh,18px); min-width: 0; flex: 1; }
 .hx-s01__text h1 {
@@ -116,14 +116,17 @@
 .hx-dots span { width: 3px; height: 3px; border-radius: 50%; background: rgba(26,22,20,.45); animation: hxDotBounce 1.4s ease-in-out infinite; }
 .hx-dots span:nth-child(2) { animation-delay: 180ms; } .hx-dots span:nth-child(3) { animation-delay: 360ms; }
 .hx-s01__rt-book { display: flex; gap: clamp(12px,1.4vw,18px); align-items: center; flex: 1; min-height: 0; position: relative; z-index: 1; }
-.hx-s01__rt-cover { width: clamp(58px,6.8vw,86px); flex: 0 0 auto; }
-.hx-s01__rt-book h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(13px,1.5vw,20px); letter-spacing: -.02em; line-height: 1.1; margin: 0; color: var(--ink); }
+.hx-s01__rt-cover { width: clamp(58px,11vh,150px); flex: 0 0 auto; }
+.hx-s01__rt-book h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(13px,1.6vw,24px); letter-spacing: -.02em; line-height: 1.1; margin: 0; color: var(--ink); }
 
 /* §03 featured-list teaser */
-.hx-s01__rb { background: var(--c03-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; padding: clamp(14px,1.8vh,22px) clamp(18px,2.2vw,30px); transform-origin: right bottom; }
+.hx-s01__rb { background: var(--c03-bg); position: relative; overflow: hidden; display: flex; flex-direction: column; padding: clamp(14px,1.8vh,22px) clamp(18px,2.2vw,30px); transform-origin: right bottom; text-decoration: none; color: inherit; cursor: pointer; }
+/* whole-cell link: brighten title + CTA on hover */
+.hx-s01__rb:hover h2 { color: #fff; }
+.hx-s01__rb:hover .hx-cta--light { color: rgba(243,236,224,1); }
 .hx-s01__rb h2 { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(15px,1.8vw,24px); letter-spacing: -.02em; line-height: 1.1; margin: 0 0 clamp(5px,.8vh,10px); color: var(--paper); position: relative; z-index: 1; }
 .hx-s01__rb-blurb { font-family: var(--serif); font-style: italic; font-size: clamp(10px,.9vw,12px); line-height: 1.55; color: rgba(243,236,224,.45); margin: 0 0 clamp(8px,1.1vh,14px); position: relative; z-index: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-.hx-s01__rb-books { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,auto); gap: 7px; align-content: end; position: relative; z-index: 1; }
+.hx-s01__rb-books { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,auto); gap: clamp(7px,1.4vh,16px); align-content: space-evenly; position: relative; z-index: 1; }
 .hx-s01__rb-foot { position: relative; z-index: 1; border-top: 1px solid rgba(243,236,224,.1); padding-top: clamp(9px,1.3vh,14px); margin-top: clamp(7px,1vh,11px); display: flex; justify-content: space-between; align-items: center; }
 .hx-s01__rb-meta { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(243,236,224,.26); }
 
@@ -181,15 +184,50 @@
 
 /* cover-grid cells (list / collection) */
 .hx-cell__books { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; z-index: 1; }
-.hx-cell__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(82px,8vw,116px), 1fr)); gap: clamp(7px,.7vw,11px); align-content: start; }
+/* Covers are capped (not 1fr-stretched) so they stay a consistent, readable size
+   and never grow taller than a short cell. `safe center` centers the cover block
+   when it fits (fills sparse cells) and falls back to top-aligned when a
+   cover-heavy cell would overflow (clips under the foot instead of spilling). */
+.hx-cell__grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(clamp(100px,10vw,150px), 150px)); gap: clamp(8px,.9vw,16px); align-content: safe center; justify-content: center; }
+/* Collection cell (08, the 5★ shelf) — fit all (up to 8) covers as a tidy
+   arranged grid. Covers stay true 2:3 (width-driven, via the base .cover rule),
+   so they sit one-per-column with no cropping or overlap; the rows stretch to
+   fill the cell and each cover is centred in its row for even vertical spacing. */
+@media (min-width: 701px) {
+	.hx-cell--collection .hx-cell__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; align-content: stretch; align-items: center; justify-items: stretch; gap: clamp(8px,1vw,16px); }
+}
+/* Tablet (701–1024px): the list cell (06) is a square quadrant here, not the
+   wide-desktop single row — lay its covers out as the same arranged grid (3-col)
+   so they fit the cell without overflowing the foot. Desktop keeps the row above. */
+@media (min-width: 701px) and (max-width: 1024px) {
+	.hx-cell--list .hx-cell__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 1fr; align-content: stretch; align-items: center; justify-items: stretch; gap: clamp(8px,1vw,16px); }
+}
 .hx-cell__foot { margin-top: auto; padding-top: 12px; display: flex; justify-content: space-between; align-items: center; }
 .hx-cell__count, .hx-cell__more { font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; opacity: .45; margin: 0; }
 .hx-cell__more { display: inline-flex; align-items: center; gap: 6px; }
 
 /* review cells (single featured book + pull-quote) */
 .hx-cell--review .hx-cell__review { flex: 1; min-height: 0; display: flex; gap: clamp(14px,1.5vw,26px); align-items: flex-start; position: relative; z-index: 1; }
-.hx-cell__review-cover { flex: 0 0 clamp(100px,11vw,156px); }
+.hx-cell__review-cover { flex: 0 0 clamp(110px,15vh,220px); }
 .hx-cell__review-cover .cover { width: 100%; height: auto; aspect-ratio: 2/3; }
+/* Review cells stack (big height-driven cover above a centred pull-quote) ONLY
+   where the cell is tall, so the cover isn't squeezed in a short-wide cell:
+   - Tablet 2×2 (701–1024px): both review cells are tall-ish squares → stack both.
+   - Wide desktop (≥1025px): only the tall-left quadrant (cell 05, .hx-cell--0)
+     stacks; the short-wide cell 07 keeps the base side-by-side layout.
+   (≤700px already stacks via the phone rules below.) */
+@media (min-width: 701px) and (max-width: 1024px) {
+	.hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; gap: clamp(12px,2vh,24px); }
+	.hx-cell--review .hx-cell__review-cover { flex: 1 1 0; min-height: 0; width: auto; display: flex; align-items: center; justify-content: center; }
+	.hx-cell--review .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; aspect-ratio: 2/3; }
+	.hx-cell--review .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 5; }
+}
+@media (min-width: 1025px) {
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0.hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; gap: clamp(12px,2vh,24px); }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover { flex: 1 1 0; min-height: 0; width: auto; display: flex; align-items: center; justify-content: center; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; aspect-ratio: 2/3; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 6; }
+}
 .hx-cell__quote { font-family: var(--serif); font-style: italic; font-size: clamp(13px,1.15vw,19px); line-height: 1.5; margin: 0; opacity: .82; flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 .hx-cell__cta { margin-top: auto; position: relative; z-index: 1; }
 .hx-cell--review .hx-cta { color: inherit; opacity: .85; }
@@ -219,7 +257,7 @@
 .hx-chart__grid > div:nth-child(3) { bottom: 25%; } .hx-chart__grid > div:nth-child(4) { bottom: 0; border-top-color: rgba(26,22,20,.16); }
 .hx-col { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
 .hx-col__val { font-family: var(--mono); font-size: clamp(8px,.8vw,12px); color: #5a4e42; margin-bottom: 6px; }
-.hx-bar { width: 100%; max-width: clamp(18px,2.4vw,44px); height: var(--h, 0); background: var(--chart-bar); border-radius: 2px 2px 0 0; }
+.hx-bar { width: 100%; max-width: clamp(24px,3.6vw,80px); height: var(--h, 0); background: var(--chart-bar); border-radius: 2px 2px 0 0; }
 .hx-s04__axis { display: flex; gap: clamp(5px,.8vw,15px); margin-top: 9px; flex: 0 0 auto; }
 .hx-s04__axis span { flex: 1; text-align: center; font-family: var(--mono); font-size: clamp(8px,.75vw,11px); color: rgba(90,78,66,.55); }
 .hx-s04__foot { position: relative; z-index: 1; display: flex; justify-content: flex-end; margin-top: clamp(14px,2vh,24px); flex: 0 0 auto; gap: clamp(14px,3vw,40px); }
@@ -261,6 +299,36 @@ html.fx-on .hx-s03[data-cells="4"] { grid-template-columns: 28fr 44fr 28fr; grid
 html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 { grid-row: 1 / 3; }
 html.fx-on .hx-s03[data-cells="4"] .hx-cell--1 { grid-column: 2 / 4; grid-row: 1; }
 
+/* Tablet (701–1024px): even 2×2 quadrant instead of the wide-desktop 28/44/28
+   asymmetric layout. Tablets run the desktop peel choreography (isMobile ≤700),
+   so the per-cell fly-out in home-scroll.ts works unchanged. */
+@media (min-width: 701px) and (max-width: 1024px) {
+	html.fx-on .hx-s03[data-cells="4"] { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 { grid-row: auto; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--1 { grid-column: auto; grid-row: auto; }
+	html.fx-on .hx-s03[data-cells="3"] { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
+}
+
+/* Portrait tablets (701–1024px upright): Screen 01 has no other tablet layout, so
+   it falls through to the desktop cover-beside-text split — which cramps the text
+   in a narrow portrait column. Restack like the phone view does: a centred cover
+   above a left-aligned text block (cell 01), and a 2×2 grid of 4 larger covers
+   (§03 teaser). Landscape tablets keep the side-by-side layout (they have the width). */
+@media (min-width: 701px) and (max-width: 1024px) and (orientation: portrait) {
+	/* §01: stack centred cover above a left-aligned text block */
+	.hx-s01__main  { flex-direction: column; align-items: center; justify-content: center; gap: clamp(20px,3.5vh,40px); }
+	.hx-s01__cover { height: auto; width: clamp(190px,38vw,280px); }   /* width-driven so it can't dominate */
+	.hx-s01__text  { flex: 0 0 auto; align-self: stretch; align-items: flex-start; text-align: left; }
+	.hx-s01__blurb { -webkit-line-clamp: 4; }                          /* more vertical room → one extra line */
+
+	/* §03 teaser: 2×2 grid of 4 covers. Just widen the columns (3→2) so each cover
+	   grows; covers stay width-driven at their natural 2:3 (rows are `auto`, inherited
+	   from the base) — do NOT force height, which would crop the object-fit photos. */
+	.hx-s01__rb-books { grid-template-columns: repeat(2,1fr); gap: clamp(10px,1.6vh,18px); }
+	.hx-s01__rb-books > *:nth-child(n+5) { display: none; }            /* show 4 of the 6 rendered */
+	.hx-s01__rb-foot  { flex-wrap: wrap; gap: 4px 10px; }              /* count + CTA wrap cleanly */
+}
+
 /* §02 split halves */
 html.fx-on .hx-s02__top { position: absolute; top: 0; left: 0; right: 0; height: 50%; background: var(--bg); z-index: 1; }
 html.fx-on .hx-s02__bot { position: absolute; bottom: 0; left: 0; right: 0; height: 50%; background: var(--bg); border-top: var(--seam) solid var(--seam-color); z-index: 1; }
@@ -281,9 +349,10 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 /* Big watermark numerals are subtler/in-flow safe both ways; nothing to change */
 
 /* ══════════════════════════════════════════════════════════════════════════
-   Mobile (≤900px)
+   Phone (≤700px) — swipe carousel + stacked tweaks. Tablets (701px+) use the
+   desktop choreography/layout (see the 2×2 tablet override above).
    ══════════════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
+@media (max-width: 700px) {
 	/* Fallback stacking tweaks */
 	.hx-s01 { grid-template-columns: 1fr; }
 	.hx-s01__right { border-left: 0; border-top: var(--seam) solid var(--seam-color); }
@@ -302,16 +371,19 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	html.fx-on .hx-s01__text h1 { font-size: clamp(24px,7vw,36px); }
 	/* SCROLL cue sits just above the cell-01 / 02-03 divider */
 	html.fx-on .hx-scroll-hint { display: flex; bottom: 12px; }
-	html.fx-on .hx-s01__right { grid-template-columns: 1fr 1.25fr; grid-template-rows: minmax(0,1fr); border-left: 0; border-top: var(--seam) solid var(--seam-color); }
-	html.fx-on .hx-s01__rt { border-right: var(--seam) solid var(--seam-color); border-bottom: 0; justify-content: center; }
-	/* §02 currently-reading: stacked — larger cover, then title, then author */
-	html.fx-on .hx-s01__rt-book { flex-direction: column; align-items: flex-start; gap: 9px; flex: 0 1 auto; }
+	html.fx-on .hx-s01__right { grid-template-columns: 1fr 1.5fr; grid-template-rows: minmax(0,1fr); border-left: 0; border-top: var(--seam) solid var(--seam-color); }
+	html.fx-on .hx-s01__rt { border-right: var(--seam) solid var(--seam-color); border-bottom: 0; justify-content: center; align-items: center; padding-left: 14px; padding-right: 14px; }
+	/* §02 currently-reading: stacked + centred — kicker on one line, cover, title, author */
+	html.fx-on .hx-s01__rt-label { white-space: nowrap; letter-spacing: .12em; justify-content: center; margin-bottom: 14px; }
+	html.fx-on .hx-s01__rt-book { flex-direction: column; align-items: center; text-align: center; gap: 9px; flex: 0 1 auto; }
 	html.fx-on .hx-s01__rt-cover { width: clamp(60px,17vw,84px); }
 	html.fx-on .hx-s01__rt-book h3 { font-size: clamp(15px,4.4vw,19px); }
-	/* §03 teaser: more covers, single tidy row */
+	/* §03 teaser: a clean 2×2 grid of larger covers that fills the strip height
+	   (was 4 tiny covers crammed into a single row). */
 	html.fx-on .hx-s01__rb-blurb { display: none; }
-	html.fx-on .hx-s01__rb-books { grid-template-columns: repeat(4,1fr); grid-template-rows: 1fr; max-width: none; gap: 6px; align-content: center; }
+	html.fx-on .hx-s01__rb-books { grid-template-columns: repeat(2,1fr); grid-auto-rows: 1fr; grid-template-rows: none; max-width: none; gap: 8px; align-content: stretch; justify-items: center; }
 	html.fx-on .hx-s01__rb-books > *:nth-child(n+5) { display: none; }
+	html.fx-on .hx-s01__rb-books .cover { width: auto; height: 100%; max-width: 100%; }
 	/* §03 footer: count on its own line, no long date wrap next to the CTA */
 	html.fx-on .hx-s01__rb-foot { flex-wrap: wrap; gap: 4px 10px; }
 	html.fx-on .hx-meta-date { display: none; }
@@ -357,7 +429,7 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	color: var(--muted); pointer-events: none;
 }
 html:not(.fx-on) #hx-section-ind { display: none; }
-@media (max-width: 900px) { #hx-section-ind { display: none; } }
+@media (max-width: 700px) { #hx-section-ind { display: none; } }
 
 /* ══════════════════════════════════════════════════════════════════════════
    Reduced motion — never hijack; keep entrance helpers inert.
