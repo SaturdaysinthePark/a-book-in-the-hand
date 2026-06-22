@@ -136,6 +136,21 @@
 .hx-scroll-hint .hx-drain-track { width: 1px; height: 24px; overflow: hidden; }
 .hx-scroll-hint .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.3); animation: hxScrollDrain 2.2s ease-in-out infinite; }
 
+/* Mobile body-level scroll/swipe cue (fx-on phones) — replaces .hx-scroll-hint there.
+   Anchored to <body> so the peel transforms on screen-01 never shift/clip it; a soft
+   pill keeps the brown label legible over the dark §03 cells. Visibility/label driven
+   by the engine (see home-scroll.ts). */
+.hx-m-cue {
+	position: fixed; left: 50%; bottom: calc(var(--exp-foot) + 12px); transform: translateX(-50%);
+	z-index: 150; display: flex; flex-direction: column; align-items: center; gap: 5px;
+	pointer-events: none; transition: opacity 360ms;
+	background: rgba(254,252,249,.82); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+	padding: 6px 11px 8px; border-radius: 999px;
+}
+.hx-m-cue span { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(120,96,72,.7); }
+.hx-m-cue .hx-drain-track { width: 1px; height: 20px; overflow: hidden; }
+.hx-m-cue .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.55); animation: hxScrollDrain 2.2s ease-in-out infinite; }
+
 /* ── Screen 02 — Recent reading ────────────────────────────────────────── */
 .hx-s02 { background: var(--bg); }
 .hx-s02__top, .hx-s02__bot { display: flex; flex-direction: column; overflow: hidden; }
@@ -219,14 +234,20 @@
 @media (min-width: 701px) and (max-width: 1024px) {
 	.hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; gap: clamp(12px,2vh,24px); }
 	.hx-cell--review .hx-cell__review-cover { flex: 1 1 0; min-height: 0; width: auto; display: flex; align-items: center; justify-content: center; }
-	.hx-cell--review .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; aspect-ratio: 2/3; }
+	.hx-cell--review .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; max-height: clamp(190px,30vh,300px); aspect-ratio: 2/3; }
 	.hx-cell--review .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 5; }
 }
 @media (min-width: 1025px) {
 	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0.hx-cell--review .hx-cell__review { flex-direction: column; align-items: center; justify-content: center; gap: clamp(12px,2vh,24px); }
 	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover { flex: 1 1 0; min-height: 0; width: auto; display: flex; align-items: center; justify-content: center; }
-	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; aspect-ratio: 2/3; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__review-cover .cover { height: 100%; width: auto; max-width: 100%; max-height: clamp(220px,34vh,360px); aspect-ratio: 2/3; }
 	html.fx-on .hx-s03[data-cells="4"] .hx-cell--0 .hx-cell__quote { flex: 0 0 auto; text-align: center; -webkit-line-clamp: 6; }
+
+	/* Collection cell (08) covers: height-driven so both rows fit the short bottom cell on
+	   wide screens (instead of width-stretched covers that overflow). Override the base
+	   ≥701 collection grid's center/stretch only here, where the cell height is definite. */
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--collection .hx-cell__grid { align-items: stretch; justify-items: center; }
+	html.fx-on .hx-s03[data-cells="4"] .hx-cell--collection .hx-cell__cover .cover { width: auto; height: 100%; max-width: 100%; }
 }
 .hx-cell__quote { font-family: var(--serif); font-style: italic; font-size: clamp(13px,1.15vw,19px); line-height: 1.5; margin: 0; opacity: .82; flex: 1; min-width: 0; display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
 .hx-cell__cta { margin-top: auto; position: relative; z-index: 1; }
@@ -239,7 +260,8 @@
 
 /* ── Screen 04 — Stats finale ──────────────────────────────────────────── */
 .hx-s04 { background: var(--bg); padding: clamp(24px,3.6vh,48px) clamp(36px,5vw,80px) clamp(20px,3vh,40px); overflow: hidden; }
-.hx-s04__wm { font-size: clamp(150px,17vw,300px); color: rgba(26,22,20,.13); right: clamp(24px,3.2vw,68px); bottom: clamp(150px,23vh,300px); }
+/* Sits high in the empty upper-right, clear of the chart bars (which are z-index 1). */
+.hx-s04__wm { font-size: clamp(150px,17vw,300px); color: rgba(26,22,20,.13); right: clamp(24px,3.2vw,68px); bottom: clamp(300px,40vh,460px); }
 .hx-s04__title { font-family: var(--serif); font-weight: 400; font-size: clamp(28px,3.8vw,60px); letter-spacing: -.035em; line-height: .96; margin: 0; color: var(--ink); position: relative; z-index: 1; }
 .hx-s04__stats { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(12px,1.6vw,24px); margin: clamp(18px,2.6vh,34px) 0; flex: 0 0 auto; }
 .hx-stat { background: #faf6ec; border: 1px solid rgba(26,22,20,.08); padding: clamp(16px,2vw,28px) clamp(18px,2.2vw,30px); display: flex; flex-direction: column; gap: clamp(6px,1vh,12px); }
@@ -286,7 +308,17 @@ html.fx-on .hx-foot {
 html.fx-on .hx-foot a { color: var(--ink-2); transition: color 200ms; }
 html.fx-on .hx-foot a:hover { color: var(--accent); }
 html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
-html.fx-on .hx-s01 { z-index: 10; }
+/* Constrain the single grid row to the screen height so the left panel (tall cover
+   + text) can't overflow past the fold — without this the auto row grows to the
+   content height and the §01 watermark / scroll hint drop below the viewport. The
+   panel's own overflow:hidden then clips cleanly. (Mobile sets its own rows below.) */
+html.fx-on .hx-s01 { z-index: 10; grid-template-rows: minmax(0,1fr); }
+/* §03 teaser covers: height-driven 3×2 so all six fit the green cell at any width (mirrors
+   the phone rule + the collection cell), not width-stretched 1fr covers that overflow on
+   wide screens. align-items stays default (stretch) so each cover fills its row. The phone
+   rule (≤700px, below) is more specific/later and keeps its own 2×2 layout. */
+html.fx-on .hx-s01__rb-books { grid-template-rows: repeat(2, minmax(0,1fr)); align-content: stretch; justify-items: center; }
+html.fx-on .hx-s01__rb-books .cover { width: auto; height: 100%; max-width: 100%; }
 html.fx-on .hx-s02 { z-index: 5;  display: none; flex-direction: column; background: transparent; }
 html.fx-on .hx-s03 { z-index: 3;  display: none; gap: var(--seam); }
 html.fx-on .hx-s04 { z-index: 2;  display: none; flex-direction: column; }
@@ -369,8 +401,9 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	html.fx-on .hx-s01__left { padding: 22px 22px 16px; }
 	html.fx-on .hx-s01__main { gap: 20px; align-items: center; }
 	html.fx-on .hx-s01__text h1 { font-size: clamp(24px,7vw,36px); }
-	/* SCROLL cue sits just above the cell-01 / 02-03 divider */
-	html.fx-on .hx-scroll-hint { display: flex; bottom: 12px; }
+	/* Phones use the body-level .hx-m-cue (pinned to the true bottom edge) instead of
+	   the in-cell hint, which on the split screen-01 grid floats mid-screen. */
+	html.fx-on .hx-scroll-hint { display: none; }
 	html.fx-on .hx-s01__right { grid-template-columns: 1fr 1.5fr; grid-template-rows: minmax(0,1fr); border-left: 0; border-top: var(--seam) solid var(--seam-color); }
 	html.fx-on .hx-s01__rt { border-right: var(--seam) solid var(--seam-color); border-bottom: 0; justify-content: center; align-items: center; padding-left: 14px; padding-right: 14px; }
 	/* §02 currently-reading: stacked + centred — kicker on one line, cover, title, author */
@@ -435,5 +468,5 @@ html:not(.fx-on) #hx-section-ind { display: none; }
    Reduced motion — never hijack; keep entrance helpers inert.
    ══════════════════════════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-	.hx-ha, .hx-dots span, .hx-scroll-hint .hx-drain { animation: none; }
+	.hx-ha, .hx-dots span, .hx-scroll-hint .hx-drain, .hx-m-cue .hx-drain { animation: none; }
 }
