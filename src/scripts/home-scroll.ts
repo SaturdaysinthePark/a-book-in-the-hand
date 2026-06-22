@@ -64,13 +64,16 @@ export function initHomeScroll(): void {
 	const S04_TRIGGER = isMobile ? PEEL3_START + 16 : PEEL3_START + MAX_PEEL3 * 0.72;
 	const S04_RESET   = isMobile ? PEEL3_START - 12 : PEEL3_START + MAX_PEEL3 * 0.55;
 
-	// ── Mobile carousel SCROLL cue (shown only during the §03 carousel) ──
+	// ── Mobile cue: one body-level "Scroll/Swipe" hint pinned to the true bottom edge.
+	// Visible from screen-01; its label + opacity are driven per-phase in applyAll(). ──
 	let mScrollCue: HTMLElement | null = null;
+	let mCueLabel: HTMLElement | null = null;
 	if (isMobile) {
 		mScrollCue = document.createElement('div');
 		mScrollCue.id = 'hx-m-scroll-cue';
-		mScrollCue.style.cssText = 'position:fixed;bottom:calc(var(--exp-foot,34px) + 14px);left:50%;transform:translateX(-50%);display:none;flex-direction:column;align-items:center;gap:5px;pointer-events:none;z-index:190;transition:opacity 400ms;';
-		mScrollCue.innerHTML = '<span style="font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(120,96,72,.7);">Swipe</span><div style="width:1px;height:20px;overflow:hidden;"><div style="width:100%;height:100%;background:rgba(120,96,72,.55);animation:hxScrollDrain 2.2s ease-in-out infinite;"></div></div>';
+		mScrollCue.className = 'hx-m-cue';
+		mScrollCue.innerHTML = '<span>Scroll</span><div class="hx-drain-track"><div class="hx-drain"></div></div>';
+		mCueLabel = mScrollCue.querySelector('span');
 		document.body.appendChild(mScrollCue);
 
 		const mCover = document.querySelector<HTMLElement>('.hx-s01__cover');
@@ -231,7 +234,6 @@ export function initHomeScroll(): void {
 				void screen03!.offsetHeight;
 				screen03!.style.opacity = '';
 				screen03!.style.animation = 'hxFadeOnly 0.6s cubic-bezier(0.22,1,0.36,1) both';
-				if (mScrollCue) mScrollCue.style.display = 'flex';
 			} else {
 				const cells = Array.from(screen03!.querySelectorAll<HTMLElement>('.hx-cell'));
 				cells.forEach((c) => { c.style.animation = 'none'; c.style.opacity = '0'; c.style.transform = 'translateY(18px)'; });
@@ -244,7 +246,6 @@ export function initHomeScroll(): void {
 			s03Animated = false;
 			if (isMobile) {
 				screen03!.style.animation = ''; screen03!.style.opacity = '';
-				if (mScrollCue) mScrollCue.style.display = 'none';
 			} else {
 				screen03?.querySelectorAll<HTMLElement>('.hx-cell').forEach((c) => { c.style.animation = ''; c.style.opacity = '0'; c.style.transform = ''; });
 				screen03?.querySelectorAll<HTMLElement>('.cover').forEach((b) => { b.style.animation = ''; });
@@ -265,7 +266,6 @@ export function initHomeScroll(): void {
 			}
 			const carP = Math.max(0, Math.min(1, (a - PEEL2_END) / MAX_S03));
 			screen03.style.transform = `translateX(-${(carP * (N_S03 - 1) * carVW).toFixed(1)}px)`;
-			if (mScrollCue) mScrollCue.style.opacity = carP > 0.92 ? '0' : '1';
 		}
 
 		// ── Peel 2: screen-02 splits open ──
@@ -316,6 +316,20 @@ export function initHomeScroll(): void {
 			if (p1 < 0.6) secInd.textContent = '01 — Latest Review';
 			else if (p2 < 0.6) secInd.textContent = '04 — Recently Reviewed';
 			else secInd.textContent = '05–08 — Featured';
+		}
+
+		// ── Mobile bottom-edge cue: "Scroll" while advancing the vertical peels,
+		// "Swipe" across the §03 carousel; fades out mid-transition and at the end. ──
+		if (mScrollCue) {
+			const inCarousel = a > PEEL2_END && a < S03_END;
+			if (mCueLabel) mCueLabel.textContent = inCarousel ? 'Swipe' : 'Scroll';
+			let vis = 1;
+			if (a > MAX_PEEL1 * 0.35 && a <= PEEL2_END) vis = 0;          // through the book sweep
+			else if (inCarousel) {
+				const carP = Math.max(0, Math.min(1, (a - PEEL2_END) / MAX_S03));
+				vis = carP > 0.92 ? 0 : 1;                               // fade as the carousel ends
+			} else if (a >= S03_END) vis = 0;                            // peel-3 / stats
+			mScrollCue.style.opacity = String(vis);
 		}
 	};
 
