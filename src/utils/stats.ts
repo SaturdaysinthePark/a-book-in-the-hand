@@ -29,6 +29,8 @@ export interface Granular {
 	pagesPerDay: Bars; // pages ÷ calendar days in period
 	byCategory: Stacked; // books split fiction / nonfiction
 	byGender: Stacked; // books split female / male (author gender)
+	byCategoryPages: Stacked; // pages split fiction / nonfiction
+	byGenderPages: Stacked; // pages split female / male (author gender)
 }
 
 export interface Stats {
@@ -46,7 +48,9 @@ export interface Stats {
 	category: Bars; // Fiction / Non-fiction → count
 	gender: Bars; // Female / Male → count
 	genres: Bars; // subgenre → book count, sorted desc (title-cased)
+	genresByPages: Bars; // subgenre → Σ pages, sorted desc (title-cased)
 	topAuthors: Bars; // author → distinct books, top 25
+	topAuthorsByPages: Bars; // author → Σ pages, top 25
 	longestBooks: Bars; // top 10 books by page count (label = title)
 	lengthDistribution: Bars; // page-count buckets → book count
 	avgPagesByYear: Bars; // year → mean pages per book read that year
@@ -109,18 +113,27 @@ export function computeStats(): Stats {
 	const avgPagesPerDay = Math.round(pagesRead / daysBetween(firstDate, lastDate));
 
 	// ── Monthly buckets (filled across the whole range) ──────────────────────────
-	type Bucket = { count: number; pages: number; fiction: number; nonfiction: number; female: number; male: number };
-	const blank = (): Bucket => ({ count: 0, pages: 0, fiction: 0, nonfiction: 0, female: 0, male: 0 });
+	type Bucket = {
+		count: number; pages: number;
+		fiction: number; nonfiction: number; female: number; male: number; // book counts
+		fictionPages: number; nonfictionPages: number; femalePages: number; malePages: number; // page sums
+	};
+	const blank = (): Bucket => ({
+		count: 0, pages: 0,
+		fiction: 0, nonfiction: 0, female: 0, male: 0,
+		fictionPages: 0, nonfictionPages: 0, femalePages: 0, malePages: 0,
+	});
 	const monthMap = new Map<string, Bucket>();
 	for (const b of books) {
 		const key = b.dateRead.slice(0, 7); // YYYY-MM
 		const bk = monthMap.get(key) || blank();
+		const p = b.pages || 0;
 		bk.count += 1;
-		bk.pages += b.pages || 0;
-		if (b.category === 'fiction') bk.fiction += 1;
-		else if (b.category === 'nonfiction') bk.nonfiction += 1;
-		if (b.gender === 'female') bk.female += 1;
-		else if (b.gender === 'male') bk.male += 1;
+		bk.pages += p;
+		if (b.category === 'fiction') { bk.fiction += 1; bk.fictionPages += p; }
+		else if (b.category === 'nonfiction') { bk.nonfiction += 1; bk.nonfictionPages += p; }
+		if (b.gender === 'female') { bk.female += 1; bk.femalePages += p; }
+		else if (b.gender === 'male') { bk.male += 1; bk.malePages += p; }
 		monthMap.set(key, bk);
 	}
 
@@ -140,6 +153,8 @@ export function computeStats(): Stats {
 		pagesPerDay: [],
 		byCategory: { keys: ['fiction', 'nonfiction'], rows: [] },
 		byGender: { keys: ['female', 'male'], rows: [] },
+		byCategoryPages: { keys: ['fiction', 'nonfiction'], rows: [] },
+		byGenderPages: { keys: ['female', 'male'], rows: [] },
 	};
 	for (const key of monthKeys) {
 		const bk = monthMap.get(key) || blank();
@@ -149,6 +164,8 @@ export function computeStats(): Stats {
 		month.pagesPerDay.push({ label: key, value: Math.round(bk.pages / monthDenom(y, m)) });
 		month.byCategory.rows.push({ label: key, values: [bk.fiction, bk.nonfiction] });
 		month.byGender.rows.push({ label: key, values: [bk.female, bk.male] });
+		month.byCategoryPages.rows.push({ label: key, values: [bk.fictionPages, bk.nonfictionPages] });
+		month.byGenderPages.rows.push({ label: key, values: [bk.femalePages, bk.malePages] });
 	}
 
 	// ── Yearly buckets ───────────────────────────────────────────────────────────
@@ -160,12 +177,13 @@ export function computeStats(): Stats {
 		const years = b.readYears && b.readYears.length ? b.readYears : [parseInt(b.dateRead.slice(0, 4), 10)];
 		for (const y of years) {
 			const yb = yearMap.get(y) || blank();
+			const p = b.pages || 0;
 			yb.count += 1;
-			yb.pages += b.pages || 0;
-			if (b.category === 'fiction') yb.fiction += 1;
-			else if (b.category === 'nonfiction') yb.nonfiction += 1;
-			if (b.gender === 'female') yb.female += 1;
-			else if (b.gender === 'male') yb.male += 1;
+			yb.pages += p;
+			if (b.category === 'fiction') { yb.fiction += 1; yb.fictionPages += p; }
+			else if (b.category === 'nonfiction') { yb.nonfiction += 1; yb.nonfictionPages += p; }
+			if (b.gender === 'female') { yb.female += 1; yb.femalePages += p; }
+			else if (b.gender === 'male') { yb.male += 1; yb.malePages += p; }
 			yearMap.set(y, yb);
 		}
 	}
@@ -176,6 +194,8 @@ export function computeStats(): Stats {
 		pagesPerDay: [],
 		byCategory: { keys: ['fiction', 'nonfiction'], rows: [] },
 		byGender: { keys: ['female', 'male'], rows: [] },
+		byCategoryPages: { keys: ['fiction', 'nonfiction'], rows: [] },
+		byGenderPages: { keys: ['female', 'male'], rows: [] },
 	};
 	const yearKeys = [...yearMap.keys()];
 	const firstChartYear = Math.min(firstYear, ...yearKeys);
@@ -188,6 +208,8 @@ export function computeStats(): Stats {
 		year.pagesPerDay.push({ label, value: Math.round(yb.pages / yearDenom(y)) });
 		year.byCategory.rows.push({ label, values: [yb.fiction, yb.nonfiction] });
 		year.byGender.rows.push({ label, values: [yb.female, yb.male] });
+		year.byCategoryPages.rows.push({ label, values: [yb.fictionPages, yb.nonfictionPages] });
+		year.byGenderPages.rows.push({ label, values: [yb.femalePages, yb.malePages] });
 	}
 
 	// ── Distributions ────────────────────────────────────────────────────────────
@@ -212,11 +234,13 @@ export function computeStats(): Stats {
 	];
 
 	const genreMap = new Map<string, number>();
+	const genrePages = new Map<string, number>(); // subgenre → Σ pages
 	const genreRating = new Map<string, { sum: number; n: number }>(); // for avg rating by genre
 	for (const b of books) {
 		for (const g of b.subgenres || []) {
 			if (!g) continue;
 			genreMap.set(g, (genreMap.get(g) || 0) + 1);
+			genrePages.set(g, (genrePages.get(g) || 0) + (b.pages || 0));
 			if (b.rating && b.rating >= 1 && b.rating <= 5) {
 				const gr = genreRating.get(g) || { sum: 0, n: 0 };
 				gr.sum += b.rating;
@@ -226,6 +250,9 @@ export function computeStats(): Stats {
 		}
 	}
 	const genres: Bars = [...genreMap.entries()]
+		.map(([label, value]) => ({ label: titleCase(label), value }))
+		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
+	const genresByPages: Bars = [...genrePages.entries()]
 		.map(([label, value]) => ({ label: titleCase(label), value }))
 		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
 
@@ -238,11 +265,17 @@ export function computeStats(): Stats {
 		.slice(0, 12);
 
 	const authorMap = new Map<string, number>();
+	const authorPages = new Map<string, number>(); // author → Σ pages
 	for (const b of books) {
 		if (!b.author) continue;
 		authorMap.set(b.author, (authorMap.get(b.author) || 0) + 1);
+		authorPages.set(b.author, (authorPages.get(b.author) || 0) + (b.pages || 0));
 	}
 	const topAuthors: Bars = [...authorMap.entries()]
+		.map(([label, value]) => ({ label, value }))
+		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
+		.slice(0, 25);
+	const topAuthorsByPages: Bars = [...authorPages.entries()]
 		.map(([label, value]) => ({ label, value }))
 		.sort((a, b) => b.value - a.value || a.label.localeCompare(b.label))
 		.slice(0, 25);
@@ -340,7 +373,9 @@ export function computeStats(): Stats {
 		category,
 		gender,
 		genres,
+		genresByPages,
 		topAuthors,
+		topAuthorsByPages,
 		longestBooks,
 		longestBooksByCategory,
 		lengthDistribution,

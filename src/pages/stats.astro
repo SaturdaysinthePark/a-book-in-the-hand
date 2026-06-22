@@ -78,6 +78,11 @@ const chartSpecs: ChartSpec[] = [
 		ariaLabel: `Female authors ${pct(female, female + male)}%, male authors ${pct(male, female + male)}%`, title: 'Author gender' },
 ];
 
+// Per-metric datasets the Books ⇄ Pages toggles swap into the genre/author charts in
+// place (mirrors longestBooksByCategory). Books is the default/SSR view.
+const genreMetric = { books: s.genres.slice(0, 15), pages: s.genresByPages.slice(0, 15) };
+const authorMetric = { books: s.topAuthors, pages: s.topAuthorsByPages };
+
 // Default server-render width; the client re-renders each chart to its real container px.
 const SSR_W = 920;
 const ssr: Record<string, string> = Object.fromEntries(chartSpecs.map((sp) => [sp.id, renderSpec(sp, SSR_W, false)]));
@@ -159,7 +164,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 							</div>
 							<div class="control-group">
 								<span class="fb-label">Split</span>
-								<div class="fb-seg" id="split-seg" role="group" aria-label="Split (books only)">
+								<div class="fb-seg" id="split-seg" role="group" aria-label="Split (books or pages)">
 									<button class="fb-seg-btn is-on" data-split="none">Total</button>
 									<button class="fb-seg-btn" data-split="category">Fiction / Non</button>
 									<button class="fb-seg-btn" data-split="gender">Author gender</button>
@@ -225,8 +230,14 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 						</div>
 					</div>
 					<div class="chart-card">
-						<p class="chart-title">Most-read genres</p>
-						<p class="chart-sub">Top 15 by books read</p>
+						<div class="chart-head">
+							<p class="chart-title">Most-read genres</p>
+							<div class="fb-seg" id="genres-metric-seg" role="group" aria-label="Genre metric">
+								<button class="fb-seg-btn is-on" data-metric="books">Books</button>
+								<button class="fb-seg-btn" data-metric="pages">Pages</button>
+							</div>
+						</div>
+						<p class="chart-sub" id="genres-sub">Top 15 by books read</p>
 						<div class="rank-holder" id="chart-genres" set:html={ssr['chart-genres']} />
 					</div>
 					{s.avgRatingByGenre.length > 0 && (
@@ -313,6 +324,14 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 						</div>
 					</div>
 					<div class="chart-card">
+						<div class="chart-head">
+							<p class="chart-title">Most-read authors</p>
+							<div class="fb-seg" id="authors-metric-seg" role="group" aria-label="Author metric">
+								<button class="fb-seg-btn is-on" data-metric="books">Books</button>
+								<button class="fb-seg-btn" data-metric="pages">Pages</button>
+							</div>
+						</div>
+						<p class="chart-sub" id="authors-sub">Top 25 by books read</p>
 						<div class="rank-holder" id="chart-authors" set:html={ssr['chart-authors']} />
 					</div>
 				</div>
@@ -367,6 +386,8 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 		<script type="application/json" id="stats-timeline" set:html={JSON.stringify(s.timeline)} />
 		<script type="application/json" id="stats-charts" set:html={JSON.stringify(chartSpecs)} />
 		<script type="application/json" id="stats-longest" set:html={JSON.stringify(s.longestBooksByCategory)} />
+		<script type="application/json" id="stats-genre-metric" set:html={JSON.stringify(genreMetric)} />
+		<script type="application/json" id="stats-author-metric" set:html={JSON.stringify(authorMetric)} />
 		<script type="application/json" id="stats-countries" set:html={JSON.stringify(s.countryStats)} />
 	</body>
 </html>
@@ -599,11 +620,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		const showValues = gran === 'year' && !mobile;
 		const baseOpts = { width: W, height: barsHeight(W, mobile), formatTick: tickFmt, showValues };
 
-		if (metric === 'books' && split !== 'none') {
-			const data = split === 'category' ? g.byCategory : g.byGender;
+		if ((metric === 'books' || metric === 'pages') && split !== 'none') {
+			const byCat = metric === 'pages' ? g.byCategoryPages : g.byCategory;
+			const byGen = metric === 'pages' ? g.byGenderPages : g.byGender;
+			const data = split === 'category' ? byCat : byGen;
 			const colors = split === 'category' ? CAT_COLORS : GENDER_COLORS;
 			const label = split === 'category' ? 'type' : 'author gender';
-			chartEl.innerHTML = stackedBarsSVG(data, { ...baseOpts, colors, showTotals: showValues, ariaLabel: `Books read ${granLabel.toLowerCase()}, split by ${label}` });
+			chartEl.innerHTML = stackedBarsSVG(data, { ...baseOpts, colors, showTotals: showValues, ariaLabel: `${META[metric]} ${granLabel.toLowerCase()}, split by ${label}` });
 			subEl.textContent = `${granLabel} · split by ${label}`;
 			renderLegend(split as 'category' | 'gender');
 		} else {
@@ -617,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function syncSplitState() {
 		const splitSeg = document.getElementById('split-seg');
 		if (!splitSeg) return;
-		const disabled = metric !== 'books';
+		const disabled = metric === 'pagesPerDay'; // split applies to books & pages, not pages/day
 		splitSeg.classList.toggle('is-disabled', disabled);
 		splitSeg.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach((b) => { b.disabled = disabled; });
 		if (disabled && split !== 'none') {
@@ -674,6 +697,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		const holder = document.getElementById('chart-longest');
 		if (holder) holder.innerHTML = renderSpec(longestSpec, widthOf(holder), isMobile());
 	});
+
+	// ── Genre / author metric toggles (Books ⇄ Pages) ──
+	// Same in-place pattern as the longest-books toggle: swap the spec's data + value
+	// formatter (and rank colours for the author chart), then re-render. renderStatic()
+	// reuses the mutated spec on resize, so the choice persists.
+	function setupMetricToggle(segId: string, chartId: string, jsonId: string, subId: string, prefix: string, rankColored: boolean) {
+		const el = document.getElementById(jsonId);
+		const byMetric: Record<string, { label: string; value: number }[]> =
+			el ? JSON.parse(el.textContent || '{}') : {};
+		const spec = specs.find((sp) => sp.id === chartId);
+		const sub = document.getElementById(subId);
+		setupSeg(segId, (btn) => {
+			if (!spec) return;
+			const m = btn.dataset.metric === 'pages' ? 'pages' : 'books';
+			const data = byMetric[m] || [];
+			spec.data = data;
+			spec.value = m === 'pages' ? 'pp' : 'int';
+			if (rankColored) spec.colors = data.map((_, i) => (i === 0 ? 'var(--ink)' : 'var(--viz-primary)'));
+			spec.ariaLabel = `${prefix} by ${m} read`;
+			const holder = document.getElementById(chartId);
+			if (holder) holder.innerHTML = renderSpec(spec, widthOf(holder), isMobile());
+			if (sub) sub.textContent = `${prefix} by ${m} read`;
+		});
+	}
+	setupMetricToggle('genres-metric-seg', 'chart-genres', 'stats-genre-metric', 'genres-sub', 'Top 15', false);
+	setupMetricToggle('authors-metric-seg', 'chart-authors', 'stats-author-metric', 'authors-sub', 'Top 25', true);
 
 	// Re-render everything on resize (debounced) so charts always fit their container.
 	let raf = 0;
