@@ -1,11 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
-    <path fill-rule="evenodd" class="ink" d="M 4,0 L 26,0 L 26,54 L 15,43 L 4,54 Z M 7,38 L 7,18 Q 7,4 15,2 Q 23,4 23,18 L 23,38 Z"/>
-    <path fill-rule="evenodd" fill="#9c4a2a" d="M 34,0 L 56,0 L 56,54 L 45,43 L 34,54 Z M 37,38 L 37,18 Q 37,4 45,2 Q 53,4 53,18 L 53,38 Z"/>
-    <rect x="0" y="38" width="60" height="2.5" class="ink"/>
-    <style>
-        .ink { fill: #161310; }
-        @media (prefers-color-scheme: dark) {
-            .ink { fill: #f8f2e6; }
-        }
-    </style>
+    <!-- "Saturdays in a Book" favicon — the § brand mark (matches the header wordmark
+         and OG-card watermark). Cream § (Newsreader) on an ink tile with a warm brown
+         edge. Self-contained: no prefers-color-scheme swap needed — the tile carries its
+         own background, so it stays legible on any browser-tab color. -->
+    <rect x="1.5" y="1.5" width="57" height="57" rx="13" fill="#1a1614" stroke="#8b5a2b" stroke-width="3"/>
+    <path transform="translate(30 30) scale(0.02249 -0.02249) translate(-548 -551.5)" fill="#f8f2e6" d="M501 -271Q372 -271 296.5 -248Q221 -225 189 -189.5Q157 -154 157 -115Q157 -72 186 -45.5Q215 -19 258 -19Q293 -19 318.5 -43.5Q344 -68 370.5 -99.5Q397 -131 435.5 -155.5Q474 -180 535 -180Q633 -180 685.5 -137.5Q738 -95 738 -24Q738 35 702.5 73Q667 111 609 136Q551 161 481 181.5Q411 202 340.5 226Q270 250 212 286Q154 322 118.5 378Q83 434 83 519Q83 642 168 726Q232 789 346 823Q332 830 319 838Q261 873 225.5 928.5Q190 984 190 1070Q190 1162 239 1230.5Q288 1299 381 1336.5Q474 1374 607 1374Q737 1374 812 1351Q887 1328 919 1292.5Q951 1257 951 1218Q951 1175 922 1148.5Q893 1122 850 1122Q815 1122 789.5 1146.5Q764 1171 737.5 1202.5Q711 1234 672.5 1258Q634 1282 573 1282Q468 1282 413 1240Q358 1198 358 1127Q358 1070 393.5 1034.5Q429 999 487 975.5Q545 952 615 932.5Q685 913 755.5 889Q826 865 884 829Q942 793 977.5 737.5Q1013 682 1013 597Q1013 461 921 382Q851 323 745 291Q761 282 777 273Q835 237 870.5 181.5Q906 126 906 40Q906 -51 859 -121.5Q812 -192 721.5 -231.5Q631 -271 501 -271ZM841 537Q841 598 805.5 635Q770 672 712.5 696Q655 720 586 739Q519 757 453 778Q355 756 309 709Q255 654 255 580Q255 519 290.5 481Q326 443 383.5 418.5Q441 394 511 375Q573 357 636 336Q735 358 784 405Q841 458 841 537Z"/>
 </svg>
