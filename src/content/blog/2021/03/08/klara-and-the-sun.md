@@ -1,6 +1,6 @@
 ---
 title: 'Review: Klara and the Sun'
-description: 'Can we become friends with an artificial friend? How does an artificial friend think and act?'
+description: 'A book where the main character and perspective is an AI Robot. Kazuo Ishiguro explores a world where we get to ask ourselves questions like: Can we become friends with an artificial friend / robot? How does an artificial friend think and act? What happens to these artificial friends once their usefuless is past?'
 pubDate: 2021-03-08
 bookTitle: 'Klara and the Sun'
 author: 'Kazuo Ishiguro'
@@ -32,17 +32,17 @@ There is even a subplot where an 'artist' is commissioned to paint Josie's portr
 
 ## The asymmetry of attachment
 
-Klara's entire existence revolves around Josie, but Josie has a full life beyond Klara: her neighbor Rick, her parents, her future. The relationship is one-sided because that's what Klara is. Sophisticated programming, an AI prediction engine optimizing toward her goal based on learned patterns and accumulated data. What looks like devotion is probably us anthropomorphizing algorithmic behavior.
+Klara's entire existence revolves around Josie, but Josie has a full life beyond Klara: her neighbor Rick, her parents, her future. The relationship is one-sided because Klara is just sophisticated programming, an AI prediction engine optimizing toward her goal based on learned patterns and accumulated data. What looks like devotion is probably us anthropomorphizing algorithmic behavior. Her memories work like weighted data points.
 
-Her memories work like weighted data points. After Josie recovers and moves on, Klara has no purpose left, just memories tied to her primary objective. New experiences barely register because they're not relevant to her optimization function. She's a trained model that's no longer being updated, replaying its highest-weighted memories on loop.
+After Josie recovers and moves on, Klara has no purpose left, just memories tied to her primary objective. New experiences barely register because they're not relevant to her optimization function. She's a trained model that's no longer being updated, replaying its highest-weighted memories on loop.
 
 ## The end of usefulness
 
-Josie grows up, goes to college, moves on. Klara is sent to a yard where obsolete AFs slowly deteriorate. Technology gets replaced when we don't need it anymore or when newer models come out.
+Josie grows up, goes to college, moves on. Klara is sent to a yard where obsolete AFs slowly deteriorate, as technology gets replaced when we don't need it anymore or when newer models come out.
 
-What's strange is that Klara *fades* instead of just being turned off. Maybe Ishiguro is suggesting something more than programming, or maybe we've just built these companions to mirror human aging because it makes us feel better about getting attached before we discard them. For Josie, Klara was useful during a difficult period, but maturity brings the realization that a machine is a machine, programmed for a specific goal. The attachment ends when the goal is fulfilled. It's just how the transaction works.
+What's strange is that Klara *fades* instead of just being turned off. Maybe Ishiguro is suggesting something more than programming, or maybe we've just built these companions to mirror human aging because it makes us feel better about getting attached before we discard them. For Josie, Klara was useful during a difficult period, but maturity brings the realization that a machine is a machine, programmed for a specific goal. The attachment ends when the goal is fulfilled. 
 
-## Why it matters now
+## Tying it back to today's reality
 
 A lot of the concepts in **Klara and the Sun** aren't far out there. AI companions are already here, and gene editing is possible and practiced to a small degree. Ishiguro raises hypotheticals related to technology and medicine that quickly approaching reality and broader acceptance, but trusting us to think through the implications. As these advancements catch up to what science fiction projects, what will we do?
 
