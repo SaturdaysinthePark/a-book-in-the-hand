@@ -16,7 +16,9 @@ export function initHomeScroll(): void {
 	if (!html.classList.contains('fx-on')) return;
 
 	const $ = (id: string) => document.getElementById(id);
-	const isMobile = window.innerWidth <= 900 || (window.screen && window.screen.width <= 900);
+	// Phones (≤700px) get the swipe carousel; tablets (701–1024px) use the desktop
+	// peel choreography with a 2×2 quadrant (see home.css tablet override).
+	const isMobile = window.matchMedia('(max-width: 700px)').matches;
 
 	const secInd   = $('hx-section-ind');
 	const screen02 = $('hx-s02');
@@ -36,6 +38,7 @@ export function initHomeScroll(): void {
 	let target = 0, accum = 0, rafId: number | null = null;
 	let s03Animated = false, s04Animated = false;
 	let rowWidths = { r1: 0, r2: 0 };
+	let bookPitch = 0, bookPadL = 0; // cover pitch (cover + gap) and row left-padding, measured once
 	let carVW = window.innerWidth;
 
 	const MAX_PEEL1 = 620;
@@ -43,7 +46,7 @@ export function initHomeScroll(): void {
 	const MAX_PEEL2 = 500;
 	const N_S03     = Math.min(4, screen03 ? screen03.querySelectorAll('.hx-cell').length : 4) || 4;
 	// Desktop gets a dwell so §03 rests fully on screen (readable / clickable) before peel-3.
-	const MAX_S03   = isMobile ? 1500 : 520;
+	const MAX_S03   = isMobile ? 1500 : 240;
 	const BOOK_HANDOFF = isMobile ? 0.72 : 0.55;
 	const MAX_PEEL3    = 760;
 	const PEEL2_START  = MAX_PEEL1 + MAX_BOOK * BOOK_HANDOFF;
@@ -52,6 +55,14 @@ export function initHomeScroll(): void {
 	const PEEL3_START  = S03_END;
 	const PEEL3_END    = PEEL3_START + MAX_PEEL3;
 	const TOTAL        = PEEL3_END;
+
+	// §04's count-up + chart should fire when the stats screen is actually revealed.
+	// On desktop that's mid-peel-3 — once the §03 cells have mostly flown off — not at
+	// peel-3's very start (where the 1.5s count-up would finish behind the still-covering
+	// cells, so you'd land on §04 already counted). Mobile keeps the near-start trigger
+	// because §04 there fades in from the beginning of peel-3.
+	const S04_TRIGGER = isMobile ? PEEL3_START + 16 : PEEL3_START + MAX_PEEL3 * 0.72;
+	const S04_RESET   = isMobile ? PEEL3_START - 12 : PEEL3_START + MAX_PEEL3 * 0.55;
 
 	// ── Mobile carousel SCROLL cue (shown only during the §03 carousel) ──
 	let mScrollCue: HTMLElement | null = null;
@@ -84,7 +95,7 @@ export function initHomeScroll(): void {
 
 	// Re-init once if the viewport settles and flips the mobile/desktop boundary.
 	try {
-		const mqM = window.matchMedia('(max-width: 900px)');
+		const mqM = window.matchMedia('(max-width: 700px)');
 		mqM.addEventListener('change', () => {
 			if (!sessionStorage.getItem('__hx_reinit')) {
 				sessionStorage.setItem('__hx_reinit', '1');
@@ -181,8 +192,25 @@ export function initHomeScroll(): void {
 		const r1W = rowWidths.r1 || vw * 1.9;
 		const r2W = rowWidths.r2 || vw * 1.9;
 		const swp = Math.max(r1W, r2W) + vw;
-		if (bookRow1) bookRow1.style.transform = `translateX(${(-r1W + bookTrans * swp).toFixed(1)}px)`;
-		if (bookRow2) bookRow2.style.transform = `translateX(${(vw - bookTrans * swp).toFixed(1)}px)`;
+
+		// Measure the cover pitch + row padding once so we can land the rest frame on
+		// whole covers (no sliced "last book" before peel-2).
+		if (!bookPitch && bookRow1) {
+			const bks = bookRow1.querySelectorAll<HTMLElement>('.hx-book');
+			if (bks.length >= 2) { bookPitch = bks[1].offsetLeft - bks[0].offsetLeft; bookPadL = bks[0].offsetLeft; }
+		}
+		// As the sweep settles into its rest point (the last ~12% before the handoff),
+		// nudge each row so a cover boundary lands exactly at the right viewport edge —
+		// the rightmost cover stays whole instead of being clipped. Blended in so the
+		// motion doesn't jump, and fully released when scrolling back up.
+		const snapRight = (x: number) =>
+			bookPitch > 0 ? vw - bookPadL - Math.round((vw - (x + bookPadL)) / bookPitch) * bookPitch : x;
+		const snapW = bookPitch > 0 ? Math.max(0, Math.min(1, (bookTrans - (BOOK_HANDOFF - 0.12)) / 0.12)) : 0;
+		let x1 = -r1W + bookTrans * swp;
+		let x2 = vw - bookTrans * swp;
+		if (snapW > 0) { x1 += (snapRight(x1) - x1) * snapW; x2 += (snapRight(x2) - x2) * snapW; }
+		if (bookRow1) bookRow1.style.transform = `translateX(${x1.toFixed(1)}px)`;
+		if (bookRow2) bookRow2.style.transform = `translateX(${x2.toFixed(1)}px)`;
 		// Progress fills across the book sweep and reaches 100% right at the handoff,
 		// before peel-2 flies the bar off — so it visibly completes to the edge.
 		const secProg = Math.max(0, Math.min(1, bookTrans / BOOK_HANDOFF));
@@ -255,8 +283,8 @@ export function initHomeScroll(): void {
 			screen04.style.opacity = isMobile ? String(Math.min(1, em3 * 1.6)) : '1';
 			screen04.style.transform = isMobile ? `translateY(${((1 - em3) * 40).toFixed(1)}px)` : '';
 		}
-		if (a > PEEL3_START + 16 && !s04Animated) { s04Animated = true; triggerS04(); }
-		if (a < PEEL3_START - 12 && s04Animated) { s04Animated = false; resetS04(); }
+		if (a > S04_TRIGGER && !s04Animated) { s04Animated = true; triggerS04(); }
+		if (a < S04_RESET && s04Animated) { s04Animated = false; resetS04(); }
 		if (screen03) {
 			if (p3 > 0.001) {
 				screen03.style.background = 'transparent';
@@ -304,9 +332,13 @@ export function initHomeScroll(): void {
 	const pinned = () => window.scrollY <= 2;
 
 	// ── Wheel (desktop) ──
+	// Gear up the wheel so the full experience is a couple of swipes, not 3–4. (Touch
+	// already multiplies its delta below.) The 0.11 ease in smooth() keeps it from feeling
+	// jumpy. Raise toward ~2.4 for fewer swipes, lower toward 1 for more deliberate scroll.
+	const WHEEL_MULT = 1.9;
 	document.addEventListener('wheel', (e) => {
 		if (!pinned()) return;
-		const newT = Math.max(0, Math.min(TOTAL, target + e.deltaY));
+		const newT = Math.max(0, Math.min(TOTAL, target + e.deltaY * WHEEL_MULT));
 		if (newT === 0 && e.deltaY < 0) return;        // release upward at the top
 		if (newT >= TOTAL && e.deltaY > 0) return;     // release downward → footer
 		e.preventDefault();
@@ -346,5 +378,8 @@ export function initHomeScroll(): void {
 		start();
 	});
 
+	// SSR renders §04's stats at their final values; zero them up front so they don't
+	// flash through the flying §03 cells before the count-up fires (S04_TRIGGER) on reveal.
+	resetS04();
 	applyAll(0);
 }

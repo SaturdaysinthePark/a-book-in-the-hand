@@ -3,7 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import HomeExperience from '../components/home/HomeExperience.astro';
-import { SITE_TITLE, SITE_DESCRIPTION, CURRENTLY_READING_NOTES } from '../consts';
+import { SITE_TITLE, HOME_DESCRIPTION, CURRENTLY_READING_NOTES } from '../consts';
 import currentlyReadingData from '../data/currently-reading.json';
 import { getCollection } from 'astro:content';
 import { getBlogUrl, getCoverColor } from '../utils/blog';
@@ -132,7 +132,7 @@ const years = stats.timeline.year.books;
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={HOME_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />

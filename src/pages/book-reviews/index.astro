@@ -34,14 +34,14 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="All Book Reviews — Saturdays in a Book" description="Every book I've reviewed, filterable by genre, author, and tag." ogImage="/og/shelf.png" />
+		<BaseHead title="All Book Reviews — Saturdays in a Book" description="Every book I've reviewed, filterable by genre, author, and tag." ogImage="/og/default.png" />
 	</head>
 	<body>
 		<Header />
 		<main>
 
 			<!-- Page header -->
-			<PageMasthead eyebrow="The Bookshelf" title="Every book I've read." num={total}>
+			<PageMasthead eyebrow="My Bookshelf" title="Browse my collection">
 				<Fragment slot="meta">
 					<span class="eyebrow-mono">{total} books read · {reviewedCount} reviewed</span>
 				</Fragment>

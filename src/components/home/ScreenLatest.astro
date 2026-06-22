@@ -63,9 +63,9 @@ const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) 
 		)}
 
 		{featured && (
-			<div class="hx-s01__rb" id="hx-s01-rb">
+			<a class="hx-s01__rb" id="hx-s01-rb" href={featured.url} aria-label={featured.title}>
 				<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(34px,4.5vw,62px);color:rgba(243,236,224,.13);right:14px;top:14px;">03</span>
-				<h2><a href={featured.url} set:html={featured.title.replace(/ (?=\S+$)/, '<br/>')} /></h2>
+				<h2 set:html={featured.title.replace(/ (?=\S+$)/, '<br/>')}></h2>
 				{featured.blurb && <p class="hx-s01__rb-blurb">{featured.blurb}</p>}
 				<div class="hx-s01__rb-books">
 					{featured.picks.slice(0, 6).map((p) => (
@@ -74,12 +74,12 @@ const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) 
 				</div>
 				<div class="hx-s01__rb-foot">
 					<span class="hx-s01__rb-meta"><span class="hx-meta-count">{featured.count} books</span><span class="hx-meta-date"> · {<FormattedDate date={featured.date} />}</span></span>
-					<a href={featured.url} class="hx-cta hx-cta--light" style="font-size:10px;gap:7px">
+					<span class="hx-cta hx-cta--light" style="font-size:10px;gap:7px">
 						See the list
 						<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
-					</a>
+					</span>
 				</div>
-			</div>
+			</a>
 		)}
 	</div>
 </section>

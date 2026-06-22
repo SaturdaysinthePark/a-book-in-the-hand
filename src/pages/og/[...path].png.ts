@@ -1,5 +1,6 @@
 // Static endpoint: one branded Open Graph PNG per page.
-//   /og/default.png · /og/{shelf,lists,stats,about}.png · /og/reviews/<id>.png · /og/lists/<id>.png
+//   /og/default.png (homepage, /book-reviews, /my-lists, /about) · /og/stats.png
+//   · /og/reviews/<id>.png · /og/lists/<id>.png
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { renderCard, type CardOpts, type Spine } from '../../og/card';
@@ -12,6 +13,13 @@ const spineOf = (title: string, label = false): Spine => {
 	const c = getCoverColor(title);
 	return { bg: c.bg, ink: c.ink, ...(label ? { label: title } : {}) };
 };
+const clip = (s: string | undefined, n: number): string | undefined => {
+	if (!s) return undefined;
+	if (s.length <= n) return s;
+	const cut = s.slice(0, n);
+	const sp = cut.lastIndexOf(' ');
+	return (sp > 40 ? cut.slice(0, sp) : cut).replace(/[\s.,;:]+$/, '') + '…';
+};
 
 export async function getStaticPaths() {
 	const live = (await getCollection('blog', ({ data }) => data.status === 'live'))
@@ -22,29 +30,26 @@ export async function getStaticPaths() {
 
 	const spines = reviews.slice(0, 7).map((p) => spineOf(p.data.bookTitle || p.data.title));
 
+	// Real cover art of the last 4 books read (shelf.json is the source of truth for "read").
+	const recentCovers = [...(shelfData as { dateRead: string; coverUrl: string | null }[])]
+		.filter((b) => b.coverUrl)
+		.sort((a, b) => (b.dateRead || '').localeCompare(a.dateRead || ''))
+		.slice(0, 4)
+		.map((b) => b.coverUrl as string);
+
 	const paths: { params: { path: string }; props: CardOpts }[] = [];
 
+	// One shared card for the homepage, /book-reviews and /my-lists (set via ogImage).
 	paths.push({ params: { path: 'default' }, props: {
 		kind: 'default', eyebrow: 'Saturdays in a Book',
-		title: 'A reading log from Brooklyn.',
-		subtitle: 'Book reviews, curated lists & recommendations.', spines,
+		title: 'A reading log with book reviews and recommendations.',
+		subtitle: 'Open to see my latest review and more!',
+		covers: recentCovers, spines,
 	} });
 
-	paths.push({ params: { path: 'shelf' }, props: {
-		kind: 'section', eyebrow: 'The Bookshelf', title: "Every book I've read.",
-		subtitle: `${shelfData.length} books read · ${reviews.length} reviewed`, spines,
-	} });
-	paths.push({ params: { path: 'lists' }, props: {
-		kind: 'section', eyebrow: 'Curated Lists', title: 'Curated reading lists.',
-		subtitle: `${lists.length} lists, ranked and annotated`, spines,
-	} });
 	paths.push({ params: { path: 'stats' }, props: {
 		kind: 'section', eyebrow: 'Statistics', title: 'Reading, by the numbers.',
 		subtitle: `${stats.uniqueBooks} unique books · ${compact(stats.pagesRead)} pages read`, spines,
-	} });
-	paths.push({ params: { path: 'about' }, props: {
-		kind: 'section', eyebrow: 'About', title: "Hi, I'm Sabtain.",
-		subtitle: 'I live in Brooklyn and love to read — and talk about — books.', spines,
 	} });
 
 	for (const p of reviews) {
@@ -53,6 +58,7 @@ export async function getStaticPaths() {
 			title: p.data.bookTitle || p.data.title,
 			subtitle: p.data.author || undefined,
 			rating: p.data.rating ?? null,
+			blurb: clip(p.data.description, 155),
 			cover: p.data.heroImage ?? null,
 		} });
 	}

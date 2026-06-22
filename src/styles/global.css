@@ -30,6 +30,11 @@
   --bleed-gutter: clamp(22px, 5vw, 80px); /* full-bleed edge padding (matches header/hero) */
   --measure: 68ch;                        /* comfortable prose reading width */
   --seam: 5px;                            /* hard ink section seam */
+  /* Floating year-rail footprint (>1250px). Reservation padding is derived from
+     these so the grid can never cross under the rail at any viewport width. */
+  --rail-left: clamp(14px, 2.2vw, 36px);
+  --rail-w: 64px;
+  --rail-gap: clamp(24px, 2vw, 44px);
 }
 
 /* ── Base reset ───────────────────────────────────────────── */
@@ -133,13 +138,12 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .hdr-nav a.is-active { color: var(--ink); }
 .hdr-nav a:hover { color: var(--ink); }
 
-/* Header collapses to icon buttons at the experience's mobile breakpoint */
-@media (max-width: 900px) {
+/* Header collapses to icon buttons on phones only; tablets keep the full nav.
+   The mobile-button show rules live AFTER their base `display:none` (below the
+   .hdr-menu-btn definition) so they win the cascade. */
+@media (max-width: 640px) {
   .hdr-shell { padding: 0 22px; }
   .hdr-nav { display: none; }
-  .hdr-books-m { display: inline-flex; margin-left: auto; }
-  .hdr-search-m { display: inline-flex; margin-left: 4px; }
-  .hdr-menu-btn { display: inline-flex; margin-left: 4px; }
 }
 
 .hdr-search {
@@ -176,6 +180,15 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   flex-shrink: 0;
 }
 .hdr-menu-btn:hover { background: var(--highlight); color: var(--ink); }
+
+/* Phone-only: reveal the icon row. Placed after the base `display:none` rules
+   above so it wins at ≤640px (tablets keep the full text nav). */
+@media (max-width: 640px) {
+  .hdr-books-m { display: inline-flex; margin-left: auto; }
+  .hdr-search-m { display: inline-flex; margin-left: 4px; }
+  .hdr-menu-btn { display: inline-flex; margin-left: 4px; }
+}
+
 .hdr-menu-btn > span { display: flex; flex-direction: column; gap: 4px; pointer-events: none; }
 .hdr-menu-btn .ham-line {
   display: block;
@@ -1255,17 +1268,24 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 
 .idx-results { padding-top: clamp(28px, 3.5vw, 48px); padding-bottom: 80px; }
 /* >1250px the floating year-rail appears in the left gutter — reserve room for it
-   so the full-bleed grid (and the filter bar above) don't sit under it. */
+   so the full-bleed grid (and the filter bar above) don't sit under it. The
+   selectors carry the `.bleed` class (specificity 0,2,0) so this padding-left
+   beats `.bleed { padding-inline }` in magazine.css, which loads later and would
+   otherwise reset it to the bleed gutter. Width is the rail's own footprint plus
+   a gap, so the grid's first column can never overlap the rail. */
 @media (min-width: 1251px) {
-  .filter-bar, .idx-results { padding-left: clamp(80px, 7vw, 124px); }
+  .filter-bar.bleed,
+  .idx-results.bleed {
+    padding-left: calc(var(--rail-left) + var(--rail-w) + var(--rail-gap));
+  }
 }
 
 /* Floating year rail (only at >1250px) */
 .year-rail {
   position: fixed;
-  left: clamp(14px, 2.2vw, 36px);
+  left: var(--rail-left);
   top: 168px;
-  width: 64px;
+  width: var(--rail-w);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1577,6 +1597,11 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   grid-template-columns: 320px 1fr;
   gap: 72px;
   align-items: start;
+}
+/* Tablet: keep the two-column sidebar + article, but tighten the sidebar and
+   gap so the article keeps a comfortable measure (collapses to stacked ≤640px). */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .review-page .review-grid { grid-template-columns: clamp(200px, 26vw, 300px) 1fr; gap: clamp(28px, 4.5vw, 60px); }
 }
 .review-page .side {
   position: sticky;
@@ -2233,8 +2258,9 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .now-reading .cover { width: min(180px, 100%); }
 
   .bk-logo-img { height: 46px; }
-  .hdr-nav { gap: 20px; }
-  .hdr-nav a { font-size: 13px; }
+  /* Tablet keeps the full text nav (collapse is phone-only at ≤640px); tighten
+     the gap so logo + links + search fit comfortably down to ~641px. */
+  .hdr-nav { gap: 16px; }
 
   .rev-grid { grid-template-columns: repeat(2, 1fr); gap: 22px 16px; }
   .lists-strip { grid-template-columns: repeat(2, 1fr); gap: 14px; }
@@ -2246,11 +2272,10 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .rating-key { grid-template-columns: 72px 1fr; gap: 12px 16px; }
   .scoring-callout { margin: 0; }
 
-  .review-page .review-grid { grid-template-columns: 1fr; gap: 28px; }
-  .review-page .side { position: relative; top: 0; flex-direction: row; align-items: flex-start; }
-  .review-page .side .cover { width: 130px; }
+  /* Review post keeps the desktop two-column layout on tablet (tightened below
+     via the ≤1024px rule); it only stacks on phones (≤640px). */
 
-  .idx-results-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 22px 14px; }
+  .idx-results-grid { grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 22px 14px; }
 
   .shelf-grid { grid-template-columns: repeat(6, 1fr); }
 
@@ -2267,10 +2292,6 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 @media (max-width: 720px) {
   :root { --gutter: clamp(16px, 4vw, 28px); }
   .bk-logo-img { height: 40px; }
-  .hdr-nav { display: none; }
-  .hdr-books-m { display: inline-flex; margin-left: auto; }
-  .hdr-search-m { display: inline-flex; margin-left: 4px; }
-  .hdr-menu-btn { display: inline-flex; margin-left: 4px; }
 
   .rev-grid {
     display: flex;
@@ -2404,8 +2425,15 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   .idx-results-grid .rc-blurb { display: none; }
   .idx-results-grid .rev-card h3 { font-size: 13px; }
 
-  .review-page .review-grid { grid-template-columns: 1fr; }
+}
+
+/* Phones: stack the review sidebar (cover left, title/meta right). Tablets keep
+   the desktop two-column layout (see the ≤1024px rule near .review-grid). */
+@media (max-width: 640px) {
+  .review-page .review-grid { grid-template-columns: 1fr; gap: 28px; }
   .review-page .side {
+    position: relative;
+    top: 0;
     display: grid;
     grid-template-columns: 120px 1fr;
     grid-template-rows: auto auto auto 1fr;

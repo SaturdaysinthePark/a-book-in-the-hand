@@ -34,12 +34,12 @@ const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', y
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Curated Lists — Saturdays in a Book" description="Ranked and curated reading lists from my shelves." ogImage="/og/lists.png" />
+		<BaseHead title="Curated Lists — Saturdays in a Book" description="Ranked and curated reading lists from my shelves." ogImage="/og/default.png" />
 	</head>
 	<body>
 		<Header />
 		<main>
-			<PageMasthead eyebrow="All Lists" title="Curated reading lists." num={posts.length || null} />
+			<PageMasthead eyebrow="All Lists" title="Curated reading lists." />
 
 			{featuredLists.length > 0 && (
 				<div class="cells-band">
