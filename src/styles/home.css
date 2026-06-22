@@ -304,12 +304,13 @@ html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
    content height and the §01 watermark / scroll hint drop below the viewport. The
    panel's own overflow:hidden then clips cleanly. (Mobile sets its own rows below.) */
 html.fx-on .hx-s01 { z-index: 10; grid-template-rows: minmax(0,1fr); }
-/* §03 teaser covers: height-driven 3×2 so all six fit the green cell at any width (mirrors
-   the phone rule + the collection cell), not width-stretched 1fr covers that overflow on
-   wide screens. align-items stays default (stretch) so each cover fills its row. The phone
-   rule (≤700px, below) is more specific/later and keeps its own 2×2 layout. */
-html.fx-on .hx-s01__rb-books { grid-template-rows: repeat(2, minmax(0,1fr)); align-content: stretch; justify-items: center; }
-html.fx-on .hx-s01__rb-books .cover { width: auto; height: 100%; max-width: 100%; }
+/* §03 teaser covers: each cover is the largest 2:3 box that fits BOTH its column (100%) and
+   the two-row height (26cqh cap) — one driven axis (width), height auto — so covers never
+   distort and never overflow at any teaser width/height. The cell is its own size container.
+   (Phone rule ≤700px below is more specific/later and keeps its own height-driven strip layout.) */
+html.fx-on .hx-s01__rb { container: hxteaser / size; }
+html.fx-on .hx-s01__rb-books { align-content: center; justify-items: center; }
+html.fx-on .hx-s01__rb-books .cover { width: min(100%, 26cqh); height: auto; max-width: 100%; }
 html.fx-on .hx-s02 { z-index: 5;  display: none; flex-direction: column; background: transparent; }
 html.fx-on .hx-s03 { z-index: 3;  display: none; gap: var(--seam); }
 html.fx-on .hx-s04 { z-index: 2;  display: none; flex-direction: column; }
