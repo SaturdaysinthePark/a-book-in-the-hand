@@ -32,6 +32,19 @@ const cards = [
 	{ num: s.yearsReading, label: 'Years reading' },
 ];
 
+// In-page navigation — ids mirror the section anchors; the desktop rail and the mobile
+// chip strip render from this single source so labels and order stay in sync.
+const navItems = [
+	{ id: 'overview', label: 'Overview' },
+	{ id: 'over-time', label: 'Over time' },
+	{ id: 'what-i-read', label: 'Makeup' },
+	{ id: 'genres', label: 'Genres' },
+	{ id: 'length', label: 'Length' },
+	{ id: 'when-written', label: 'Era' },
+	{ id: 'most-read', label: 'Authors' },
+	{ id: 'geography', label: 'Geography' },
+];
+
 // Charts are described once as serialisable specs and rendered through the shared
 // renderSpec() — server-side here (first paint / no-JS) and again client-side at each
 // chart's real container width so SVG text stays crisp at any screen size (see the
@@ -101,23 +114,49 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	</head>
 	<body>
 		<Header />
+
+		<!-- Scroll-progress bar (fills as the page scrolls) -->
+		<div class="scroll-progress" id="scroll-progress" aria-hidden="true"><span></span></div>
+
+		<!-- Desktop section rail (scroll-spy) -->
+		<nav class="stats-rail" id="stats-rail" aria-label="Page sections">
+			<ul>
+				{navItems.map((n, i) => (
+					<li>
+						<a href={`#${n.id}`} data-rail={n.id}>
+							<span class="rail-label">{n.label}</span>
+							<span class="rail-num">{String(i + 1).padStart(2, '0')}</span>
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
+
 		<main class="stats-page">
 
 			<!-- Hero -->
 			<PageMasthead
-				eyebrow="Statistics"
-				title="Reading, by the numbers."
-				num={s.uniqueBooks}
-				lede={`Every book on the shelf, counted and charted — ${fmt(s.booksRead)} reads across ${s.yearsReading} years, from ${s.firstYear} to ${s.lastYear}.`}
+				eyebrow="Reading stats"
+				title="Keeping track of my habits"
+				lede={`${fmt(s.booksRead)} books over ${s.yearsReading} years, and counting.`}
 			/>
 
+			<!-- Mobile section chips (sticky under header) -->
+			<nav class="stats-chips" id="stats-chips" aria-label="Page sections">
+				<div class="chips-track">
+					{navItems.map((n) => (
+						<a href={`#${n.id}`} data-chip={n.id}>{n.label}</a>
+					))}
+				</div>
+			</nav>
+
 			<!-- Headline cards -->
-			<section class="section stats-section">
+			<section id="overview" class="section stats-section">
 				<div class="bleed">
 					<div class="stat-grid">
 						{cards.map((c) => (
 							<div class="stat-card">
-								<div class="stat-num">{compact(c.num)}</div>
+								<div class="stat-num" data-count={c.num} data-fmt="compact">{compact(c.num)}</div>
 								<div class="stat-label">{c.label}</div>
 							</div>
 						))}
@@ -126,7 +165,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- Reading over time (interactive) -->
-			<section class="section stats-section">
+			<section id="over-time" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -181,7 +220,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- Composition -->
-			<section class="section stats-section">
+			<section id="what-i-read" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -221,7 +260,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- Genres -->
-			<section class="section stats-section">
+			<section id="genres" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -251,7 +290,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- How long the books run -->
-			<section class="section stats-section">
+			<section id="length" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -298,7 +337,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- When the books were written -->
-			<section class="section stats-section">
+			<section id="when-written" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -309,13 +348,13 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 					<div class="chart-card">
 						<p class="chart-title">Books by era of publication</p>
 						<p class="chart-sub">Original publication year · {fmt(s.pubEra.reduce((a, b) => a + b.value, 0))} books</p>
-						<div class="chart-holder" id="chart-pub-era" set:html={ssr['chart-pub-era']} />
+						<div class="rank-holder" id="chart-pub-era" set:html={ssr['chart-pub-era']} />
 					</div>
 				</div>
 			</section>
 
 			<!-- Most-read authors -->
-			<section class="section stats-section">
+			<section id="most-read" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -338,7 +377,7 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 			</section>
 
 			<!-- Reading by geography -->
-			<section class="section stats-section">
+			<section id="geography" class="section stats-section">
 				<div class="bleed">
 					<div class="section-head">
 						<div>
@@ -559,6 +598,143 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	.fb-seg { width: 100%; }
 	.fb-seg-btn { flex: 1; text-align: center; min-height: 38px; }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   In-page navigation — scroll-progress bar, desktop rail, mobile chips.
+   ══════════════════════════════════════════════════════════════════════════ */
+/* Each section clears the fixed 48px header (+ progress, + sticky chips on mobile). */
+.stats-section { scroll-margin-top: 70px; }
+
+.scroll-progress {
+	position: fixed; top: 48px; left: 0; right: 0; height: 3px;
+	z-index: 190; background: transparent; pointer-events: none;
+}
+.scroll-progress span {
+	display: block; height: 100%; width: 100%;
+	background: var(--viz-primary); transform: scaleX(0); transform-origin: left;
+	transition: transform 90ms linear;
+}
+
+/* Desktop rail: a slim column of §-numbers in the right gutter (active number rust). The
+   label is a floating pill shown ON HOVER ONLY, expanding leftward (the number is the
+   right-anchored element) so the rail stays tidy inside the narrow full-bleed gutter and
+   never floats a pill over the content/card edge at rest. */
+.stats-rail { display: none; }
+@media (min-width: 1100px) {
+	.stats-rail { display: block; position: fixed; right: 14px; top: 50%; transform: translateY(-50%); z-index: 90; }
+}
+.stats-rail ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.stats-rail a {
+	display: flex; align-items: center; justify-content: flex-end; gap: 9px;
+	padding: 3px 2px; text-decoration: none;
+}
+.stats-rail .rail-label {
+	font-family: var(--sans); font-size: 12px; white-space: nowrap; color: var(--ink-2);
+	background: var(--paper); border: 1px solid var(--rule); border-radius: 999px; padding: 3px 11px;
+	opacity: 0; transform: translateX(6px); pointer-events: none;
+	box-shadow: 0 6px 18px -10px rgba(0,0,0,0.3);
+	transition: opacity 160ms ease, transform 160ms ease;
+}
+.stats-rail .rail-num {
+	font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; color: var(--muted);
+	width: 16px; text-align: right; transition: color 160ms ease;
+}
+.stats-rail a:hover .rail-label { opacity: 1; transform: translateX(0); }
+.stats-rail a:hover .rail-num { color: var(--ink-2); }
+.stats-rail a.is-active .rail-num { color: var(--viz-primary); font-size: 11px; }
+
+/* Mobile chips: full-bleed sticky strip under the header, horizontally scrollable. */
+.stats-chips {
+	display: none; position: sticky; top: 51px; z-index: 100;
+	background: var(--bg); border-bottom: 1px solid var(--rule);
+}
+@media (max-width: 1099px) { .stats-chips { display: block; } }
+.chips-track {
+	display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+	padding: 9px var(--bleed-gutter); -webkit-overflow-scrolling: touch;
+}
+.chips-track::-webkit-scrollbar { display: none; }
+.stats-chips a {
+	flex: none; white-space: nowrap; text-decoration: none;
+	font-family: var(--sans); font-size: 12.5px; color: var(--ink-2);
+	padding: 6px 13px; border: 1px solid var(--rule); border-radius: 999px;
+	transition: background 160ms, color 160ms, border-color 160ms;
+}
+.stats-chips a.is-active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+@media (max-width: 1099px) { .stats-section { scroll-margin-top: 104px; } }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Chart entrance / replay animations.
+
+   Base (no .play) = final/natural state, so SSR, no-JS and post-resize all render
+   correct, complete charts. JS adds .play to a holder to play (or replay, on toggle)
+   the grow. The injected SVG isn't Astro-scoped, so its internals need :global().
+   --bar-t (0→1 across the set, baked into each bar by charts.ts) drives the stagger.
+   ══════════════════════════════════════════════════════════════════════════ */
+@keyframes statGrowY { from { transform: scaleY(0.0001); } to { transform: scaleY(1); } }
+@keyframes statGrowX { from { transform: scaleX(0.0001); } to { transform: scaleX(1); } }
+@keyframes statFade  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes statDraw  { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* Armed (pre-entrance) rest state — JS adds .arm to each holder until it scrolls into view,
+   so the entrance plays a clean empty→fill instead of snapping a filled chart back to empty
+   first (the "unfill then fill" flash, worst on the short split bars). */
+.chart-holder.arm:not(.is-stacked) :global(svg rect) {
+	transform-box: fill-box; transform-origin: bottom; transform: scaleY(0.0001);
+}
+.rank-holder.arm :global(svg rect) {
+	transform-box: fill-box; transform-origin: left; transform: scaleX(0.0001);
+}
+.split-holder.arm :global(svg rect),
+.chart-holder.arm.is-stacked :global(svg rect),
+.rating-holder.arm :global(svg path),
+.rating-holder.arm :global(svg circle) { opacity: 0; }
+
+/* Stagger over a fixed time window (--bar-t is 0→1 across the set), so a 13-bar yearly
+   chart and a ~150-bar monthly chart both finish in ~the same short span. */
+/* Vertical bars grow up from the baseline. */
+.chart-holder.play:not(.is-stacked) :global(svg rect) {
+	transform-box: fill-box; transform-origin: bottom;
+	animation: statGrowY 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+	animation-delay: calc(var(--bar-t, 0) * 440ms);
+}
+/* Stacked timeline bars fade column-by-column (scaling would gap the segments). */
+.chart-holder.play.is-stacked :global(svg rect) {
+	animation: statFade 0.45s ease-out backwards;
+	animation-delay: calc(var(--bar-t, 0) * 380ms);
+}
+/* Horizontal ranking bars grow from the left. */
+.rank-holder.play :global(svg rect) {
+	transform-box: fill-box; transform-origin: left;
+	animation: statGrowX 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+	animation-delay: calc(var(--bar-t, 0) * 440ms);
+}
+/* Split composition bars fade in (a single bar can't grow-from-left without gapping its
+   two segments — like the stacked bars). */
+.split-holder.play :global(svg rect) {
+	animation: statFade 0.5s ease-out backwards;
+	animation-delay: calc(var(--bar-t, 0) * 120ms);
+}
+/* Rating curve: area + points fade in, the line draws itself. */
+.rating-holder.play :global(svg path:not([pathLength])),
+.rating-holder.play :global(svg circle) {
+	animation: statFade 0.6s ease-out backwards;
+}
+.rating-holder.play :global(svg circle) { animation-delay: 0.34s; }
+.rating-holder.play :global(svg path[pathLength]) {
+	stroke-dasharray: 1;
+	animation: statDraw 0.9s ease-out backwards, statFade 0.3s ease-out backwards;
+}
+
+/* ── Respect reduced motion: no count-up/grow/draw; everything renders final. ── */
+@media (prefers-reduced-motion: reduce) {
+	.scroll-progress span { transition: none; }
+	.chart-holder.play :global(svg rect),
+	.rank-holder.play :global(svg rect),
+	.split-holder.play :global(svg rect),
+	.rating-holder.play :global(svg path),
+	.rating-holder.play :global(svg circle) { animation: none; }
+}
 </style>
 
 <script>
@@ -566,11 +742,24 @@ import { barsSVG, stackedBarsSVG } from '../utils/charts';
 import { renderSpec, barsHeight, type ChartSpec } from '../utils/stats-charts';
 import { thinTicks } from '../utils/chart-format';
 import { CAT_COLORS, GENDER_COLORS } from '../utils/viz';
+import { track } from '../utils/analytics';
 
 const META: Record<string, string> = { books: 'Books read', pages: 'Pages read', pagesPerDay: 'Pages per day' };
 const MOBILE = window.matchMedia('(max-width: 640px)');
 const isMobile = () => MOBILE.matches;
 const widthOf = (el: HTMLElement) => Math.round(el.clientWidth) || 600;
+const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+// Add (or restart) a holder's entrance "grow", then drop the class once it finishes so
+// later re-renders (e.g. on resize) don't replay it — only a fresh scroll-in or toggle does.
+function playGrow(holder: HTMLElement | null) {
+	if (!holder || !motionOK) return;
+	holder.classList.remove('play');
+	void holder.offsetWidth; // force reflow so the CSS animation restarts from zero
+	holder.classList.add('play');
+	clearTimeout((holder as unknown as { _playT?: number })._playT);
+	(holder as unknown as { _playT?: number })._playT = window.setTimeout(() => holder.classList.remove('play'), 1600);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 	// ── Static charts: re-render each to its container width (crisp text on any screen) ──
@@ -634,6 +823,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			subEl.textContent = granLabel;
 			renderLegend(null);
 		}
+		// Stacked bars fade (see CSS) instead of growing, so flag the holder accordingly.
+		chartEl.classList.toggle('is-stacked', (metric === 'books' || metric === 'pages') && split !== 'none');
 		titleEl.textContent = META[metric];
 	}
 
@@ -654,11 +845,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		const group = document.getElementById(id);
 		if (!group) return;
 		group.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach((btn) => {
-			btn.addEventListener('click', () => {
+			btn.addEventListener('click', (e) => {
 				if (btn.disabled) return;
 				group.querySelectorAll('.fb-seg-btn').forEach((b) => b.classList.remove('is-on'));
 				btn.classList.add('is-on');
 				onPick(btn);
+				if (e.isTrusted) {
+					const value = btn.dataset.metric ?? btn.dataset.gran ?? btn.dataset.split ?? btn.dataset.cat ?? '';
+					track('stats_control', { control: id, value });
+				}
 			});
 		});
 	}
@@ -677,9 +872,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	setupFilterToggle('timeline-filter-btn', 'timeline-controls');
 	setupFilterToggle('longest-filter-btn', 'longest-controls');
 
-	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); renderTimeline(); });
-	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); renderTimeline(); });
-	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); renderTimeline(); });
+	setupSeg('metric-seg', (btn) => { metric = (btn.dataset.metric as typeof metric); syncSplitState(); renderTimeline(); playGrow(chartEl); });
+	setupSeg('gran-seg', (btn) => { gran = (btn.dataset.gran as typeof gran); renderTimeline(); playGrow(chartEl); });
+	setupSeg('split-seg', (btn) => { split = (btn.dataset.split as typeof split); renderTimeline(); playGrow(chartEl); });
 
 	// ── Longest-books category toggle (All / Fiction / Non-fiction) ──
 	// Swaps the chart-longest spec's data in place; renderStatic() re-renders it from the
@@ -695,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		longestSpec.data = data;
 		longestSpec.colors = data.map((_, i) => (i === 0 ? 'var(--ink)' : 'var(--viz-primary)'));
 		const holder = document.getElementById('chart-longest');
-		if (holder) holder.innerHTML = renderSpec(longestSpec, widthOf(holder), isMobile());
+		if (holder) { holder.innerHTML = renderSpec(longestSpec, widthOf(holder), isMobile()); playGrow(holder); }
 	});
 
 	// ── Genre / author metric toggles (Books ⇄ Pages) ──
@@ -717,7 +912,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (rankColored) spec.colors = data.map((_, i) => (i === 0 ? 'var(--ink)' : 'var(--viz-primary)'));
 			spec.ariaLabel = `${prefix} by ${m} read`;
 			const holder = document.getElementById(chartId);
-			if (holder) holder.innerHTML = renderSpec(spec, widthOf(holder), isMobile());
+			if (holder) { holder.innerHTML = renderSpec(spec, widthOf(holder), isMobile()); playGrow(holder); }
 			if (sub) sub.textContent = `${prefix} by ${m} read`;
 		});
 	}
@@ -734,6 +929,126 @@ document.addEventListener('DOMContentLoaded', () => {
 	renderStatic();
 	syncSplitState();
 	renderTimeline();
+
+	// ── Scroll-triggered count-up on the six headline cards ──────────────────────
+	function setupCountUp() {
+		const nums = Array.from(document.querySelectorAll<HTMLElement>('.stat-num[data-count]'));
+		if (!nums.length || !motionOK) return; // no JS-motion → leave the SSR-final values
+		const compactFmt = new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 1 });
+		const fmtVal = (el: HTMLElement, n: number) =>
+			el.dataset.fmt === 'compact' ? compactFmt.format(n) : Math.round(n).toLocaleString('en-US');
+		const run = (el: HTMLElement) => {
+			const target = Number(el.dataset.count || '0');
+			const t0 = performance.now();
+			const step = (now: number) => {
+				const t = Math.min(1, (now - t0) / 900);
+				const eased = t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); // ease-out-expo
+				el.textContent = fmtVal(el, target * eased);
+				if (t < 1) requestAnimationFrame(step);
+			};
+			el.textContent = fmtVal(el, 0);
+			requestAnimationFrame(step);
+		};
+		const io = new IntersectionObserver((entries) => {
+			for (const e of entries) {
+				if (!e.isIntersecting) continue;
+				io.unobserve(e.target);
+				run(e.target as HTMLElement);
+			}
+		}, { threshold: 0.4 });
+		nums.forEach((el) => io.observe(el));
+	}
+
+	// ── Chart entrance: play the grow once each chart first scrolls into view ─────
+	function setupChartEntrance() {
+		if (!motionOK) return;
+		const holders = Array.from(document.querySelectorAll<HTMLElement>(
+			'.chart-holder, .rank-holder, .rating-holder, .split-holder'));
+		const io = new IntersectionObserver((entries) => {
+			for (const e of entries) {
+				if (!e.isIntersecting) continue;
+				io.unobserve(e.target);
+				const el = e.target as HTMLElement;
+				el.classList.remove('arm'); // drop the empty rest state, then play empty→fill
+				playGrow(el);
+			}
+		}, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+		// Arm each chart empty up front — runs in the same task as the initial render, so the
+		// first paint is already the empty state for below-fold charts (no filled-then-unfill).
+		holders.forEach((el) => { el.classList.add('arm'); io.observe(el); });
+	}
+
+	// ── Scroll-spy: highlight the active section in the rail + chip strip ─────────
+	function setupScrollSpy() {
+		const sections = Array.from(document.querySelectorAll<HTMLElement>('.stats-section[id]'));
+		const railLinks = new Map<string, HTMLElement>();
+		document.querySelectorAll<HTMLElement>('[data-rail]').forEach((a) => railLinks.set(a.dataset.rail!, a));
+		const chipLinks = new Map<string, HTMLElement>();
+		document.querySelectorAll<HTMLElement>('[data-chip]').forEach((a) => chipLinks.set(a.dataset.chip!, a));
+		const chipsTrack = document.querySelector<HTMLElement>('.chips-track');
+		let current = '';
+		const setActive = (id: string) => {
+			if (id === current) return;
+			current = id;
+			railLinks.forEach((a, k) => a.classList.toggle('is-active', k === id));
+			chipLinks.forEach((a, k) => {
+				const on = k === id;
+				a.classList.toggle('is-active', on);
+				if (on && chipsTrack) {
+					const left = a.offsetLeft - (chipsTrack.clientWidth - a.clientWidth) / 2;
+					chipsTrack.scrollTo({ left: Math.max(0, left), behavior: motionOK ? 'smooth' : 'auto' });
+				}
+			});
+		};
+		const io = new IntersectionObserver((entries) => {
+			const inBand = entries.filter((e) => e.isIntersecting)
+				.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+			if (inBand[0]) setActive((inBand[0].target as HTMLElement).id);
+		}, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+		sections.forEach((s) => io.observe(s));
+	}
+
+	// ── Scroll-progress bar under the header ─────────────────────────────────────
+	function setupProgress() {
+		const fill = document.querySelector<HTMLElement>('.scroll-progress span');
+		if (!fill) return;
+		let ticking = false;
+		const update = () => {
+			const h = document.documentElement;
+			const max = h.scrollHeight - h.clientHeight;
+			fill.style.transform = `scaleX(${max > 0 ? Math.min(1, h.scrollTop / max) : 0})`;
+			ticking = false;
+		};
+		window.addEventListener('scroll', () => {
+			if (!ticking) { ticking = true; requestAnimationFrame(update); }
+		}, { passive: true });
+		update();
+	}
+
+	// ── Smooth-scroll for rail + chip links (honours scroll-margin-top) ──────────
+	function setupNavClicks() {
+		document.querySelectorAll<HTMLAnchorElement>('[data-rail], [data-chip]').forEach((a) => {
+			a.addEventListener('click', (e) => {
+				const id = a.dataset.rail || a.dataset.chip;
+				const target = id ? document.getElementById(id) : null;
+				if (!target) return;
+				e.preventDefault();
+				target.scrollIntoView({ behavior: motionOK ? 'smooth' : 'auto', block: 'start' });
+				history.replaceState(null, '', `#${id}`);
+			});
+		});
+	}
+
+	setupCountUp();
+	setupChartEntrance();
+	setupScrollSpy();
+	setupProgress();
+	setupNavClicks();
+	// Re-align a deep-link target once the charts have sized themselves to their containers.
+	if (location.hash) {
+		const t = document.getElementById(location.hash.slice(1));
+		if (t) requestAnimationFrame(() => t.scrollIntoView({ block: 'start' }));
+	}
 
 	// ── World map choropleth ────────────────────────────────────────────────────
 	const countriesEl = document.getElementById('stats-countries');

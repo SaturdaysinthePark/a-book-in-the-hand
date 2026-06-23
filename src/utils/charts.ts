@@ -79,7 +79,7 @@ export function barsSVG(bars: Bar[], opts: BarsOpts = {}): string {
 		const x = padL + i * slot + (slot - barW) / 2;
 		const y = yOf(b.value);
 		const bh = padT + plotH - y;
-		g += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, bh).toFixed(1)}" rx="1.5" fill="${color}"><title>${esc(b.label)}: ${fmtV(b.value)}</title></rect>`;
+		g += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, bh).toFixed(1)}" rx="1.5" fill="${color}" style="--bar-i:${i};--bar-t:${n > 1 ? (i / (n - 1)).toFixed(4) : 0}"><title>${esc(b.label)}: ${fmtV(b.value)}</title></rect>`;
 		if (opts.showValues && b.value > 0)
 			g += `<text x="${(x + barW / 2).toFixed(1)}" y="${(y - 7).toFixed(1)}" text-anchor="middle" font-size="11" fill="var(--ink-2)">${fmtV(b.value)}</text>`;
 		const tick = opts.formatTick ? opts.formatTick(b.label, i) : b.label;
@@ -138,7 +138,7 @@ export function curveSVG(bars: Bar[], opts: BarsOpts = {}): string {
 	// area fill: curve closed down to the baseline
 	const area = `${d}L${pts[pts.length - 1].x.toFixed(1)},${baseline.toFixed(1)}L${pts[0].x.toFixed(1)},${baseline.toFixed(1)}Z`;
 	g += `<path d="${area}" fill="${color}" fill-opacity="0.12"/>`;
-	g += `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
+	g += `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" pathLength="1"/>`;
 
 	// points, value labels, x-ticks
 	bars.forEach((b, i) => {
@@ -190,7 +190,7 @@ export function stackedBarsSVG(data: Stacked, opts: StackedOpts = {}): string {
 			if (v <= 0) { acc += v; return; }
 			const yTop = yOf(acc + v);
 			const yBot = yOf(acc);
-			g += `<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, yBot - yTop).toFixed(1)}" fill="${colors[k] ?? 'var(--accent)'}"><title>${esc(data.keys[k] || '')} — ${esc(r.label)}: ${fmtV(v)}</title></rect>`;
+			g += `<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(0, yBot - yTop).toFixed(1)}" fill="${colors[k] ?? 'var(--accent)'}" style="--bar-i:${i};--bar-t:${n > 1 ? (i / (n - 1)).toFixed(4) : 0}"><title>${esc(data.keys[k] || '')} — ${esc(r.label)}: ${fmtV(v)}</title></rect>`;
 			acc += v;
 		});
 		if (opts.showTotals && totals[i] > 0)
@@ -232,7 +232,7 @@ export function hBarsSVG(bars: Bar[], opts: HBarsOpts = {}): string {
 		const yMid = padT + i * rowH + rowH / 2;
 		const len = (b.value / max) * plotW;
 		g += `<text x="${labelW - 10}" y="${(yMid + 4).toFixed(1)}" text-anchor="end" font-size="13.5" fill="var(--ink-2)" font-family="var(--sans)">${esc(b.label)}<title>${esc(b.label)}: ${fmtV(b.value)}</title></text>`;
-		g += `<rect x="${labelW}" y="${(yMid - bh / 2).toFixed(1)}" width="${Math.max(1, len).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="${opts.colors?.[i] ?? color}"/>`;
+		g += `<rect x="${labelW}" y="${(yMid - bh / 2).toFixed(1)}" width="${Math.max(1, len).toFixed(1)}" height="${bh.toFixed(1)}" rx="1.5" fill="${opts.colors?.[i] ?? color}" style="--bar-i:${i};--bar-t:${bars.length > 1 ? (i / (bars.length - 1)).toFixed(4) : 0}"/>`;
 		g += `<text x="${(labelW + len + 7).toFixed(1)}" y="${(yMid + 4).toFixed(1)}" font-size="12.5" fill="${AXIS}">${fmtV(b.value)}</text>`;
 	});
 	return frame(g, W, H, opts.ariaLabel ?? opts.title ?? 'Ranking', opts.title, opts.desc);
@@ -253,10 +253,10 @@ export function splitBarSVG(parts: { label: string; value: number; color: string
 	const total = parts.reduce((a, p) => a + p.value, 0) || 1;
 	let x = 0;
 	let g = '';
-	parts.forEach((p) => {
+	parts.forEach((p, k) => {
 		const w = (p.value / total) * W;
 		const pct = Math.round((p.value / total) * 100);
-		g += `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="${H}" fill="${p.color}"><title>${esc(p.label)}: ${fmtInt(p.value)} (${pct}%)</title></rect>`;
+		g += `<rect x="${x.toFixed(1)}" y="0" width="${w.toFixed(1)}" height="${H}" fill="${p.color}" style="--bar-i:${k};--bar-t:${parts.length > 1 ? (k / (parts.length - 1)).toFixed(4) : 0}"><title>${esc(p.label)}: ${fmtInt(p.value)} (${pct}%)</title></rect>`;
 		if (w > 56)
 			g += `<text x="${(x + w / 2).toFixed(1)}" y="${H / 2 + 4.5}" text-anchor="middle" font-size="13" fill="var(--paper)" font-family="var(--sans)">${pct}%</text>`;
 		x += w;
