@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import '../styles/magazine.css';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, GA_MEASUREMENT_ID } from '../consts';
 
 interface Props {
 	title: string;
@@ -68,11 +68,23 @@ const ogUrl = new URL(ogImage, Astro.site);
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={ogUrl} />
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JNR91EN6Y4"></script>
+<!-- Google Analytics (production only; measurement ID from src/consts.ts) -->
+{import.meta.env.PROD && GA_MEASUREMENT_ID && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+    <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+      // define:vars wraps this in an IIFE, so assign gtag to window explicitly
+      // (a plain `function gtag(){}` here would be scoped to the IIFE, not global).
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID);
+    </script>
+  </>
+)}
+
+<!-- Custom analytics events (outbound clicks; no-ops when GA is absent) -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-JNR91EN6Y4');
+  import { initOutboundTracking } from '../utils/analytics';
+  initOutboundTracking();
 </script>

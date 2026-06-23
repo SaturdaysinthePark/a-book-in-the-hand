@@ -1,5 +1,9 @@
 export const SITE_TITLE = 'Saturdays in a Book';
 export const SITE_DESCRIPTION = 'A reading log from Brooklyn — reviews, lists, and recommendations.';
+
+// GA4 measurement ID. Override per-environment with PUBLIC_GA_ID (see .env.example);
+// falls back to the prod stream. Not a secret — it ships in the page HTML either way.
+export const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_ID || 'G-JNR91EN6Y4';
 // Homepage-only description: drives the link-preview gray strip + the homepage <meta
 // description>. Kept separate from SITE_DESCRIPTION so the RSS feed and blog archive keep
 // the neutral line (this one ends in a call-to-action).

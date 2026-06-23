@@ -447,6 +447,8 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 </style>
 
 <script>
+import { track } from '../../utils/analytics';
+
 document.addEventListener('DOMContentLoaded', () => {
 
 	// ── Stick filter bar below header
@@ -752,11 +754,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		const group = document.getElementById(containerId);
 		if (!group) return;
 		group.querySelectorAll<HTMLButtonElement>('.fb-seg-btn').forEach(btn => {
-			btn.addEventListener('click', () => {
+			btn.addEventListener('click', (e) => {
 				group.querySelectorAll('.fb-seg-btn').forEach(b => b.classList.remove('is-on'));
 				btn.classList.add('is-on');
 				onPick(btn);
 				applyFilters();
+				// Only log real user clicks — URL-param preselects fire a synthetic .click().
+				if (e.isTrusted) {
+					const type = btn.dataset.genre !== undefined ? 'genre' : 'status';
+					track('filter_reviews', { filter_type: type, filter_value: btn.dataset.genre ?? btn.dataset.status ?? 'all' });
+				}
 			});
 		});
 	}
@@ -771,7 +778,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		listEl: HTMLElement,
 		valueEl: HTMLElement,
 		searchInput: HTMLInputElement,
-		onSelect: (val: string) => void
+		onSelect: (val: string) => void,
+		trackType: string
 	) {
 		let selected = '';
 
@@ -825,7 +833,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		btnEl.addEventListener('click', (e) => {
-			if ((e.target as HTMLElement).closest('.fb-combo-x')) { select(''); return; }
+			if ((e.target as HTMLElement).closest('.fb-combo-x')) {
+				select('');
+				track('filter_reviews', { filter_type: trackType, filter_value: '' });
+				return;
+			}
 			comboEl.classList.contains('is-open') ? close() : open();
 		});
 		searchInput.addEventListener('input', () => filterOpts(searchInput.value));
@@ -833,7 +845,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			const opt = (e.target as HTMLElement).closest<HTMLButtonElement>('.fb-combo-opt');
 			if (opt) {
 				const val = opt.dataset.author || opt.dataset.tag || opt.dataset.subgenre || '';
-				select(selected === val ? '' : val);
+				const newVal = selected === val ? '' : val;
+				select(newVal);
+				track('filter_reviews', { filter_type: trackType, filter_value: newVal });
 			}
 		});
 		document.addEventListener('click', (e) => {
@@ -856,7 +870,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		authorApi = setupCombo(authorCombo, authorBtn, authorPop, authorList, authorVal, authorSearch, val => {
 			activeAuthor = val;
 			applyFilters();
-		});
+		}, 'author');
 	}
 
 	// Subgenre combobox
@@ -871,7 +885,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		subgenreApi = setupCombo(subgenreCombo, subgenreBtn, subgenrePop, subgenreList, subgenreVal, subgenreSearch, val => {
 			activeSubgenre = val;
 			applyFilters();
-		});
+		}, 'subgenre');
 	}
 
 	// ── View toggle

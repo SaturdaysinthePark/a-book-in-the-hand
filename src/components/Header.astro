@@ -83,6 +83,7 @@ const isActive = (path: string) =>
 <script>
 import Fuse from 'fuse.js';
 import type { SearchEntry, SearchIndex } from '../utils/search';
+import { track } from '../utils/analytics';
 
 document.addEventListener('DOMContentLoaded', () => {
 	const header    = document.getElementById('site-header')!;
@@ -175,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const sub = e.subtitle ? `<span class="sr-sub">${esc(e.subtitle)}</span>` : '';
 		const tag = !clickable ? '<span class="sr-soon">coming soon</span>' : '';
 		const attrs = clickable
-			? `data-url="${esc(e.url!)}" data-nav="${navIdx}" tabindex="-1"`
+			? `data-url="${esc(e.url!)}" data-type="${e.type}" data-nav="${navIdx}" tabindex="-1"`
 			: 'aria-disabled="true"';
 		return `<div class="search-result${clickable ? '' : ' is-disabled'}" role="option" ${attrs}>
 			<span class="sr-title">${esc(e.title)}</span>${sub}${tag}
@@ -258,15 +259,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Debounce input a touch so we don't re-render on every keystroke burst.
 	let t = 0;
+	let trackT = 0;
+	let lastTrackedTerm = '';
 	searchInput.addEventListener('input', () => {
 		clearTimeout(t);
 		t = window.setTimeout(() => runSearch(searchInput.value), 80);
+		// Log the search term once typing settles — intent, not keystrokes. GA4's built-in
+		// `search` event with `search_term` powers the Site-Search report.
+		clearTimeout(trackT);
+		trackT = window.setTimeout(() => {
+			const q = searchInput.value.trim();
+			if (q.length >= 2 && q !== lastTrackedTerm) {
+				lastTrackedTerm = q;
+				track('search', { search_term: q });
+			}
+		}, 700);
 	});
+
+	// Navigate to a chosen result, logging which one was picked.
+	function selectResult(url: string, type?: string) {
+		track('select_search_result', {
+			search_term: searchInput.value.trim(),
+			result_type: type ?? '',
+			link_url: url,
+		});
+		window.location.href = url;
+	}
 
 	// Mouse interaction on result rows (event-delegated; rows are re-rendered).
 	resultsEl.addEventListener('click', (e) => {
 		const row = (e.target as HTMLElement).closest<HTMLElement>('.search-result[data-url]');
-		if (row) window.location.href = row.dataset.url!;
+		if (row) selectResult(row.dataset.url!, row.dataset.type);
 	});
 	resultsEl.addEventListener('mousemove', (e) => {
 		const row = (e.target as HTMLElement).closest<HTMLElement>('.search-result[data-nav]');
@@ -309,7 +332,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			e.preventDefault();
 			setActive(activeIdx <= 0 ? navUrls.length - 1 : activeIdx - 1);
 		} else if (e.key === 'Enter') {
-			if (activeIdx >= 0 && navUrls[activeIdx]) window.location.href = navUrls[activeIdx];
+			if (activeIdx >= 0 && navUrls[activeIdx]) {
+				const row = resultsEl.querySelector<HTMLElement>(`.search-result[data-nav="${activeIdx}"]`);
+				selectResult(navUrls[activeIdx], row?.dataset.type);
+			}
 		}
 	});
 
