@@ -67,19 +67,32 @@ function stars(n: number) {
 		<BaseHead title={pageTitle} description={pageDesc} type="article" ogImage={ogImage} />
 
 		{postType === 'review' && bookTitle && author && rating && (
-			<script type="application/ld+json">
-				{JSON.stringify({
-					"@context": "https://schema.org",
-					"@type": "Review",
-					"itemReviewed": { "@type": "Book", "name": bookTitle, "author": { "@type": "Person", "name": author }, "image": heroImage },
-					"reviewRating": { "@type": "Rating", "ratingValue": rating, "bestRating": 5, "worstRating": 1 },
-					"author": { "@type": "Person", "name": "Sabtain Khan" },
-					"datePublished": pubDate.toISOString().split('T')[0],
-					"description": description,
-					"url": Astro.url.href
-				})}
-			</script>
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Review",
+				"itemReviewed": { "@type": "Book", "name": bookTitle, "author": { "@type": "Person", "name": author }, "image": heroImage },
+				"reviewRating": { "@type": "Rating", "ratingValue": rating, "bestRating": 5, "worstRating": 1 },
+				"author": { "@type": "Person", "name": "Sabtain Khan" },
+				"datePublished": pubDate.toISOString().split('T')[0],
+				"description": description,
+				"url": Astro.url.href
+			})} />
 		)}
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "BreadcrumbList",
+			"itemListElement": [
+				{ "@type": "ListItem", "position": 1, "name": "Home", "item": new URL("/", Astro.site).href },
+				{
+					"@type": "ListItem",
+					"position": 2,
+					"name": postType === 'list' ? "Lists" : "Book Reviews",
+					"item": new URL(postType === 'list' ? "/my-lists" : "/book-reviews", Astro.site).href,
+				},
+				{ "@type": "ListItem", "position": 3, "name": title, "item": Astro.url.href },
+			],
+		})} />
 	</head>
 
 	<body>

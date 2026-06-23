@@ -14,6 +14,17 @@ const totalBooksRead = shelfData.length;
 <html lang="en">
 	<head>
 		<BaseHead title="About — Saturdays in a Book" description="Sabtain Khan, reading in Brooklyn. Reviews, lists, and recommendations." ogImage="/og/default.png" />
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"@id": new URL("#person", Astro.site).href,
+			"name": "Sabtain Khan",
+			"url": new URL("/about/", Astro.site).href,
+			"image": new URL("/sk-notion-face.png", Astro.site).href,
+			"description": "Reader in Brooklyn writing honest book reviews, lists, and recommendations across literary fiction, science fiction, fantasy, classics, and nonfiction.",
+			"knowsAbout": ["books", "literary criticism", "reading", "book reviews"],
+			"sameAs": ["https://www.goodreads.com/saturdays"]
+		})} />
 	</head>
 	<body>
 		<Header />
