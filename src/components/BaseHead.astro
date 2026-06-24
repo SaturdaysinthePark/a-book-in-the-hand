@@ -83,8 +83,9 @@ const ogUrl = new URL(ogImage, Astro.site);
   </>
 )}
 
-<!-- Custom analytics events (outbound clicks; no-ops when GA is absent) -->
+<!-- Custom analytics events (outbound + internal content clicks; no-ops when GA is absent) -->
 <script>
-  import { initOutboundTracking } from '../utils/analytics';
+  import { initOutboundTracking, initContentClickTracking } from '../utils/analytics';
   initOutboundTracking();
+  initContentClickTracking();
 </script>

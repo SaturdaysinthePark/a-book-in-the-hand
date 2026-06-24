@@ -35,3 +35,32 @@ export function initOutboundTracking(): void {
 		}
 	}, { capture: true });
 }
+
+/**
+ * Delegated internal content-click tracking. Call once, globally (from BaseHead).
+ * Fires a `select_content` event when an internal link to a content page is clicked,
+ * capturing which item was opened and the page the click came from. This is the click
+ * *intent* on top of the automatic `page_view` that fires when the destination loads.
+ *
+ * Search-result rows are <div>s (not <a>) and are already covered by `select_search_result`,
+ * so they don't double-count here.
+ */
+export function initContentClickTracking(): void {
+	if (typeof document === 'undefined') return;
+	document.addEventListener('click', (e) => {
+		const a = (e.target as HTMLElement)?.closest?.('a');
+		const href = a?.getAttribute('href') ?? '';
+		if (!href.startsWith('/')) return; // internal, root-relative links only
+		let content_type = '';
+		if (href.startsWith('/blog/')) content_type = 'post';        // reviews + lists
+		else if (href.startsWith('/authors/')) content_type = 'author';
+		else if (href.startsWith('/tags/')) content_type = 'tag';
+		else return;                                                  // not a content link we track
+		track('select_content', {
+			content_type,
+			item_id: href,
+			link_text: a!.textContent?.trim().slice(0, 100),
+			source_path: location.pathname,
+		});
+	}, { capture: true });
+}
