@@ -287,6 +287,15 @@ html.fx-on .hx-screen {
 /* The experience is self-contained under fx; the global footer is for the fallback only. */
 html.fx-on body .ftr { display: none; }
 
+/* Lock the page to the viewport in fx mode. The experience + fixed thin footer
+   fill the screen exactly and there is no content below them, so any native
+   scroll only exposes empty space under the footer — worst on mobile, where
+   100vh > 100svh once the address bar hides, and the body's min-height:100vh
+   floor leaves a scrollable gap. The peel engine is entirely wheel/touch-driven,
+   so removing native scroll does not change the choreography. */
+html.fx-on { height: 100svh; overflow: hidden; overscroll-behavior: none; }
+html.fx-on body { height: 100svh; min-height: 0; overflow: hidden; }
+
 /* Persistent thin footer pinned at the bottom of the experience */
 .hx-foot { display: none; }
 html.fx-on .hx-foot {
