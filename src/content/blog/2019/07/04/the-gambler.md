@@ -1,9 +1,9 @@
 ---
 title: 'Review: The Gambler'
-description: 'A thoughtful review of The Gambler by Fyodor Dostoevsky'
+description: 'A thoughtful review of The Gambler by Fyodor Dostoyevsky'
 pubDate: 2019-07-04
 bookTitle: 'The Gambler'
-author: 'Fyodor Dostoevsky'
+author: 'Fyodor Dostoyevsky'
 rating: 3
 readingTime: 1
 purchaseLink: 'https://bookshop.org/books/the-gambler/9781785996283'

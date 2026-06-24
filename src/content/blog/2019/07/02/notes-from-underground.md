@@ -1,9 +1,9 @@
 ---
 title: 'Review: Notes from Underground'
-description: 'A thoughtful review of Notes from Underground by Fyodor Dostoevsky'
+description: 'A thoughtful review of Notes from Underground by Fyodor Dostoyevsky'
 pubDate: 2019-07-02
 bookTitle: 'Notes from Underground'
-author: 'Fyodor Dostoevsky'
+author: 'Fyodor Dostoyevsky'
 rating: 4
 readingTime: 1
 purchaseLink: 'https://bookshop.org/books/notes-from-underground/9780679734529'
