@@ -7,7 +7,7 @@ author: "Sabtain"
 postType: "list"
 status: "live"
 tags: ["2025", "year-end list", "recommendations", "favorites"]
-heroImage: "TK"
+heroImage: "/book-covers/top-books-i-read-in-2025.png"
 picks:
   - bookTitle: "Taiwan Travelogue"
     author: "Yáng Shuāng-zǐ"

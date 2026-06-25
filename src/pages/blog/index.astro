@@ -6,7 +6,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
-const posts = (await getCollection('blog', ({ data }) => data.status === 'live')).sort(
+// Reviews-only listing — lists live in /my-lists, not here.
+const posts = (await getCollection('blog', ({ data }) => data.status === 'live' && data.postType !== 'list')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
@@ -32,7 +33,7 @@ const posts = (await getCollection('blog', ({ data }) => data.status === 'live')
 					<article class="post-item" data-title={post.data.title.toLowerCase()} data-author={post.data.author ? post.data.author.toLowerCase() : ''} data-book-title={post.data.bookTitle ? post.data.bookTitle.toLowerCase() : ''}>
 						<a href={`/blog/${post.id.replace(/\/(\d{2})-/, '/$1/')}/`} class="post-link">
 							<div class="post-image">
-								{post.data.heroImage ? (
+								{post.data.heroImage && post.data.heroImage !== 'TK' ? (
 									<img src={post.data.heroImage} alt={post.data.bookTitle || post.data.title} />
 								) : (
 									<div class="placeholder-image">

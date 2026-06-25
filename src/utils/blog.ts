@@ -7,6 +7,23 @@ export function getBlogUrl(postId: string): string {
 }
 
 /**
+ * Minimal inline-markdown → HTML for short author-written strings (list-pick
+ * blurbs). Supports paragraphs (blank-line separated), **bold** and *italics*.
+ * Plain text passes through as a single <p>, so existing plain blurbs are
+ * unaffected. Input is the author's own content; output is used with set:html.
+ */
+export function mdLite(src?: string | null): string {
+  if (!src) return '';
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return src.trim().split(/\n{2,}/).map((para) =>
+    '<p>' + esc(para)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+      .replace(/\n/g, '<br>') + '</p>'
+  ).join('');
+}
+
+/**
  * Deterministic palette for CSS-drawn book covers (used when a book has no real
  * cover image). The same seed always maps to the same colour, so a given title
  * looks identical everywhere it appears.

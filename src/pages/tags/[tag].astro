@@ -8,7 +8,7 @@ import PageMasthead from '../../components/PageMasthead.astro';
 import { getBlogUrl, tagsForPost } from '../../utils/blog';
 
 export async function getStaticPaths() {
-	const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
+	const allPosts = await getCollection('blog', ({ data }) => data.status === 'live' && data.postType !== 'list');
 
 	const authorSlugs = new Set<string>();
 	allPosts.forEach(post => {
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const allPosts = await getCollection('blog', ({ data }) => data.status === 'live');
+const allPosts = await getCollection('blog', ({ data }) => data.status === 'live' && data.postType !== 'list');
 
 const authorSlugs = new Set<string>();
 allPosts.forEach(post => {

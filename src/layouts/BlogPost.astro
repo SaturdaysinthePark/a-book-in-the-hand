@@ -5,10 +5,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { filterDisplayTags } from '../utils/blog';
+import { filterDisplayTags, mdLite } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
 
-type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string };
+type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string };
 
 const {
 	title,
@@ -24,8 +24,10 @@ const {
 	tags,
 	postType = 'review',
 	picks,
+	ranked,
 	publishYear,
 	ogImage,
+	body,
 } = Astro.props;
 
 const authorSlug    = author ? author.toLowerCase().replace(/\s+/g, '-') : '';
@@ -45,6 +47,21 @@ if (picks?.length) {
 		const hero = heroBySlug.get(slug);
 		return hero ? { ...pick, cover: hero } : pick;
 	});
+}
+
+// List posts: the markdown body can carry an intro (above the picks) and an
+// ending (below them), split by a `<!--picks-->` marker. No marker → the whole
+// body is the ending (today's behaviour). Empty sections simply don't render.
+let introHtml = '';
+let outroHtml = '';
+if (postType === 'list' && body) {
+	const [before, ...after] = body.split(/<!--\s*picks\s*-->/i);
+	const introMd = after.length ? before : '';
+	const outroMd = after.length ? after.join('') : before;
+	const { createMarkdownProcessor } = await import('@astrojs/markdown-remark');
+	const processor = await createMarkdownProcessor({ gfm: true, smartypants: true });
+	if (introMd.trim()) introHtml = (await processor.render(introMd)).code;
+	if (outroMd.trim()) outroHtml = (await processor.render(outroMd)).code;
 }
 
 // Deterministic cover color for books without photos
@@ -156,12 +173,14 @@ function stars(n: number) {
 							{updatedDate && <p class="lp-meta">Updated <FormattedDate date={updatedDate} /></p>}
 						</div>
 
+						{introHtml && <div class="list-prose lp-intro" set:html={introHtml} />}
+
 						{resolvedPicks && resolvedPicks.length > 0 && (
-							<div class="lp-entries">
+							<div class={`lp-entries${ranked === false ? ' is-unranked' : ''}`}>
 								{resolvedPicks.map((pick, i) => {
 									return (
 										<article class="lp-entry">
-											<div class="lp-num">{String(i + 1).padStart(2, '0')}</div>
+											{ranked !== false && <div class="lp-num">{String(i + 1).padStart(2, '0')}</div>}
 											<div class="lp-title-mobile"><h3>{pick.bookTitle}</h3></div>
 											<div class="lp-cover">
 												{pick.reviewUrl ? (
@@ -180,7 +199,8 @@ function stars(n: number) {
 														{pick.rating && <> · {stars(pick.rating)}</>}
 													</div>
 												)}
-												{pick.blurb && <p>{pick.blurb}</p>}
+												{pick.meta && <div class="lp-pubmeta">{pick.meta}</div>}
+												{pick.blurb && <div class="lp-blurb" set:html={mdLite(pick.blurb)} />}
 												{pick.pull && <p class="lp-pull">"{pick.pull}"</p>}
 												{pick.reviewUrl && <a class="lp-read" href={pick.reviewUrl}>Read the full review →</a>}
 											</div>
@@ -190,9 +210,7 @@ function stars(n: number) {
 							</div>
 						)}
 
-						<div class="list-prose">
-							<slot />
-						</div>
+						{outroHtml && <div class="list-prose lp-outro" set:html={outroHtml} />}
 					</div>
 				</div>
 			)}
