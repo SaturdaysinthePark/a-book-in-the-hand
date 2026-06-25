@@ -1,8 +1,8 @@
 ---
-title: "Ten Books Publishing in 2026 I'm Looking Forward To"
+title: "Ten 2026 Releases I'm Looking Forward To"
 description: "Ten 2026 releases I'm most excited about from Min Jin Lee (the author of Pachinko) to Emily St. John Mandel (author of Station Eleven)."
 pubDate: 2026-06-23
-bookTitle: "Ten Books Publishing in 2026 I'm Looking Forward To"
+bookTitle: "Ten 2026 Releases I'm Looking Forward To"
 author: "Sabtain"
 postType: "list"
 status: "live"

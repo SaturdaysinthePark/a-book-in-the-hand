@@ -65,7 +65,7 @@ const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) 
 		{featured && (
 			<a class="hx-s01__rb" id="hx-s01-rb" href={featured.url} aria-label={featured.title}>
 				<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(34px,4.5vw,62px);color:rgba(243,236,224,.13);right:14px;top:14px;">03</span>
-				<h2 set:html={featured.title.replace(/ (?=\S+$)/, '<br/>')}></h2>
+				<h2>{featured.title}</h2>
 				{featured.blurb && <p class="hx-s01__rb-blurb">{featured.blurb}</p>}
 				<div class="hx-s01__rb-books">
 					{featured.picks.slice(0, 6).map((p) => (
