@@ -1,15 +1,13 @@
 ---
+import { FOOTER } from '../consts';
 const year = new Date().getFullYear();
 ---
 
 <footer class="ftr">
-	<div class="shell ftr-row">
-		<span>© Sabtain Khan {year}</span>
-		<a href="/rss.xml">RSS</a>
-		<a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer"> Add me on Goodreads</a>
-	</div>
-	<div class="ftr-colophon shell">
-		<span>Built with Astro · Tailwind</span>
-		<span>Typeset in Newsreader · Geist</span>
+	<div class="ftr-row">
+		<span>© {FOOTER.owner} {year}</span>
+		<a href={FOOTER.rssUrl}>RSS</a>
+		<a href={FOOTER.goodreadsUrl} target="_blank" rel="noopener noreferrer">{FOOTER.goodreadsLabel}</a>
+		<span class="ftr-colophon">{FOOTER.colophon}</span>
 	</div>
 </footer>

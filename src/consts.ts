@@ -1,6 +1,18 @@
 export const SITE_TITLE = 'Saturdays in a Book';
 export const SITE_DESCRIPTION = 'A reading log from Brooklyn — reviews, lists, and recommendations.';
 
+// Single source of truth for footer content. Consumed by both the shared
+// Footer.astro (interior pages + homepage fallback) and the fixed homepage bar
+// (.hx-foot in HomeExperience.astro), so the two can't drift apart. The year is
+// computed at render time, not stored here.
+export const FOOTER = {
+  owner: 'Sabtain Khan',
+  rssUrl: '/rss.xml',
+  goodreadsUrl: 'https://www.goodreads.com/saturdays',
+  goodreadsLabel: 'Add me on Goodreads',
+  colophon: 'Built with Astro · Typeset in Newsreader & Geist',
+};
+
 // GA4 measurement ID. Override per-environment with PUBLIC_GA_ID (see .env.example);
 // falls back to the prod stream. Not a secret — it ships in the page HTML either way.
 export const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_ID || 'G-JNR91EN6Y4';

@@ -3,6 +3,7 @@
 // crawlable, server-side content in normal flow (the accessible fallback), and —
 // when JS + motion are available — enhances into the scroll-choreographed view.
 import '../../styles/home.css';
+import { FOOTER } from '../../consts';
 import ScreenLatest from './ScreenLatest.astro';
 import ScreenRecent from './ScreenRecent.astro';
 import ScreenLists from './ScreenLists.astro';
@@ -52,10 +53,10 @@ const year = new Date().getFullYear();
 </div>
 
 <footer class="hx-foot" aria-label="Site footer">
-	<span>© Sabtain Khan {year}</span>
-	<a href="/rss.xml">RSS</a>
-	<a href="https://www.goodreads.com/saturdays" target="_blank" rel="noopener noreferrer">Goodreads</a>
-	<span class="hx-foot__colophon">Built with Astro · Typeset in Newsreader &amp; Geist</span>
+	<span>© {FOOTER.owner} {year}</span>
+	<a href={FOOTER.rssUrl}>RSS</a>
+	<a href={FOOTER.goodreadsUrl} target="_blank" rel="noopener noreferrer">{FOOTER.goodreadsLabel}</a>
+	<span class="hx-foot__colophon">{FOOTER.colophon}</span>
 </footer>
 
 <div id="hx-section-ind" aria-hidden="true">01 — Latest Review</div>

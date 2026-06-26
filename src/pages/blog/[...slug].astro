@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import { render } from 'astro:content';
-import { tagsForPost } from '../../utils/blog';
+import { subgenresForPost } from '../../utils/blog';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog', ({ data }) => data.status === 'live');
@@ -16,15 +16,15 @@ type Props = CollectionEntry<'blog'>;
 const post = Astro.props;
 const { Content } = await render(post);
 
-// For review posts with a shelf entry, use shelf subgenres as tags.
-// Non-review posts (lists, discussions) keep their frontmatter tags.
-const tags = tagsForPost(post, new Set());
+// Sidebar genre links use the book's shelf subgenres ([] for posts with no shelf
+// entry, e.g. non-review posts or off-shelf editions).
+const genres = subgenresForPost(post);
 
 const ogImage = post.data.postType === 'review' ? `/og/reviews/${post.id}.png`
 	: post.data.postType === 'list' ? `/og/lists/${post.id}.png`
 	: undefined;
 ---
 
-<BlogPost {...post.data} tags={tags} ogImage={ogImage} body={post.body}>
+<BlogPost {...post.data} genres={genres} ogImage={ogImage} body={post.body}>
 	{post.data.postType !== 'list' && <Content />}
 </BlogPost>

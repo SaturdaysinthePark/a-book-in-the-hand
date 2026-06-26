@@ -66,6 +66,17 @@ export function tagsForPost(post: CollectionEntry<'blog'>, authorSlugs: Set<stri
 }
 
 /**
+ * Shelf subgenres for a review post (matched by goodreadsId), used for the
+ * clickable genre links in the review sidebar. Returns [] when the book has no
+ * shelf entry (off-shelf editions, non-review posts) — only real subgenres,
+ * which are valid `/book-reviews?subgenre=` filter values, become links.
+ */
+export function subgenresForPost(post: CollectionEntry<'blog'>): string[] {
+  const gid = post.data.goodreadsId ? String(post.data.goodreadsId) : '';
+  return (gid && _shelfByGid.get(gid)) || [];
+}
+
+/**
  * Filters out junk tags: years (e.g. '2022'), author slugs, and 'general'.
  * Pass the post's author name to also exclude that author's slug from tags.
  */

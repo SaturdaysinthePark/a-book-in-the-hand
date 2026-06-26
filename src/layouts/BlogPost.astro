@@ -5,10 +5,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import { filterDisplayTags, mdLite } from '../utils/blog';
+import { mdLite } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
 
-type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string };
+type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string; genres?: string[] };
 
 const {
 	title,
@@ -21,18 +21,14 @@ const {
 	genre,
 	rating,
 	purchaseLink,
-	tags,
 	postType = 'review',
 	picks,
 	ranked,
 	publishYear,
 	ogImage,
 	body,
+	genres = [],
 } = Astro.props;
-
-const authorSlug    = author ? author.toLowerCase().replace(/\s+/g, '-') : '';
-const authorSlugs   = new Set(authorSlug ? [authorSlug] : []);
-const displayTags   = tags ? filterDisplayTags(tags, authorSlugs) : [];
 
 // Resolve pick covers from linked review posts when cover is absent
 let resolvedPicks = picks;
@@ -131,7 +127,7 @@ function stars(n: number) {
 								{bookTitle && <h2>{bookTitle}</h2>}
 								{author && (
 									<p class="by">
-										by <a href={`/authors/${authorSlug}/`}>{author}</a>
+										by <a href={`/book-reviews?author=${encodeURIComponent(author)}`}>{author}</a>
 									</p>
 								)}
 								{rating && (
@@ -145,10 +141,15 @@ function stars(n: number) {
 								)}
 								<div class="meta-list">
 									{publishYear && <div><span>Published</span><strong>{publishYear}</strong></div>}
-									{genre && <div><span>Genre</span><strong>{genre}</strong></div>}
-									{displayTags.length > 0 && (
-										<div><span>Tags</span><strong>{displayTags.slice(0, 3).join(', ')}</strong></div>
-									)}
+									{genres.length > 0 ? (
+									<div><span>Genre</span><strong class="genres">
+										{genres.map((g, i) => (
+											<>{i > 0 && ', '}<a href={`/book-reviews?subgenre=${encodeURIComponent(g)}`}>{g}</a></>
+										))}
+									</strong></div>
+								) : genre ? (
+									<div><span>Genre</span><strong>{genre}</strong></div>
+								) : null}
 								</div>
 							</aside>
 

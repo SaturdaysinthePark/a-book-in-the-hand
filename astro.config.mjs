@@ -31,7 +31,10 @@ export default defineConfig({
     sitemap({
       // /drafts is a dev-only preview (noindex + redirects to /404 in prod); keep it out
       // of the sitemap entirely.
-      filter: (page) => !page.includes('/drafts'),
+      filter: (page) =>
+        !page.includes('/drafts') &&
+        !page.includes('/authors/') && // redirect stubs → filtered shelf
+        !page.includes('/tags/'), // dormant, unlinked tag pages
       serialize(item) {
         let pathname;
         try {
