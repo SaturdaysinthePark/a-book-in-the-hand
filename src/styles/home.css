@@ -311,6 +311,12 @@ html.fx-on .hx-foot {
 html.fx-on .hx-foot a { color: var(--ink-2); transition: color 200ms; }
 html.fx-on .hx-foot a:hover { color: var(--accent); }
 html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
+.hf-gl-short { display: none; }
+html.fx-on .hx-foot .hf-gl-full { display: inline; }
+@media (max-width: 640px) {
+  html.fx-on .hx-foot .hf-gl-full  { display: none; }
+  html.fx-on .hx-foot .hf-gl-short { display: inline; }
+}
 /* Constrain the single grid row to the screen height so the left panel (tall cover
    + text) can't overflow past the fold — without this the auto row grows to the
    content height and the §01 watermark / scroll hint drop below the viewport. The
