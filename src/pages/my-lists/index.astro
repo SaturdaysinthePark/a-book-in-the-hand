@@ -17,7 +17,7 @@ const moreLists     = posts.slice(6);     // "more lists" table
 
 // Per-position cell styling, echoing the homepage §05–08 cells.
 const CELL_STYLES = [
-	{ color: 'green', cols: 4, max: 4, caps: false },
+	{ color: 'green', cols: 6, max: 6, caps: false },
 	{ color: 'cream', cols: 5, max: 5, caps: true  },
 	{ color: 'rust',  cols: 4, max: 4, caps: false },
 	{ color: 'dark',  cols: 3, max: 3, caps: false },
@@ -86,6 +86,10 @@ const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', y
 			{posts.length === 0 && (
 				<div class="bleed"><div class="empty">No lists yet — check back soon.</div></div>
 			)}
+
+			<div class="lists-teaser">
+				Stay tuned for more recommendations and lists...
+			</div>
 		</main>
 		<Footer />
 
@@ -98,8 +102,17 @@ const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', y
 </html>
 
 <style>
-main { padding-bottom: clamp(48px, 6vw, 88px); }
 .lists-more { margin-top: clamp(40px, 5vw, 72px); }
+.lists-teaser {
+	border-top: var(--seam) solid var(--ink);
+	padding: clamp(20px, 3vw, 36px) clamp(28px, 5vw, 80px);
+	font-family: var(--mono);
+	font-size: 10px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+	text-align: center;
+}
 </style>
 
 <script>
