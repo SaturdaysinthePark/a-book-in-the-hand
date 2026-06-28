@@ -9,7 +9,7 @@ export const FOOTER = {
   owner: 'Sabtain Khan',
   rssUrl: '/rss.xml',
   goodreadsUrl: 'https://www.goodreads.com/saturdays',
-  goodreadsLabel: 'Add me on Goodreads',
+  goodreadsLabel: 'Goodreads',
   colophon: 'Built with Astro · Typeset in Newsreader & Geist',
 };
 

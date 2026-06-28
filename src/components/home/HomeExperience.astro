@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
 <footer class="hx-foot" aria-label="Site footer">
 	<span>© {FOOTER.owner} {year}</span>
 	<a href={FOOTER.rssUrl} aria-label="RSS Feed"><svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:4px;margin-top:-1px"><circle cx="2" cy="9" r="1.4" fill="currentColor"/><path d="M1.5 5.5a5 5 0 0 1 5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M1.5 1.5a9 9 0 0 1 9 9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>RSS</a>
-	<a href={FOOTER.goodreadsUrl} target="_blank" rel="noopener noreferrer">+ <span class="hf-gl-full">{FOOTER.goodreadsLabel}</span><span class="hf-gl-short">Goodreads</span></a>
+	<a href={FOOTER.goodreadsUrl} target="_blank" rel="noopener noreferrer">+ {FOOTER.goodreadsLabel}</a>
 	<span class="hx-foot__colophon">{FOOTER.colophon}</span>
 </footer>
 

@@ -311,11 +311,10 @@ html.fx-on .hx-foot {
 html.fx-on .hx-foot a { color: var(--ink-2); transition: color 200ms; }
 html.fx-on .hx-foot a:hover { color: var(--accent); }
 html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
-.hf-gl-short { display: none; }
-html.fx-on .hx-foot .hf-gl-full { display: inline; }
-@media (max-width: 640px) {
-  html.fx-on .hx-foot .hf-gl-full  { display: none; }
-  html.fx-on .hx-foot .hf-gl-short { display: inline; }
+/* Tablet (701–1024px): colophon is too long for the 34px fixed bar — hide it,
+   matching what mobile already does. */
+@media (min-width: 701px) and (max-width: 1024px) {
+  html.fx-on .hx-foot__colophon { display: none; }
 }
 /* Constrain the single grid row to the screen height so the left panel (tall cover
    + text) can't overflow past the fold — without this the auto row grows to the
@@ -433,6 +432,15 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 
 	html.fx-on .hx-s02__bot { border-top: 0; }
 	.hx-s02__row { --bw: clamp(100px, 14vh, 140px); }
+	/* 48/52 split compensates for the heading in the top section: the bottom section
+	   gets the extra height so both sections have equal effective book-row space.
+	   Top: flex-end sinks row 1 to the seam, leaving ~83px above the books (below heading).
+	   Bot: center distributes the remaining space evenly — ~89px above and below row 2.
+	   All three gaps (nav→row1, row1→row2, row2→footer) land in the 83–94px range. */
+	html.fx-on .hx-s02__top { height: 48%; }
+	html.fx-on .hx-s02__bot { height: 52%; }
+	html.fx-on .hx-s02__top .hx-s02__rowwrap { align-items: flex-end; padding-bottom: 0; }
+	html.fx-on .hx-s02__bot .hx-s02__rowwrap { align-items: center; }
 
 	/* §03 horizontal carousel track (display:flex set by the engine) */
 	html.fx-on .hx-s03 { right: auto; width: 400vw; gap: 0; grid-template-columns: none; flex-direction: row; transform-origin: left center; }
