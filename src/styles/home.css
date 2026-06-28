@@ -431,7 +431,14 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	html.fx-on .hx-meta-date { display: none; }
 
 	html.fx-on .hx-s02__bot { border-top: 0; }
-	.hx-s02__row { --bw: clamp(100px, 14vh, 140px); }
+	/* Compact the head so it doesn't eat too much of the top section's 50% height.
+	   The num+title text is ~30px; 8+5px padding caps the head at ~43px (was ~64px),
+	   giving the top rowwrap ~21px of extra clearance on real devices. */
+	html.fx-on .hx-s02__head { padding-top: 8px; padding-bottom: 5px; }
+	/* svh = small viewport height (accounts for Safari's address/tab bars on real
+	   devices). 13svh instead of 14svh + lower floor (72→80px) keeps covers
+	   proportionate while giving the rowwrap comfortable margin on small phones. */
+	.hx-s02__row { --bw: clamp(72px, 13svh, 110px); }
 	/* 50/50 split + center on both rowwraps. flex-end caused the top row to overflow
 	   upward on real devices (where 100svh < 844px due to browser chrome), slicing
 	   the tops of the covers. Center floats books in each half — symmetric overflow
