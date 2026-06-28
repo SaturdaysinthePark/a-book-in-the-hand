@@ -432,15 +432,14 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 
 	html.fx-on .hx-s02__bot { border-top: 0; }
 	.hx-s02__row { --bw: clamp(100px, 14vh, 140px); }
-	/* 48/52 split compensates for the heading in the top section: the bottom section
-	   gets the extra height so both sections have equal effective book-row space.
-	   Top: flex-end sinks row 1 to the seam, leaving ~83px above the books (below heading).
-	   Bot: center distributes the remaining space evenly — ~89px above and below row 2.
-	   All three gaps (nav→row1, row1→row2, row2→footer) land in the 83–94px range. */
-	html.fx-on .hx-s02__top { height: 48%; }
-	html.fx-on .hx-s02__bot { height: 52%; }
-	html.fx-on .hx-s02__top .hx-s02__rowwrap { align-items: flex-end; padding-bottom: 0; }
-	html.fx-on .hx-s02__bot .hx-s02__rowwrap { align-items: center; }
+	/* 50/50 split + center on both rowwraps. flex-end caused the top row to overflow
+	   upward on real devices (where 100svh < 844px due to browser chrome), slicing
+	   the tops of the covers. Center floats books in each half — symmetric overflow
+	   if the section ever runs short, which is invisible in practice. */
+	html.fx-on .hx-s02__top { height: 50%; }
+	html.fx-on .hx-s02__bot { height: 50%; }
+	html.fx-on .hx-s02__top .hx-s02__rowwrap { align-items: center; padding-bottom: 0; }
+	html.fx-on .hx-s02__bot .hx-s02__rowwrap { align-items: center; padding-bottom: 0; }
 
 	/* §03 horizontal carousel track (display:flex set by the engine) */
 	html.fx-on .hx-s03 { right: auto; width: 400vw; gap: 0; grid-template-columns: none; flex-direction: row; transform-origin: left center; }
