@@ -11,6 +11,8 @@ goodreadsId: '39348113'
 isbn: '0399555773'
 publishYear: 2018
 status: 'live'
+series: 'Skyward'
+seriesOrder: 1
 tags: ['science fiction', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0399555773.01.L.jpg'

@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0486270963.01.L.jpg'
 ---
 
-Karl Menninger seemed like a very interesting person to me, based on him being mentioned in Joan Didion's *Blue Nights* by Joan Didion, except it wasn't for this book, it was for *Man Against Himself* by Karl Menninger. Nonetheless, what interested me was the big difference in topic since this book is about Numbers/Counting and the latter about Self-Mutilation/Suicide.
+Karl Menninger seemed like a very interesting person to me, based on him being mentioned in Joan Didion's [*Blue Nights*](/blog/2019/07/17/blue-nights/) by Joan Didion, except it wasn't for this book, it was for [*Man Against Himself*](/blog/2019/08/07/man-against-himself/) by Karl Menninger. Nonetheless, what interested me was the big difference in topic since this book is about Numbers/Counting and the latter about Self-Mutilation/Suicide.
 
 Well, being someone who deals with numbers at home and at work, I sort of was drawn to this textbook for that reason too. You learn a lot about how as a species we developed numbers from having the need to count and record things, all the way to how we symbolized those recordings for easy interpretations and how we derived words and meaning for those numbers/symbols. 
 

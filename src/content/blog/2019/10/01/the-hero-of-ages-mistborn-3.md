@@ -11,6 +11,8 @@ goodreadsId: '2767793'
 isbn: '0765316897'
 publishYear: 2008
 status: 'live'
+series: 'Mistborn'
+seriesOrder: 3
 tags: ['fantasy', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765316897.01.L.jpg'

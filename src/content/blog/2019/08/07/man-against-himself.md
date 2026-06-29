@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1348302912i/427995.jpg'
 ---
 
-I was referred to this book after it being mentioned in *Blue Nights* by Joan Didion by Joan Didion. She read the book and included a few lines about how people 'over-react' (suicide, self-harm) to ordinary things: *"What special circumstances are required before this woman throws it all in."*
+I was referred to this book after it being mentioned in [*Blue Nights*](/blog/2019/07/17/blue-nights/) by Joan Didion by Joan Didion. She read the book and included a few lines about how people 'over-react' (suicide, self-harm) to ordinary things: *"What special circumstances are required before this woman throws it all in."*
 
 I think Dr. Menninger explains things quite while in his book. 
 > "...we must reckon with an enemy within the lines..."

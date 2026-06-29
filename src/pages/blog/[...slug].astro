@@ -25,6 +25,6 @@ const ogImage = post.data.postType === 'review' ? `/og/reviews/${post.id}.png`
 	: undefined;
 ---
 
-<BlogPost {...post.data} genres={genres} ogImage={ogImage} body={post.body}>
+<BlogPost {...post.data} genres={genres} ogImage={ogImage} body={post.body} postId={post.id}>
 	{post.data.postType !== 'list' && <Content />}
 </BlogPost>

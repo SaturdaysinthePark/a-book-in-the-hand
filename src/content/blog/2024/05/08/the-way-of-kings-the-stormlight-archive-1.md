@@ -12,12 +12,14 @@ goodreadsId: '7235533'
 isbn: '0765326353'
 publishYear: 2010
 status: 'live'
+series: 'The Stormlight Archive'
+seriesOrder: 1
 tags: ['non-fiction', 'fantasy']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765326353.01.L.jpg'
 ---
 
-I'm a big fan of the Cosmere, and have been saving **The Way of Kings** for after I've read most of the other books such as the first era of the **Mistborn** series. At over 1,000 pages, it can be daunting, especially for a book where there is a lot of build up, politics and character building. However, the payoff is worth the journey, and the journey worth the payoff. 
+I'm a big fan of the Cosmere, and have been saving **The Way of Kings** for after I've read most of the other books such as the first era of the [**Mistborn**](/blog/2019/09/25/mistborn-the-final-empire-mistborn-1/) series. At over 1,000 pages, it can be daunting, especially for a book where there is a lot of build up, politics and character building. However, the payoff is worth the journey, and the journey worth the payoff. 
 
 The biggest thing you need to know about **The Way of Kings** is that the world we are set into is one of generations of historical mystery and legends that nobody quite understands the full story behind. The main characters we get POVs of are Kaladin, Dalinar, and Shallan, all part of the kingdom Alethkar. Each of them have their own personal journey of searching and perservering to change into something better throughout the events of the book. Each has their own approach to how they find that path. Sanderson doesn't leave this purely to our imagination, he does an incredible job of filling us in on their stories and the world around them.
 

@@ -11,6 +11,8 @@ goodreadsId: '68429'
 isbn: '0765316889'
 publishYear: 2007
 status: 'live'
+series: 'Mistborn'
+seriesOrder: 2
 tags: ['fantasy', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765316889.01.L.jpg'

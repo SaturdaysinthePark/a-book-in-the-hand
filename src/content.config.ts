@@ -23,6 +23,9 @@ const blog = defineCollection({
 		goodreadsId: z.string().optional(),
 		isbn: z.string().optional(),
 		publishYear: z.number().optional(),
+		// Series metadata
+		series: z.string().optional(),
+		seriesOrder: z.number().optional(),
 		// Status and taxonomy
 		status: z.enum(['draft', 'live']).default('live'),
 		tags: z.array(z.string()).optional(),

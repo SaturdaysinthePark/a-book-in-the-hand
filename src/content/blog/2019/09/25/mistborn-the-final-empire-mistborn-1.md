@@ -11,6 +11,8 @@ goodreadsId: '68428'
 isbn: '9780765311788'
 publishYear: 2006
 status: 'live'
+series: 'Mistborn'
+seriesOrder: 1
 tags: ['fantasy', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1617768316i/68428.jpg'

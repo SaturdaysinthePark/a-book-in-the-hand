@@ -11,6 +11,8 @@ goodreadsId: '23168817'
 isbn: '9780765386694'
 publishYear: 2015
 status: 'live'
+series: "Remembrance of Earth's Past"
+seriesOrder: 2
 tags: ['science fiction', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1412064931i/23168817.jpg'

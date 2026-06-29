@@ -11,6 +11,8 @@ goodreadsId: '25451264'
 isbn: '0765377101'
 publishYear: 2016
 status: 'live'
+series: "Remembrance of Earth's Past"
+seriesOrder: 3
 tags: ['science fiction', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765377101.01.L.jpg'

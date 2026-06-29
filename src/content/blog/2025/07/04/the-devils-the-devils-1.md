@@ -17,7 +17,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/125088005X.01.L.jpg'
 ---
 
-There's something about the 'assemble a rag tag team, give them a mission, and watch it blow up in their face' type of plot I love. *Mistborn* sort of started off that way, there's also movies like *Ocean's 11* and the *Italian Job*. I think *Six of Crows* is another book like that, or *The Lies of Locke Lamora*. Perhaps *Jason and the Argonauts* is one of the first examples of this. 
+There's something about the 'assemble a rag tag team, give them a mission, and watch it blow up in their face' type of plot I love. [*Mistborn*](/blog/2019/09/25/mistborn-the-final-empire-mistborn-1/) sort of started off that way, there's also movies like *Ocean's 11* and the *Italian Job*. I think *Six of Crows* is another book like that, or *The Lies of Locke Lamora*. Perhaps [*Jason and the Argonauts*](/blog/2025/03/26/jason-and-the-argonauts-penguin-classics/) is one of the first examples of this. 
 
 _The Devils_ is like the _Suicide Squad_ of fantasy horror. The rag tag team in this case consists of a priest, a werewolf, a vampire, an immortal knight, a thief, a necromancer, an elf, and a pirate. I personally felt Vigga, the norse she-werewolf, was the most interesting and ridiculous, but every character seemed to have their time to shine in their own way.
 

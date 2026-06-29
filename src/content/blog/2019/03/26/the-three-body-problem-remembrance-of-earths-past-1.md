@@ -11,6 +11,8 @@ goodreadsId: '20518872'
 isbn: '9780765382030'
 publishYear: 2014
 status: 'live'
+series: "Remembrance of Earth's Past"
+seriesOrder: 1
 tags: ['science fiction', 'fiction']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1415428227i/20518872.jpg'

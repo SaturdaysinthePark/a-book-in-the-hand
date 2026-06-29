@@ -7,8 +7,9 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { mdLite } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
+import SeriesNav from '../components/SeriesNav.astro';
 
-type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string; genres?: string[] };
+type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string; genres?: string[]; postId?: string };
 
 const {
 	title,
@@ -28,6 +29,8 @@ const {
 	ogImage,
 	body,
 	genres = [],
+	postId,
+	series,
 } = Astro.props;
 
 // Resolve pick covers from linked review posts when cover is absent
@@ -159,6 +162,7 @@ function stars(n: number) {
 								<slot />
 							</article>
 						</div>
+					{series && postId && <SeriesNav series={series} currentId={postId} />}
 					</div>
 				</div>
 			) : (

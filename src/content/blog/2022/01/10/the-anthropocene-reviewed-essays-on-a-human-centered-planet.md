@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0525555218.01.L.jpg'
 ---
 
-John Green, the author of many popular books such as **Looking for Alaska** and **Turtles all the way Down** wrote this collection of 40 essays. Overall the essays are varied in topic, but collectively they sort of glide through the centuries and hit on some related string of topics.
+John Green, the author of many popular books such as [**Looking for Alaska**](/blog/2019/02/01/looking-for-alaska/) and [**Turtles all the way Down**](/blog/2019/04/10/turtles-all-the-way-down/) wrote this collection of 40 essays. Overall the essays are varied in topic, but collectively they sort of glide through the centuries and hit on some related string of topics.
 
 Since there are so many essays, here are a few that stuck out, and I think its worth reading this collection because each essay is quite interesting, perhaps something you can relate to, or something you'll say "ah!" to:
 - There's an essay entirely on the QWERTY layout of a keyboard and how it was invented, and why it stuck despite its seeming randomness.

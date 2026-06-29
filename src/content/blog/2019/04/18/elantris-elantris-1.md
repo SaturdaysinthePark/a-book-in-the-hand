@@ -16,7 +16,7 @@ postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0765383101.01.L.jpg'
 ---
 
-**If you haven't read Brandon Sanderson yet, pick this up, and read it.** If you love fantasy, then this is the novel for you.. and it's a great entry into Sanderson's work. (I know its daunting when you look at Mistborn and his other series...just don't worry about those yet, you'll actually be impatiently scurrying to read those after this!)
+**If you haven't read Brandon Sanderson yet, pick this up, and read it.** If you love fantasy, then this is the novel for you.. and it's a great entry into Sanderson's work. (I know its daunting when you look at [Mistborn](/blog/2019/09/25/mistborn-the-final-empire-mistborn-1/) and his other series...just don't worry about those yet, you'll actually be impatiently scurrying to read those after this!)
 
 The world building and description is incredible, and the plot's escalation and reveal is great. Sanderson is superb at writing characters, and he really makes you love the central characters and gives full life to all the other characters (like Kiin) in the book. I also thought Sanderson wrote Sarene quite well, and didn't let her get run all over, or make her dependant on anyone. 
 
