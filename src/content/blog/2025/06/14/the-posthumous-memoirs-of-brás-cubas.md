@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Posthumous Memoirs of Brás Cubas'
+title: 'The Posthumous Memoirs of Brás Cubas'
 description: 'A dead aristocrat writes his memoirs from beyond the grave in this 1881 masterclass of metafiction and dark humor that still feels shockingly modern'
 pubDate: 2025-06-14
 bookTitle: 'The Posthumous Memoirs of Brás Cubas'

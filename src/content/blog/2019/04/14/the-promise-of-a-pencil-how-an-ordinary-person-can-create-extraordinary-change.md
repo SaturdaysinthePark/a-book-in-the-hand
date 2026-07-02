@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Promise of a Pencil: How an Ordinary Person Can Create Extraordinary Change'
-description: 'A thoughtful review of The Promise of a Pencil: How an Ordinary Person Can Create Extraordinary Change by Adam Braun'
+title: 'The Promise of a Pencil: How an Ordinary Person Can Create Extraordinary Change'
+description: "The story of building Pencils of Promise, full of grounded, first-hand advice for anyone chasing a big goal. Warm and motivating, with small reframes that stick. A quick, encouraging read."
 pubDate: 2019-04-14
 bookTitle: 'The Promise of a Pencil: How an Ordinary Person Can Create Extraordinary Change'
 author: 'Adam Braun'

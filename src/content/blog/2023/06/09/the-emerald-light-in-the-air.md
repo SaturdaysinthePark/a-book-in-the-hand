@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Emerald Light in the Air'
+title: 'The Emerald Light in the Air'
 description: 'A thoughtful review of The Emerald Light in the Air by Donald Antrim'
 pubDate: 2023-06-09
 bookTitle: 'The Emerald Light in the Air'

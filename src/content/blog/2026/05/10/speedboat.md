@@ -1,5 +1,5 @@
 ---
-title: 'Review: Speedboat'
+title: 'Speedboat'
 description: 'My review of Speedboat by Renata Adler.'
 pubDate: 2026-05-10
 bookTitle: 'Speedboat'

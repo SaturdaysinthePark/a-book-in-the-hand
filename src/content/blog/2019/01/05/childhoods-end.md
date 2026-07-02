@@ -1,6 +1,6 @@
 ---
-title: 'Review: Childhood’s End'
-description: 'A thoughtful review of Childhood’s End by Arthur C. Clarke'
+title: 'Childhood’s End'
+description: "The alien overlords arrive, solve every human problem, and quietly strip us of purpose. A layered story about evolution, utopia, and what humanity is actually for. Essential for any sci-fi reader."
 pubDate: 2019-01-05
 bookTitle: 'Childhood’s End'
 author: 'Arthur C. Clarke'

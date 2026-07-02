@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Nightingale'
+title: 'The Nightingale'
 description: 'A thoughtful review of The Nightingale by Kristin Hannah'
 pubDate: 2021-01-31
 bookTitle: 'The Nightingale'

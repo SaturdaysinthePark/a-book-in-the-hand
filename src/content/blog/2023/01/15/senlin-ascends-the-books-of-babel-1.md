@@ -1,5 +1,5 @@
 ---
-title: 'Review: Senlin Ascends (The Books of Babel, #1)'
+title: 'Senlin Ascends (The Books of Babel, #1)'
 description: 'A thoughtful review of Senlin Ascends (The Books of Babel, #1) by Josiah Bancroft'
 pubDate: 2023-01-15
 bookTitle: 'Senlin Ascends (The Books of Babel, #1)'

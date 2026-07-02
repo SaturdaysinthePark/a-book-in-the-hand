@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Cold Start Problem: How to Start and Scale Network Effects'
+title: 'The Cold Start Problem: How to Start and Scale Network Effects'
 description: 'A thoughtful review of The Cold Start Problem: How to Start and Scale Network Effects by Andrew Chen'
 pubDate: 2022-02-03
 bookTitle: 'The Cold Start Problem: How to Start and Scale Network Effects'

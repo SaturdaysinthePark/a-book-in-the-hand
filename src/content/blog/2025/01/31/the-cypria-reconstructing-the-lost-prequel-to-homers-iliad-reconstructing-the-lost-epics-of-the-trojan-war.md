@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Cypria'
+title: 'The Cypria'
 description: 'A thoughtful review of The Cypria'
 pubDate: 2025-01-31
 bookTitle: 'The Cypria'

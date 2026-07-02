@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Word for World Is Forest'
+title: 'The Word for World Is Forest'
 description: 'A thoughtful review of The Word for World Is Forest by Ursula K. Le Guin'
 pubDate: 2023-02-12
 bookTitle: 'The Word for World Is Forest'

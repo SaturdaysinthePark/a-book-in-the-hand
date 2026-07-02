@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Inferno'
+title: 'The Inferno'
 description: 'Finally took the time to descend into hell with Dante and Virgil'
 pubDate: 2024-01-07
 bookTitle: 'The Inferno'

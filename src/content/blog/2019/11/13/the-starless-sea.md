@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Starless Sea'
-description: 'A thoughtful review of The Starless Sea by Erin Morgenstern'
+title: 'The Starless Sea'
+description: "Gorgeous, dreamlike halls and secret libraries fill this one, and I wanted to love it after The Night Circus. But the plot is a lovely mess, hard to follow, and by the end it felt strangely empty."
 pubDate: 2019-11-13
 bookTitle: 'The Starless Sea'
 author: 'Erin Morgenstern'

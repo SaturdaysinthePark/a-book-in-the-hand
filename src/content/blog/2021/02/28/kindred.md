@@ -1,5 +1,5 @@
 ---
-title: 'Review: Kindred'
+title: 'Kindred'
 description: 'A thoughtful review of Kindred by Octavia E. Butler'
 pubDate: 2021-02-28
 bookTitle: 'Kindred'

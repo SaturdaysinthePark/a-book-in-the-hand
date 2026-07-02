@@ -1,5 +1,5 @@
 ---
-title: 'Review: Carl''s Doomsday Scenario (Dungeon Crawler Carl, #2)'
+title: 'Carl''s Doomsday Scenario (Dungeon Crawler Carl, #2)'
 description: 'A thoughtful review of Carl''s Doomsday Scenario (Dungeon Crawler Carl, #2) by Matt Dinniman'
 pubDate: 2025-04-22
 bookTitle: 'Carl''s Doomsday Scenario (Dungeon Crawler Carl, #2)'

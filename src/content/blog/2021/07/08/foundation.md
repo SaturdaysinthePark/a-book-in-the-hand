@@ -1,5 +1,5 @@
 ---
-title: 'Review: Foundation'
+title: 'Foundation'
 description: 'A thoughtful review of Foundation by Isaac Asimov'
 pubDate: 2021-07-08
 bookTitle: 'Foundation'

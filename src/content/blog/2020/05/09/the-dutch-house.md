@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dutch House'
+title: 'The Dutch House'
 description: 'A thoughtful review of The Dutch House by Ann Patchett'
 pubDate: 2020-05-09
 bookTitle: 'The Dutch House'

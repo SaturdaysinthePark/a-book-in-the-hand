@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Aleph and Other Stories'
+title: 'The Aleph and Other Stories'
 description: 'A thoughtful review of The Aleph and Other Stories by Jorge Luis Borges'
 pubDate: 2022-11-12
 bookTitle: 'The Aleph and Other Stories'

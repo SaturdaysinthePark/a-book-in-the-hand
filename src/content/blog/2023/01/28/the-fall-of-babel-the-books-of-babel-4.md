@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Fall of Babel (The Books of Babel, #4)'
+title: 'The Fall of Babel (The Books of Babel, #4)'
 description: 'A thoughtful review of The Fall of Babel (The Books of Babel, #4) by Josiah Bancroft'
 pubDate: 2023-01-28
 bookTitle: 'The Fall of Babel (The Books of Babel, #4)'

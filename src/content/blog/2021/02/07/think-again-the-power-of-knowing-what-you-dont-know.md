@@ -1,5 +1,5 @@
 ---
-title: 'Review: Think Again: The Power of Knowing What You Don''t Know'
+title: 'Think Again: The Power of Knowing What You Don''t Know'
 description: 'A thoughtful review of Think Again: The Power of Knowing What You Don''t Know by Adam M. Grant'
 pubDate: 2021-02-07
 bookTitle: 'Think Again: The Power of Knowing What You Don''t Know'

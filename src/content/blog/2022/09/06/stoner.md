@@ -1,5 +1,5 @@
 ---
-title: 'Review: Stoner'
+title: 'Stoner'
 description: 'A thoughtful review of Stoner by John  Williams'
 pubDate: 2022-09-06
 bookTitle: 'Stoner'

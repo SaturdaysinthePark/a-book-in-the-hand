@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Haunting of Tram Car 015 (Dead Djinn Universe, #0.3)'
+title: 'The Haunting of Tram Car 015 (Dead Djinn Universe, #0.3)'
 description: 'A thoughtful review of The Haunting of Tram Car 015 (Dead Djinn Universe, #0.3) by P. Djèlí Clark'
 pubDate: 2021-08-31
 bookTitle: 'The Haunting of Tram Car 015 (Dead Djinn Universe, #0.3)'

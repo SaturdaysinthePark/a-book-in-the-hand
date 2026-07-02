@@ -1,6 +1,6 @@
 ---
-title: 'Review: David Copperfield'
-description: 'A thoughtful review of David Copperfield by Charles Dickens'
+title: 'David Copperfield'
+description: 'One of the few novels that feels truly complete. Dickens follows David from childhood trauma through friendship, love, and hard won perseverance, all in that rich Dickensian language.'
 pubDate: 2019-01-28
 bookTitle: 'David Copperfield'
 author: 'Charles Dickens'

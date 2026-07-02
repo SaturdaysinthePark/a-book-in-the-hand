@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Ones Who Walk Away from Omelas'
+title: 'The Ones Who Walk Away from Omelas'
 description: 'A thoughtful review of The Ones Who Walk Away from Omelas by Ursula K. Le Guin'
 pubDate: 2023-02-12
 bookTitle: 'The Ones Who Walk Away from Omelas'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Death of Ivan Ilyich'
+title: 'The Death of Ivan Ilyich'
 description: 'A thoughtful review of The Death of Ivan Ilyich by Leo Tolstoy'
 pubDate: 2020-02-01
 bookTitle: 'The Death of Ivan Ilyich'

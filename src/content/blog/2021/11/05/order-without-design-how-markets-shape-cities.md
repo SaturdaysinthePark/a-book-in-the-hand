@@ -1,5 +1,5 @@
 ---
-title: 'Review: Order without Design: How Markets Shape Cities'
+title: 'Order without Design: How Markets Shape Cities'
 description: 'A thoughtful review of Order without Design: How Markets Shape Cities by Alain Bertaud'
 pubDate: 2021-11-05
 bookTitle: 'Order without Design: How Markets Shape Cities'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Luminaries'
+title: 'The Luminaries'
 description: 'A thoughtful review of The Luminaries by Eleanor Catton'
 pubDate: 2023-04-17
 bookTitle: 'The Luminaries'

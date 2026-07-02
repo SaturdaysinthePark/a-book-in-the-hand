@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sword of the Lictor'
+title: 'The Sword of the Lictor'
 description: 'My review of The Sword of the Lictor by Gene Wolfe.'
 pubDate: 2026-06-05
 bookTitle: 'The Sword of the Lictor'

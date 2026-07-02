@@ -1,5 +1,5 @@
 ---
-title: 'Review: Friday Black'
+title: 'Friday Black'
 description: 'A thoughtful review of Friday Black by Nana Kwame Adjei-Brenyah'
 pubDate: 2023-05-20
 bookTitle: 'Friday Black'

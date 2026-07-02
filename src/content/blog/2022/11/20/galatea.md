@@ -1,5 +1,5 @@
 ---
-title: 'Review: Galatea'
+title: 'Galatea'
 description: 'A thoughtful review of Galatea by Madeline Miller'
 pubDate: 2022-11-20
 bookTitle: 'Galatea'

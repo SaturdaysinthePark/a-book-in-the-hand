@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Test'
-description: 'A thoughtful review of The Test by Sylvain Neuvel'
+title: 'The Test'
+description: "Picture a citizenship test crossed with Black Mirror. This short, unsettling novella turns an ordinary exam into a nightmare, and a sharp commentary on immigration and how far a state will go."
 pubDate: 2019-03-23
 bookTitle: 'The Test'
 author: 'Sylvain Neuvel'

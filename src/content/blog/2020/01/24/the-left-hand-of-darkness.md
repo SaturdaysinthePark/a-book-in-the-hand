@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Left Hand of Darkness'
+title: 'The Left Hand of Darkness'
 description: 'A thoughtful review of The Left Hand of Darkness by Ursula K. Le Guin'
 pubDate: 2020-01-24
 bookTitle: 'The Left Hand of Darkness'

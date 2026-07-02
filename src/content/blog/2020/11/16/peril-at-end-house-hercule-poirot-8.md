@@ -1,5 +1,5 @@
 ---
-title: 'Review: Peril at End House (Hercule Poirot, #8)'
+title: 'Peril at End House (Hercule Poirot, #8)'
 description: 'A thoughtful review of Peril at End House (Hercule Poirot, #8) by Agatha Christie'
 pubDate: 2020-11-16
 bookTitle: 'Peril at End House (Hercule Poirot, #8)'

@@ -1,6 +1,6 @@
 ---
-title: "Review: Death's End (Remembrance of Earth's Past, #3)"
-description: "A thoughtful review of Death's End (Remembrance of Earth's Past, #3) by Liu Cixin"
+title: "Death's End (Remembrance of Earth's Past, #3)"
+description: "The finale pushes into new universes, lightspeed manipulation, and physics itself as a weapon. Light on character, but staggering on ideas. A series unlike anything I'd read, and one that may inspire tomorrow's science."
 pubDate: 2019-04-07
 bookTitle: "Death's End (Remembrance of Earth's Past, #3)"
 author: 'Liu Cixin'

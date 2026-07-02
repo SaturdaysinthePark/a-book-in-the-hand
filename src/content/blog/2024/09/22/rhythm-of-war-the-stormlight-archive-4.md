@@ -1,5 +1,5 @@
 ---
-title: 'Review: Rhythm of War (The Stormlight Archive, #4)'
+title: 'Rhythm of War (The Stormlight Archive, #4)'
 description: 'A thoughtful review of Rhythm of War (The Stormlight Archive, #4) by Brandon Sanderson'
 pubDate: 2024-09-22
 bookTitle: 'Rhythm of War (The Stormlight Archive, #4)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Untouchable'
+title: 'The Untouchable'
 description: 'A thoughtful review of The Untouchable by John Banville'
 pubDate: 2025-01-04
 bookTitle: 'The Untouchable'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Outline'
+title: 'Outline'
 description: 'A thoughtful review of Outline by Rachel Cusk'
 pubDate: 2024-01-14
 bookTitle: 'Outline'

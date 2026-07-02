@@ -1,6 +1,6 @@
 ---
-title: 'Review: A Place for Us'
-description: 'A thoughtful review of A Place for Us by Fatima Farheen Mirza'
+title: 'A Place for Us'
+description: "An Indian Muslim American family strains across the fault lines of culture, faith, and generation. Amar, the least understood child, is its aching heart. The time-jumping structure tested my patience."
 pubDate: 2019-06-11
 bookTitle: 'A Place for Us'
 author: 'Fatima Farheen Mirza'

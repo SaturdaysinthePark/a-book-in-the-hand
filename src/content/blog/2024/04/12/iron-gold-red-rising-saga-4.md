@@ -1,5 +1,5 @@
 ---
-title: 'Review: Iron Gold (Red Rising Saga, #4)'
+title: 'Iron Gold (Red Rising Saga, #4)'
 description: 'A thoughtful review of Iron Gold (Red Rising Saga, #4) by Pierce Brown'
 pubDate: 2024-04-12
 bookTitle: 'Iron Gold (Red Rising Saga, #4)'

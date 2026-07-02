@@ -1,5 +1,5 @@
 ---
-title: 'Review: Gigi'
+title: 'Gigi'
 description: 'A thoughtful review of Gigi by Colette'
 pubDate: 2020-02-02
 bookTitle: 'Gigi'

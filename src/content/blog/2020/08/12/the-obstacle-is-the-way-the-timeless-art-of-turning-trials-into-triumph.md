@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Obstacle Is the Way: The Timeless Art of Turning Trials into Triumph'
+title: 'The Obstacle Is the Way: The Timeless Art of Turning Trials into Triumph'
 description: 'A thoughtful review of The Obstacle Is the Way: The Timeless Art of Turning Trials into Triumph by Ryan Holiday'
 pubDate: 2020-08-12
 bookTitle: 'The Obstacle Is the Way: The Timeless Art of Turning Trials into Triumph'

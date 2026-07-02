@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Hod King (The Books of Babel, #3)'
+title: 'The Hod King (The Books of Babel, #3)'
 description: 'A thoughtful review of The Hod King (The Books of Babel, #3) by Josiah Bancroft'
 pubDate: 2023-01-22
 bookTitle: 'The Hod King (The Books of Babel, #3)'

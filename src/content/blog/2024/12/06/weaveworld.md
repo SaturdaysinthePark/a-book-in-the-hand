@@ -1,5 +1,5 @@
 ---
-title: 'Review: Weaveworld'
+title: 'Weaveworld'
 description: 'A thoughtful review of Weaveworld by Clive Barker'
 pubDate: 2024-12-06
 bookTitle: 'Weaveworld'

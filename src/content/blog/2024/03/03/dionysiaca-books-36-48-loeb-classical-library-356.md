@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dionysiaca, Books 36-48 (Loeb Classical Library, #356)'
+title: 'Dionysiaca, Books 36-48 (Loeb Classical Library, #356)'
 description: 'A thoughtful review of Dionysiaca, Books 36-48 (Loeb Classical Library, #356) by Nonnus of Panopolis'
 pubDate: 2024-03-03
 bookTitle: 'Dionysiaca, Books 36-48 (Loeb Classical Library, #356)'

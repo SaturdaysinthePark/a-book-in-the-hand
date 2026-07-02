@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Goldfinch'
-description: 'A thoughtful review of The Goldfinch by Donna Tartt'
+title: 'The Goldfinch'
+description: 'An explosive opening that sends Theo on a long, art haunted journey through grief, mentors, and shady antiques. It sprawls and sags in places, but the beginning and payoff reward you.'
 pubDate: 2019-02-21
 bookTitle: 'The Goldfinch'
 author: 'Donna Tartt'

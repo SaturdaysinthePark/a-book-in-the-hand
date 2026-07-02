@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Devils'
+title: 'The Devils'
 description: 'A supernatural cast of characters go on a quest in a medieval setting where monsters, vampires, the undead and more are among the group and among their enemies'
 pubDate: 2025-07-04
 bookTitle: 'The Devils'

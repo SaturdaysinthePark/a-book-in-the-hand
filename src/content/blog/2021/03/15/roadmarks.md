@@ -1,5 +1,5 @@
 ---
-title: 'Review: Roadmarks'
+title: 'Roadmarks'
 description: 'A thoughtful review of Roadmarks by Roger Zelazny'
 pubDate: 2021-03-15
 bookTitle: 'Roadmarks'

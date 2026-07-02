@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sound and the Fury'
+title: 'The Sound and the Fury'
 description: 'A thoughtful review of The Sound and the Fury by William Faulkner'
 pubDate: 2020-01-17
 bookTitle: 'The Sound and the Fury'

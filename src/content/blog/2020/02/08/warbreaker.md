@@ -1,5 +1,5 @@
 ---
-title: 'Review: Warbreaker'
+title: 'Warbreaker'
 description: 'A thoughtful review of Warbreaker by Brandon Sanderson'
 pubDate: 2020-02-08
 bookTitle: 'Warbreaker'

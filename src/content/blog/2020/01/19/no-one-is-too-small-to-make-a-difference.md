@@ -1,6 +1,6 @@
 ---
-title: 'Review: No One Is Too Small to Make a Difference'
-description: 'A thoughtful review of No One Is Too Small to Make a Difference by Greta Thunberg'
+title: 'No One Is Too Small to Make a Difference'
+description: "Greta Thunberg's collected climate speeches, more inspiring than literary. They sketch the scale of the crisis and left me wanting to do more."
 pubDate: 2020-01-19
 bookTitle: 'No One Is Too Small to Make a Difference'
 author: 'Greta Thunberg'

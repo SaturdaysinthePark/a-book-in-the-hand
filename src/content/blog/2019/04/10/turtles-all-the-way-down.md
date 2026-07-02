@@ -1,6 +1,6 @@
 ---
-title: 'Review: Turtles All the Way Down'
-description: 'A thoughtful review of Turtles All the Way Down by John Green'
+title: 'Turtles All the Way Down'
+description: "Aza's struggle with intrusive thoughts and OCD is written with real tenderness, and the knack for quotable, existential lines is on full display. The plot runs thin, but Aza stays with you."
 pubDate: 2019-04-10
 bookTitle: 'Turtles All the Way Down'
 author: 'John Green'

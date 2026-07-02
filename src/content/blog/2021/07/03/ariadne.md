@@ -1,5 +1,5 @@
 ---
-title: 'Review: Ariadne'
+title: 'Ariadne'
 description: 'A thoughtful review of Ariadne by Jennifer Saint'
 pubDate: 2021-07-03
 bookTitle: 'Ariadne'

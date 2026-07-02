@@ -1,5 +1,5 @@
 ---
-title: 'Review: No Rules Rules: Netflix and the Culture of Reinvention'
+title: 'No Rules Rules: Netflix and the Culture of Reinvention'
 description: 'A thoughtful review of No Rules Rules: Netflix and the Culture of Reinvention by Reed Hastings'
 pubDate: 2020-12-09
 bookTitle: 'No Rules Rules: Netflix and the Culture of Reinvention'

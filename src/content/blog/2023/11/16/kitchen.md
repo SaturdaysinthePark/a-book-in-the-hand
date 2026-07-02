@@ -1,5 +1,5 @@
 ---
-title: 'Review: Kitchen'
+title: 'Kitchen'
 description: 'A thoughtful review of Kitchen by Banana Yoshimoto'
 pubDate: 2023-11-16
 bookTitle: 'Kitchen'

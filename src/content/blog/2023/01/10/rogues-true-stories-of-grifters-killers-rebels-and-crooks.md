@@ -1,5 +1,5 @@
 ---
-title: 'Review: Rogues: True Stories of Grifters, Killers, Rebels and Crooks'
+title: 'Rogues: True Stories of Grifters, Killers, Rebels and Crooks'
 description: 'A thoughtful review of Rogues: True Stories of Grifters, Killers, Rebels and Crooks by Patrick Radden Keefe'
 pubDate: 2023-01-10
 bookTitle: 'Rogues: True Stories of Grifters, Killers, Rebels and Crooks'

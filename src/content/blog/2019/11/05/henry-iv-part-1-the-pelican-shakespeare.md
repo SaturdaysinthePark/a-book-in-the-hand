@@ -1,6 +1,6 @@
 ---
-title: 'Review: Henry IV, Part 1 (The Pelican Shakespeare)'
-description: 'A thoughtful review of Henry IV, Part 1 (The Pelican Shakespeare) by William Shakespeare'
+title: 'Henry IV, Part 1 (The Pelican Shakespeare)'
+description: "Prince Hal wastes his youth in taverns with the incomparable Falstaff while rebellion brews around his father's crown. Livelier than Richard II, funny and sharp, with honor itself put on trial. The history plays at their best."
 pubDate: 2019-11-05
 bookTitle: 'Henry IV, Part 1 (The Pelican Shakespeare)'
 author: 'William Shakespeare'

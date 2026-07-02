@@ -1,5 +1,5 @@
 ---
-title: 'Review: Kingdoms of Death'
+title: 'Kingdoms of Death'
 description: 'My review of Kingdoms of Death by Christopher Ruocchio.'
 pubDate: 2026-01-27
 bookTitle: 'Kingdoms of Death'

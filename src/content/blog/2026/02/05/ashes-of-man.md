@@ -1,5 +1,5 @@
 ---
-title: 'Review: Ashes of Man'
+title: 'Ashes of Man'
 description: 'My review of Ashes of Man by Christopher Ruocchio.'
 pubDate: 2026-02-05
 bookTitle: 'Ashes of Man'

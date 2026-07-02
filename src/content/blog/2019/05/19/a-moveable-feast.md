@@ -1,6 +1,6 @@
 ---
-title: 'Review: A Moveable Feast'
-description: 'A thoughtful review of A Moveable Feast by Ernest Hemingway'
+title: 'A Moveable Feast'
+description: "A memoir of lean, luminous years in 1920s Paris, with Fitzgerald along for the ride. Rosy and rueful at once. I read it in Paris myself, then walked to Shakespeare and Company."
 pubDate: 2019-05-19
 bookTitle: 'A Moveable Feast'
 author: 'Ernest Hemingway'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Blood Over Bright Haven'
+title: 'Blood Over Bright Haven'
 description: 'A thoughtful review of Blood Over Bright Haven by M.L. Wang'
 pubDate: 2024-11-07
 bookTitle: 'Blood Over Bright Haven'

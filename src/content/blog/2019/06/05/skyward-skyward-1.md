@@ -1,6 +1,6 @@
 ---
-title: 'Review: Skyward (Skyward, #1)'
-description: 'A thoughtful review of Skyward (Skyward, #1) by Brandon Sanderson'
+title: 'Skyward (Skyward, #1)'
+description: "A YA sci-fi adventure about Spensa, a fierce would-be pilot, and M-BOT, her snarky ship. Fast, fun, and exciting, with a real message about finding your own calling. The standard the genre deserves."
 pubDate: 2019-06-05
 bookTitle: 'Skyward (Skyward, #1)'
 author: 'Brandon Sanderson'

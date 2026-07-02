@@ -1,6 +1,6 @@
 ---
-title: 'Review: Ring Shout'
-description: 'A thoughtful review of Ring Shout by P. Djèlí Clark'
+title: 'Ring Shout'
+description: 'Clark imagines the Klan as literal demon-summoning monsters, with the fierce Sadie hunting them. The premise is a blast and the horror imagery is vivid,.'
 pubDate: 2022-03-02
 bookTitle: 'Ring Shout'
 author: 'P. Djèlí Clark'

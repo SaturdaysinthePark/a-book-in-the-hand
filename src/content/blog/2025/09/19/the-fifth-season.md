@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Fifth Season'
+title: 'The Fifth Season'
 description: 'My review of The Fifth Season by N.K. Jemisin.'
 pubDate: 2025-09-19
 bookTitle: 'The Fifth Season'

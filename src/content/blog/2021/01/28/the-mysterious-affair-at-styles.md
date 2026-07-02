@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Mysterious Affair at Styles'
+title: 'The Mysterious Affair at Styles'
 description: 'A thoughtful review of The Mysterious Affair at Styles by Agatha Christie'
 pubDate: 2021-01-28
 bookTitle: 'The Mysterious Affair at Styles'

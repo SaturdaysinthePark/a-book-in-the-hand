@@ -1,5 +1,5 @@
 ---
-title: 'Review: Hamnet'
+title: 'Hamnet'
 description: 'A thoughtful review of Hamnet by Maggie O''Farrell'
 pubDate: 2021-03-23
 bookTitle: 'Hamnet'

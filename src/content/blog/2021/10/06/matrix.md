@@ -1,5 +1,5 @@
 ---
-title: 'Review: Matrix'
+title: 'Matrix'
 description: 'A thoughtful review of Matrix by Lauren Groff'
 pubDate: 2021-10-06
 bookTitle: 'Matrix'

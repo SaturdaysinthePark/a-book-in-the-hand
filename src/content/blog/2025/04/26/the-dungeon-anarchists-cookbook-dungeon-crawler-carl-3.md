@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dungeon Anarchist''s Cookbook (Dungeon Crawler Carl, #3)'
+title: 'The Dungeon Anarchist''s Cookbook (Dungeon Crawler Carl, #3)'
 description: 'A thoughtful review of The Dungeon Anarchist''s Cookbook (Dungeon Crawler Carl, #3) by Matt Dinniman'
 pubDate: 2025-04-26
 bookTitle: 'The Dungeon Anarchist''s Cookbook (Dungeon Crawler Carl, #3)'

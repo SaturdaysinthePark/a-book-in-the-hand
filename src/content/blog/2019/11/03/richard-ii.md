@@ -1,6 +1,6 @@
 ---
-title: 'Review: Richard II'
-description: 'A thoughtful review of Richard II by William Shakespeare'
+title: 'Richard II'
+description: "A reminder of how fun the history plays are. Richard II, an incapable king, grows more poetic as he loses control, set against Bolingbroke's plain, decisive speech. My first of the histories, and a witty surprise."
 pubDate: 2019-11-03
 bookTitle: 'Richard II'
 author: 'William Shakespeare'

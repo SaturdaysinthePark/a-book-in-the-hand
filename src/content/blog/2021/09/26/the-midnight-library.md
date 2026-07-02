@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Midnight Library'
+title: 'The Midnight Library'
 description: 'A thoughtful review of The Midnight Library by Matt Haig'
 pubDate: 2021-09-26
 bookTitle: 'The Midnight Library'

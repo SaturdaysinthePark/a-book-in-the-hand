@@ -1,6 +1,6 @@
 ---
-title: 'Review: Drive Your Plow Over the Bones of the Dead'
-description: 'A thoughtful review of Drive Your Plow Over the Bones of the Dead by Olga Tokarczuk'
+title: 'Drive Your Plow Over the Bones of the Dead'
+description: 'Far more cohesive than Flights. A snowbound mystery in remote Poland narrated by Janina, an eccentric astrologer railing against how we treat animals and the earth. Strange, funny, and genuinely engrossing.'
 pubDate: 2019-12-03
 bookTitle: 'Drive Your Plow Over the Bones of the Dead'
 author: 'Olga Tokarczuk'

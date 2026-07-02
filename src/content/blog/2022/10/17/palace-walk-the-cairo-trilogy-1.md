@@ -1,5 +1,5 @@
 ---
-title: 'Review: Palace Walk (The Cairo Trilogy #1)'
+title: 'Palace Walk (The Cairo Trilogy #1)'
 description: 'A thoughtful review of Palace Walk (The Cairo Trilogy #1) by Naguib Mahfouz'
 pubDate: 2022-10-17
 bookTitle: 'Palace Walk (The Cairo Trilogy #1)'

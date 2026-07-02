@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Iliad: A New Translation by Caroline Alexander'
+title: 'The Iliad: A New Translation by Caroline Alexander'
 description: 'A thoughtful review of The Iliad: A New Translation by Caroline Alexander by Homer'
 pubDate: 2025-01-20
 bookTitle: 'The Iliad: A New Translation by Caroline Alexander'

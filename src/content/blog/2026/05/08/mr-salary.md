@@ -1,5 +1,5 @@
 ---
-title: 'Review: Mr Salary'
+title: 'Mr Salary'
 description: 'A short story you can read and enjoy over a cup of coffee, maybe even before the coffee finishes. A woman visits her father and an old  relationship of conveniences and dwells on what could have been.'
 pubDate: 2026-05-08
 bookTitle: 'Mr Salary'

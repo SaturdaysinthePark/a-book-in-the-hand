@@ -1,5 +1,5 @@
 ---
-title: 'Review: Taiwan Travelogue'
+title: 'Taiwan Travelogue'
 description: "A Japanese author's translated food travelogue of Taiwan, from the subtle gaze of a Japanese colonizer who believe they are progressive"
 pubDate: 2025-02-25
 bookTitle: 'Taiwan Travelogue'

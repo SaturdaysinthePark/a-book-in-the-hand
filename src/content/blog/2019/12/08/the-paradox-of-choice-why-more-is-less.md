@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Paradox of Choice: Why More Is Less'
-description: 'A thoughtful review of The Paradox of Choice: Why More Is Less by Barry Schwartz'
+title: 'The Paradox of Choice: Why More Is Less'
+description: "The argument that more choice isn't better, and as a lifelong maximizer it hit home. It unpacks how we decide and why it drains us, then makes the case for becoming a satisficer. Relatable and genuinely useful."
 pubDate: 2019-12-08
 bookTitle: 'The Paradox of Choice: Why More Is Less'
 author: 'Barry Schwartz'

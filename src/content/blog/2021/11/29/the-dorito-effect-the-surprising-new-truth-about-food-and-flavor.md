@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dorito Effect: The Surprising New Truth About Food and Flavor'
+title: 'The Dorito Effect: The Surprising New Truth About Food and Flavor'
 description: 'A thoughtful review of The Dorito Effect: The Surprising New Truth About Food and Flavor by Mark Schatzker'
 pubDate: 2021-11-29
 bookTitle: 'The Dorito Effect: The Surprising New Truth About Food and Flavor'

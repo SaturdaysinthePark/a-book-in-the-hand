@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Invisible Life of Addie LaRue'
+title: 'The Invisible Life of Addie LaRue'
 description: 'A thoughtful review of The Invisible Life of Addie LaRue by V.E. Schwab'
 pubDate: 2020-10-31
 bookTitle: 'The Invisible Life of Addie LaRue'

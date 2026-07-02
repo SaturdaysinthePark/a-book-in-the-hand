@@ -1,6 +1,6 @@
 ---
-title: 'Review: Suite for Barbara Loden'
-description: 'A thoughtful review of Suite for Barbara Loden by Nathalie Léger'
+title: 'Suite for Barbara Loden'
+description: "Léger sets out to write a simple encyclopedia entry on the film Wanda and spirals into a strange, metafictional meditation on the impossibility of capturing another woman's life. Short, odd, and quietly rewarding."
 pubDate: 2025-05-30
 bookTitle: 'Suite for Barbara Loden'
 author: 'Nathalie Léger'

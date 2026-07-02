@@ -1,5 +1,5 @@
 ---
-title: 'Review: Six of Crows (Six of Crows, #1)'
+title: 'Six of Crows (Six of Crows, #1)'
 description: 'A thoughtful review of Six of Crows (Six of Crows, #1) by Leigh Bardugo'
 pubDate: 2021-06-05
 bookTitle: 'Six of Crows (Six of Crows, #1)'

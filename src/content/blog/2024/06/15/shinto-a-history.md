@@ -1,5 +1,5 @@
 ---
-title: 'Review: Shinto: A History'
+title: 'Shinto: A History'
 description: 'A thoughtful review of Shinto: A History by Helen Hardacre'
 pubDate: 2024-06-15
 bookTitle: 'Shinto: A History'

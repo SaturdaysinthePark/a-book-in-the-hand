@@ -1,5 +1,5 @@
 ---
-title: 'Review: Hadji Murat'
+title: 'Hadji Murat'
 description: 'During the Caucas wars of the 1850s, all know of the living legend Hadji Murat and his exploits in battle'
 pubDate: 2025-08-10
 bookTitle: 'Hadji Murat'

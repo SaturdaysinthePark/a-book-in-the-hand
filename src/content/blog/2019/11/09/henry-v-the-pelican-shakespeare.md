@@ -1,6 +1,6 @@
 ---
-title: 'Review: Henry V (The Pelican Shakespeare)'
-description: 'A thoughtful review of Henry V (The Pelican Shakespeare) by William Shakespeare'
+title: 'Henry V (The Pelican Shakespeare)'
+description: "The rebel prince is now a king leading outnumbered troops against France. From the Dauphin's mocking tennis balls to the St Crispin's Day speech at Agincourt, it's witty and gruesome. Hal's arc, finally at war."
 pubDate: 2019-11-09
 bookTitle: 'Henry V (The Pelican Shakespeare)'
 author: 'William Shakespeare'

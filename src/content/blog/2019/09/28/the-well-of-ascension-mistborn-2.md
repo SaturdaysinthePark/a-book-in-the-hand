@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Well of Ascension (Mistborn, #2)'
-description: 'A thoughtful review of The Well of Ascension (Mistborn, #2) by Brandon Sanderson'
+title: 'The Well of Ascension (Mistborn, #2)'
+description: "The middle Mistborn book widens the world without over-complicating it. Kelsier's absence hangs heavy, and the politics of Luthadel take center stage. Slow, deep setup, but the payoff is absolutely worth it."
 pubDate: 2019-09-28
 bookTitle: 'The Well of Ascension (Mistborn, #2)'
 author: 'Brandon Sanderson'

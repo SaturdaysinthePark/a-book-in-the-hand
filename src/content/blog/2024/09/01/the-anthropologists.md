@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Anthropologists'
+title: 'The Anthropologists'
 description: 'A thoughtful review of The Anthropologists by Aysegül Savas'
 pubDate: 2024-09-01
 bookTitle: 'The Anthropologists'

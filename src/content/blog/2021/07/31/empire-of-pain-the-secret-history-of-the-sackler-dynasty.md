@@ -1,5 +1,5 @@
 ---
-title: 'Review: Empire of Pain: The Secret History of the Sackler Dynasty'
+title: 'Empire of Pain: The Secret History of the Sackler Dynasty'
 description: 'A thoughtful review of Empire of Pain: The Secret History of the Sackler Dynasty by Patrick Radden Keefe'
 pubDate: 2021-07-31
 bookTitle: 'Empire of Pain: The Secret History of the Sackler Dynasty'

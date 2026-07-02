@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dawnshard (The Stormlight Archive, #3.5)'
+title: 'Dawnshard (The Stormlight Archive, #3.5)'
 description: 'A thoughtful review of Dawnshard (The Stormlight Archive, #3.5) by Brandon Sanderson'
 pubDate: 2024-08-03
 bookTitle: 'Dawnshard (The Stormlight Archive, #3.5)'

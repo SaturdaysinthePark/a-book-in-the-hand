@@ -1,5 +1,5 @@
 ---
-title: 'Review: Lonely Castle in the Mirror'
+title: 'Lonely Castle in the Mirror'
 description: 'A thoughtful review of Lonely Castle in the Mirror by Mizuki Tsujimura'
 pubDate: 2021-08-12
 bookTitle: 'Lonely Castle in the Mirror'

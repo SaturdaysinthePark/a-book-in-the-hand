@@ -1,5 +1,5 @@
 ---
-title: 'Review: Loot'
+title: 'Loot'
 description: 'A thoughtful review of Loot by Tania James'
 pubDate: 2023-09-05
 bookTitle: 'Loot'

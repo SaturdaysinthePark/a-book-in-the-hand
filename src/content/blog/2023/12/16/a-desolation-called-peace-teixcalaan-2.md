@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Desolation Called Peace (Teixcalaan, #2)'
+title: 'A Desolation Called Peace (Teixcalaan, #2)'
 description: 'A thoughtful review of A Desolation Called Peace (Teixcalaan, #2) by Arkady Martine'
 pubDate: 2023-12-16
 bookTitle: 'A Desolation Called Peace (Teixcalaan, #2)'

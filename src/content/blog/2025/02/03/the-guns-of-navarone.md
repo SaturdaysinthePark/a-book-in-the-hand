@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Guns of Navarone'
+title: 'The Guns of Navarone'
 description: 'A five man commando team takes on an impossible mission during WW2. Scale a mighty German cliff fortress and destroy the mounted naval guns.'
 pubDate: 2025-02-03
 bookTitle: 'The Guns of Navarone'

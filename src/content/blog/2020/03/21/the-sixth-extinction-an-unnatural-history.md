@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sixth Extinction: An Unnatural History'
+title: 'The Sixth Extinction: An Unnatural History'
 description: 'A thoughtful review of The Sixth Extinction: An Unnatural History by Elizabeth Kolbert'
 pubDate: 2020-03-21
 bookTitle: 'The Sixth Extinction: An Unnatural History'

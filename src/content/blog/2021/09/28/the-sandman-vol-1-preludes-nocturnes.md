@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sandman, Vol. 1: Preludes & Nocturnes'
+title: 'The Sandman, Vol. 1: Preludes & Nocturnes'
 description: 'A thoughtful review of The Sandman, Vol. 1: Preludes & Nocturnes by Neil Gaiman'
 pubDate: 2021-09-28
 bookTitle: 'The Sandman, Vol. 1: Preludes & Nocturnes'

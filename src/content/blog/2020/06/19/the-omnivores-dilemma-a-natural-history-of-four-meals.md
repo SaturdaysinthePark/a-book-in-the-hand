@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Omnivore''s Dilemma: A Natural History of Four Meals'
+title: 'The Omnivore''s Dilemma: A Natural History of Four Meals'
 description: 'A thoughtful review of The Omnivore''s Dilemma: A Natural History of Four Meals by Michael Pollan'
 pubDate: 2020-06-19
 bookTitle: 'The Omnivore''s Dilemma: A Natural History of Four Meals'

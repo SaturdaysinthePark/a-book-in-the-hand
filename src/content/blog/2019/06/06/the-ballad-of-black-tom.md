@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Ballad of Black Tom'
-description: 'A thoughtful review of The Ballad of Black Tom by Victor LaValle'
+title: 'The Ballad of Black Tom'
+description: "A novella that reworks Lovecraft from a Black perspective in 1920s Harlem. Coming in without any Lovecraft background, I struggled to connect, and it didn't leave much of a mark on me."
 pubDate: 2019-06-06
 bookTitle: 'The Ballad of Black Tom'
 author: 'Victor LaValle'

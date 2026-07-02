@@ -1,6 +1,6 @@
 ---
-title: 'Review: Little Women'
-description: 'A thoughtful review of Little Women by Louisa May Alcott'
+title: 'Little Women'
+description: "The four March sisters chase their dreams and 'castles in the air' through the Civil War years. I felt like a fly on the wall of the family. Warm, memorable, still resonant, and it stays with you."
 pubDate: 2019-11-20
 bookTitle: 'Little Women'
 author: 'Louisa May Alcott'

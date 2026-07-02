@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Origin of Consciousness in the Breakdown of the Bicameral Mind'
+title: 'The Origin of Consciousness in the Breakdown of the Bicameral Mind'
 description: 'An astonishing theory of how we developed our consciousness and how it works'
 pubDate: 2024-06-30
 bookTitle: 'The Origin of Consciousness in the Breakdown of the Bicameral Mind'

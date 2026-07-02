@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dark Tales'
+title: 'Dark Tales'
 description: 'A thoughtful review of Dark Tales by Shirley Jackson'
 pubDate: 2020-11-05
 bookTitle: 'Dark Tales'

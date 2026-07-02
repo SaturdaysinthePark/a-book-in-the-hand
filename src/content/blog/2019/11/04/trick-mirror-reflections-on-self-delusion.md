@@ -1,6 +1,6 @@
 ---
-title: 'Review: Trick Mirror: Reflections on Self-Delusion'
-description: 'A thoughtful review of Trick Mirror: Reflections on Self-Delusion by Jia Tolentino'
+title: 'Trick Mirror: Reflections on Self-Delusion'
+description: "Sharp essays on self-delusion in modern culture, from beauty and the workout-class boom to feminism read through literature. One reality-TV chapter drags, but the rest is timely, smart, and very much of the moment."
 pubDate: 2019-11-04
 bookTitle: 'Trick Mirror: Reflections on Self-Delusion'
 author: 'Jia Tolentino'

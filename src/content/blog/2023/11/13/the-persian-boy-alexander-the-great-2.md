@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Persian Boy (Alexander the Great, #2)'
+title: 'The Persian Boy (Alexander the Great, #2)'
 description: 'A thoughtful review of The Persian Boy (Alexander the Great, #2) by Mary Renault'
 pubDate: 2023-11-13
 bookTitle: 'The Persian Boy (Alexander the Great, #2)'

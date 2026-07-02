@@ -1,5 +1,5 @@
 ---
-title: 'Review: No Longer Human'
+title: 'No Longer Human'
 description: 'A thoughtful review of No Longer Human by Osamu Dazai'
 pubDate: 2023-01-29
 bookTitle: 'No Longer Human'

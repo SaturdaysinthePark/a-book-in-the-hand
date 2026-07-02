@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Days of Abandonment'
+title: 'The Days of Abandonment'
 description: 'A thoughtful review of The Days of Abandonment by Elena Ferrante'
 pubDate: 2022-03-13
 bookTitle: 'The Days of Abandonment'

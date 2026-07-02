@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Vanishing Half'
+title: 'The Vanishing Half'
 description: 'A thoughtful review of The Vanishing Half by Brit Bennett'
 pubDate: 2021-02-15
 bookTitle: 'The Vanishing Half'

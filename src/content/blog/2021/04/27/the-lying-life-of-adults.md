@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Lying Life of Adults'
+title: 'The Lying Life of Adults'
 description: 'A thoughtful review of The Lying Life of Adults by Elena Ferrante'
 pubDate: 2021-04-27
 bookTitle: 'The Lying Life of Adults'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Leonardo da Vinci'
-description: 'A thoughtful review of Leonardo da Vinci by Walter Isaacson'
+title: 'Leonardo da Vinci'
+description: "A readable life of Leonardo, the endlessly curious mind who cared more for the question than the finished work. Strong on his techniques, notebooks, and the Renaissance around him. A fine way to meet the man."
 pubDate: 2019-08-28
 bookTitle: 'Leonardo da Vinci'
 author: 'Walter Isaacson'

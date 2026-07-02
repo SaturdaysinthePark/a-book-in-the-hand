@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Coin'
+title: 'The Coin'
 description: 'A wealthy Palestinian woman that reminds me of Holly Golightly, unraveling in New York City.'
 pubDate: 2025-01-26
 bookTitle: 'The Coin'

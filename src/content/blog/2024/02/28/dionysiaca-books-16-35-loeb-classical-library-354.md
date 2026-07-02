@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dionysiaca, Books 16-35 (Loeb Classical Library, #354)'
+title: 'Dionysiaca, Books 16-35 (Loeb Classical Library, #354)'
 description: 'A thoughtful review of Dionysiaca, Books 16-35 (Loeb Classical Library, #354) by Nonnus of Panopolis'
 pubDate: 2024-02-28
 bookTitle: 'Dionysiaca, Books 16-35 (Loeb Classical Library, #354)'

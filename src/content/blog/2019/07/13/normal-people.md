@@ -1,6 +1,6 @@
 ---
-title: 'Review: Normal People'
-description: 'A thoughtful review of Normal People by Sally Rooney'
+title: 'Normal People'
+description: "Marianne and Connell, two mismatched people, keep circling back to each other despite the social pressures pulling them apart. Quietly observed, with characters that get under your skin."
 pubDate: 2019-07-13
 bookTitle: 'Normal People'
 author: 'Sally Rooney'

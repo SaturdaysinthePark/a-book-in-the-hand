@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Iron Dragon''s Daughter'
+title: 'The Iron Dragon''s Daughter'
 description: 'A thoughtful review of The Iron Dragon''s Daughter by Michael Swanwick'
 pubDate: 2023-05-14
 bookTitle: 'The Iron Dragon''s Daughter'

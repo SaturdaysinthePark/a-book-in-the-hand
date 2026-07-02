@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Masterpiece (Les Rougon-Macquart, #14)'
+title: 'The Masterpiece (Les Rougon-Macquart, #14)'
 description: 'A thoughtful review of The Masterpiece (Les Rougon-Macquart, #14) by Émile Zola'
 pubDate: 2020-11-15
 bookTitle: 'The Masterpiece (Les Rougon-Macquart, #14)'

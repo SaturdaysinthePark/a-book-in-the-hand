@@ -1,5 +1,5 @@
 ---
-title: 'Review: Morning Star (Red Rising Saga, #3)'
+title: 'Morning Star (Red Rising Saga, #3)'
 description: 'A thoughtful review of Morning Star (Red Rising Saga, #3) by Pierce Brown'
 pubDate: 2023-09-28
 bookTitle: 'Morning Star (Red Rising Saga, #3)'

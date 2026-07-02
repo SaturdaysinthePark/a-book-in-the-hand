@@ -1,5 +1,5 @@
 ---
-title: 'Review: Tress of the Emerald Sea'
+title: 'Tress of the Emerald Sea'
 description: 'A thoughtful review of Tress of the Emerald Sea by Brandon Sanderson'
 pubDate: 2023-02-05
 bookTitle: 'Tress of the Emerald Sea'

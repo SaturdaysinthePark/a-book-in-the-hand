@@ -1,5 +1,5 @@
 ---
-title: 'Review: Sleep No More: Six Murderous Tales'
+title: 'Sleep No More: Six Murderous Tales'
 description: 'A thoughtful review of Sleep No More: Six Murderous Tales by P.D. James'
 pubDate: 2020-02-20
 bookTitle: 'Sleep No More: Six Murderous Tales'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Nine Lives of Pakistan: Dispatches from a Precarious State'
+title: 'The Nine Lives of Pakistan: Dispatches from a Precarious State'
 description: 'A thoughtful review of The Nine Lives of Pakistan: Dispatches from a Precarious State by Declan Walsh'
 pubDate: 2022-07-16
 bookTitle: 'The Nine Lives of Pakistan: Dispatches from a Precarious State'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: How to Castrate a Bull: Unexpected Lessons on Risk, Growth, and Success in Business'
+title: 'How to Castrate a Bull: Unexpected Lessons on Risk, Growth, and Success in Business'
 description: 'A thoughtful review of How to Castrate a Bull: Unexpected Lessons on Risk, Growth, and Success in Business by Dave Hitz'
 pubDate: 2020-11-27
 bookTitle: 'How to Castrate a Bull: Unexpected Lessons on Risk, Growth, and Success in Business'

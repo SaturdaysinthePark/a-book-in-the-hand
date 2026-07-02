@@ -1,5 +1,5 @@
 ---
-title: 'Review: Babel'
+title: 'Babel'
 description: 'A thoughtful review of Babel by R.F. Kuang'
 pubDate: 2022-11-27
 bookTitle: 'Babel'

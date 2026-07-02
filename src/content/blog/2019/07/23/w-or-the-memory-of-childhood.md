@@ -1,6 +1,6 @@
 ---
-title: 'Review: W, or the Memory of Childhood'
-description: 'A thoughtful review of W, or the Memory of Childhood by Georges Perec'
+title: 'W, or the Memory of Childhood'
+description: "Two strands alternate: a fragmented memoir of a childhood in occupied France and a chilling fable about an island ruled by athletic obsession. The link is thin, but inventive and quietly haunting."
 pubDate: 2019-07-23
 bookTitle: 'W, or the Memory of Childhood'
 author: 'Georges Perec'

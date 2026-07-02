@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Hero of Ages (Mistborn, #3)'
-description: 'A thoughtful review of The Hero of Ages (Mistborn, #3) by Brandon Sanderson'
+title: 'The Hero of Ages (Mistborn, #3)'
+description: "The Mistborn trilogy lands with a conclusion that ties every thread together and feels planned from page one. Elend, Vin, and Sazed all come into their own. Satisfying, brilliant, and never rushed."
 pubDate: 2019-10-01
 bookTitle: 'The Hero of Ages (Mistborn, #3)'
 author: 'Brandon Sanderson'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Stranger in a Strange Land'
-description: 'A thoughtful review of Stranger in a Strange Land by Robert A. Heinlein'
+title: 'Stranger in a Strange Land'
+description: "Raised on Mars and returned to Earth, Valentine Michael Smith struggles to grok human language, culture, and religion, then transcends them. The novel is packed with wisdom and provocation. Can you grok it?"
 pubDate: 2019-03-22
 bookTitle: 'Stranger in a Strange Land'
 author: 'Robert A. Heinlein'

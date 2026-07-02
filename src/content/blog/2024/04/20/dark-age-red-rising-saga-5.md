@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dark Age (Red Rising Saga, #5)'
+title: 'Dark Age (Red Rising Saga, #5)'
 description: 'A thoughtful review of Dark Age (Red Rising Saga, #5) by Pierce Brown'
 pubDate: 2024-04-20
 bookTitle: 'Dark Age (Red Rising Saga, #5)'

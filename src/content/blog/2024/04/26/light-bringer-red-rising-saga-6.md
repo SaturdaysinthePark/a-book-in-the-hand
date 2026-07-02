@@ -1,5 +1,5 @@
 ---
-title: 'Review: Light Bringer (Red Rising Saga, #6)'
+title: 'Light Bringer (Red Rising Saga, #6)'
 description: 'A thoughtful review of Light Bringer (Red Rising Saga, #6) by Pierce Brown'
 pubDate: 2024-04-26
 bookTitle: 'Light Bringer (Red Rising Saga, #6)'

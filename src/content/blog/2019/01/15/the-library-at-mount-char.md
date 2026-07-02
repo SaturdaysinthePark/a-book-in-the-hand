@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Library at Mount Char'
-description: 'A thoughtful review of The Library at Mount Char by Scott  Hawkins'
+title: 'The Library at Mount Char'
+description: 'Twelve adopted siblings with strange powers fight their way back to the mysterious Library and the Father who raised them. A gripping, original opening, even if the momentum fades before the end.'
 pubDate: 2019-01-15
 bookTitle: 'The Library at Mount Char'
 author: 'Scott  Hawkins'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Pathans: 550 B.C.- A.D. 1957 (Oxford in Asia Historical Reprints)'
+title: 'The Pathans: 550 B.C.- A.D. 1957 (Oxford in Asia Historical Reprints)'
 description: 'A thoughtful review of The Pathans: 550 B.C.- A.D. 1957 (Oxford in Asia Historical Reprints) by Olaf Caroe'
 pubDate: 2021-03-17
 bookTitle: 'The Pathans: 550 B.C.- A.D. 1957 (Oxford in Asia Historical Reprints)'

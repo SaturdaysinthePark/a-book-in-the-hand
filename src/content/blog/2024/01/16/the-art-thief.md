@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Art Thief'
+title: 'The Art Thief'
 description: 'A thoughtful review of The Art Thief by Michael Finkel'
 pubDate: 2024-01-16
 bookTitle: 'The Art Thief'

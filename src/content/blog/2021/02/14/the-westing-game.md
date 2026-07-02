@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Westing Game'
+title: 'The Westing Game'
 description: 'A thoughtful review of The Westing Game by Ellen Raskin'
 pubDate: 2021-02-14
 bookTitle: 'The Westing Game'

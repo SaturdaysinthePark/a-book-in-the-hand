@@ -1,6 +1,6 @@
 ---
-title: 'Review: Man Against Himself'
-description: 'A thoughtful review of Man Against Himself by Karl A. Menninger'
+title: 'Man Against Himself'
+description: "An unflinching study of self-destruction, from suicide to self-mutilation to quieter forms we rarely name. Dark and hard to read, but genuinely eye-opening about why people turn against themselves."
 pubDate: 2019-08-07
 bookTitle: 'Man Against Himself'
 author: 'Karl A. Menninger'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Shadow and Bone (Shadow and Bone, #1)'
+title: 'Shadow and Bone (Shadow and Bone, #1)'
 description: 'A thoughtful review of Shadow and Bone (Shadow and Bone, #1) by Leigh Bardugo'
 pubDate: 2021-05-28
 bookTitle: 'Shadow and Bone (Shadow and Bone, #1)'

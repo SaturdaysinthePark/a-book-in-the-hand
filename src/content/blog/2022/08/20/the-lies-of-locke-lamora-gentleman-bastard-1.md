@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Lies of Locke Lamora (Gentleman Bastard, #1)'
+title: 'The Lies of Locke Lamora (Gentleman Bastard, #1)'
 description: 'A thoughtful review of The Lies of Locke Lamora (Gentleman Bastard, #1) by Scott Lynch'
 pubDate: 2022-08-20
 bookTitle: 'The Lies of Locke Lamora (Gentleman Bastard, #1)'

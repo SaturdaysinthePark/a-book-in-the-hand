@@ -1,5 +1,5 @@
 ---
-title: 'Review: Against Interpretation and Other Essays'
+title: 'Against Interpretation and Other Essays'
 description: 'A thoughtful review of Against Interpretation and Other Essays by Susan Sontag'
 pubDate: 2020-06-28
 bookTitle: 'Against Interpretation and Other Essays'

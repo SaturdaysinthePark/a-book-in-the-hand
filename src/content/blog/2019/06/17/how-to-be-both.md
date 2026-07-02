@@ -1,6 +1,6 @@
 ---
-title: 'Review: How to Be Both'
-description: 'A thoughtful review of How to Be Both by Ali Smith'
+title: 'How to Be Both'
+description: "Two stories, a grieving teenager and a Renaissance painter, braided into a playful meditation on art, history, and how we see. Inventive and challenging, with a mother whose lines quietly steal it."
 pubDate: 2019-06-17
 bookTitle: 'How to Be Both'
 author: 'Ali Smith'

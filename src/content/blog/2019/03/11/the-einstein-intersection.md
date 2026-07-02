@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Einstein Intersection'
-description: 'A thoughtful review of The Einstein Intersection by Samuel R. Delany'
+title: 'The Einstein Intersection'
+description: "A slim, strange, myth-tinged sci-fi novel that I read in a single sitting. Formless and odd in places, with layers of reference that probably reward a reader who comes in already knowing them."
 pubDate: 2019-03-11
 bookTitle: 'The Einstein Intersection'
 author: 'Samuel R. Delany'

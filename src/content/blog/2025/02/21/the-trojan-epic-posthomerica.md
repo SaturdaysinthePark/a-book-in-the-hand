@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Trojan Epic: Posthomerica'
+title: 'The Trojan Epic: Posthomerica'
 description: 'A thoughtful review of The Trojan Epic: Posthomerica by Quintus Smyrnaeus'
 pubDate: 2025-02-21
 bookTitle: 'The Trojan Epic: Posthomerica'

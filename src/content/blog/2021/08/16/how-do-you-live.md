@@ -1,5 +1,5 @@
 ---
-title: 'Review: How Do You Live?'
+title: 'How Do You Live?'
 description: 'A thoughtful review of How Do You Live? by Genzaburo Yoshino'
 pubDate: 2021-08-16
 bookTitle: 'How Do You Live?'

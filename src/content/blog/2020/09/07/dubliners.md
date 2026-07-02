@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dubliners'
+title: 'Dubliners'
 description: 'A thoughtful review of Dubliners by James Joyce'
 pubDate: 2020-09-07
 bookTitle: 'Dubliners'

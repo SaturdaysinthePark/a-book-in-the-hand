@@ -1,5 +1,5 @@
 ---
-title: 'Review: Never Split the Difference: Negotiating As If Your Life Depended On It'
+title: 'Never Split the Difference: Negotiating As If Your Life Depended On It'
 description: 'A thoughtful review of Never Split the Difference: Negotiating As If Your Life Depended On It by Chris Voss'
 pubDate: 2021-03-30
 bookTitle: 'Never Split the Difference: Negotiating As If Your Life Depended On It'

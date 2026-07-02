@@ -1,6 +1,6 @@
 ---
-title: 'Review: Jackson Pollock: An American Saga'
-description: 'A thoughtful review of Jackson Pollock: An American Saga by Gregory White Smith and Steven Naifeh'
+title: 'Jackson Pollock: An American Saga'
+description: "One of the best biographies I've read. A Pulitzer-winning portrait of Pollock and the early New York art scene, richly researched and vivid about the forces, and the antics, that drove him over the edge."
 pubDate: 2019-06-13
 bookTitle: 'Jackson Pollock: An American Saga'
 author: 'Gregory White Smith and Steven Naifeh'

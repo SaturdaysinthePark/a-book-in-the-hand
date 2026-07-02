@@ -1,5 +1,5 @@
 ---
-title: 'Review: Small Gods (Discworld, #13)'
+title: 'Small Gods (Discworld, #13)'
 description: 'A thoughtful review of Small Gods (Discworld, #13) by Terry Pratchett'
 pubDate: 2023-10-11
 bookTitle: 'Small Gods (Discworld, #13)'

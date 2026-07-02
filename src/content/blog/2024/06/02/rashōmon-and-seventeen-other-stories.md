@@ -1,5 +1,5 @@
 ---
-title: 'Review: Rashōmon and Seventeen Other Stories'
+title: 'Rashōmon and Seventeen Other Stories'
 description: 'A thoughtful review of Rashōmon and Seventeen Other Stories by Ryūnosuke Akutagawa'
 pubDate: 2024-06-02
 bookTitle: 'Rashōmon and Seventeen Other Stories'

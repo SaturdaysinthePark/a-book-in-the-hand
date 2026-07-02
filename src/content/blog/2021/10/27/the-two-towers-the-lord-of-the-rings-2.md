@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Two Towers (The Lord of the Rings, #2)'
+title: 'The Two Towers (The Lord of the Rings, #2)'
 description: 'A thoughtful review of The Two Towers (The Lord of the Rings, #2) by J.R.R. Tolkien'
 pubDate: 2021-10-27
 bookTitle: 'The Two Towers (The Lord of the Rings, #2)'

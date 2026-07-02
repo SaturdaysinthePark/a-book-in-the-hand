@@ -1,5 +1,5 @@
 ---
-title: 'Review: So Many Olympic Exertions'
+title: 'So Many Olympic Exertions'
 description: 'A thoughtful review of So Many Olympic Exertions by Anelise Chen'
 pubDate: 2024-11-14
 bookTitle: 'So Many Olympic Exertions'

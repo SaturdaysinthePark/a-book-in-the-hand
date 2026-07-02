@@ -1,6 +1,6 @@
 ---
-title: 'Review: Conversations with Friends'
-description: 'A thoughtful review of Conversations with Friends by Sally Rooney'
+title: 'Conversations with Friends'
+description: "Four people, two best friends and an older married couple, tangle into a story of vulnerability and blurred lines. The characters feel painfully real. I admired the writing more than where it went."
 pubDate: 2019-07-08
 bookTitle: 'Conversations with Friends'
 author: 'Sally Rooney'

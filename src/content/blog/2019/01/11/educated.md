@@ -1,6 +1,6 @@
 ---
-title: 'Review: Educated'
-description: 'A thoughtful review of Educated by Tara Westover'
+title: 'Educated'
+description: "One woman's escape from a violent, off-grid family is rare and humbling. It's painful to read and harder to put down, a story that leaves you grateful for whatever stability you were handed."
 pubDate: 2019-01-11
 bookTitle: 'Educated'
 author: 'Tara Westover'

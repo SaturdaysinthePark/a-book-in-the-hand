@@ -1,5 +1,5 @@
 ---
-title: 'Review: Masters of Death'
+title: 'Masters of Death'
 description: 'A thoughtful review of Masters of Death by Olivie Blake'
 pubDate: 2023-08-24
 bookTitle: 'Masters of Death'

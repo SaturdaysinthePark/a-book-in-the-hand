@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Lucifer Effect: Understanding How Good People Turn Evil'
-description: 'A thoughtful review of The Lucifer Effect: Understanding How Good People Turn Evil by Philip G. Zimbardo'
+title: 'The Lucifer Effect: Understanding How Good People Turn Evil'
+description: "A deep dig into how ordinary people turn cruel, anchored by the Stanford Prison Experiment. The middle drowns in detail, but the lessons on power, dehumanization, and identity reward you. Skim it and you'll gain plenty."
 pubDate: 2019-08-17
 bookTitle: 'The Lucifer Effect: Understanding How Good People Turn Evil'
 author: 'Philip G. Zimbardo'

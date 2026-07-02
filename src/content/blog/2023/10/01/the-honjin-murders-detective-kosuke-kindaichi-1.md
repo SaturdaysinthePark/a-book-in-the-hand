@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Honjin Murders (Detective Kosuke Kindaichi, #1)'
+title: 'The Honjin Murders (Detective Kosuke Kindaichi, #1)'
 description: 'A thoughtful review of The Honjin Murders (Detective Kosuke Kindaichi, #1) by Seishi Yokomizo'
 pubDate: 2023-10-01
 bookTitle: 'The Honjin Murders (Detective Kosuke Kindaichi, #1)'

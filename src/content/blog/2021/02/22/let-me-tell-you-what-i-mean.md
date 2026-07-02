@@ -1,5 +1,5 @@
 ---
-title: 'Review: Let Me Tell You What I Mean'
+title: 'Let Me Tell You What I Mean'
 description: 'A thoughtful review of Let Me Tell You What I Mean by Joan Didion'
 pubDate: 2021-02-22
 bookTitle: 'Let Me Tell You What I Mean'

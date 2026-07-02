@@ -1,5 +1,5 @@
 ---
-title: 'Review: Red Rising (Red Rising Saga, #1)'
+title: 'Red Rising (Red Rising Saga, #1)'
 description: 'A thoughtful review of Red Rising (Red Rising Saga, #1) by Pierce Brown'
 pubDate: 2023-09-18
 bookTitle: 'Red Rising (Red Rising Saga, #1)'

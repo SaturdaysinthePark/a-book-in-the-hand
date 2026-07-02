@@ -1,5 +1,5 @@
 ---
-title: 'Review: What I Talk About When I Talk About Running'
+title: 'What I Talk About When I Talk About Running'
 description: 'A thoughtful review of What I Talk About When I Talk About Running by Haruki Murakami'
 pubDate: 2021-03-18
 bookTitle: 'What I Talk About When I Talk About Running'

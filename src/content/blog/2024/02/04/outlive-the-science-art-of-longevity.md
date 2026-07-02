@@ -1,5 +1,5 @@
 ---
-title: 'Review: Outlive: The Science & Art of Longevity'
+title: 'Outlive: The Science & Art of Longevity'
 description: 'A thoughtful review of Outlive: The Science & Art of Longevity by Peter Attia'
 pubDate: 2024-02-04
 bookTitle: 'Outlive: The Science & Art of Longevity'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Alchemy of Happiness'
+title: 'The Alchemy of Happiness'
 description: 'A thoughtful review of The Alchemy of Happiness by Abu  Hamid Al-Ghazzali'
 pubDate: 2021-02-03
 bookTitle: 'The Alchemy of Happiness'

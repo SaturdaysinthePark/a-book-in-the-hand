@@ -1,5 +1,5 @@
 ---
-title: 'Review: An Absolutely Remarkable Thing (The Carls, #1)'
+title: 'An Absolutely Remarkable Thing (The Carls, #1)'
 description: 'A thoughtful review of An Absolutely Remarkable Thing (The Carls, #1) by Hank Green'
 pubDate: 2022-03-30
 bookTitle: 'An Absolutely Remarkable Thing (The Carls, #1)'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Good Omens'
-description: 'A thoughtful review of Good Omens by Terry Pratchett'
+title: 'Good Omens'
+description: "A witty send-up of the apocalypse that pokes fun at religion and the whole idea of judgment day. Funny and clever throughout, even when the plot tangles itself up in its own complications."
 pubDate: 2019-03-10
 bookTitle: 'Good Omens'
 author: 'Terry Pratchett'

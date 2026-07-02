@@ -1,6 +1,6 @@
 ---
-title: 'Review: Blue Nights'
-description: 'A thoughtful review of Blue Nights by Joan Didion'
+title: 'Blue Nights'
+description: "A mother reflects on her late daughter, on aging, and on the way memory bends over time. Quieter and more inward than The Year of Magical Thinking, and it stays with you long after."
 pubDate: 2019-07-17
 bookTitle: 'Blue Nights'
 author: 'Joan Didion'

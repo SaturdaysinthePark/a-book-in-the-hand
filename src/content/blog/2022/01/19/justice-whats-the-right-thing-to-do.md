@@ -1,5 +1,5 @@
 ---
-title: 'Review: Justice: What''s the Right Thing to Do?'
+title: 'Justice: What''s the Right Thing to Do?'
 description: 'A thoughtful review of Justice: What''s the Right Thing to Do? by Michael J. Sandel'
 pubDate: 2022-01-19
 bookTitle: 'Justice: What''s the Right Thing to Do?'

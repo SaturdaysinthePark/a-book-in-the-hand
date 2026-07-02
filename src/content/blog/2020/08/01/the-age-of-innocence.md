@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Age of Innocence'
+title: 'The Age of Innocence'
 description: 'A thoughtful review of The Age of Innocence by Edith Wharton'
 pubDate: 2020-08-01
 bookTitle: 'The Age of Innocence'

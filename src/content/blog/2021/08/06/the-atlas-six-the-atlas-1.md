@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Atlas Six (The Atlas, #1)'
+title: 'The Atlas Six (The Atlas, #1)'
 description: 'A thoughtful review of The Atlas Six (The Atlas, #1) by Olivie Blake'
 pubDate: 2021-08-06
 bookTitle: 'The Atlas Six (The Atlas, #1)'

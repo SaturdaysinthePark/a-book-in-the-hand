@@ -1,5 +1,5 @@
 ---
-title: 'Review: My Name Is Red'
+title: 'My Name Is Red'
 description: 'A thoughtful review of My Name Is Red by Orhan Pamuk'
 pubDate: 2021-05-26
 bookTitle: 'My Name Is Red'

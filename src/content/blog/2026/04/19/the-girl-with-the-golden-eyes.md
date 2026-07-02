@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Girl with the Golden Eyes'
+title: 'The Girl with the Golden Eyes'
 description: 'My review of The Girl with the Golden Eyes by Honoré de Balzac.'
 pubDate: 2026-04-19
 bookTitle: 'The Girl with the Golden Eyes'

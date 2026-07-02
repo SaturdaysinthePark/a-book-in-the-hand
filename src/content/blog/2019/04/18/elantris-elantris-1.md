@@ -1,6 +1,6 @@
 ---
-title: 'Review: Elantris (Elantris, #1)'
-description: 'A thoughtful review of Elantris (Elantris, #1) by Brandon Sanderson'
+title: 'Elantris'
+description: "A near-perfect entry point into the Cosmere. Rich worldbuilding, characters you quickly love, and a plot that escalates beautifully, with threads on politics, race, and class. The book that made me a fan."
 pubDate: 2019-04-18
 bookTitle: 'Elantris (Elantris, #1)'
 author: 'Brandon Sanderson'

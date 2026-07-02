@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Bewitched Bourgeois: Fifty Stories'
+title: 'The Bewitched Bourgeois: Fifty Stories'
 description: 'My review of The Bewitched Bourgeois: Fifty Stories by Dino Buzzati.'
 pubDate: 2026-05-27
 bookTitle: 'The Bewitched Bourgeois: Fifty Stories'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Eleven Rings: The Soul of Success'
+title: 'Eleven Rings: The Soul of Success'
 description: 'A thoughtful review of Eleven Rings: The Soul of Success by Phil Jackson'
 pubDate: 2020-09-23
 bookTitle: 'Eleven Rings: The Soul of Success'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Rich Dad, Poor Dad'
-description: 'A thoughtful review of Rich Dad, Poor Dad by Robert T. Kiyosaki'
+title: 'Rich Dad, Poor Dad'
+description: "This money classic won't hand you a formula, but its assets-versus-liabilities lens reframes how you see rent, cars, and luxuries. Come for the mindset shift, not the concrete steps."
 pubDate: 2019-09-05
 bookTitle: 'Rich Dad, Poor Dad'
 author: 'Robert T. Kiyosaki'

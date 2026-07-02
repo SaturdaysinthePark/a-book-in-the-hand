@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dance and the Fire'
+title: 'The Dance and the Fire'
 description: 'My review of The Dance and the Fire by Daniel Saldaña París.'
 pubDate: 2025-09-13
 bookTitle: 'The Dance and the Fire'

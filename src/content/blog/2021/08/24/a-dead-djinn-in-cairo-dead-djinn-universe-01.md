@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Dead Djinn in Cairo (Dead Djinn Universe, #0.1)'
+title: 'A Dead Djinn in Cairo (Dead Djinn Universe, #0.1)'
 description: 'A thoughtful review of A Dead Djinn in Cairo (Dead Djinn Universe, #0.1) by P. Djèlí Clark'
 pubDate: 2021-08-24
 bookTitle: 'A Dead Djinn in Cairo (Dead Djinn Universe, #0.1)'

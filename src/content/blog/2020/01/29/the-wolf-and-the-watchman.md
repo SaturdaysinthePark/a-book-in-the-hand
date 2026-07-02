@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Wolf and the Watchman'
+title: 'The Wolf and the Watchman'
 description: 'A thoughtful review of The Wolf and the Watchman by Niklas Natt och Dag'
 pubDate: 2020-01-29
 bookTitle: 'The Wolf and the Watchman'

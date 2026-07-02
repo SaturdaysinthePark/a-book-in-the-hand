@@ -1,6 +1,6 @@
 ---
-title: 'Review: Flaubert''s Parrot'
-description: 'A thoughtful review of Flaubert''s Parrot by Julian Barnes'
+title: 'Flaubert''s Parrot'
+description: "A doctor's hunt for Flaubert's parrot turns into a witty study of the writer's life, where every triumph hides a private sorrow. You finish it wondering what makes a writer a writer."
 pubDate: 2019-02-09
 bookTitle: 'Flaubert''s Parrot'
 author: 'Julian Barnes'

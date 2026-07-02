@@ -1,5 +1,5 @@
 ---
-title: 'Review: Uprooted'
+title: 'Uprooted'
 description: 'A thoughtful review of Uprooted by Naomi Novik'
 pubDate: 2021-11-21
 bookTitle: 'Uprooted'

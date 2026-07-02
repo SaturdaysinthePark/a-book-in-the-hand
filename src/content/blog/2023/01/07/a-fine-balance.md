@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Fine Balance'
+title: 'A Fine Balance'
 description: 'A thoughtful review of A Fine Balance by Rohinton Mistry'
 pubDate: 2023-01-07
 bookTitle: 'A Fine Balance'

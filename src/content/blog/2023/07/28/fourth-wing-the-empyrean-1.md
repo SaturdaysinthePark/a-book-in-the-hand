@@ -1,5 +1,5 @@
 ---
-title: 'Review: Fourth Wing (The Empyrean, #1)'
+title: 'Fourth Wing (The Empyrean, #1)'
 description: 'A thoughtful review of Fourth Wing (The Empyrean, #1) by Rebecca Yarros'
 pubDate: 2023-07-28
 bookTitle: 'Fourth Wing (The Empyrean, #1)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Every'
+title: 'The Every'
 description: 'A thoughtful review of The Every by Dave Eggers'
 pubDate: 2021-11-11
 bookTitle: 'The Every'

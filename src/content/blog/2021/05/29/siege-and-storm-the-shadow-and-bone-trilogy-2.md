@@ -1,5 +1,5 @@
 ---
-title: 'Review: Siege and Storm (The Shadow and Bone Trilogy, #2)'
+title: 'Siege and Storm (The Shadow and Bone Trilogy, #2)'
 description: 'A thoughtful review of Siege and Storm (The Shadow and Bone Trilogy, #2) by Leigh Bardugo'
 pubDate: 2021-05-29
 bookTitle: 'Siege and Storm (The Shadow and Bone Trilogy, #2)'

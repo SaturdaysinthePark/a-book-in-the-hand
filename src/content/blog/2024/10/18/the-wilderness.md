@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Wilderness'
+title: 'The Wilderness'
 description: 'A thoughtful review of The Wilderness by Aysegül Savas'
 pubDate: 2024-10-18
 bookTitle: 'The Wilderness'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Man''s Search for Meaning'
+title: 'Man''s Search for Meaning'
 description: 'A thoughtful review of Man''s Search for Meaning by Viktor E. Frankl'
 pubDate: 2020-04-21
 bookTitle: 'Man''s Search for Meaning'

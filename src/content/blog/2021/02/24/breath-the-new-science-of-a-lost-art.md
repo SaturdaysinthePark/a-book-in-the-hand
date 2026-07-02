@@ -1,5 +1,5 @@
 ---
-title: 'Review: Breath: The New Science of a Lost Art'
+title: 'Breath: The New Science of a Lost Art'
 description: 'A thoughtful review of Breath: The New Science of a Lost Art by James Nestor'
 pubDate: 2021-02-24
 bookTitle: 'Breath: The New Science of a Lost Art'

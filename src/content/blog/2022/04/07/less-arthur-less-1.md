@@ -1,5 +1,5 @@
 ---
-title: 'Review: Less (Arthur Less, #1)'
+title: 'Less (Arthur Less, #1)'
 description: 'A thoughtful review of Less (Arthur Less, #1) by Andrew Sean Greer'
 pubDate: 2022-04-07
 bookTitle: 'Less (Arthur Less, #1)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Fortunately, the Milk'
+title: 'Fortunately, the Milk'
 description: 'A thoughtful review of Fortunately, the Milk by Neil Gaiman'
 pubDate: 2020-11-21
 bookTitle: 'Fortunately, the Milk'

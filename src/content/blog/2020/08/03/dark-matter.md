@@ -1,5 +1,5 @@
 ---
-title: 'Review: Dark Matter'
+title: 'Dark Matter'
 description: 'A thoughtful review of Dark Matter by Blake Crouch'
 pubDate: 2020-08-03
 bookTitle: 'Dark Matter'

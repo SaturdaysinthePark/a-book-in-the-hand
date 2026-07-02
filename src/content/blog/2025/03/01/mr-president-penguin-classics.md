@@ -1,5 +1,5 @@
 ---
-title: 'Review: Mr. President'
+title: 'Mr. President'
 description: 'The foundational Latin American malevolent dictatorship novel, establishing the genre and heavily influencing authors even to this day'
 pubDate: 2025-03-01
 bookTitle: 'Mr. President'

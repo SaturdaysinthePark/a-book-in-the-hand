@@ -1,5 +1,5 @@
 ---
-title: 'Review: Wind and Truth (The Stormlight Archive, #5)'
+title: 'Wind and Truth (The Stormlight Archive, #5)'
 description: 'A thoughtful review of Wind and Truth (The Stormlight Archive, #5) by Brandon Sanderson'
 pubDate: 2024-12-28
 bookTitle: 'Wind and Truth (The Stormlight Archive, #5)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Homegoing'
+title: 'Homegoing'
 description: 'A thoughtful review of Homegoing by Yaa Gyasi'
 pubDate: 2022-06-05
 bookTitle: 'Homegoing'

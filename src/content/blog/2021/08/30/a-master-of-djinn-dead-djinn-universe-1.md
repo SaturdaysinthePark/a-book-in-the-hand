@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Master of Djinn (Dead Djinn Universe, #1)'
+title: 'A Master of Djinn (Dead Djinn Universe, #1)'
 description: 'A thoughtful review of A Master of Djinn (Dead Djinn Universe, #1) by P. Djèlí Clark'
 pubDate: 2021-08-30
 bookTitle: 'A Master of Djinn (Dead Djinn Universe, #1)'

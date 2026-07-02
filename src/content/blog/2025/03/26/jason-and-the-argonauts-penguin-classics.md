@@ -1,5 +1,5 @@
 ---
-title: 'Review: Jason and the Argonauts'
+title: 'Jason and the Argonauts'
 description: 'An epic where the hero is outshone by his crew and paramour'
 pubDate: 2025-03-26
 bookTitle: 'Jason and the Argonauts'

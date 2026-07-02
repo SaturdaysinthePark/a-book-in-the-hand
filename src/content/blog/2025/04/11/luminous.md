@@ -1,5 +1,5 @@
 ---
-title: 'Review: Luminous'
+title: 'Luminous'
 description: 'A thoughtful review of Luminous by Silvia Park'
 pubDate: 2025-04-11
 bookTitle: 'Luminous'

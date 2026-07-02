@@ -1,5 +1,5 @@
 ---
-title: 'Review: Iron Flame (The Empyrean, #2)'
+title: 'Iron Flame (The Empyrean, #2)'
 description: 'A thoughtful review of Iron Flame (The Empyrean, #2) by Rebecca Yarros'
 pubDate: 2023-11-22
 bookTitle: 'Iron Flame (The Empyrean, #2)'

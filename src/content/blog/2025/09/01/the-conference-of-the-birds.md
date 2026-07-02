@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Conference of the Birds'
+title: 'The Conference of the Birds'
 description: 'My review of The Conference of the Birds by Attar of Nishapur.'
 pubDate: 2025-09-01
 bookTitle: 'The Conference of the Birds'

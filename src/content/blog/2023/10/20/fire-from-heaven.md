@@ -1,5 +1,5 @@
 ---
-title: 'Review: Fire from Heaven'
+title: 'Fire from Heaven'
 description: 'A thoughtful review of Fire from Heaven by Mary Renault'
 pubDate: 2023-10-20
 bookTitle: 'Fire from Heaven'

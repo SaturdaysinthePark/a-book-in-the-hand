@@ -1,5 +1,5 @@
 ---
-title: 'Review: Exhalation'
+title: 'Exhalation'
 description: 'A thoughtful review of Exhalation by Ted Chiang'
 pubDate: 2022-05-20
 bookTitle: 'Exhalation'

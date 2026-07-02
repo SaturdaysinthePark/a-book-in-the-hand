@@ -1,6 +1,6 @@
 ---
-title: 'Review: The World According to Garp: A Novel'
-description: 'A thoughtful review of The World According to Garp: A Novel by John Irving'
+title: 'The World According to Garp: A Novel'
+description: "A funny, frank, sprawling novel about Garp and his fiercely independent mother Jenny, who becomes a feminist icon. Full of irony and sharp social commentary, the kind of book that rewards a second reading."
 pubDate: 2019-06-29
 bookTitle: 'The World According to Garp: A Novel'
 author: 'John Irving'

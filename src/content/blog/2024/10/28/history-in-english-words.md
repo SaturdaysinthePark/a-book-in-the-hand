@@ -1,5 +1,5 @@
 ---
-title: 'Review: History in English Words'
+title: 'History in English Words'
 description: 'A thoughtful review of History in English Words by Owen Barfield'
 pubDate: 2024-10-28
 bookTitle: 'History in English Words'

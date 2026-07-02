@@ -1,5 +1,5 @@
 ---
-title: 'Review: Human Diversity: The Biology of Gender, Race, and Class'
+title: 'Human Diversity: The Biology of Gender, Race, and Class'
 description: 'A thoughtful review of Human Diversity: The Biology of Gender, Race, and Class by Charles Murray'
 pubDate: 2023-06-24
 bookTitle: 'Human Diversity: The Biology of Gender, Race, and Class'

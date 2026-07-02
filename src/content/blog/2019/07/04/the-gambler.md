@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Gambler'
-description: 'A thoughtful review of The Gambler by Fyodor Dostoyevsky'
+title: 'The Gambler'
+description: "A quick, captivating dive into the compulsions of a gambler. Alexei runs the full range of cynicism, arrogance, and regret. Not a major work, but a sharp sliver the faithful will enjoy."
 pubDate: 2019-07-04
 bookTitle: 'The Gambler'
 author: 'Fyodor Dostoyevsky'

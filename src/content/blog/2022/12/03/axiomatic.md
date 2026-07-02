@@ -1,5 +1,5 @@
 ---
-title: 'Review: Axiomatic'
+title: 'Axiomatic'
 description: 'A thoughtful review of Axiomatic by Greg Egan'
 pubDate: 2022-12-03
 bookTitle: 'Axiomatic'

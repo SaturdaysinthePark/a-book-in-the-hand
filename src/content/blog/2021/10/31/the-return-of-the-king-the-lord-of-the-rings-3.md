@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Return of the King (The Lord of the Rings, #3)'
+title: 'The Return of the King (The Lord of the Rings, #3)'
 description: 'A thoughtful review of The Return of the King (The Lord of the Rings, #3) by J.R.R. Tolkien'
 pubDate: 2021-10-31
 bookTitle: 'The Return of the King (The Lord of the Rings, #3)'

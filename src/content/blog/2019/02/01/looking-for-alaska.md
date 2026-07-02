@@ -1,6 +1,6 @@
 ---
-title: 'Review: Looking for Alaska'
-description: 'A thoughtful review of Looking for Alaska by John Green'
+title: 'Looking for Alaska'
+description: "A group of restless teens chase big questions about the labyrinth of suffering and how we find our way out. Miles' fixation on last words stuck with me, and had me thinking about my own."
 pubDate: 2019-02-01
 bookTitle: 'Looking for Alaska'
 author: 'John Green'

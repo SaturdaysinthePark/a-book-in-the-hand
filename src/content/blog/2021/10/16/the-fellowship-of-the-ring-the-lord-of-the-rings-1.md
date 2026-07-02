@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Fellowship of the Ring (The Lord of the Rings, #1)'
+title: 'The Fellowship of the Ring (The Lord of the Rings, #1)'
 description: 'A thoughtful review of The Fellowship of the Ring (The Lord of the Rings, #1) by J.R.R. Tolkien'
 pubDate: 2021-10-16
 bookTitle: 'The Fellowship of the Ring (The Lord of the Rings, #1)'

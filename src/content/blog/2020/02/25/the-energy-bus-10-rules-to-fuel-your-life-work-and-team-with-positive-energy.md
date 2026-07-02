@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Energy Bus: 10 Rules to Fuel Your Life, Work, and Team with Positive Energy'
+title: 'The Energy Bus: 10 Rules to Fuel Your Life, Work, and Team with Positive Energy'
 description: 'A thoughtful review of The Energy Bus: 10 Rules to Fuel Your Life, Work, and Team with Positive Energy by Jon Gordon'
 pubDate: 2020-02-25
 bookTitle: 'The Energy Bus: 10 Rules to Fuel Your Life, Work, and Team with Positive Energy'

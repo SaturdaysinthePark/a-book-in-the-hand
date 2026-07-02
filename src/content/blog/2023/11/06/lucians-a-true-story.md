@@ -1,5 +1,5 @@
 ---
-title: 'Review: Lucian''s A True Story'
+title: 'Lucian''s A True Story'
 description: 'A thoughtful review of Lucian''s A True Story by Lucian of Samosata'
 pubDate: 2023-11-06
 bookTitle: 'Lucian''s A True Story'

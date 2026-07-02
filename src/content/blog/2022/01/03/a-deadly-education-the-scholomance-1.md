@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Deadly Education (The Scholomance, #1)'
+title: 'A Deadly Education (The Scholomance, #1)'
 description: 'A thoughtful review of A Deadly Education (The Scholomance, #1) by Naomi Novik'
 pubDate: 2022-01-03
 bookTitle: 'A Deadly Education (The Scholomance, #1)'

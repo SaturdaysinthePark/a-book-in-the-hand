@@ -1,5 +1,5 @@
 ---
-title: 'Review: Crooked Kingdom (Six of Crows, #2)'
+title: 'Crooked Kingdom (Six of Crows, #2)'
 description: 'A thoughtful review of Crooked Kingdom (Six of Crows, #2) by Leigh Bardugo'
 pubDate: 2021-06-27
 bookTitle: 'Crooked Kingdom (Six of Crows, #2)'

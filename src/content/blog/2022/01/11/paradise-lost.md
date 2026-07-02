@@ -1,5 +1,5 @@
 ---
-title: 'Review: Paradise Lost'
+title: 'Paradise Lost'
 description: 'A thoughtful review of Paradise Lost by John Milton'
 pubDate: 2022-01-11
 bookTitle: 'Paradise Lost'

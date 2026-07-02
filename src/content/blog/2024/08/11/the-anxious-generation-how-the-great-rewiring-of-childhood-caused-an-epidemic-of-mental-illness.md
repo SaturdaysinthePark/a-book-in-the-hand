@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Anxious Generation: How the Great Rewiring of Childhood Caused an Epidemic of Mental Illness'
+title: 'The Anxious Generation: How the Great Rewiring of Childhood Caused an Epidemic of Mental Illness'
 description: 'A thoughtful review of The Anxious Generation: How the Great Rewiring of Childhood Caused an Epidemic of Mental Illness by Jonathan Haidt'
 pubDate: 2024-08-11
 bookTitle: 'The Anxious Generation: How the Great Rewiring of Childhood Caused an Epidemic of Mental Illness'

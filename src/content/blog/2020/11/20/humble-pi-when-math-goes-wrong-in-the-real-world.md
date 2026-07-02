@@ -1,5 +1,5 @@
 ---
-title: 'Review: Humble Pi: When Math Goes Wrong in the Real World'
+title: 'Humble Pi: When Math Goes Wrong in the Real World'
 description: 'A thoughtful review of Humble Pi: When Math Goes Wrong in the Real World by Matt Parker'
 pubDate: 2020-11-20
 bookTitle: 'Humble Pi: When Math Goes Wrong in the Real World'

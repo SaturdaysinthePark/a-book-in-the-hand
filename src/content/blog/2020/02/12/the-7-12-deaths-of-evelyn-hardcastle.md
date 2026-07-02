@@ -1,5 +1,5 @@
 ---
-title: 'Review: The 7 1/2 Deaths of Evelyn Hardcastle'
+title: 'The 7 1/2 Deaths of Evelyn Hardcastle'
 description: 'A thoughtful review of The 7 1/2 Deaths of Evelyn Hardcastle by Stuart Turton'
 pubDate: 2020-02-12
 bookTitle: 'The 7 1/2 Deaths of Evelyn Hardcastle'

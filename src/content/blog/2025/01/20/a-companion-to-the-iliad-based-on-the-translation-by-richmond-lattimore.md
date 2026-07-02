@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Companion to the Iliad: Based on the Translation by Richmond Lattimore'
+title: 'A Companion to the Iliad: Based on the Translation by Richmond Lattimore'
 description: "If you are reading the Iliad, then you should read the companion novel. There are so many references and points that give more context to the poem and its story. Its so rich given the additional commentary."
 pubDate: 2025-01-20
 bookTitle: 'A Companion to the Iliad: Based on the Translation by Richmond Lattimore'

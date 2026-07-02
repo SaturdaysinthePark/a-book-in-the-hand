@@ -1,5 +1,5 @@
 ---
-title: 'Review: Sourdough Culture: A History of Bread Making from Ancient to Modern Bakers'
+title: 'Sourdough Culture: A History of Bread Making from Ancient to Modern Bakers'
 description: 'A thoughtful review of Sourdough Culture: A History of Bread Making from Ancient to Modern Bakers by Eric Pallant'
 pubDate: 2024-08-07
 bookTitle: 'Sourdough Culture: A History of Bread Making from Ancient to Modern Bakers'

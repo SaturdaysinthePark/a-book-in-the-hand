@@ -1,5 +1,5 @@
 ---
-title: 'Review: All the Light We Cannot See'
+title: 'All the Light We Cannot See'
 description: 'A thoughtful review of All the Light We Cannot See by Anthony Doerr'
 pubDate: 2021-01-18
 bookTitle: 'All the Light We Cannot See'

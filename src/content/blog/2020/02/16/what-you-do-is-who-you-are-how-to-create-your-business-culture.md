@@ -1,5 +1,5 @@
 ---
-title: 'Review: What You Do Is Who You Are: How to Create Your Business Culture'
+title: 'What You Do Is Who You Are: How to Create Your Business Culture'
 description: 'A thoughtful review of What You Do Is Who You Are: How to Create Your Business Culture by Ben Horowitz'
 pubDate: 2020-02-16
 bookTitle: 'What You Do Is Who You Are: How to Create Your Business Culture'

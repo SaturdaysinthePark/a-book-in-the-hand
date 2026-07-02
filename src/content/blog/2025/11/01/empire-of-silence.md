@@ -1,5 +1,5 @@
 ---
-title: 'Review: Empire of Silence'
+title: 'Empire of Silence'
 description: 'My review of Empire of Silence by Christopher Ruocchio.'
 pubDate: 2025-11-01
 bookTitle: 'Empire of Silence'

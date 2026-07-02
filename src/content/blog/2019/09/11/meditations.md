@@ -1,6 +1,6 @@
 ---
-title: 'Review: Meditations'
-description: 'A thoughtful review of Meditations by Marcus Aurelius'
+title: 'Meditations'
+description: "Required reading. A Roman emperor's private stoic notes to himself, spare on the surface but startlingly human and endlessly quotable. I've reread it many times, and each pass gives up something new."
 pubDate: 2019-09-11
 bookTitle: 'Meditations'
 author: 'Marcus Aurelius'

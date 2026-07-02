@@ -1,5 +1,5 @@
 ---
-title: 'Review: Project Hail Mary'
+title: 'Project Hail Mary'
 description: 'My review of Project Hail Mary by Andy Weir.'
 pubDate: 2025-09-23
 bookTitle: 'Project Hail Mary'

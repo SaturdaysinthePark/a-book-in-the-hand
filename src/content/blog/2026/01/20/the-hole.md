@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Hole'
+title: 'The Hole'
 description: 'My review of The Hole by Hiroko Oyamada.'
 pubDate: 2026-01-20
 bookTitle: 'The Hole'

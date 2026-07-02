@@ -1,5 +1,5 @@
 ---
-title: 'Review: In Our Time'
+title: 'In Our Time'
 description: 'A thoughtful review of In Our Time by Ernest Hemingway'
 pubDate: 2020-01-31
 bookTitle: 'In Our Time'

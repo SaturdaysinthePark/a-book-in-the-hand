@@ -1,5 +1,5 @@
 ---
-title: 'Review: Reflections of a Man'
+title: 'Reflections of a Man'
 description: 'A thoughtful review of Reflections of a Man by Amari Soul'
 pubDate: 2021-02-05
 bookTitle: 'Reflections of a Man'

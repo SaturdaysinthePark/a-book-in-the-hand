@@ -1,5 +1,5 @@
 ---
-title: 'Review: Bones & All'
+title: 'Bones & All'
 description: 'A thoughtful review of Bones & All by Camille DeAngelis'
 pubDate: 2022-05-01
 bookTitle: 'Bones & All'

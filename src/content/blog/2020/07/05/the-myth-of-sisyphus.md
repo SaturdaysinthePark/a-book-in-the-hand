@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Myth of Sisyphus'
+title: 'The Myth of Sisyphus'
 description: 'A thoughtful review of The Myth of Sisyphus by Albert Camus'
 pubDate: 2020-07-05
 bookTitle: 'The Myth of Sisyphus'

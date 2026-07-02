@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Chapter: A Segmented History from Antiquity to the Twenty-First Century'
+title: 'The Chapter: A Segmented History from Antiquity to the Twenty-First Century'
 description: 'A thoughtful review of The Chapter: A Segmented History from Antiquity to the Twenty-First Century by Nicholas Dames'
 pubDate: 2023-12-09
 bookTitle: 'The Chapter: A Segmented History from Antiquity to the Twenty-First Century'

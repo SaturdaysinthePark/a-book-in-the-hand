@@ -1,5 +1,5 @@
 ---
-title: 'Review: Shadows for Silence in the Forests of Hell'
+title: 'Shadows for Silence in the Forests of Hell'
 description: 'A thoughtful review of Shadows for Silence in the Forests of Hell by Brandon Sanderson'
 pubDate: 2024-10-04
 bookTitle: 'Shadows for Silence in the Forests of Hell'

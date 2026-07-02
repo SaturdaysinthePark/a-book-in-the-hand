@@ -1,5 +1,5 @@
 ---
-title: 'Review: Parable of the Sower (Earthseed, #1)'
+title: 'Parable of the Sower (Earthseed, #1)'
 description: 'A thoughtful review of Parable of the Sower (Earthseed, #1) by Octavia E. Butler'
 pubDate: 2022-01-01
 bookTitle: 'Parable of the Sower (Earthseed, #1)'

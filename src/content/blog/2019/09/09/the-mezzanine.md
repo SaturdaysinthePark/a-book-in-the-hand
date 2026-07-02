@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Mezzanine'
-description: 'A thoughtful review of The Mezzanine by Nicholson Baker'
+title: 'The Mezzanine'
+description: "A whole novel built from one office worker's escalator ride and the tiny, mundane thoughts we all have. Think Seinfeld in prose. A clever, funny little challenge, even if not much actually happens."
 pubDate: 2019-09-09
 bookTitle: 'The Mezzanine'
 author: 'Nicholson Baker'

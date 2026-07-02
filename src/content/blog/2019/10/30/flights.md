@@ -1,6 +1,6 @@
 ---
-title: 'Review: Flights'
-description: 'A thoughtful review of Flights by Olga Tokarczuk'
+title: 'Flights'
+description: "A roving collection of stories, essays, and travel musings, all circling one idea: things in motion are the most beautiful. There's real beauty here, but the constant restlessness and shifting tone kept throwing me off."
 pubDate: 2019-10-30
 bookTitle: 'Flights'
 author: 'Olga Tokarczuk'

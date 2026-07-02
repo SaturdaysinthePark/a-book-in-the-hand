@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Greek Alexander Romance'
+title: 'The Greek Alexander Romance'
 description: 'My review of The Greek Alexander Romance by Richard Stoneman.'
 pubDate: 2025-09-04
 bookTitle: 'The Greek Alexander Romance'

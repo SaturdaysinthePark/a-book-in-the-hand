@@ -1,6 +1,6 @@
 ---
-title: 'Review: Starsight (Skyward, #2)'
-description: 'A thoughtful review of Starsight (Skyward, #2) by Brandon Sanderson'
+title: 'Starsight (Skyward, #2)'
+description: "Spensa goes undercover among the aliens, and the galaxy fills with the most interesting species in ages. M-BOT and Doomslug shine, the espionage grips, and the worldbuilding leaps ahead. Hard to believe it's YA."
 pubDate: 2019-11-29
 bookTitle: 'Starsight (Skyward, #2)'
 author: 'Brandon Sanderson'

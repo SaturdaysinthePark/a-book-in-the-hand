@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Memory Police'
+title: 'The Memory Police'
 description: 'A thoughtful review of The Memory Police by Yōko Ogawa'
 pubDate: 2023-01-12
 bookTitle: 'The Memory Police'

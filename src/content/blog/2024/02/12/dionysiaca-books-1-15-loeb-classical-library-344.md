@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dionysiaca'
+title: 'The Dionysiaca'
 description: "The longest Greek epic you've never heard of. Dionysus conquers India with wine, madness, and a pinecone staff. 48 books of baroque excess that rewrites what an epic can be."
 pubDate: 2025-02-12
 bookTitle: 'The Dionysiaca'

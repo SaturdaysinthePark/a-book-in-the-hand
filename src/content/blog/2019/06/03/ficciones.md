@@ -1,6 +1,6 @@
 ---
-title: 'Review: Ficciones'
-description: 'A thoughtful review of Ficciones by Jorge Luis Borges'
+title: 'Ficciones'
+description: "These short fictions bend time, perception, and reality until the world arrives back to you upside down. Not exactly light reading, but endlessly rewarding. For anyone who loves Black Mirror or the Twilight Zone."
 pubDate: 2019-06-03
 bookTitle: 'Ficciones'
 author: 'Jorge Luis Borges'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Psalm for the Wild-Built'
+title: 'A Psalm for the Wild-Built'
 description: 'My review of A Psalm for the Wild-Built by Becky Chambers.'
 pubDate: 2026-04-01
 bookTitle: 'A Psalm for the Wild-Built'

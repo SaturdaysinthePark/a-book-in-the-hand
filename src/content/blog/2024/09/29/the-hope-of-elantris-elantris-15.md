@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Hope of Elantris (Elantris, #1.5)'
+title: 'The Hope of Elantris (Elantris, #1.5)'
 description: 'A thoughtful review of The Hope of Elantris (Elantris, #1.5) by Brandon Sanderson'
 pubDate: 2024-09-29
 bookTitle: 'The Hope of Elantris (Elantris, #1.5)'

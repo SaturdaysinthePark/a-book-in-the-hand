@@ -1,5 +1,5 @@
 ---
-title: 'Review: Kitchen Confidential: Adventures in the Culinary Underbelly'
+title: 'Kitchen Confidential: Adventures in the Culinary Underbelly'
 description: 'A thoughtful review of Kitchen Confidential: Adventures in the Culinary Underbelly by Anthony Bourdain'
 pubDate: 2021-08-22
 bookTitle: 'Kitchen Confidential: Adventures in the Culinary Underbelly'

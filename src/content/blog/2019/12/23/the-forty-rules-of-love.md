@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Forty Rules of Love'
-description: 'A thoughtful review of The Forty Rules of Love by Elif Shafak'
+title: 'The Forty Rules of Love'
+description: "A modern love story braided with the tale of Rumi and the dervish Shams, whose forty rules thread through both. Endlessly quotable, it challenges how you think about faith and love. I'll return to it."
 pubDate: 2019-12-23
 bookTitle: 'The Forty Rules of Love'
 author: 'Elif Shafak'

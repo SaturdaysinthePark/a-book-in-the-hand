@@ -1,5 +1,5 @@
 ---
-title: 'Review: No Logo'
+title: 'No Logo'
 description: 'A thoughtful review of No Logo by Naomi Klein'
 pubDate: 2021-07-14
 bookTitle: 'No Logo'

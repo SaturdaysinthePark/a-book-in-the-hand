@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Disappearing Spoon: And Other True Tales of Madness, Love, and the History of the World from the Periodic Table of the Elements'
+title: 'The Disappearing Spoon: And Other True Tales of Madness, Love, and the History of the World from the Periodic Table of the Elements'
 description: 'A thoughtful review of The Disappearing Spoon: And Other True Tales of Madness, Love, and the History of the World from the Periodic Table of the Elements by Sam Kean'
 pubDate: 2020-11-10
 bookTitle: 'The Disappearing Spoon: And Other True Tales of Madness, Love, and the History of the World from the Periodic Table of the Elements'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Talking to Strangers: What We Should Know About the People We Don''t Know'
-description: 'A thoughtful review of Talking to Strangers: What We Should Know About the People We Don''t Know by Malcolm Gladwell'
+title: 'Talking to Strangers: What We Should Know About the People We Don''t Know'
+description: "A string of famous cases linked by one idea: we're terrible at reading strangers, yet we default to trusting them. Eye-opening in the right context, though the book needed more of that context itself."
 pubDate: 2019-09-18
 bookTitle: 'Talking to Strangers: What We Should Know About the People We Don''t Know'
 author: 'Malcolm Gladwell'

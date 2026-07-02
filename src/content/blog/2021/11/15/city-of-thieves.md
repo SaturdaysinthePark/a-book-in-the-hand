@@ -1,5 +1,5 @@
 ---
-title: 'Review: City of Thieves'
+title: 'City of Thieves'
 description: 'A thoughtful review of City of Thieves by David Benioff'
 pubDate: 2021-11-15
 bookTitle: 'City of Thieves'

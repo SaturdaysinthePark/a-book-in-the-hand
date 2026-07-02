@@ -26,6 +26,7 @@ const {
 	picks,
 	ranked,
 	publishYear,
+	isbn,
 	ogImage,
 	body,
 	genres = [],
@@ -65,9 +66,19 @@ if (postType === 'list' && body) {
 
 // Deterministic cover color for books without photos
 
-const pageTitle = postType === 'review' && bookTitle && author
-	? `${bookTitle} by ${author} — Saturdays in a Book`
+const pageTitle =
+	postType === 'review' && bookTitle && author
+		? `${bookTitle} by ${author} — Book Review | Saturdays in a Book`
+	: postType === 'list'
+		? `${title} — Reading Recommendations | Saturdays in a Book`
 	: `${title} — Saturdays in a Book`;
+
+// ISBN for the Review schema only (never rendered on the page). Strip junk/placeholder
+// values from older frontmatter; keep only well-formed ISBN-10/13 digits.
+const cleanIsbn = (() => {
+	const d = (isbn ?? '').replace(/[^0-9Xx]/g, '');
+	return d.length === 10 || d.length === 13 ? d : '';
+})();
 const pageDesc = postType === 'review' && rating
 	? `${description} Rating: ${rating}/5 stars.`
 	: description;
@@ -86,7 +97,7 @@ function stars(n: number) {
 			<script type="application/ld+json" set:html={JSON.stringify({
 				"@context": "https://schema.org",
 				"@type": "Review",
-				"itemReviewed": { "@type": "Book", "name": bookTitle, "author": { "@type": "Person", "name": author }, "image": heroImage },
+				"itemReviewed": { "@type": "Book", "name": bookTitle, "author": { "@type": "Person", "name": author }, "image": heroImage, ...(cleanIsbn ? { "isbn": cleanIsbn } : {}) },
 				"reviewRating": { "@type": "Rating", "ratingValue": rating, "bestRating": 5, "worstRating": 1 },
 				"author": { "@type": "Person", "name": "Sabtain Khan" },
 				"datePublished": pubDate.toISOString().split('T')[0],
@@ -109,6 +120,23 @@ function stars(n: number) {
 				{ "@type": "ListItem", "position": 3, "name": title, "item": Astro.url.href },
 			],
 		})} />
+
+		{postType === 'list' && resolvedPicks && resolvedPicks.length > 0 && (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "ItemList",
+				"name": title,
+				"description": description,
+				"numberOfItems": resolvedPicks.length,
+				"itemListOrder": ranked === false ? "https://schema.org/ItemListUnordered" : "https://schema.org/ItemListOrderedDescending",
+				"itemListElement": resolvedPicks.map((pick, i) => ({
+					"@type": "ListItem",
+					"position": i + 1,
+					"name": pick.author ? `${pick.bookTitle} by ${pick.author}` : pick.bookTitle,
+					...(pick.reviewUrl ? { "url": new URL(pick.reviewUrl, Astro.site).href } : {}),
+				})),
+			})} />
+		)}
 	</head>
 
 	<body>

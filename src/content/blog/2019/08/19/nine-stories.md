@@ -1,6 +1,6 @@
 ---
-title: 'Review: Nine Stories'
-description: 'A thoughtful review of Nine Stories by J.D. Salinger'
+title: 'Nine Stories'
+description: "A revelation beyond Catcher in the Rye. Nine subtle, quietly devastating stories about post-war America, trauma, and a country retelling itself. Small investment per story, and a large reward."
 pubDate: 2019-08-19
 bookTitle: 'Nine Stories'
 author: 'J.D. Salinger'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Tomorrow, and Tomorrow, and Tomorrow'
+title: 'Tomorrow, and Tomorrow, and Tomorrow'
 description: 'A thoughtful review of Tomorrow, and Tomorrow, and Tomorrow by Gabrielle Zevin'
 pubDate: 2022-12-25
 bookTitle: 'Tomorrow, and Tomorrow, and Tomorrow'

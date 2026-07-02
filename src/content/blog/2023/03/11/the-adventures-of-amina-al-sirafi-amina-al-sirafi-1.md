@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Adventures of Amina al-Sirafi (Amina al-Sirafi, #1)'
+title: 'The Adventures of Amina al-Sirafi (Amina al-Sirafi, #1)'
 description: 'A thoughtful review of The Adventures of Amina al-Sirafi (Amina al-Sirafi, #1) by Shannon Chakraborty'
 pubDate: 2023-03-11
 bookTitle: 'The Adventures of Amina al-Sirafi (Amina al-Sirafi, #1)'

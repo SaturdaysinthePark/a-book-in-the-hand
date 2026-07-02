@@ -1,5 +1,5 @@
 ---
-title: 'Review: Say Nothing: A True Story of Murder and Memory in Northern Ireland'
+title: 'Say Nothing: A True Story of Murder and Memory in Northern Ireland'
 description: 'A deeply researched exposé of a murder during the Irish Troubles that unfolds into story of how the motivations and decisions of ordinary people were made to fight for their belief of a united Ireland'
 pubDate: 2025-10-11
 bookTitle: 'Say Nothing: A True Story of Murder and Memory in Northern Ireland'

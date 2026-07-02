@@ -1,5 +1,5 @@
 ---
-title: 'Review: Witch King (The Rising World, #1)'
+title: 'Witch King (The Rising World, #1)'
 description: 'A thoughtful review of Witch King (The Rising World, #1) by Martha Wells'
 pubDate: 2023-11-04
 bookTitle: 'Witch King (The Rising World, #1)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Dispossessed'
+title: 'The Dispossessed'
 description: 'A thoughtful review of The Dispossessed by Ursula K. Le Guin'
 pubDate: 2021-09-21
 bookTitle: 'The Dispossessed'

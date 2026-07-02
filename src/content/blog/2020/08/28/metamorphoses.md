@@ -1,5 +1,5 @@
 ---
-title: 'Review: Metamorphoses'
+title: 'Metamorphoses'
 description: 'A thoughtful review of Metamorphoses by Ovid'
 pubDate: 2020-08-28
 bookTitle: 'Metamorphoses'

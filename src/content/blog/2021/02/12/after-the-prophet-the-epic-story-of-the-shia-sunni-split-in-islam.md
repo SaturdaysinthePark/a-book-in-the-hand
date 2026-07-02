@@ -1,5 +1,5 @@
 ---
-title: 'Review: After the Prophet: The Epic Story of the Shia-Sunni Split in Islam'
+title: 'After the Prophet: The Epic Story of the Shia-Sunni Split in Islam'
 description: 'A thoughtful review of After the Prophet: The Epic Story of the Shia-Sunni Split in Islam by Lesley Hazleton'
 pubDate: 2021-02-12
 bookTitle: 'After the Prophet: The Epic Story of the Shia-Sunni Split in Islam'

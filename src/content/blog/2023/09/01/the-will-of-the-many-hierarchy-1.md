@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Will of the Many (Hierarchy, #1)'
+title: 'The Will of the Many (Hierarchy, #1)'
 description: 'A thoughtful review of The Will of the Many (Hierarchy, #1) by James  Islington'
 pubDate: 2023-09-01
 bookTitle: 'The Will of the Many (Hierarchy, #1)'

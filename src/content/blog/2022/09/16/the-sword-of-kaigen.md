@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sword of Kaigen'
+title: 'The Sword of Kaigen'
 description: 'A thoughtful review of The Sword of Kaigen by M.L. Wang'
 pubDate: 2022-09-16
 bookTitle: 'The Sword of Kaigen'

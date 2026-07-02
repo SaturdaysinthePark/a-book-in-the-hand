@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Quiet American'
+title: 'The Quiet American'
 description: 'My review of The Quiet American by Graham Greene.'
 pubDate: 2025-10-26
 bookTitle: 'The Quiet American'

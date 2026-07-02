@@ -1,5 +1,5 @@
 ---
-title: 'Review: Gliff'
+title: 'Gliff'
 description: "In near future Britain, you don't exist unless the state can verify you. A fragmented, language focused dystopia where doubelspeak and workplay tell many stories."
 pubDate: 2025-04-18
 bookTitle: 'Gliff'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Shadows Upon Time'
+title: 'Shadows Upon Time'
 description: 'My review of Shadows Upon Time by Christopher Ruocchio.'
 pubDate: 2026-04-26
 bookTitle: 'Shadows Upon Time'

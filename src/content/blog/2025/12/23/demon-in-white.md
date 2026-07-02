@@ -1,5 +1,5 @@
 ---
-title: 'Review: Demon in White'
+title: 'Demon in White'
 description: 'My review of Demon in White by Christopher Ruocchio.'
 pubDate: 2025-12-23
 bookTitle: 'Demon in White'

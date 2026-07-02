@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Stationery Shop of Tehran'
+title: 'The Stationery Shop of Tehran'
 description: 'A thoughtful review of The Stationery Shop of Tehran by Marjan Kamali'
 pubDate: 2021-04-01
 bookTitle: 'The Stationery Shop of Tehran'

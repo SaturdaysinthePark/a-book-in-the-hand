@@ -1,5 +1,5 @@
 ---
-title: 'Review: Sword of Destiny (The Witcher, #0.7)'
+title: 'Sword of Destiny (The Witcher, #0.7)'
 description: 'A thoughtful review of Sword of Destiny (The Witcher, #0.7) by Andrzej Sapkowski'
 pubDate: 2021-07-20
 bookTitle: 'Sword of Destiny (The Witcher, #0.7)'

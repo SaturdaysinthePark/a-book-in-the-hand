@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Rabbit Hutch'
+title: 'The Rabbit Hutch'
 description: 'A thoughtful review of The Rabbit Hutch by Tess Gunty'
 pubDate: 2023-03-05
 bookTitle: 'The Rabbit Hutch'

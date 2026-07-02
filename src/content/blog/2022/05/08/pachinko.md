@@ -1,5 +1,5 @@
 ---
-title: 'Review: Pachinko'
+title: 'Pachinko'
 description: 'A thoughtful review of Pachinko by Min Jin Lee'
 pubDate: 2022-05-08
 bookTitle: 'Pachinko'

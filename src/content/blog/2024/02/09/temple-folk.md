@@ -1,5 +1,5 @@
 ---
-title: 'Review: Temple Folk'
+title: 'Temple Folk'
 description: 'A thoughtful review of Temple Folk by Aaliyah Bilal'
 pubDate: 2024-02-09
 bookTitle: 'Temple Folk'

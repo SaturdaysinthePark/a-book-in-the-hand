@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Siege of Krishnapur'
+title: 'The Siege of Krishnapur'
 description: 'A thoughtful review of The Siege of Krishnapur by J.G. Farrell'
 pubDate: 2023-10-29
 bookTitle: 'The Siege of Krishnapur'

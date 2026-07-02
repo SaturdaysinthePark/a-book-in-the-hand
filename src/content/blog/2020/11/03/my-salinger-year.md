@@ -1,5 +1,5 @@
 ---
-title: 'Review: My Salinger Year'
+title: 'My Salinger Year'
 description: 'A thoughtful review of My Salinger Year by Joanna Rakoff'
 pubDate: 2020-11-03
 bookTitle: 'My Salinger Year'

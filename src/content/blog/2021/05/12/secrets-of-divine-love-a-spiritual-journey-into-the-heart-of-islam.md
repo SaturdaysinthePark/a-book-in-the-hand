@@ -1,5 +1,5 @@
 ---
-title: 'Review: Secrets of Divine Love: A Spiritual Journey into the Heart of Islam'
+title: 'Secrets of Divine Love: A Spiritual Journey into the Heart of Islam'
 description: 'A thoughtful review of Secrets of Divine Love: A Spiritual Journey into the Heart of Islam by A. Helwa'
 pubDate: 2021-05-12
 bookTitle: 'Secrets of Divine Love: A Spiritual Journey into the Heart of Islam'

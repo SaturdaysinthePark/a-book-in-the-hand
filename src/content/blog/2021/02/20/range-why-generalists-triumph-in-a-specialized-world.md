@@ -1,5 +1,5 @@
 ---
-title: 'Review: Range: Why Generalists Triumph in a Specialized World'
+title: 'Range: Why Generalists Triumph in a Specialized World'
 description: 'A thoughtful review of Range: Why Generalists Triumph in a Specialized World by David   Epstein'
 pubDate: 2021-02-20
 bookTitle: 'Range: Why Generalists Triumph in a Specialized World'

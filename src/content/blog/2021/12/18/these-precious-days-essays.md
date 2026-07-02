@@ -1,5 +1,5 @@
 ---
-title: 'Review: These Precious Days: Essays'
+title: 'These Precious Days: Essays'
 description: 'A thoughtful review of These Precious Days: Essays by Ann Patchett'
 pubDate: 2021-12-18
 bookTitle: 'These Precious Days: Essays'

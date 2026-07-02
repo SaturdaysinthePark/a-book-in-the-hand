@@ -1,5 +1,5 @@
 ---
-title: 'Review: Team of Rivals: The Political Genius of Abraham Lincoln'
+title: 'Team of Rivals: The Political Genius of Abraham Lincoln'
 description: 'A thoughtful review of Team of Rivals: The Political Genius of Abraham Lincoln by Doris Kearns Goodwin'
 pubDate: 2020-03-14
 bookTitle: 'Team of Rivals: The Political Genius of Abraham Lincoln'

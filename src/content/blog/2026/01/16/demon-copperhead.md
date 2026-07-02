@@ -1,5 +1,5 @@
 ---
-title: 'Review: Demon Copperhead'
+title: 'Demon Copperhead'
 description: 'My review of Demon Copperhead by Barbara Kingsolver.'
 pubDate: 2026-01-16
 bookTitle: 'Demon Copperhead'

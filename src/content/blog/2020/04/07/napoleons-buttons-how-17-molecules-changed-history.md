@@ -1,5 +1,5 @@
 ---
-title: 'Review: Napoleon''s Buttons: How 17 Molecules Changed History'
+title: 'Napoleon''s Buttons: How 17 Molecules Changed History'
 description: 'A thoughtful review of Napoleon''s Buttons: How 17 Molecules Changed History by Penny Le Couteur'
 pubDate: 2020-04-07
 bookTitle: 'Napoleon''s Buttons: How 17 Molecules Changed History'

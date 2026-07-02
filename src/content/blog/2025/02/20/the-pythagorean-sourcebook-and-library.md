@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Pythagorean Sourcebook and Library'
+title: 'The Pythagorean Sourcebook and Library'
 description: 'A thoughtful review of The Pythagorean Sourcebook and Library by Kenneth Sylvan Guthrie'
 pubDate: 2025-02-20
 bookTitle: 'The Pythagorean Sourcebook and Library'

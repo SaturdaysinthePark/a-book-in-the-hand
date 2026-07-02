@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Eye of the Bedlam Bride (Dungeon Crawler Carl, #6)'
+title: 'The Eye of the Bedlam Bride (Dungeon Crawler Carl, #6)'
 description: 'A thoughtful review of The Eye of the Bedlam Bride (Dungeon Crawler Carl, #6) by Matt Dinniman'
 pubDate: 2025-05-26
 bookTitle: 'The Eye of the Bedlam Bride (Dungeon Crawler Carl, #6)'

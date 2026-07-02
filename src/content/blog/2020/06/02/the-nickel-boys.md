@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Nickel Boys'
+title: 'The Nickel Boys'
 description: 'A thoughtful review of The Nickel Boys by Colson Whitehead'
 pubDate: 2020-06-02
 bookTitle: 'The Nickel Boys'

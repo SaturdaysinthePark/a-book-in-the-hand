@@ -1,5 +1,5 @@
 ---
-title: 'Review: Men in the Sun'
+title: 'Men in the Sun'
 description: 'A thoughtful review of Men in the Sun by Ghassan Kanafani'
 pubDate: 2023-05-30
 bookTitle: 'Men in the Sun'

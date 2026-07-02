@@ -1,5 +1,5 @@
 ---
-title: 'Review: Arm of the Sphinx (The Books of Babel, #2)'
+title: 'Arm of the Sphinx (The Books of Babel, #2)'
 description: 'A thoughtful review of Arm of the Sphinx (The Books of Babel, #2) by Josiah Bancroft'
 pubDate: 2023-01-17
 bookTitle: 'Arm of the Sphinx (The Books of Babel, #2)'

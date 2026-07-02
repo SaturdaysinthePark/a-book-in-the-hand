@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Code Breaker: Jennifer Doudna, Gene Editing, and the Future of the Human Race'
+title: 'The Code Breaker: Jennifer Doudna, Gene Editing, and the Future of the Human Race'
 description: 'A thoughtful review of The Code Breaker: Jennifer Doudna, Gene Editing, and the Future of the Human Race by Walter Isaacson'
 pubDate: 2021-12-28
 bookTitle: 'The Code Breaker: Jennifer Doudna, Gene Editing, and the Future of the Human Race'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: 2001: A Space Odyssey (Space Odyssey, #1)'
+title: '2001: A Space Odyssey (Space Odyssey, #1)'
 description: 'A thoughtful review of 2001: A Space Odyssey (Space Odyssey, #1) by Arthur C. Clarke'
 pubDate: 2024-03-11
 bookTitle: '2001: A Space Odyssey (Space Odyssey, #1)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Stories of Your Life and Others'
+title: 'Stories of Your Life and Others'
 description: 'A thoughtful review of Stories of Your Life and Others by Ted Chiang'
 pubDate: 2022-11-13
 bookTitle: 'Stories of Your Life and Others'

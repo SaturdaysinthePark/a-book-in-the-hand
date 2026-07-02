@@ -1,5 +1,5 @@
 ---
-title: 'Review: Klara and the Sun'
+title: 'Klara and the Sun'
 description: 'A book where the main character and perspective is an AI Robot. Kazuo Ishiguro explores a world where we get to ask ourselves questions like: Can we become friends with an artificial friend / robot? How does an artificial friend think and act? What happens to these artificial friends once their usefuless is past?'
 pubDate: 2021-03-08
 bookTitle: 'Klara and the Sun'

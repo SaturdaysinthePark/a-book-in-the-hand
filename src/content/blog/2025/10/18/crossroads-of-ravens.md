@@ -1,5 +1,5 @@
 ---
-title: 'Review: Crossroads of Ravens'
+title: 'Crossroads of Ravens'
 description: 'My review of Crossroads of Ravens by Andrzej Sapkowski.'
 pubDate: 2025-10-18
 bookTitle: 'Crossroads of Ravens'

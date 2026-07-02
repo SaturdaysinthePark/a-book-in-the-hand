@@ -1,5 +1,5 @@
 ---
-title: 'Review: Flaubert in the Ruins of Paris: The Story of a Friendship, a Novel, and a Terrible Year'
+title: 'Flaubert in the Ruins of Paris: The Story of a Friendship, a Novel, and a Terrible Year'
 description: 'A thoughtful review of Flaubert in the Ruins of Paris: The Story of a Friendship, a Novel, and a Terrible Year by Peter Brooks'
 pubDate: 2020-11-05
 bookTitle: 'Flaubert in the Ruins of Paris: The Story of a Friendship, a Novel, and a Terrible Year'

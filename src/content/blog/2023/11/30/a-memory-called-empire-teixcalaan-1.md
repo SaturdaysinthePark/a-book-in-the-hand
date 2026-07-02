@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Memory Called Empire (Teixcalaan, #1)'
+title: 'A Memory Called Empire (Teixcalaan, #1)'
 description: 'A thoughtful review of A Memory Called Empire (Teixcalaan, #1) by Arkady Martine'
 pubDate: 2023-11-30
 bookTitle: 'A Memory Called Empire (Teixcalaan, #1)'

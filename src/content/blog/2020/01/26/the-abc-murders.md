@@ -1,5 +1,5 @@
 ---
-title: 'Review: The ABC Murders'
+title: 'The ABC Murders'
 description: 'A thoughtful review of The ABC Murders by Agatha Christie'
 pubDate: 2020-01-26
 bookTitle: 'The ABC Murders'

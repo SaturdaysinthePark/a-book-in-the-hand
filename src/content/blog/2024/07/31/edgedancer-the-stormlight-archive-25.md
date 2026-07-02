@@ -1,5 +1,5 @@
 ---
-title: 'Review: Edgedancer (The Stormlight Archive, #2.5)'
+title: 'Edgedancer (The Stormlight Archive, #2.5)'
 description: 'A thoughtful review of Edgedancer (The Stormlight Archive, #2.5) by Brandon Sanderson'
 pubDate: 2024-07-31
 bookTitle: 'Edgedancer (The Stormlight Archive, #2.5)'

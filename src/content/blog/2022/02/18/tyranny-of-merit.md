@@ -1,5 +1,5 @@
 ---
-title: 'Review: Tyranny of Merit'
+title: 'Tyranny of Merit'
 description: 'A thoughtful review of Tyranny of Merit by Michael J. Sandel'
 pubDate: 2022-02-18
 bookTitle: 'Tyranny of Merit'

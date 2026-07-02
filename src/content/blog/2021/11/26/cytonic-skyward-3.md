@@ -1,5 +1,5 @@
 ---
-title: 'Review: Cytonic (Skyward, #3)'
+title: 'Cytonic (Skyward, #3)'
 description: 'A thoughtful review of Cytonic (Skyward, #3) by Brandon Sanderson'
 pubDate: 2021-11-26
 bookTitle: 'Cytonic (Skyward, #3)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Strange Beasts of China'
+title: 'Strange Beasts of China'
 description: 'A thoughtful review of Strange Beasts of China by Yan Ge'
 pubDate: 2023-04-30
 bookTitle: 'Strange Beasts of China'

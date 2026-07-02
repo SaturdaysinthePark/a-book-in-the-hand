@@ -1,6 +1,6 @@
 ---
-title: 'Review: Mary Ventura and the Ninth Kingdom'
-description: 'A thoughtful review of Mary Ventura and the Ninth Kingdom by Sylvia Plath'
+title: 'Mary Ventura and the Ninth Kingdom'
+description: "A short story that boards a train bound for the Ninth Kingdom, the realm of frozen will. Eerie and heavy with symbolism, it builds a dread you can't quite shake. A single unsettling sitting."
 pubDate: 2019-07-09
 bookTitle: 'Mary Ventura and the Ninth Kingdom'
 author: 'Sylvia Plath'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Lord of Light'
+title: 'Lord of Light'
 description: 'A thoughtful review of Lord of Light by Roger Zelazny'
 pubDate: 2022-05-24
 bookTitle: 'Lord of Light'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Goblin Emperor (The Chronicles of Osreth, #1)'
+title: 'The Goblin Emperor (The Chronicles of Osreth, #1)'
 description: 'A thoughtful review of The Goblin Emperor (The Chronicles of Osreth, #1) by Katherine Addison'
 pubDate: 2020-12-03
 bookTitle: 'The Goblin Emperor (The Chronicles of Osreth, #1)'

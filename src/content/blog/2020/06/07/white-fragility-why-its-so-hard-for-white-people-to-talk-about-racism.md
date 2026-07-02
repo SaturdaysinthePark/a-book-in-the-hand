@@ -1,5 +1,5 @@
 ---
-title: 'Review: White Fragility: Why It’s So Hard for White People to Talk About Racism'
+title: 'White Fragility: Why It’s So Hard for White People to Talk About Racism'
 description: 'A thoughtful review of White Fragility: Why It’s So Hard for White People to Talk About Racism by Robin DiAngelo'
 pubDate: 2020-06-07
 bookTitle: 'White Fragility: Why It’s So Hard for White People to Talk About Racism'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: A Simple Heart'
-description: 'A thoughtful review of A Simple Heart by Gustave Flaubert'
+title: 'A Simple Heart'
+description: "A short, quiet portrait of Félicité, a servant who pours unwavering devotion into a world that gives little back. Is she a fool or something closer to pure goodness? You'll wonder."
 pubDate: 2019-02-06
 bookTitle: 'A Simple Heart'
 author: 'Gustave Flaubert'

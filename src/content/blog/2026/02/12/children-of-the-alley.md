@@ -1,5 +1,5 @@
 ---
-title: 'Review: Children of the Alley'
+title: 'Children of the Alley'
 description: 'My review of Children of the Alley by Naguib Mahfouz.'
 pubDate: 2026-02-12
 bookTitle: 'Children of the Alley'

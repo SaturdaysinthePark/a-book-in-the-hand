@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Plague'
+title: 'The Plague'
 description: 'A thoughtful review of The Plague by Albert Camus'
 pubDate: 2023-02-08
 bookTitle: 'The Plague'

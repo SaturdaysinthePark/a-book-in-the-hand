@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Anthropocene Reviewed: Essays on a Human-Centered Planet'
+title: 'The Anthropocene Reviewed: Essays on a Human-Centered Planet'
 description: 'John Green conveys his thoughts on the world and takes a look into all of our souls.'
 pubDate: 2022-01-10
 bookTitle: 'The Anthropocene Reviewed: Essays on a Human-Centered Planet'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Night Sky with Exit Wounds'
+title: 'Night Sky with Exit Wounds'
 description: 'A thoughtful review of Night Sky with Exit Wounds by Ocean Vuong'
 pubDate: 2022-04-23
 bookTitle: 'Night Sky with Exit Wounds'

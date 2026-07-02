@@ -1,6 +1,6 @@
 ---
-title: 'Review: Van Gogh: The Life'
-description: 'A thoughtful review of Van Gogh: The Life by Gregory White Smith and Steven Naifeh'
+title: 'Van Gogh: The Life'
+description: "The Pulitzer-winning duo behind the Pollock biography turn to Van Gogh, and to his brother Theo. Stunningly detailed on a restless, isolated, misunderstood life. You'll see Starry Night differently."
 pubDate: 2020-01-14
 bookTitle: 'Van Gogh: The Life'
 author: 'Gregory White Smith and Steven Naifeh'

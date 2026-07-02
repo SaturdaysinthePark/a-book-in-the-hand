@@ -1,5 +1,5 @@
 ---
-title: 'Review: Tokyo Ueno Station'
+title: 'Tokyo Ueno Station'
 description: 'A thoughtful review of Tokyo Ueno Station by Yū Miri'
 pubDate: 2024-03-07
 bookTitle: 'Tokyo Ueno Station'

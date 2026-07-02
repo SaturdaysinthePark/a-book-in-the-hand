@@ -1,5 +1,5 @@
 ---
-title: 'Review: Golden Son (Red Rising Saga, #2)'
+title: 'Golden Son (Red Rising Saga, #2)'
 description: 'A thoughtful review of Golden Son (Red Rising Saga, #2) by Pierce Brown'
 pubDate: 2023-09-23
 bookTitle: 'Golden Son (Red Rising Saga, #2)'

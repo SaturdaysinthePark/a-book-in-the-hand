@@ -1,5 +1,5 @@
 ---
-title: 'Review: Surely You''re Joking, Mr. Feynman!: Adventures of a Curious Character'
+title: 'Surely You''re Joking, Mr. Feynman!: Adventures of a Curious Character'
 description: 'A thoughtful review of Surely You''re Joking, Mr. Feynman!: Adventures of a Curious Character by Richard P. Feynman'
 pubDate: 2022-01-15
 bookTitle: 'Surely You''re Joking, Mr. Feynman!: Adventures of a Curious Character'

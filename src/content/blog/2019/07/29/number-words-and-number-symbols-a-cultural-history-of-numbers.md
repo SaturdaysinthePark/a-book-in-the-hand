@@ -1,6 +1,6 @@
 ---
-title: 'Review: Number Words and Number Symbols: A Cultural History of Numbers'
-description: 'A thoughtful review of Number Words and Number Symbols: A Cultural History of Numbers by Karl A. Menninger'
+title: 'Number Words and Number Symbols: A Cultural History of Numbers'
+description: "A history of how humanity invented counting, then symbols, then the language of numbers, from Rome and the Vikings to the Arab world and beyond. Dense but illuminating on how numbers and language grew up together."
 pubDate: 2019-07-29
 bookTitle: 'Number Words and Number Symbols: A Cultural History of Numbers'
 author: 'Karl A. Menninger'

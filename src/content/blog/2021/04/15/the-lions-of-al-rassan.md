@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Lions of Al-Rassan'
+title: 'The Lions of Al-Rassan'
 description: 'A thoughtful review of The Lions of Al-Rassan by Guy Gavriel Kay'
 pubDate: 2021-04-15
 bookTitle: 'The Lions of Al-Rassan'

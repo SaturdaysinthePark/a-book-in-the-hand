@@ -1,5 +1,5 @@
 ---
-title: 'Review: Death on the Nile (Hercule Poirot, #18)'
+title: 'Death on the Nile (Hercule Poirot, #18)'
 description: 'A thoughtful review of Death on the Nile (Hercule Poirot, #18) by Agatha Christie'
 pubDate: 2020-02-23
 bookTitle: 'Death on the Nile (Hercule Poirot, #18)'

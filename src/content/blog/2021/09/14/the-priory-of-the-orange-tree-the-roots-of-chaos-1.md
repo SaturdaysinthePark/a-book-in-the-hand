@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Priory of the Orange Tree (The Roots of Chaos, #1)'
+title: 'The Priory of the Orange Tree (The Roots of Chaos, #1)'
 description: 'A thoughtful review of The Priory of the Orange Tree (The Roots of Chaos, #1) by Samantha Shannon'
 pubDate: 2021-09-14
 bookTitle: 'The Priory of the Orange Tree (The Roots of Chaos, #1)'

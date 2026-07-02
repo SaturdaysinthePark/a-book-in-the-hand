@@ -1,6 +1,6 @@
 ---
-title: 'Review: Dungeon Crawler Carl (Dungeon Crawler Carl, #1)'
-description: 'A thoughtful review of Dungeon Crawler Carl (Dungeon Crawler Carl, #1) by Matt Dinniman'
+title: 'Dungeon Crawler Carl (Dungeon Crawler Carl, #1)'
+description: 'Aliens turn Earth into an intergalactic survival gameshow, and Carl and his talking cat Donut have to level up through the dungeon to survive. Think Survivor with Final Fantasy mechanics. Not a masterpiece, but a blast.'
 pubDate: 2024-11-02
 bookTitle: 'Dungeon Crawler Carl (Dungeon Crawler Carl, #1)'
 author: 'Matt Dinniman'

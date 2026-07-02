@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Emperor''s Soul (The Cosmere)'
-description: 'A thoughtful review of The Emperor''s Soul (The Cosmere) by Brandon Sanderson'
+title: 'The Emperor''s Soul (The Cosmere)'
+description: "A novella that follows Shai, a Forger imprisoned and forced to pull off the impossible. Short but rich, with a heroine proud of her craft even in captivity. Remarkable depth in so few pages."
 pubDate: 2019-04-19
 bookTitle: 'The Emperor''s Soul (The Cosmere)'
 author: 'Brandon Sanderson'

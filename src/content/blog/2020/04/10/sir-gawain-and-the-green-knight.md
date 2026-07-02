@@ -1,5 +1,5 @@
 ---
-title: 'Review: Sir Gawain and the Green Knight'
+title: 'Sir Gawain and the Green Knight'
 description: 'A thoughtful review of Sir Gawain and the Green Knight by Unknown'
 pubDate: 2020-04-10
 bookTitle: 'Sir Gawain and the Green Knight'

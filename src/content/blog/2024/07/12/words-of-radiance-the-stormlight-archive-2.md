@@ -1,5 +1,5 @@
 ---
-title: 'Review: Words of Radiance'
+title: 'Words of Radiance'
 description: 'If you thought Way of Kings was epic, then sit tight for the follow up: Words of Radiance. We get to see the characters start to meet and more of the lore of Roshar opens up to the reader. This one is a delightful follow up, a sequel nailed right.'
 pubDate: 2024-07-12
 bookTitle: 'Words of Radiance (The Stormlight Archive, #2)'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: Play It As It Lays'
-description: 'A thoughtful review of Play It As It Lays by Joan Didion'
+title: 'Play It As It Lays'
+description: "The glamour stripped from Hollywood through Maria, a woman adrift in the industry. Pointed in intent, but the characters stay deliberately hollow, and I finished it with little to hold onto."
 pubDate: 2019-07-20
 bookTitle: 'Play It As It Lays'
 author: 'Joan Didion'

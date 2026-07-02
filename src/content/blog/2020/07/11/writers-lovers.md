@@ -1,5 +1,5 @@
 ---
-title: 'Review: Writers & Lovers'
+title: 'Writers & Lovers'
 description: 'A thoughtful review of Writers & Lovers by Lily King'
 pubDate: 2020-07-11
 bookTitle: 'Writers & Lovers'

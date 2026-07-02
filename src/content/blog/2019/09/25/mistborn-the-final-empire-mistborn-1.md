@@ -1,6 +1,6 @@
 ---
-title: 'Review: Mistborn: The Final Empire (Mistborn, #1)'
-description: 'A thoughtful review of Mistborn: The Final Empire (Mistborn, #1) by Brandon Sanderson'
+title: 'Mistborn: The Final Empire (Mistborn, #1)'
+description: "Fantasy at its most accessible. Immense worldbuilding, a magic system with real limits, terrifying villains, and a heist plot I called the Ocean's Eleven of the genre. One of the best fantasy books I've read."
 pubDate: 2019-09-25
 bookTitle: 'Mistborn: The Final Empire (Mistborn, #1)'
 author: 'Brandon Sanderson'

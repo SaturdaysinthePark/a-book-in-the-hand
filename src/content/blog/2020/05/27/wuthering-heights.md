@@ -1,5 +1,5 @@
 ---
-title: 'Review: Wuthering Heights'
+title: 'Wuthering Heights'
 description: 'A thoughtful review of Wuthering Heights by Emily Brontë'
 pubDate: 2020-05-27
 bookTitle: 'Wuthering Heights'

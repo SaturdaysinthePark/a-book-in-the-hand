@@ -1,5 +1,5 @@
 ---
-title: 'Review: Erasure'
+title: 'Erasure'
 description: 'A thoughtful review of Erasure by Percival Everett'
 pubDate: 2025-02-09
 bookTitle: 'Erasure'

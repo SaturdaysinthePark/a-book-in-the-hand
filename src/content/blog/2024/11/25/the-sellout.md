@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sellout'
+title: 'The Sellout'
 description: 'A thoughtful review of The Sellout by Paul Beatty'
 pubDate: 2024-11-25
 bookTitle: 'The Sellout'

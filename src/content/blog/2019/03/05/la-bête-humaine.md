@@ -1,6 +1,6 @@
 ---
-title: 'Review: La Bête humaine'
-description: 'A thoughtful review of La Bête humaine by Émile Zola'
+title: 'La Bête humaine'
+description: "A study of human 'beasts' set along a railway line, with the train as vivid as any character. Murder by calculation and by desire, rendered in dark, thrilling detail. For Crime and Punishment fans."
 pubDate: 2019-03-05
 bookTitle: 'La Bête humaine'
 author: 'Émile Zola'

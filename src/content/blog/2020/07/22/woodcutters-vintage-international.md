@@ -1,5 +1,5 @@
 ---
-title: 'Review: Woodcutters (Vintage International)'
+title: 'Woodcutters (Vintage International)'
 description: 'A thoughtful review of Woodcutters (Vintage International) by Thomas Bernhard'
 pubDate: 2020-07-22
 bookTitle: 'Woodcutters (Vintage International)'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Bastard of Istanbul'
+title: 'The Bastard of Istanbul'
 description: 'A thoughtful review of The Bastard of Istanbul by Elif Shafak'
 pubDate: 2021-08-09
 bookTitle: 'The Bastard of Istanbul'

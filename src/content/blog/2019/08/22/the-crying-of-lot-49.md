@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Crying of Lot 49'
-description: 'A thoughtful review of The Crying of Lot 49 by Thomas Pynchon'
+title: 'The Crying of Lot 49'
+description: "A playful romp that sends Oedipa Maas chasing a possible postal conspiracy, a sly satire on our hunger to connect dots. The writing sparkles, but the thin plot left me cold."
 pubDate: 2019-08-22
 bookTitle: 'The Crying of Lot 49'
 author: 'Thomas Pynchon'

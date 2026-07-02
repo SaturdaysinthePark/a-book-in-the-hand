@@ -1,5 +1,5 @@
 ---
-title: 'Review: King Lear'
+title: 'King Lear'
 description: 'A thoughtful review of King Lear by William Shakespeare'
 pubDate: 2020-11-08
 bookTitle: 'King Lear'

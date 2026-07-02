@@ -1,5 +1,5 @@
 ---
-title: 'Review: Crooked House'
+title: 'Crooked House'
 description: 'A thoughtful review of Crooked House by Agatha Christie'
 pubDate: 2021-04-04
 bookTitle: 'Crooked House'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Propaganda'
+title: 'Propaganda'
 description: 'My review of Propaganda by Edward L. Bernays.'
 pubDate: 2026-03-29
 bookTitle: 'Propaganda'

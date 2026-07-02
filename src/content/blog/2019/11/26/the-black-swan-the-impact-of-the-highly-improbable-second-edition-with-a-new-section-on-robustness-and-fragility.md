@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Black Swan: The Impact of the Highly Improbable (Second edition - With a new section: "On Robustness and Fragility")'
-description: 'A thoughtful review of The Black Swan: The Impact of the Highly Improbable (Second edition - With a new section: "On Robustness and Fragility") by Nassim Nicholas Taleb'
+title: 'The Black Swan: The Impact of the Highly Improbable (Second edition - With a new section: "On Robustness and Fragility")'
+description: "A study of Black Swans, the rare, high-impact events we only explain after they happen. Prickly in tone, but genuinely mind-opening about how badly we predict and how easily we fool ourselves."
 pubDate: 2019-11-26
 bookTitle: 'The Black Swan: The Impact of the Highly Improbable (Second edition - With a new section: "On Robustness and Fragility")'
 author: 'Nassim Nicholas Taleb'

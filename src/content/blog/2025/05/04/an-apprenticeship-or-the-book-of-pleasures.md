@@ -1,5 +1,5 @@
 ---
-title: 'Review: An Apprenticeship or The Book of Pleasures'
+title: 'An Apprenticeship or The Book of Pleasures'
 description: 'A thoughtful review of An Apprenticeship or The Book of Pleasures by Clarice Lispector'
 pubDate: 2025-05-04
 bookTitle: 'An Apprenticeship or The Book of Pleasures'

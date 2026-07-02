@@ -1,6 +1,6 @@
 ---
-title: 'Review: Where the Crawdads Sing'
-description: 'A thoughtful review of Where the Crawdads Sing by Delia Owens'
+title: 'Where the Crawdads Sing'
+description: "The marsh is written so vividly it becomes the real main character. Kya, abandoned and self-reliant, grows up amid its light and creatures, with romance and a mystery threaded through. A lyrical, page-turning read."
 pubDate: 2019-08-31
 bookTitle: 'Where the Crawdads Sing'
 author: 'Delia Owens'

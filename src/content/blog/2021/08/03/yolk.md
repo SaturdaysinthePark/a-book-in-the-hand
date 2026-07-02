@@ -1,5 +1,5 @@
 ---
-title: 'Review: Yolk'
+title: 'Yolk'
 description: 'A thoughtful review of Yolk by Mary H.K. Choi'
 pubDate: 2021-08-03
 bookTitle: 'Yolk'

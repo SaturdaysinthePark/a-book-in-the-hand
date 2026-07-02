@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Shining (The Shining #1)'
-description: 'A thoughtful review of The Shining (The Shining #1) by Stephen        King'
+title: 'The Shining (The Shining #1)'
+description: "No book has made me feel so alone. It stacks isolation and dread until they settle into your bones. This is psychological horror, not gore, the kind that follows you out long after. Read it, whoever you are."
 pubDate: 2019-10-23
 bookTitle: 'The Shining (The Shining #1)'
 author: 'Stephen        King'

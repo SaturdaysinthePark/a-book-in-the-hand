@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Citadel of the Autarch'
+title: 'The Citadel of the Autarch'
 description: 'My review of The Citadel of the Autarch by Gene Wolfe.'
 pubDate: 2026-06-12
 bookTitle: 'The Citadel of the Autarch'

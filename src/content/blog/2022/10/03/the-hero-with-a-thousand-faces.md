@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Hero with a Thousand Faces'
+title: 'The Hero with a Thousand Faces'
 description: 'A thoughtful review of The Hero with a Thousand Faces by Joseph Campbell'
 pubDate: 2022-10-03
 bookTitle: 'The Hero with a Thousand Faces'

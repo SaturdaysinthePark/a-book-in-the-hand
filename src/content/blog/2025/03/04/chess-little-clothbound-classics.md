@@ -1,5 +1,5 @@
 ---
-title: 'Review: Chess Story'
+title: 'Chess Story'
 description: 'A short story about '
 pubDate: 2025-03-04
 bookTitle: 'Chess (Little Clothbound Classics)'

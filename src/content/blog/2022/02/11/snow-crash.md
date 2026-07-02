@@ -1,5 +1,5 @@
 ---
-title: 'Review: Snow Crash'
+title: 'Snow Crash'
 description: 'A thoughtful review of Snow Crash by Neal Stephenson'
 pubDate: 2022-02-11
 bookTitle: 'Snow Crash'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Good Strategy Bad Strategy: The Difference and Why It Matters'
+title: 'Good Strategy Bad Strategy: The Difference and Why It Matters'
 description: 'A thoughtful review of Good Strategy Bad Strategy: The Difference and Why It Matters by Richard P. Rumelt'
 pubDate: 2020-02-21
 bookTitle: 'Good Strategy Bad Strategy: The Difference and Why It Matters'

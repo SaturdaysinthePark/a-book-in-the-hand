@@ -1,6 +1,6 @@
 ---
-title: 'Review: Blood Meridian: Or the Evening Redness in the West'
-description: 'A thoughtful review of Blood Meridian: Or the Evening Redness in the West by Cormac McCarthy'
+title: 'Blood Meridian: Or the Evening Redness in the West'
+description: "The brutality of the West rendered in plain, masterful prose, setting unspeakable violence against beautiful americana. The Judge, sadistic and learned and almost supernatural, is one of fiction's great antagonists."
 pubDate: 2019-05-14
 bookTitle: 'Blood Meridian: Or the Evening Redness in the West'
 author: 'Cormac McCarthy'

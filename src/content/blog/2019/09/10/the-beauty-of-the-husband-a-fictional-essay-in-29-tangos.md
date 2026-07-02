@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Beauty of the Husband: A Fictional Essay in 29 Tangos'
-description: 'A thoughtful review of The Beauty of the Husband: A Fictional Essay in 29 Tangos by Anne Carson'
+title: 'The Beauty of the Husband: A Fictional Essay in 29 Tangos'
+description: "Twenty-nine 'tangos' trace a marriage dissolving, riffing on Keats and the old link between beauty and truth. The syntax takes patience, but settle in and it moves through love and betrayal. A masterclass."
 pubDate: 2019-09-10
 bookTitle: 'The Beauty of the Husband: A Fictional Essay in 29 Tangos'
 author: 'Anne Carson'

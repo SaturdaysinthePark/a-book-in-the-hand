@@ -1,5 +1,5 @@
 ---
-title: 'Review: Midnight''s Children'
+title: 'Midnight''s Children'
 description: 'A thoughtful review of Midnight''s Children by Salman Rushdie'
 pubDate: 2022-09-02
 bookTitle: 'Midnight''s Children'

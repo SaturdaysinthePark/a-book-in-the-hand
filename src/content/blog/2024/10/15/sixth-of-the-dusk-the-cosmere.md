@@ -1,5 +1,5 @@
 ---
-title: 'Review: Sixth of the Dusk (The Cosmere)'
+title: 'Sixth of the Dusk (The Cosmere)'
 description: 'A thoughtful review of Sixth of the Dusk (The Cosmere) by Brandon Sanderson'
 pubDate: 2024-10-15
 bookTitle: 'Sixth of the Dusk (The Cosmere)'

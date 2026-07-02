@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Wild Iris'
+title: 'The Wild Iris'
 description: 'A thoughtful review of The Wild Iris by Louise Glück'
 pubDate: 2020-12-11
 bookTitle: 'The Wild Iris'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Monkey''s Paw'
+title: 'The Monkey''s Paw'
 description: 'A thoughtful review of The Monkey''s Paw by W.W. Jacobs'
 pubDate: 2023-09-10
 bookTitle: 'The Monkey''s Paw'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Fire Next Time'
-description: 'A thoughtful review of The Fire Next Time by James Baldwin'
+title: 'The Fire Next Time'
+description: "Two civil-rights-era essays that land with rare confidence and bravery, naming White America's fear plainly and refusing easy comfort. Written decades ago and, sadly, still essential. Read it, whoever you are."
 pubDate: 2019-07-09
 bookTitle: 'The Fire Next Time'
 author: 'James Baldwin'

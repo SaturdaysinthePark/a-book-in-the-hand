@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Lost Book of Adana Moreau'
+title: 'The Lost Book of Adana Moreau'
 description: 'A thoughtful review of The Lost Book of Adana Moreau by Michael  Zapata'
 pubDate: 2020-03-01
 bookTitle: 'The Lost Book of Adana Moreau'

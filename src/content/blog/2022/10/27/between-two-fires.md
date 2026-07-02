@@ -1,5 +1,5 @@
 ---
-title: 'Review: Between Two Fires'
+title: 'Between Two Fires'
 description: 'A thoughtful review of Between Two Fires by Christopher Buehlman'
 pubDate: 2022-10-27
 bookTitle: 'Between Two Fires'

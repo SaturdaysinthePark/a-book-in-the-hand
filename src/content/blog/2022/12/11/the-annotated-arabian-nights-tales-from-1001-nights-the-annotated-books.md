@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Annotated Arabian Nights: Tales from 1001 Nights (The Annotated Books)'
+title: 'The Annotated Arabian Nights: Tales from 1001 Nights (The Annotated Books)'
 description: 'A thoughtful review of The Annotated Arabian Nights: Tales from 1001 Nights (The Annotated Books) by Yasmine Seale'
 pubDate: 2022-12-11
 bookTitle: 'The Annotated Arabian Nights: Tales from 1001 Nights (The Annotated Books)'

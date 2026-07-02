@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sailor Who Fell from Grace with the Sea'
+title: 'The Sailor Who Fell from Grace with the Sea'
 description: 'My review of The Sailor Who Fell from Grace with the Sea by Yukio Mishima.'
 pubDate: 2026-01-19
 bookTitle: 'The Sailor Who Fell from Grace with the Sea'

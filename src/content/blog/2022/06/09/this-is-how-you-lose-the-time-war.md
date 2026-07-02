@@ -1,5 +1,5 @@
 ---
-title: 'Review: This Is How You Lose the Time War'
+title: 'This Is How You Lose the Time War'
 description: 'A thoughtful review of This Is How You Lose the Time War by Amal El-Mohtar'
 pubDate: 2022-06-09
 bookTitle: 'This Is How You Lose the Time War'

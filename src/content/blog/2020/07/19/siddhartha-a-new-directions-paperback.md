@@ -1,5 +1,5 @@
 ---
-title: 'Review: Siddhartha (A New Directions Paperback)'
+title: 'Siddhartha (A New Directions Paperback)'
 description: 'A thoughtful review of Siddhartha (A New Directions Paperback) by Hermann Hesse'
 pubDate: 2020-07-19
 bookTitle: 'Siddhartha (A New Directions Paperback)'

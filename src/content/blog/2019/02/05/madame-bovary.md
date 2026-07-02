@@ -1,6 +1,6 @@
 ---
-title: 'Review: Madame Bovary'
-description: 'A thoughtful review of Madame Bovary by Gustave Flaubert'
+title: 'Madame Bovary'
+description: "Beneath its tale of romantic delusion lies something timeless. Emma Bovary's endless hunger for passion and status, and her refusal to blame herself, still mirrors how we chase what we desire."
 pubDate: 2019-02-05
 bookTitle: 'Madame Bovary'
 author: 'Gustave Flaubert'

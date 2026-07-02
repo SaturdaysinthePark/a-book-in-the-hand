@@ -1,5 +1,5 @@
 ---
-title: 'Review: Heaven'
+title: 'Heaven'
 description: 'A thoughtful review of Heaven by Mieko Kawakami'
 pubDate: 2021-06-30
 bookTitle: 'Heaven'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: Their Eyes Were Watching God'
+title: 'Their Eyes Were Watching God'
 description: 'A thoughtful review of Their Eyes Were Watching God by Zora Neale Hurston'
 pubDate: 2021-01-12
 bookTitle: 'Their Eyes Were Watching God'

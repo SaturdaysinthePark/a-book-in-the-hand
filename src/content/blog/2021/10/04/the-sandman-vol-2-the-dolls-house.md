@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sandman, Vol. 2: The Doll''s House'
+title: 'The Sandman, Vol. 2: The Doll''s House'
 description: 'A thoughtful review of The Sandman, Vol. 2: The Doll''s House by Neil Gaiman'
 pubDate: 2021-10-04
 bookTitle: 'The Sandman, Vol. 2: The Doll''s House'

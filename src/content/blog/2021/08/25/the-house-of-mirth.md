@@ -1,5 +1,5 @@
 ---
-title: 'Review: The House of Mirth'
+title: 'The House of Mirth'
 description: 'A thoughtful review of The House of Mirth by Edith Wharton'
 pubDate: 2021-08-25
 bookTitle: 'The House of Mirth'

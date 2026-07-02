@@ -1,5 +1,5 @@
 ---
-title: 'Review: Death and the Dervish'
+title: 'Death and the Dervish'
 description: 'A descent into Ottoman bureaucracy, moral paralysis, and the cost of detachment'
 pubDate: 2024-01-22
 bookTitle: 'Death and the Dervish'

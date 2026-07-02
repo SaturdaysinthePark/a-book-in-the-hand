@@ -1,5 +1,5 @@
 ---
-title: 'Review: All My Rage'
+title: 'All My Rage'
 description: 'A thoughtful review of All My Rage by Sabaa Tahir'
 pubDate: 2022-07-10
 bookTitle: 'All My Rage'

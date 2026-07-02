@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Last Wish (The Witcher, #0.5)'
-description: 'A thoughtful review of The Last Wish (The Witcher, #0.5) by Andrzej Sapkowski'
+title: 'The Last Wish (The Witcher, #0.5)'
+description: "Played the games, never read the books, and wow, the writing holds up. Each story reworks a fairy tale in Geralt's world, where nothing is what it seems. Sharp, twist-filled, and well-paced. I'll happily read on."
 pubDate: 2019-12-24
 bookTitle: 'The Last Wish (The Witcher, #0.5)'
 author: 'Andrzej Sapkowski'

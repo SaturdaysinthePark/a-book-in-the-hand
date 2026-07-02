@@ -1,5 +1,5 @@
 ---
-title: 'Review: Small Things Like These'
+title: 'Small Things Like These'
 description: 'My review of Small Things Like These by Claire Keegan.'
 pubDate: 2026-04-08
 bookTitle: 'Small Things Like These'

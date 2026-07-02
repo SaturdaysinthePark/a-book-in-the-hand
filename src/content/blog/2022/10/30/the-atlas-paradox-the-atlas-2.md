@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Atlas Paradox (The Atlas, #2)'
+title: 'The Atlas Paradox (The Atlas, #2)'
 description: 'A thoughtful review of The Atlas Paradox (The Atlas, #2) by Olivie Blake'
 pubDate: 2022-10-30
 bookTitle: 'The Atlas Paradox (The Atlas, #2)'

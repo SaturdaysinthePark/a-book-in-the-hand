@@ -1,5 +1,5 @@
 ---
-title: 'Review: Howling Dark'
+title: 'Howling Dark'
 description: 'My review of Howling Dark by Christopher Ruocchio.'
 pubDate: 2025-11-20
 bookTitle: 'Howling Dark'

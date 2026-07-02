@@ -1,5 +1,5 @@
 ---
-title: 'Review: Ego Is the Enemy'
+title: 'Ego Is the Enemy'
 description: 'A thoughtful review of Ego Is the Enemy by Ryan Holiday'
 pubDate: 2021-02-02
 bookTitle: 'Ego Is the Enemy'

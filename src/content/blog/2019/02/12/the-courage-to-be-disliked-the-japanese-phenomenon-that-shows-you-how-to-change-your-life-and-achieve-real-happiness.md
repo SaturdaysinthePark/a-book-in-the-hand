@@ -1,6 +1,6 @@
 ---
-title: 'Review: The Courage to Be Disliked: The Japanese Phenomenon That Shows You How to Change Your Life and Achieve Real Happiness'
-description: 'A thoughtful review of The Courage to Be Disliked: The Japanese Phenomenon That Shows You How to Change Your Life and Achieve Real Happiness by Ichiro Kishimi'
+title: 'The Courage to Be Disliked'
+description: 'A conversational take on Adlerian psychology, arguing our suffering comes from the meaning we attach to the past, not the past itself. Simple to read and the kind of book that reshapes how you think.'
 pubDate: 2019-02-12
 bookTitle: 'The Courage to Be Disliked: The Japanese Phenomenon That Shows You How to Change Your Life and Achieve Real Happiness'
 author: 'Ichiro Kishimi'

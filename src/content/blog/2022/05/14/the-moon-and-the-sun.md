@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Moon and the Sun'
+title: 'The Moon and the Sun'
 description: 'A thoughtful review of The Moon and the Sun by Vonda N. McIntyre'
 pubDate: 2022-05-14
 bookTitle: 'The Moon and the Sun'

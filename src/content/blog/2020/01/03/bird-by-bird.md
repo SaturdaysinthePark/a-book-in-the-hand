@@ -1,6 +1,6 @@
 ---
-title: 'Review: Bird by Bird'
-description: 'A thoughtful review of Bird by Bird by Anne Lamott'
+title: 'Bird by Bird'
+description: "More than a writing manual. A warm pep talk about truth, perfectionism, and taking things one small assignment at a time, and it left me more confident in my own writing. Useful for anyone who writes."
 pubDate: 2020-01-03
 bookTitle: 'Bird by Bird'
 author: 'Anne Lamott'

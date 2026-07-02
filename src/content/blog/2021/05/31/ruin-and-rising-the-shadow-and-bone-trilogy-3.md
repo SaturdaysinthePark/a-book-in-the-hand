@@ -1,5 +1,5 @@
 ---
-title: 'Review: Ruin and Rising (The Shadow and Bone Trilogy, #3)'
+title: 'Ruin and Rising (The Shadow and Bone Trilogy, #3)'
 description: 'A thoughtful review of Ruin and Rising (The Shadow and Bone Trilogy, #3) by Leigh Bardugo'
 pubDate: 2021-05-31
 bookTitle: 'Ruin and Rising (The Shadow and Bone Trilogy, #3)'

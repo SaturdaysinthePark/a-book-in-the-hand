@@ -1,6 +1,6 @@
 ---
-title: 'Review: Notes from Underground'
-description: 'A thoughtful review of Notes from Underground by Fyodor Dostoyevsky'
+title: 'Notes from Underground'
+description: "A spiteful, self-loathing narrator opens his skull and dares you to disagree. Uncomfortable, because you catch your own mind nodding along. Cynical, brilliant, and rightly called required reading."
 pubDate: 2019-07-02
 bookTitle: 'Notes from Underground'
 author: 'Fyodor Dostoyevsky'

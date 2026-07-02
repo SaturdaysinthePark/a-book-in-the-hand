@@ -1,5 +1,5 @@
 ---
-title: 'Review: Disquiet Gods'
+title: 'Disquiet Gods'
 description: 'My review of Disquiet Gods by Christopher Ruocchio.'
 pubDate: 2026-03-15
 bookTitle: 'Disquiet Gods'

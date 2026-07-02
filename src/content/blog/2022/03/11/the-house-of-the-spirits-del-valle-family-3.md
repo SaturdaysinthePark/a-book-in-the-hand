@@ -1,5 +1,5 @@
 ---
-title: 'Review: The House of the Spirits (Del Valle Family #3)'
+title: 'The House of the Spirits (Del Valle Family #3)'
 description: 'A thoughtful review of The House of the Spirits (Del Valle Family #3) by Isabel Allende'
 pubDate: 2022-03-11
 bookTitle: 'The House of the Spirits (Del Valle Family #3)'

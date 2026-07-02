@@ -1,6 +1,6 @@
 ---
-title: 'Review: One Hundred Years of Solitude'
-description: 'A thoughtful review of One Hundred Years of Solitude by Gabriel García Márquez'
+title: 'One Hundred Years of Solitude'
+description: "The essential magical realism novel. The Buendía family rises and falls in the village of Macondo, amid isolation, obsession, and the slow corruption of Western influence. A demanding read that casts a real spell."
 pubDate: 2019-02-28
 bookTitle: 'One Hundred Years of Solitude'
 author: 'Gabriel García Márquez'

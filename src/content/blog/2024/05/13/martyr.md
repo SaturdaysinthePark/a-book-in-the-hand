@@ -1,5 +1,5 @@
 ---
-title: 'Review: Martyr!'
+title: 'Martyr!'
 description: 'A thoughtful review of Martyr! by Kaveh Akbar'
 pubDate: 2024-05-13
 bookTitle: 'Martyr!'

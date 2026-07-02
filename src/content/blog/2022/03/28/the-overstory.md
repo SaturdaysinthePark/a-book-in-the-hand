@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Overstory'
+title: 'The Overstory'
 description: 'A thoughtful review of The Overstory by Richard Powers'
 pubDate: 2022-03-28
 bookTitle: 'The Overstory'

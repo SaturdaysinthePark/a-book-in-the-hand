@@ -1,5 +1,5 @@
 ---
-title: 'Review: Spinning Silver'
+title: 'Spinning Silver'
 description: 'A thoughtful review of Spinning Silver by Naomi Novik'
 pubDate: 2021-12-12
 bookTitle: 'Spinning Silver'

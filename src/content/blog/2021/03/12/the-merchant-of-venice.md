@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Merchant of Venice'
+title: 'The Merchant of Venice'
 description: 'A thoughtful review of The Merchant of Venice by William Shakespeare'
 pubDate: 2021-03-12
 bookTitle: 'The Merchant of Venice'

@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Melancholy of Resistance'
+title: 'The Melancholy of Resistance'
 description: 'A town in hungary descends into dread, riot and chaos. Meanwhile, several forces take advantage of the chaos to consolidate their own power.'
 pubDate: 2025-10-26
 bookTitle: 'The Melancholy of Resistance'

@@ -1,6 +1,6 @@
 ---
-title: 'Review: If Beale Street Could Talk'
-description: 'A thoughtful review of If Beale Street Could Talk by James Baldwin'
+title: 'If Beale Street Could Talk'
+description: "Injustice turned intimate: the heartbreak of one family torn apart by a wrongful arrest. A story of love, family, and anger with no easy ending. Written about the 70s, and painfully still relevant."
 pubDate: 2019-12-17
 bookTitle: 'If Beale Street Could Talk'
 author: 'James Baldwin'

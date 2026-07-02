@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Sirens of Titan'
+title: 'The Sirens of Titan'
 description: 'A thoughtful review of The Sirens of Titan by Kurt Vonnegut Jr.'
 pubDate: 2022-02-26
 bookTitle: 'The Sirens of Titan'

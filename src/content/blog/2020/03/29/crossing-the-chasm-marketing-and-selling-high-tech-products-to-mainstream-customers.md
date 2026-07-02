@@ -1,5 +1,5 @@
 ---
-title: 'Review: Crossing the Chasm: Marketing and Selling High-Tech Products to Mainstream Customers'
+title: 'Crossing the Chasm: Marketing and Selling High-Tech Products to Mainstream Customers'
 description: 'A thoughtful review of Crossing the Chasm: Marketing and Selling High-Tech Products to Mainstream Customers by Geoffrey A. Moore'
 pubDate: 2020-03-29
 bookTitle: 'Crossing the Chasm: Marketing and Selling High-Tech Products to Mainstream Customers'

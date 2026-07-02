@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Butcher''s Masquerade (Dungeon Crawler Carl, #5)'
+title: 'The Butcher''s Masquerade (Dungeon Crawler Carl, #5)'
 description: 'A thoughtful review of The Butcher''s Masquerade (Dungeon Crawler Carl, #5) by Matt Dinniman'
 pubDate: 2025-05-11
 bookTitle: 'The Butcher''s Masquerade (Dungeon Crawler Carl, #5)'

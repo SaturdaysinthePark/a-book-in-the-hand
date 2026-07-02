@@ -1,5 +1,5 @@
 ---
-title: 'Review: Yumi and the Nightmare Painter'
+title: 'Yumi and the Nightmare Painter'
 description: 'A thoughtful review of Yumi and the Nightmare Painter by Brandon Sanderson'
 pubDate: 2023-08-15
 bookTitle: 'Yumi and the Nightmare Painter'

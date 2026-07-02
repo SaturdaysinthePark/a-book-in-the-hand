@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Hidden Palace (The Golem and the Jinni, #2)'
+title: 'The Hidden Palace (The Golem and the Jinni, #2)'
 description: 'A thoughtful review of The Hidden Palace (The Golem and the Jinni, #2) by Helene Wecker'
 pubDate: 2021-07-26
 bookTitle: 'The Hidden Palace (The Golem and the Jinni, #2)'

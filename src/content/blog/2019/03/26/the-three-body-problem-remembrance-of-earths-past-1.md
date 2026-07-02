@@ -1,6 +1,6 @@
 ---
-title: "Review: The Three-Body Problem (Remembrance of Earth's Past, #1)"
-description: "A thoughtful review of The Three-Body Problem (Remembrance of Earth's Past, #1) by Liu Cixin"
+title: "The Three-Body Problem (Remembrance of Earth's Past, #1)"
+description: "Grown-up, hard sci-fi that treats first contact with real scientific and political weight. Not Star Wars, but for anyone who sat in awe during physics class or loved the movie Contact. Genuinely mind-blowing."
 pubDate: 2019-03-26
 bookTitle: "The Three-Body Problem (Remembrance of Earth's Past, #1)"
 author: 'Liu Cixin'

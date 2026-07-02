@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Djinn in the Nightingale''s Eye: Five Fairy Stories'
+title: 'The Djinn in the Nightingale''s Eye: Five Fairy Stories'
 description: 'A scholar of fairy tales and mythology accidentally stumbles upon a genie and handles them smartly to avoid the classic genie wish trope.'
 pubDate: 2022-06-23
 bookTitle: 'The Djinn in the Nightingale''s Eye: Five Fairy Stories'

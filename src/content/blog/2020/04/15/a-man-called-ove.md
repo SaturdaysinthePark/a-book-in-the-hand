@@ -1,5 +1,5 @@
 ---
-title: 'Review: A Man Called Ove'
+title: 'A Man Called Ove'
 description: 'A thoughtful review of A Man Called Ove by Fredrik Backman'
 pubDate: 2020-04-15
 bookTitle: 'A Man Called Ove'

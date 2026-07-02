@@ -1,5 +1,5 @@
 ---
-title: 'Review: Pale Fire'
+title: 'Pale Fire'
 description: 'A 999 line poem, wrapped in an absurd foreword and commentary. Metafiction at its finest.'
 pubDate: 2025-04-04
 bookTitle: 'Pale Fire'

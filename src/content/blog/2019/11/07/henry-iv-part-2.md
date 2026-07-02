@@ -1,6 +1,6 @@
 ---
-title: 'Review: Henry IV, Part 2'
-description: 'A thoughtful review of Henry IV, Part 2 by William Shakespeare'
+title: 'Henry IV, Part 2'
+description: "The quieter, slower half of Hal's story. With the rebellion crushed and the king dying, the prince turns serious and casts Falstaff aside. More extension than event, but it sets the stage for Henry V."
 pubDate: 2019-11-07
 bookTitle: 'Henry IV, Part 2'
 author: 'William Shakespeare'

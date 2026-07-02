@@ -1,5 +1,5 @@
 ---
-title: 'Review: Piranesi'
+title: 'Piranesi'
 description: 'A thoughtful review of Piranesi by Susanna Clarke'
 pubDate: 2020-09-30
 bookTitle: 'Piranesi'

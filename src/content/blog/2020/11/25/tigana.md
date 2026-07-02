@@ -1,5 +1,5 @@
 ---
-title: 'Review: Tigana'
+title: 'Tigana'
 description: 'A thoughtful review of Tigana by Guy Gavriel Kay'
 pubDate: 2020-11-25
 bookTitle: 'Tigana'

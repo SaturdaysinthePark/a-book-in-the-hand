@@ -1,5 +1,5 @@
 ---
-title: 'Review: Possession'
+title: 'Possession'
 description: 'A thoughtful review of Possession by A.S. Byatt'
 pubDate: 2022-07-02
 bookTitle: 'Possession'

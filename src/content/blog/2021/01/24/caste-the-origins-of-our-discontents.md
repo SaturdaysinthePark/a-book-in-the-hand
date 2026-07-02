@@ -1,5 +1,5 @@
 ---
-title: 'Review: Caste: The Origins of Our Discontents'
+title: 'Caste: The Origins of Our Discontents'
 description: 'A thoughtful review of Caste: The Origins of Our Discontents by Isabel Wilkerson'
 pubDate: 2021-01-24
 bookTitle: 'Caste: The Origins of Our Discontents'

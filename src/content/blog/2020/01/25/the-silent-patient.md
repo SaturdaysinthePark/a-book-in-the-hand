@@ -1,5 +1,5 @@
 ---
-title: 'Review: The Silent Patient'
+title: 'The Silent Patient'
 description: 'A thoughtful review of The Silent Patient by Alex Michaelides'
 pubDate: 2020-01-25
 bookTitle: 'The Silent Patient'
