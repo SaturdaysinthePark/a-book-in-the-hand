@@ -1,5 +1,100 @@
 [
 	{
+		"goodreadsId": "235699916",
+		"title": "Suspicion",
+		"author": "Seichō Matsumoto",
+		"isbn13": "9780593979068",
+		"rating": 3,
+		"dateRead": "2026-07-01",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 128,
+		"originalPubYear": 1982,
+		"category": "fiction",
+		"subgenres": [
+			"crime",
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Japan",
+		"language": "Japanese",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1753932733i/235699916.jpg"
+	},
+	{
+		"goodreadsId": "1697369",
+		"title": "The Awakening",
+		"author": "Kate Chopin",
+		"isbn13": "9780553211948",
+		"rating": 3,
+		"dateRead": "2026-06-27",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 205,
+		"originalPubYear": 1899,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction",
+			"classics"
+		],
+		"gender": "female",
+		"classic": true,
+		"country": "United States",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1413729933i/1697369.jpg"
+	},
+	{
+		"goodreadsId": "238226991",
+		"title": "London Falling: A Mysterious Death in a Gilded City and a Family's Search for Truth",
+		"author": "Patrick Radden Keefe",
+		"isbn13": "9780385548533",
+		"rating": 3,
+		"dateRead": "2026-06-22",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 361,
+		"originalPubYear": 2026,
+		"category": "nonfiction",
+		"subgenres": [
+			"true crime",
+			"journalism"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United States",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1751942777i/238226991.jpg"
+	},
+	{
+		"goodreadsId": "42268742",
+		"title": "The Dry Heart",
+		"author": "Natalia Ginzburg",
+		"isbn13": null,
+		"rating": null,
+		"dateRead": "2026-06-14",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 88,
+		"originalPubYear": 1947,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "female",
+		"classic": false,
+		"country": "Italy",
+		"language": "Italian",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1541973449i/42268742.jpg"
+	},
+	{
 		"goodreadsId": "299758",
 		"title": "The Citadel of the Autarch",
 		"author": "Gene Wolfe",
@@ -27,7 +122,7 @@
 		"title": "The Sword of the Lictor (The Book of the New Sun, #3)",
 		"author": "Gene Wolfe",
 		"isbn13": null,
-		"rating": 4,
+		"rating": null,
 		"dateRead": "2026-06-05",
 		"readCount": 1,
 		"readYears": [
@@ -1891,7 +1986,7 @@
 		"classic": false,
 		"country": "United States",
 		"language": "English",
-		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1728768241i/17332218.jpg"
+		"coverUrl": "https://images-na.ssl-images-amazon.com/images/P/0765326361.01.L.jpg"
 	},
 	{
 		"goodreadsId": "22478",
