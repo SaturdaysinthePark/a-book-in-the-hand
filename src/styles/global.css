@@ -1363,6 +1363,20 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
   color: var(--muted);
 }
 
+/* Per-year count lines — one under the current year, one under the "↓ next" hint.
+   Shown only in year mode; the bottom .yr-meta then serves alpha/rating instead. */
+.year-rail .yr-count {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: -2px;
+  display: none;
+}
+.year-rail.mode-year .yr-count { display: block; }
+.year-rail.mode-year .yr-meta { display: none; }
+
 /* Mode visibility — year shows the track, alpha the alphabet, rating the stars */
 .year-rail .yr-alpha,
 .year-rail .yr-rating { display: none; }
@@ -1688,26 +1702,48 @@ main { animation: fadeIn 0.35s ease-out; flex: 1; }
 .review-page article blockquote {
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(24px, 3vw, 36px);
-  line-height: 1.3;
-  text-align: center;
+  font-size: clamp(20px, 2.4vw, 25px);
+  line-height: 1.5;
+  text-align: left;
+  color: var(--ink-2);
+  background: var(--paper);
+  max-width: 62ch;
+  margin: clamp(38px, 5vw, 56px) 0;
+  padding: clamp(40px, 5vw, 56px) clamp(24px, 4.5vw, 44px) clamp(26px, 4vw, 40px);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  box-shadow:
+    0 20px 44px -22px rgba(26, 22, 20, 0.30),
+    0 3px 10px -6px rgba(26, 22, 20, 0.14);
+  position: relative;
+  letter-spacing: -0.005em;
+}
+
+/* Fix: quote text sits in an inner <p>; keep it at quote size, not the body 19px */
+.review-page article blockquote p {
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  max-width: none;
+  margin: 0;
+}
+.review-page article blockquote p + p { margin-top: 0.7em; }
+
+/* "Little bold" accent: faint decorative opening quote mark, top-left of the card */
+.review-page article blockquote::before {
+  content: "\201C";
+  position: absolute;
+  top: clamp(2px, 1.4vw, 10px);
+  left: clamp(14px, 2.5vw, 24px);
+  font-family: var(--serif);
+  font-size: clamp(52px, 8vw, 78px);
+  line-height: 1;
   color: var(--accent);
-  margin: 56px auto;
-  padding: 0;
-  border: 0;
-  max-width: 24ch;
-  letter-spacing: -0.01em;
+  opacity: 0.28;
+  pointer-events: none;
 }
-.review-page article blockquote::before,
-.review-page article blockquote::after {
-  content: "";
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: var(--accent);
-  opacity: 0.4;
-  margin: 28px auto;
-}
+/* drop the old bottom hairline */
+.review-page article blockquote::after { content: none; }
 .review-page article ul, .review-page article ol {
   font-family: var(--serif);
   font-size: 18px;

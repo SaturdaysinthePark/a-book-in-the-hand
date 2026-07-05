@@ -346,6 +346,7 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 			<div class="yr-now">
 				<span class="yr-now-label" id="yr-now-label"></span>
 			</div>
+			<div class="yr-count" id="yr-now-meta"></div>
 			<div class="yr-track">
 				<div class="yr-track-bg"></div>
 				<div class="yr-track-fill" id="yr-track-fill"></div>
@@ -355,6 +356,7 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 				<span class="yr-soon-arrow">↓</span>
 				<span id="yr-soon-label"></span>
 			</div>
+			<div class="yr-count" id="yr-soon-meta" style="display:none"></div>
 
 			<!-- Alpha mode: ghost alphabet (# A B … Z) -->
 			<div class="yr-alpha" id="yr-alpha">
@@ -475,6 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const yrTrackDot  = document.getElementById('yr-track-dot');
 	const yrSoon      = document.getElementById('yr-soon');
 	const yrSoonLabel = document.getElementById('yr-soon-label');
+	const yrNowMeta   = document.getElementById('yr-now-meta');
+	const yrSoonMeta  = document.getElementById('yr-soon-meta');
 	const yrMeta      = document.getElementById('yr-meta');
 	const yrAlpha     = document.getElementById('yr-alpha');
 	const yrRating    = document.getElementById('yr-rating');
@@ -578,6 +582,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		const blend = `color-mix(in oklab, ${curC} ${Math.round((1 - t) * 100)}%, ${nxtC})`;
 		const n = groupCount[cur.key] || 0;
 		const meta = `${n} book${n !== 1 ? 's' : ''}`;
+		const nn = nxt ? (groupCount[nxt.key] || 0) : 0;
+		const soonMeta = `${nn} book${nn !== 1 ? 's' : ''}`;
 		const modeClass = `mode-${railMode}`;
 
 		if (isDesktop && yearRail) {
@@ -590,6 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				yearRail.style.setProperty('--rail-color', blend);
 				yearRail.style.setProperty('--rail-color-nxt', nxtC);
 				if (yrNowLabel) yrNowLabel.textContent = cur.key;
+				if (yrNowMeta) yrNowMeta.textContent = meta;
 				if (yrTrackFill) { yrTrackFill.style.height = `${cursor * 100}%`; yrTrackFill.style.background = blend; }
 				if (yrTrackDot)  { yrTrackDot.style.top = `${cursor * 100}%`;  yrTrackDot.style.background = blend; }
 				if (yrSoon && yrSoonLabel) {
@@ -597,8 +604,10 @@ document.addEventListener('DOMContentLoaded', () => {
 						yrSoon.style.display = '';
 						yrSoon.style.color = nxtC;
 						yrSoonLabel.textContent = nxt.key;
+						if (yrSoonMeta) { yrSoonMeta.style.display = ''; yrSoonMeta.textContent = soonMeta; }
 					} else {
 						yrSoon.style.display = 'none';
+						if (yrSoonMeta) yrSoonMeta.style.display = 'none';
 					}
 				}
 			} else if (railMode === 'alpha' && yrAlpha) {

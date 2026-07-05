@@ -126,10 +126,16 @@
 .hx-s01__rb:hover .hx-cta--light { color: rgba(243,236,224,1); }
 .hx-s01__rb h2 { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: clamp(15px,1.8vw,24px); letter-spacing: -.02em; line-height: 1.1; margin: 0 0 clamp(5px,.8vh,10px); color: var(--paper); position: relative; z-index: 1; }
 .hx-s01__rb-blurb { font-family: var(--serif); font-style: italic; font-size: clamp(10px,.9vw,12px); line-height: 1.55; color: rgba(243,236,224,.45); margin: 0 0 clamp(8px,1.1vh,14px); position: relative; z-index: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-.hx-s01__rb-books { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,1fr); gap: clamp(7px,1.4vh,16px); align-content: stretch; justify-items: center; align-items: center; position: relative; z-index: 1; }
-/* Covers fill each cell by height (capped by column width) so the two rows always
-   fit the space left after a tall, multi-line title — never overflowing into overlap. */
-.hx-s01__rb-books .cover { height: 100%; width: auto; max-width: 100%; }
+.hx-s01__rb-books { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: repeat(2,auto); gap: clamp(7px,1.4vh,16px); align-content: center; justify-items: center; align-items: center; overflow: hidden; position: relative; z-index: 1; }
+/* No-JS fallback: this grid's own height is indefinite (.hx-screen only sets
+   min-height), so 1fr rows have nothing definite to divide — that's what let the
+   old height-driven, column-capped covers get squashed narrower than true 2:3.
+   Driving by WIDTH instead is safe here because the grid's inline size is always
+   definite; height then comes straight from .cover's aspect-ratio:2/3 (global.css),
+   giving an exact 2:3 box with no clamping. overflow:hidden is a defensive net
+   (matching .hx-cell__grid's) in case a long title ever leaves too little room. */
+.hx-s01__rb-books .cover { width: 100%; height: auto; max-width: 100%; }
+.hx-s01__rb-books .cover.cover-photo img { object-fit: contain; }
 .hx-s01__rb-foot { position: relative; z-index: 1; border-top: 1px solid rgba(243,236,224,.1); padding-top: clamp(9px,1.3vh,14px); margin-top: clamp(7px,1vh,11px); display: flex; justify-content: space-between; align-items: center; }
 .hx-s01__rb-meta { font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(243,236,224,.26); }
 
@@ -321,13 +327,14 @@ html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
    content height and the §01 watermark / scroll hint drop below the viewport. The
    panel's own overflow:hidden then clips cleanly. (Mobile sets its own rows below.) */
 html.fx-on .hx-s01 { z-index: 10; grid-template-rows: minmax(0,1fr); }
-/* §03 teaser covers: two 1fr rows split the space left below the title, and each cover is the
-   largest 2:3 box that fits its cell by height (capped by column width) — so covers never
-   distort and never overlap, however many lines the title wraps to.
-   (Phone rule ≤700px below is more specific/later and keeps its own height-driven strip layout.) */
+/* §03 teaser: .hx-s01__rb is its own size container (definite height under fx-on,
+   unlike the fallback above), so cover sizing is driven off the CELL's own aspect
+   ratio — same technique as the .hx-cell__grid container queries further down:
+   wide/short cells go height-driven with content-sized (auto) columns (never
+   forced narrower than a true 2:3 box), tall/narrow cells flip to width-driven,
+   capped, fewer-per-row covers. See @container hxteaser near the end of this file. */
 html.fx-on .hx-s01__rb { container: hxteaser / size; }
-html.fx-on .hx-s01__rb-books { align-content: stretch; justify-items: center; align-items: center; }
-html.fx-on .hx-s01__rb-books .cover { height: 100%; width: auto; max-width: 100%; }
+html.fx-on .hx-s01__rb-books { justify-content: center; align-content: center; justify-items: center; align-items: center; }
 html.fx-on .hx-s02 { z-index: 5;  display: none; flex-direction: column; background: transparent; }
 html.fx-on .hx-s03 { z-index: 3;  display: none; gap: var(--seam); }
 html.fx-on .hx-s04 { z-index: 2;  display: none; flex-direction: column; }
@@ -420,12 +427,12 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	html.fx-on .hx-s01__rt-book { flex-direction: column; align-items: center; text-align: center; gap: 9px; flex: 0 1 auto; }
 	html.fx-on .hx-s01__rt-cover { width: clamp(60px,17vw,84px); }
 	html.fx-on .hx-s01__rt-book h3 { font-size: clamp(15px,4.4vw,19px); }
-	/* §03 teaser: a clean 2×2 grid of larger covers that fills the strip height
-	   (was 4 tiny covers crammed into a single row). */
+	/* §03 teaser: column count and cover sizing now come entirely from @container
+	   hxteaser (near the end of this file) — the phone strip's own aspect ratio
+	   already lands in the width-driven "tall/narrow" branch, which already shows
+	   a 2×2 grid of 4. This nth-child rule stays as a cheap explicit guarantee. */
 	html.fx-on .hx-s01__rb-blurb { display: none; }
-	html.fx-on .hx-s01__rb-books { grid-template-columns: repeat(2,1fr); grid-auto-rows: 1fr; grid-template-rows: none; max-width: none; gap: 8px; align-content: stretch; justify-items: center; }
 	html.fx-on .hx-s01__rb-books > *:nth-child(n+5) { display: none; }
-	html.fx-on .hx-s01__rb-books .cover { width: auto; height: 100%; max-width: 100%; }
 	/* §03 footer: count on its own line, no long date wrap next to the CTA */
 	html.fx-on .hx-s01__rb-foot { flex-wrap: wrap; gap: 4px 10px; }
 	html.fx-on .hx-meta-date { display: none; }
@@ -559,4 +566,29 @@ html.fx-on .hx-cell__grid { justify-content: center; align-content: center; gap:
 	html.fx-on .hx-cell__grid { grid-template-columns: repeat(2, min(46cqw, 26cqh)); grid-auto-rows: auto; }
 	html.fx-on .hx-cell__cover .cover { width: 100%; height: auto; max-width: 100%; }
 	html.fx-on .hx-cell__grid > *:nth-child(n+5) { display: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   §03 teaser (screen 01 right column) — container-query cover scaling
+   (fx-on only), same technique as .hx-cell__grid above: covers are driven on
+   ONE axis (picked by the CELL's own aspect ratio) so the box always stays at
+   true 2:3. This is a fixed 3×2 / up-to-6-cover grid (not a variable cell
+   count), so there's no cell-count column table — just the two branches.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* Wide / short cell (typical desktop sidebar) → height-driven. Columns are
+   `auto` (content-sized from the height-driven cover) — never a hard 1fr that
+   can end up narrower than a true-2:3 box wants. */
+@container hxteaser (aspect-ratio >= 0.8) {
+	html.fx-on .hx-s01__rb-books { grid-template-columns: repeat(3, auto); grid-template-rows: repeat(2, 1fr); align-content: stretch; }
+	html.fx-on .hx-s01__rb-books .cover { height: 100%; width: auto; max-width: 100%; }
+}
+
+/* Tall / narrow cell (phone strip, a narrow docked window) → width-driven,
+   two larger covers per row (hide the 5th/6th), capped by both cqw and cqh —
+   same min(46cqw,26cqh) already proven on .hx-cell__grid above. */
+@container hxteaser (aspect-ratio < 0.8) {
+	html.fx-on .hx-s01__rb-books { grid-template-columns: repeat(2, min(46cqw, 26cqh)); grid-template-rows: repeat(2, auto); }
+	html.fx-on .hx-s01__rb-books .cover { width: 100%; height: auto; max-width: 100%; }
+	html.fx-on .hx-s01__rb-books > *:nth-child(n+5) { display: none; }
 }
