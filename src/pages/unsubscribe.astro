@@ -1,0 +1,142 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Unsubscribe — Saturdays in a Book"
+      description="Unsubscribe from the Saturdays in a Book newsletter."
+    />
+    <meta name="robots" content="noindex" />
+  </head>
+  <body>
+    <Header />
+    <main class="us">
+      <div class="us-col">
+        <p class="us-eyebrow">§ The newsletter</p>
+
+        <!-- Confirm (shown when an ?id= is present) -->
+        <div class="us-state" data-state="confirm" hidden>
+          <h1 class="us-title">Unsubscribe?</h1>
+          <p class="us-lede">You'll stop getting the monthly letter from Saturdays in a Book. You can resubscribe any time.</p>
+          <button type="button" class="us-btn" data-action="unsubscribe">Unsubscribe</button>
+        </div>
+
+        <!-- Done -->
+        <div class="us-state" data-state="done" hidden>
+          <h1 class="us-title">You're unsubscribed.</h1>
+          <p class="us-lede">No more letters will head your way. Thanks for reading along.</p>
+          <p class="us-links">
+            <a href="/newsletter">Changed your mind? Resubscribe →</a>
+            <a href="/">Back to the site →</a>
+          </p>
+        </div>
+
+        <!-- Error -->
+        <div class="us-state" data-state="error" hidden>
+          <h1 class="us-title">That didn't work.</h1>
+          <p class="us-lede">Try the link from your email again, or just reply to any newsletter and I'll take you off myself.</p>
+          <button type="button" class="us-btn" data-action="unsubscribe">Try again</button>
+        </div>
+
+        <!-- No email in the URL -->
+        <div class="us-state" data-state="noemail" hidden>
+          <h1 class="us-title">Unsubscribe</h1>
+          <p class="us-lede">To unsubscribe, use the link at the bottom of any newsletter email. It knows exactly which address to remove.</p>
+          <p class="us-links"><a href="/">Back to the site →</a></p>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .us { padding: clamp(40px, 9vw, 96px) 0 clamp(48px, 8vw, 96px); }
+  .us-col { width: 100%; max-width: 560px; margin: 0 auto; padding: 0 clamp(22px, 5vw, 40px); }
+
+  .us-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 18px;
+  }
+  .us-title {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 5vw, 46px);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--ink);
+    margin: 0 0 16px;
+  }
+  .us-lede {
+    font-family: var(--serif);
+    font-size: clamp(17px, 1.6vw, 20px);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 46ch;
+    margin: 0 0 28px;
+  }
+  .us-btn {
+    font-family: var(--sans);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    padding: 13px 26px;
+    transition: background-color 160ms, color 160ms;
+  }
+  .us-btn:hover { background: var(--ink); color: var(--paper); }
+  .us-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .us-btn[disabled] { opacity: 0.55; cursor: default; }
+
+  .us-links { display: flex; flex-wrap: wrap; gap: 24px; margin: 4px 0 0; }
+  .us-links a {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--accent);
+    transition: color 160ms;
+  }
+  .us-links a:hover { color: var(--accent-2); }
+</style>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const email = params.get('email');
+  const states = document.querySelectorAll<HTMLElement>('.us-state');
+  const show = (name: string) => states.forEach((s) => (s.hidden = s.dataset.state !== name));
+
+  show(email ? 'confirm' : 'noemail');
+
+  document.querySelectorAll<HTMLButtonElement>('[data-action="unsubscribe"]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      if (!email) return;
+      btn.disabled = true;
+      const label = btn.textContent;
+      btn.textContent = 'Working…';
+      try {
+        const res = await fetch('/.netlify/functions/unsubscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        show('done');
+      } catch {
+        btn.disabled = false;
+        btn.textContent = label;
+        show('error');
+      }
+    });
+  });
+</script>
