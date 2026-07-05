@@ -131,6 +131,11 @@ const newReads = [];
 const newCurrent = [];
 const finishedBooks = []; // currently-reading in xlsx → now read in CSV
 const titleFallbacks = []; // books matched by title instead of ID
+const ratingChanges = []; // existing rows whose Goodreads rating changed since import
+
+// Goodreads is authoritative for the star rating. Normalise both sides the same
+// way build-shelf.mjs does, so "unrated" (blank / 0) compares equal on both.
+const toRating = (v) => parseInt(String(v ?? '0'), 10) || 0;
 
 for (const csvRow of relevant) {
 	const id = String(csvRow['Book Id'] || '').trim();
@@ -162,6 +167,12 @@ for (const csvRow of relevant) {
 		if (xlsxShelf === 'currently-reading' && shelf === 'read') {
 			finishedBooks.push({ csvRow, idx });
 		}
+		// Re-sync the rating. A book rated (or re-rated) on Goodreads *after* its
+		// first import would otherwise keep its stale rating forever, since this
+		// branch previously only handled the currently-reading → read transition.
+		const from = toRating(rows[idx]['My Rating']);
+		const to = toRating(csvRow['My Rating']);
+		if (from !== to) ratingChanges.push({ csvRow, idx, from, to });
 		if (usedTitleFallback) {
 			titleFallbacks.push(String(csvRow['Title'] || ''));
 		}
@@ -169,7 +180,7 @@ for (const csvRow of relevant) {
 }
 
 // ── Apply changes ─────────────────────────────────────────────────────────────
-if (newReads.length === 0 && newCurrent.length === 0 && finishedBooks.length === 0) {
+if (newReads.length === 0 && newCurrent.length === 0 && finishedBooks.length === 0 && ratingChanges.length === 0) {
 	console.log('\nNothing to import — xlsx is already up to date.');
 	process.exit(0);
 }
@@ -184,6 +195,9 @@ for (const { csvRow, idx } of finishedBooks) {
 	const dateRead = toExcelDate(csvRow['Date Read']);
 	if (dateRead) rows[idx]['Date Read'] = dateRead;
 }
+
+// Re-sync changed ratings on existing rows.
+for (const { idx, to } of ratingChanges) rows[idx]['My Rating'] = to;
 
 // Append new rows.
 for (const csvRow of newReads) rows.push(csvToRow(csvRow));
@@ -213,6 +227,11 @@ if (newReads.length) {
 if (newCurrent.length) {
 	console.log(`✓ Now reading:`);
 	newCurrent.forEach(r => console.log(`    ${r['Title']} (${r['Author']})`));
+}
+if (ratingChanges.length) {
+	console.log(`✓ Ratings re-synced from Goodreads:`);
+	ratingChanges.forEach(({ csvRow, from, to }) =>
+		console.log(`    ${csvRow['Title']}: ${from || '—'}★ → ${to || '—'}★`));
 }
 if (titleFallbacks.length) {
 	console.log(`\nℹ Matched by title (Goodreads reassigned their IDs):`);
