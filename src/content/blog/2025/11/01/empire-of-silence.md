@@ -7,6 +7,7 @@ author: 'Christopher Ruocchio'
 genre: 'Science Fiction'
 rating: 3
 goodreadsId: '36454667'
+publishYear: 2018
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1523897945i/36454667.jpg'
 status: 'live'
 series: 'Sun Eater'

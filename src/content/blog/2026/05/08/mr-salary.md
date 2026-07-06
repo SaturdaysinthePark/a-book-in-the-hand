@@ -7,6 +7,7 @@ author: 'Sally Rooney'
 genre: 'Short Stories'
 rating: 3
 goodreadsId: '34234631'
+publishYear: 2016
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1769880052i/34234631.jpg'
 status: 'live'
 tags: ['short-stories', '2026']

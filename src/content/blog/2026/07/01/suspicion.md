@@ -7,6 +7,8 @@ author: 'Seichō Matsumoto'
 genre: 'Crime'
 rating: 3
 goodreadsId: '235699916'
+isbn: '9780593979068'
+publishYear: 1982
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1753932733i/235699916.jpg'
 status: 'live'
 tags: ['crime', 'mystery', '2026']

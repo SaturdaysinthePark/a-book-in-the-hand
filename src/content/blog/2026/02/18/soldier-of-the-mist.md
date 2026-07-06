@@ -7,6 +7,7 @@ author: 'Gene Wolfe'
 genre: 'Fantasy'
 rating: 4
 goodreadsId: '322067'
+publishYear: 1986
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1387717495i/322067.jpg'
 status: 'live'
 tags: ['fantasy', '2026']

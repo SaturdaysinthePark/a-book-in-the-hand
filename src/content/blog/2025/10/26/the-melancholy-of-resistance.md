@@ -7,6 +7,7 @@ author: 'László Krasznahorkai'
 genre: 'Literary Fiction'
 rating: 3
 goodreadsId: '119512'
+publishYear: 1989
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1656784717i/119512.jpg'
 status: 'live'
 tags: ['literary-fiction', '2025']

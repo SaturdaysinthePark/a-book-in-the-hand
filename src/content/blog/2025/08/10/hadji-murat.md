@@ -7,6 +7,7 @@ author: 'Leo Tolstoy'
 genre: 'Historical Fiction'
 rating: 4
 goodreadsId: '13414651'
+publishYear: 1912
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1344371173i/13414651.jpg'
 status: 'live'
 tags: ['historical-fiction', 'literary-fiction', '2025']

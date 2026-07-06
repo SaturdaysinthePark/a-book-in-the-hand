@@ -7,6 +7,7 @@ author: 'Gene Wolfe'
 genre: 'Science Fiction'
 rating: 4
 goodreadsId: '60211'
+publishYear: 1980
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1588260981i/1234310.jpg'
 status: 'live'
 series: 'Book of the New Sun'

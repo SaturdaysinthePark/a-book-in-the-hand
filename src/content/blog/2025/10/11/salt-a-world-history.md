@@ -7,6 +7,7 @@ author: 'Mark Kurlansky'
 genre: 'History'
 rating: 2
 goodreadsId: '2715'
+publishYear: 2002
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1414608893i/2715.jpg'
 status: 'live'
 tags: ['history', '2025']

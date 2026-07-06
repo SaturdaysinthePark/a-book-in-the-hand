@@ -7,6 +7,8 @@ author: 'Patrick Radden Keefe'
 genre: 'True Crime'
 rating: 3
 goodreadsId: '238226991'
+isbn: '9780385548533'
+publishYear: 2026
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1751942777i/238226991.jpg'
 status: 'live'
 tags: ['true-crime', 'journalism', '2026']

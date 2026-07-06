@@ -7,6 +7,7 @@ author: 'Richard Stoneman'
 genre: 'Historical Fiction'
 rating: 3
 goodreadsId: '721028'
+publishYear: 250
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1619399676i/721028.jpg'
 status: 'live'
 tags: ['historical-fiction', 'mythology', '2025']
