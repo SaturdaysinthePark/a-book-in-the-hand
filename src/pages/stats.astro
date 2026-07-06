@@ -490,14 +490,6 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	gap: clamp(8px, 1.2vw, 12px);
 	margin-top: clamp(14px, 1.8vw, 20px);
 }
-@media (max-width: 540px) {
-	/* Two-row card: flag + count centered on row 1, country name centered on row 2. */
-	.flag-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-	.flag-card { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 10px; padding: 12px 10px; text-align: center; }
-	.flag-emoji { order: 1; font-size: 22px; }
-	.flag-count { order: 2; font-size: 16px; }
-	.flag-name { order: 3; flex-basis: 100%; text-align: center; font-size: 11px; }
-}
 .flag-card {
 	display: flex;
 	flex-direction: column;
@@ -534,6 +526,14 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	font-size: clamp(15px, 1.8vw, 20px);
 	color: var(--viz-primary);
 	line-height: 1;
+}
+@media (max-width: 540px) {
+	/* Two-row card: flag + count centered on row 1, country name centered on row 2. */
+	.flag-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+	.flag-card { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 10px; padding: 12px 10px; text-align: center; }
+	.flag-emoji { order: 1; font-size: 22px; }
+	.flag-count { order: 2; font-size: 16px; }
+	.flag-name { order: 3; flex-basis: 100%; text-align: center; font-size: 11px; }
 }
 .split-holder { border-radius: 3px; overflow: hidden; }
 
