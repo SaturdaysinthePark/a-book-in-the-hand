@@ -397,11 +397,11 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 						<p class="chart-sub">By books read</p>
 						<div class="flag-grid">
 							{top16Countries.map(c => (
-								<div class="flag-card">
+								<a class="flag-card" href={`/book-reviews?country=${encodeURIComponent(c.country)}&status=all`}>
 									<span class="flag-emoji">{toFlag(c.isoCode)}</span>
 									<span class="flag-name">{c.country}</span>
 									<span class="flag-count">{c.books}</span>
-								</div>
+								</a>
 							))}
 						</div>
 					</div>
@@ -491,12 +491,12 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	margin-top: clamp(14px, 1.8vw, 20px);
 }
 @media (max-width: 540px) {
-	/* Compact horizontal rows so the 16-country grid isn't a tall scroll: flag · name · count. */
+	/* Two-row card: flag + count centered on row 1, country name centered on row 2. */
 	.flag-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-	.flag-card { flex-direction: row; align-items: center; gap: 8px; padding: 8px 10px; text-align: left; }
-	.flag-emoji { font-size: 20px; }
-	.flag-name { flex: 1; min-width: 0; font-size: 11px; }
-	.flag-count { margin-left: auto; font-size: 15px; }
+	.flag-card { flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: 4px 10px; padding: 12px 10px; text-align: center; }
+	.flag-emoji { order: 1; font-size: 22px; }
+	.flag-count { order: 2; font-size: 16px; }
+	.flag-name { order: 3; flex-basis: 100%; text-align: center; font-size: 11px; }
 }
 .flag-card {
 	display: flex;
@@ -508,6 +508,19 @@ const initialTimeline = barsSVG(s.timeline.year.books, {
 	border: 1px solid var(--rule);
 	border-radius: 4px;
 	text-align: center;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
+	transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+.flag-card:hover {
+	border-color: var(--viz-primary);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px -14px rgba(0, 0, 0, 0.4);
+}
+@media (prefers-reduced-motion: reduce) {
+	.flag-card { transition: none; }
+	.flag-card:hover { transform: none; }
 }
 .flag-emoji { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; }
 .flag-name {
