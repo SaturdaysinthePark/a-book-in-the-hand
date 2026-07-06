@@ -37,6 +37,7 @@ export interface CardOpts {
 	cover?: string | null;   // review: heroImage URL
 	covers?: string[];       // default: real cover art of the last few books read
 	spines?: Spine[];        // default/section decorative row (fallback)
+	blocks?: { bars: { label: string; value: number }[]; fictionPct: number; pagesLabel: string }; // section: stat blocks (stats card)
 	watermark?: string;      // big faint glyph, defaults to "§"
 }
 
@@ -110,6 +111,51 @@ function spineRow(spines: Spine[]) {
 	);
 }
 
+// Fiction-vs-nonfiction donut as an inline SVG data-URI (satori renders it as an
+// <img>, the same trick as starsDataUri). fg = fiction arc, bg = the full ring.
+function donutDataUri(pct: number, fg: string, bg: string): string {
+	const cx = 50, cy = 50, r = 40, sw = 15;
+	const circ = 2 * Math.PI * r;
+	const dash = Math.max(0, Math.min(circ, (pct / 100) * circ));
+	const svg =
+		`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">` +
+		`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${bg}" stroke-width="${sw}"/>` +
+		`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${fg}" stroke-width="${sw}" ` +
+		`stroke-dasharray="${dash} ${circ - dash}" transform="rotate(-90 ${cx} ${cy})"/>` +
+		`</svg>`;
+	return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+}
+
+// Three condensed stat panels for the stats card: a mini bar chart (books/year),
+// a fiction-vs-nonfiction donut, and a headline number (pages read).
+function statBlocks(b: { bars: { label: string; value: number }[]; fictionPct: number; pagesLabel: string }): Node {
+	const max = Math.max(1, ...b.bars.map((x) => x.value));
+	const AREA = 168; // shared visual-area height so bars, donut and number share a baseline
+	const cap = (t: string) =>
+		h('div', { display: 'flex', fontFamily: 'Geist', fontSize: 15, fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.muted, whiteSpace: 'nowrap' }, t);
+	const block = (visual: Node, caption: string) =>
+		h('div', { display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center', gap: 22 }, [
+			h('div', { display: 'flex', height: AREA, alignItems: 'flex-end', justifyContent: 'center' }, [visual]),
+			cap(caption),
+		]);
+
+	const barsMini = h('div', { display: 'flex', alignItems: 'flex-end', gap: 13, height: 140 },
+		b.bars.map((x) => h('div', {
+			display: 'flex', width: 30, height: Math.max(6, Math.round((x.value / max) * 140)),
+			background: '#9c4a2a', borderRadius: 3,
+		}, '')));
+
+	const donut = img(donutDataUri(b.fictionPct, '#9c4a2a', '#3f5a4a'), 168, 168);
+
+	const num = h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: 92, letterSpacing: '-0.02em', color: C.ink, lineHeight: 1 }, b.pagesLabel);
+
+	return h('div', { display: 'flex', gap: 44, width: '100%', alignItems: 'flex-end' }, [
+		block(barsMini, 'Books per year'),
+		block(donut, 'Fiction vs non-fiction'),
+		block(num, 'Pages read'),
+	]);
+}
+
 function build(o: CardOpts, coverUri: string | null, coverUris: string[]): Node {
 	const shell = (children: unknown[]) =>
 		h('div', {
@@ -167,10 +213,12 @@ function build(o: CardOpts, coverUri: string | null, coverUris: string[]): Node 
 	return shell([
 		eyebrow(o.eyebrow || 'Saturdays in a Book'),
 		h('div', { display: 'flex', flexDirection: 'column', margin: '8px 0' }, [
-			h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: 92, lineHeight: 0.98, letterSpacing: '-0.035em', maxWidth: 920 }, o.title),
+			h('div', { display: 'flex', fontFamily: 'Newsreader', fontWeight: 400, fontSize: o.blocks ? 66 : 92, lineHeight: 0.98, letterSpacing: '-0.035em', maxWidth: o.blocks ? 960 : 920 }, o.title),
 			o.subtitle ? h('div', { display: 'flex', fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: 30, color: C.ink2, margin: '22px 0 0' }, o.subtitle) : h('div', {}, ''),
 		]),
-		o.spines && o.spines.length ? spineRow(o.spines) : h('div', {}, ''),
+		o.blocks
+			? statBlocks(o.blocks)
+			: (o.spines && o.spines.length ? spineRow(o.spines) : h('div', {}, '')),
 	]);
 }
 

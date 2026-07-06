@@ -47,9 +47,17 @@ export async function getStaticPaths() {
 		covers: recentCovers, spines,
 	} });
 
+	const fiction = stats.category[0]?.value ?? 0;
+	const nonfiction = stats.category[1]?.value ?? 0;
+	const fictionPct = fiction + nonfiction ? Math.round((fiction / (fiction + nonfiction)) * 100) : 0;
 	paths.push({ params: { path: 'stats' }, props: {
-		kind: 'section', eyebrow: 'Statistics', title: 'Reading, by the numbers.',
-		subtitle: `${stats.uniqueBooks} unique books · ${compact(stats.pagesRead)} pages read`, spines,
+		kind: 'section', eyebrow: 'Stats', title: 'Some analysis on my reading',
+		subtitle: `Over ${Math.floor(stats.uniqueBooks / 100) * 100} books read`,
+		blocks: {
+			bars: stats.timeline.year.books.slice(-6),
+			fictionPct,
+			pagesLabel: compact(stats.pagesRead),
+		},
 	} });
 
 	for (const p of reviews) {
