@@ -47,6 +47,7 @@ export interface ShelfCard {
 	category: 'fiction' | 'nonfiction' | ''; // from xlsx Genre A
 	subgenres: string[]; // from xlsx Genre B + C, e.g. ['fantasy', 'mythology']
 	classic: boolean; // from xlsx Classics? column
+	country: string; // author's country of origin ('' if unknown)
 }
 
 type Review = CollectionEntry<'blog'>;
@@ -105,6 +106,7 @@ export function buildShelf(reviews: Review[]) {
 			category: (b.category === 'fiction' || b.category === 'nonfiction') ? b.category : '',
 			subgenres: b.subgenres || [],
 			classic: !!b.classic,
+			country: b.country || '',
 		});
 	}
 
@@ -132,6 +134,7 @@ export function buildShelf(reviews: Review[]) {
 			category: '',
 			subgenres: [],
 			classic: false,
+			country: '',
 		});
 	}
 

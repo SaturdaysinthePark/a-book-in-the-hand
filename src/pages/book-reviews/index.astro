@@ -25,6 +25,11 @@ const subgenreSet = new Set<string>();
 cards.forEach(c => c.subgenres.forEach(s => subgenreSet.add(s)));
 const allSubgenres = [...subgenreSet].sort();
 
+// Country list for the filter combobox (whole shelf, reviewed or not)
+const countrySet = new Set<string>();
+cards.forEach(c => { if (c.country) countrySet.add(c.country); });
+const countries = [...countrySet].sort();
+
 // Per-year counts for the client rail (grouped by year read)
 const yearCounts: Record<string, number> = {};
 cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] || 0) + 1; });
@@ -229,6 +234,7 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 											data-subgenres={card.subgenres.join('|')}
 											data-classic={card.classic ? 'true' : ''}
 											data-author={card.author.toLowerCase()}
+											data-country={card.country.toLowerCase()}
 											data-tags={card.tags.join('|').toLowerCase()}
 											data-rating={card.rating || ''}
 											data-date={card.dateRead}
@@ -289,6 +295,7 @@ cards.forEach(c => { const y = String(c.year); yearCounts[y] = (yearCounts[y] ||
 											data-subgenres={card.subgenres.join('|')}
 											data-classic={card.classic ? 'true' : ''}
 											data-author={card.author.toLowerCase()}
+											data-country={card.country.toLowerCase()}
 											data-tags={card.tags.join('|').toLowerCase()}
 											data-rating={card.rating || ''}
 											data-date={card.dateRead}
