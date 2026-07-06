@@ -8,6 +8,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import { mdLite } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
 import SeriesNav from '../components/SeriesNav.astro';
+import RelatedByAuthor from '../components/RelatedByAuthor.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string; genres?: string[]; postId?: string };
 
@@ -191,6 +192,7 @@ function stars(n: number) {
 							</article>
 						</div>
 					{series && postId && <SeriesNav series={series} currentId={postId} />}
+					{author && postId && <RelatedByAuthor author={author} currentId={postId} series={series} />}
 					</div>
 				</div>
 			) : (

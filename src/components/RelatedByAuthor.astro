@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import BookCover from './BookCover.astro';
+
+interface Props {
+	author: string;
+	currentId: string;
+	/** Current post's series, if any — its books are already shown by SeriesNav, so we exclude them here. */
+	series?: string;
+}
+
+const { author, currentId, series } = Astro.props;
+
+// Normalize whitespace so double-spaced author strings (a known frontmatter
+// quirk, e.g. "Brandon  Sanderson") still match "Brandon Sanderson".
+const norm = (s: string) => s.replace(/\s+/g, ' ').trim();
+const target = norm(author);
+
+const authorPosts = (await getCollection('blog', ({ data }) =>
+	data.status === 'live' &&
+	data.postType !== 'list' &&
+	!!data.author &&
+	norm(data.author) === target
+))
+	// Drop the current post and any series-mates (already covered by SeriesNav).
+	.filter((p) => p.id !== currentId && !(series && p.data.series === series))
+	// Highest-rated first, then title. Cap at 6.
+	.sort((a, b) =>
+		(b.data.rating ?? 0) - (a.data.rating ?? 0) ||
+		(a.data.bookTitle || a.data.title).localeCompare(b.data.bookTitle || b.data.title)
+	)
+	.slice(0, 6);
+
+// Strip the series parenthetical: "Title (Series, #N)" → "Title"
+function shortTitle(full: string) {
+	return full.replace(/\s*\([^)]+\)\s*$/, '').trim();
+}
+---
+
+{authorPosts.length > 0 && (
+	<nav class="related-author" aria-label={`More by ${author}`}>
+		<p class="related-author-label">More by <em>{author}</em></p>
+		<ul class="related-author-list">
+			{authorPosts.map((p) => {
+				const displayTitle = p.data.bookTitle || p.data.title;
+				const short = shortTitle(displayTitle);
+				return (
+					<li class="related-author-item">
+						<a href={`/blog/${p.id}/`} aria-label={`Read my review of ${short}`}>
+							<BookCover
+								title={displayTitle}
+								author={p.data.author}
+								cover={p.data.heroImage}
+								class="related-author-cover"
+							/>
+						</a>
+						<span class="related-author-title">{short}</span>
+					</li>
+				);
+			})}
+		</ul>
+	</nav>
+)}
+
+<style>
+	.related-author {
+		margin-top: 3rem;
+		padding-top: 2rem;
+		border-top: 1px solid var(--rule);
+	}
+
+	.related-author-label {
+		font-family: var(--sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.09em;
+		text-transform: uppercase;
+		color: var(--muted);
+		margin: 0 0 1.25rem;
+	}
+
+	.related-author-label em {
+		font-style: normal;
+	}
+
+	.related-author-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+	}
+
+	.related-author-item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		width: 80px;
+	}
+
+	.related-author-item :global(.related-author-cover) {
+		width: 80px;
+		aspect-ratio: 2/3;
+		border-radius: 2px;
+	}
+
+	.related-author-item a {
+		display: block;
+		text-decoration: none;
+		transition: opacity 0.15s;
+	}
+
+	.related-author-item a:hover {
+		opacity: 0.8;
+	}
+
+	.related-author-title {
+		font-family: var(--sans);
+		font-size: 0.68rem;
+		color: var(--ink-2);
+		text-align: center;
+		line-height: 1.3;
+		max-width: 80px;
+	}
+</style>
