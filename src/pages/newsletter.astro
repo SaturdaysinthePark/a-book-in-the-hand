@@ -3,12 +3,15 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import NewsletterSignup from '../components/NewsletterSignup.astro';
+import { getNewsletters } from '../utils/newsletters';
 
 const inside = [
   { label: 'Reviews', text: "My personal take on the books I've finished." },
   { label: 'Recommendations', text: 'Shortlists and recommendations worth your shelf space.' },
   { label: '& more', text: "What I'm currently reading, or other interesting notes!" },
 ];
+
+const issues = getNewsletters(); // newest first
 ---
 
 <!doctype html>
@@ -40,6 +43,26 @@ const inside = [
             I love hearing from you, reply back with what you're reading, a thought on a book, or if you're looking for a recommendation!
           </p>
         </section>
+
+        {issues.length > 0 && (
+          <section class="nlp-issues">
+            <p class="nlp-eyebrow">§ Past issues</p>
+            <ul class="nlp-issue-list">
+              {issues.map((issue) => (
+                <li>
+                  <a href={issue.href} class="nlp-issue">
+                    <span class="nlp-issue-num">Issue {issue.num}</span>
+                    <span class="nlp-issue-body">
+                      <span class="nlp-issue-date">{issue.label}</span>
+                      {issue.title && <span class="nlp-issue-title">{issue.title}</span>}
+                    </span>
+                    <span class="nlp-issue-arrow">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </div>
     </main>
     <Footer />
@@ -96,6 +119,49 @@ const inside = [
     color: var(--muted);
     margin: 28px 0 0;
   }
+
+  .nlp-issues { margin-top: clamp(40px, 6vw, 64px); }
+  .nlp-issue-list { list-style: none; margin: 0; padding: 0; }
+  .nlp-issue-list li { border-top: 1px solid var(--rule); }
+  .nlp-issue-list li:last-child { border-bottom: 1px solid var(--rule); }
+  .nlp-issue {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(14px, 3vw, 28px);
+    padding: 18px 6px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 4px;
+    transition: background 150ms;
+  }
+  .nlp-issue:hover { background: var(--highlight); }
+  .nlp-issue-num {
+    flex: 0 0 auto;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .nlp-issue-body { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .nlp-issue-date {
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .nlp-issue-title {
+    font-family: var(--serif);
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nlp-issue-arrow { color: var(--accent); font-size: 16px; }
 
   @media (max-width: 520px) {
     .nlp-list li { flex-direction: column; gap: 4px; }

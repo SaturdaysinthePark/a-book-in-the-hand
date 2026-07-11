@@ -34,7 +34,8 @@ export default defineConfig({
       filter: (page) =>
         !page.includes('/drafts') &&
         !page.includes('/authors/') && // redirect stubs → filtered shelf
-        !page.includes('/tags/'), // dormant, unlinked tag pages
+        !page.includes('/tags/') && // dormant, unlinked tag pages
+        !/\/newsletter\/\d+\.html$/.test(page), // archived issues are noindex/point-to only
       serialize(item) {
         let pathname;
         try {
