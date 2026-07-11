@@ -25,6 +25,8 @@ pnpm-debug.log*
 
 # Planning documents (keep local only)
 ROADMAP.md
+ANALYTICS.md
+SEO-FINDINGS.md
 
 # Tool directories
 .serena/
