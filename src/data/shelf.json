@@ -1,5 +1,28 @@
 [
 	{
+		"goodreadsId": "247522184",
+		"title": "Yesteryear",
+		"author": "Caro Claire Burke",
+		"isbn13": "9780008742768",
+		"rating": 2,
+		"dateRead": "2026-07-08",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 391,
+		"originalPubYear": 2026,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "female",
+		"classic": false,
+		"country": "United States",
+		"language": "English",
+		"coverUrl": "https://covers.openlibrary.org/b/id/15213215-L.jpg"
+	},
+	{
 		"goodreadsId": "235699916",
 		"title": "Suspicion",
 		"author": "Seichō Matsumoto",
@@ -8013,6 +8036,10 @@
 			2014,
 			2019
 		],
+		"readMonths": [
+			"2014-07",
+			"2019-09"
+		],
 		"pages": 303,
 		"originalPubYear": 180,
 		"category": "nonfiction",
@@ -9372,6 +9399,10 @@
 			2015,
 			2018
 		],
+		"readMonths": [
+			"2015-09",
+			"2018-12"
+		],
 		"pages": 489,
 		"originalPubYear": 1859,
 		"category": "fiction",
@@ -9445,6 +9476,10 @@
 			2015,
 			2018
 		],
+		"readMonths": [
+			"2015-11",
+			"2018-11"
+		],
 		"pages": 449,
 		"originalPubYear": 1938,
 		"category": "fiction",
@@ -9477,6 +9512,15 @@
 			2019,
 			2020
 		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
+		],
 		"pages": 320,
 		"originalPubYear": 1997,
 		"category": "fiction",
@@ -9506,6 +9550,15 @@
 			2019,
 			2020
 		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
+		],
 		"pages": 341,
 		"originalPubYear": 1998,
 		"category": "fiction",
@@ -9534,6 +9587,15 @@
 			2018,
 			2019,
 			2020
+		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
 		],
 		"pages": 435,
 		"originalPubYear": 1999,
@@ -9588,6 +9650,15 @@
 			2019,
 			2020
 		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
+		],
 		"pages": 652,
 		"originalPubYear": 2005,
 		"category": "fiction",
@@ -9617,6 +9688,15 @@
 			2019,
 			2020
 		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
+		],
 		"pages": 734,
 		"originalPubYear": 2000,
 		"category": "fiction",
@@ -9645,6 +9725,15 @@
 			2018,
 			2019,
 			2020
+		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
 		],
 		"pages": 759,
 		"originalPubYear": 2007,
@@ -10566,6 +10655,11 @@
 			2015,
 			2017
 		],
+		"readMonths": [
+			"2014-07",
+			"2015-04",
+			"2017-11"
+		],
 		"pages": 182,
 		"originalPubYear": 1925,
 		"category": "fiction",
@@ -10590,6 +10684,10 @@
 		"readYears": [
 			2015,
 			2017
+		],
+		"readMonths": [
+			"2015-03",
+			"2017-11"
 		],
 		"pages": 260,
 		"originalPubYear": 1979,
@@ -12278,6 +12376,10 @@
 			2016,
 			2017
 		],
+		"readMonths": [
+			"2016-05",
+			"2017-11"
+		],
 		"pages": 487,
 		"originalPubYear": 2001,
 		"category": "fiction",
@@ -12824,6 +12926,11 @@
 			2016,
 			2017,
 			2018
+		],
+		"readMonths": [
+			"2016-01",
+			"2017-01",
+			"2018-01"
 		],
 		"pages": 435,
 		"originalPubYear": 1813,
@@ -13639,6 +13746,15 @@
 			2019,
 			2020
 		],
+		"readMonths": [
+			"2014-10",
+			"2015-10",
+			"2016-10",
+			"2017-10",
+			"2018-10",
+			"2019-10",
+			"2020-10"
+		],
 		"pages": 870,
 		"originalPubYear": 2003,
 		"category": "fiction",
@@ -14023,6 +14139,10 @@
 			2015,
 			2020
 		],
+		"readMonths": [
+			"2015-07",
+			"2020-06"
+		],
 		"pages": 123,
 		"originalPubYear": 1942,
 		"category": "fiction",
@@ -14048,6 +14168,10 @@
 		"readYears": [
 			2015,
 			2020
+		],
+		"readMonths": [
+			"2015-07",
+			"2020-07"
 		],
 		"pages": 149,
 		"originalPubYear": 1922,
@@ -15209,6 +15333,10 @@
 			2014,
 			2025
 		],
+		"readMonths": [
+			"2014-07",
+			"2025-08"
+		],
 		"pages": 656,
 		"originalPubYear": 1965,
 		"category": "fiction",
@@ -15446,6 +15574,10 @@
 		"readYears": [
 			2014,
 			2017
+		],
+		"readMonths": [
+			"2014-04",
+			"2017-06"
 		],
 		"pages": 248,
 		"originalPubYear": 1890,
@@ -15718,6 +15850,75 @@
 		"country": "United States",
 		"language": "English",
 		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1550917827i/1202.jpg"
+	},
+	{
+		"goodreadsId": "30733458",
+		"title": "The Sign of Four (Sherlock Holmes, #2)",
+		"author": "Arthur Conan Doyle",
+		"isbn13": "9780241959848",
+		"rating": 3,
+		"dateRead": "2014-02-28",
+		"readCount": 1,
+		"readYears": [
+			2014
+		],
+		"pages": 160,
+		"originalPubYear": 1890,
+		"category": "fiction",
+		"subgenres": [
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United Kingdom",
+		"language": "English",
+		"coverUrl": "https://covers.openlibrary.org/b/id/9247987-L.jpg"
+	},
+	{
+		"goodreadsId": "37306046",
+		"title": "A Study in Scarlet",
+		"author": "Arthur Conan Doyle",
+		"isbn13": "9780141395531",
+		"rating": 4,
+		"dateRead": "2014-02-28",
+		"readCount": 1,
+		"readYears": [
+			2014
+		],
+		"pages": 160,
+		"originalPubYear": 1887,
+		"category": "fiction",
+		"subgenres": [
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United Kingdom",
+		"language": "English",
+		"coverUrl": "https://covers.openlibrary.org/b/id/13405534-L.jpg"
+	},
+	{
+		"goodreadsId": "30733547",
+		"title": "The Hound of the Baskervilles (Sherlock Holmes, #5)",
+		"author": "Arthur Conan Doyle",
+		"isbn13": "9780241959831",
+		"rating": 4,
+		"dateRead": "2014-02-28",
+		"readCount": 1,
+		"readYears": [
+			2014
+		],
+		"pages": 224,
+		"originalPubYear": 1902,
+		"category": "fiction",
+		"subgenres": [
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United Kingdom",
+		"language": "English",
+		"coverUrl": "https://covers.openlibrary.org/b/id/8063264-L.jpg"
 	},
 	{
 		"goodreadsId": "2612",

@@ -19,6 +19,7 @@ export interface ShelfBook {
 	dateRead: string; // ISO YYYY-MM-DD (most-recent read)
 	readCount: number;
 	readYears: number[]; // every year the book was read (from Goodreads year shelves)
+	readMonths?: string[]; // manual per-read months (YYYY-MM) for re-reads; overrides the single dateRead month in the stats month view
 	pages: number; // Number of Pages (0 if unknown)
 	originalPubYear: number | null; // Original Publication Year (BCE negative; null if unknown)
 	coverUrl: string | null;

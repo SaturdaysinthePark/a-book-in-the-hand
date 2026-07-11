@@ -1,0 +1,20 @@
+{
+  "3":        { "title": "Harry Potter and the Sorcerer's Stone (Harry Potter, #1)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "15881":    { "title": "Harry Potter and the Chamber of Secrets (Harry Potter, #2)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "49116":    { "title": "Harry Potter and the Prisoner of Azkaban (Harry Potter, #3)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "49130":    { "title": "Harry Potter and the Goblet of Fire (Harry Potter, #4)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "77522":    { "title": "Harry Potter and the Order of the Phoenix (Harry Potter, #5)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "49852":    { "title": "Harry Potter and the Half-Blood Prince (Harry Potter, #6)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "136251":   { "title": "Harry Potter and the Deathly Hallows (Harry Potter, #7)", "readMonths": ["2014-10","2015-10","2016-10","2017-10","2018-10","2019-10","2020-10"] },
+  "30659":    { "title": "Meditations", "readMonths": ["2014-07","2019-09"] },
+  "5996120":  { "title": "Pride and Prejudice", "readMonths": ["2016-01","2017-01","2018-01"] },
+  "374233":   { "title": "If on a Winter's Night a Traveler", "readMonths": ["2015-03","2017-11"] },
+  "16286":    { "title": "The Magus", "readMonths": ["2014-07","2025-08"] },
+  "1232":     { "title": "The Shadow of the Wind (The Cemetery of Forgotten Books, #1)", "readMonths": ["2016-05","2017-11"] },
+  "71135":    { "title": "The Great Gatsby", "readMonths": ["2014-07","2015-04","2017-11"] },
+  "1953":     { "title": "A Tale of Two Cities", "readMonths": ["2015-09","2018-12"] },
+  "17899948": { "title": "Rebecca", "readMonths": ["2015-11","2018-11"] },
+  "42639871": { "title": "Siddhartha", "readMonths": ["2015-07","2020-07"] },
+  "1857397":  { "title": "The Picture of Dorian Gray", "readMonths": ["2014-04","2017-06"] },
+  "49552":    { "title": "The Stranger", "readMonths": ["2015-07","2020-06"] }
+}

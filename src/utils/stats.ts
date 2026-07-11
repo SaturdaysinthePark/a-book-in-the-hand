@@ -6,9 +6,11 @@
 // the book was read (from the Goodreads year shelves). Read-sensitive figures
 // ("Books read", pages, the yearly time series) count a book once per year in
 // `readYears`, so a re-read lands in each year it happened and the headline totals
-// reconcile to the sum of the yearly bars. The MONTHLY series is the one exception:
-// the export gives no month for prior reads, so it places each book once, at its
-// most-recent read month. Distributions (ratings, genres, authors) count unique books.
+// reconcile to the sum of the yearly bars. The MONTHLY series needs a month per read,
+// which the Goodreads export doesn't provide; books listed in reread-dates.json carry
+// `readMonths` (one YYYY-MM per read) and land in each real month, while every other
+// book falls back to its single most-recent read month. Distributions (ratings,
+// genres, authors) count unique books.
 
 import shelfData from '../data/shelf.json';
 import type { ShelfBook } from './shelf';
@@ -125,25 +127,32 @@ export function computeStats(): Stats {
 	});
 	const monthMap = new Map<string, Bucket>();
 	for (const b of books) {
-		const key = b.dateRead.slice(0, 7); // YYYY-MM
-		const bk = monthMap.get(key) || blank();
+		// Re-reads (reread-dates.json) carry a month per read; every other book places
+		// once at its most-recent read month. Each entry counts in its own month.
+		const months = b.readMonths && b.readMonths.length ? b.readMonths : [b.dateRead.slice(0, 7)];
 		const p = b.pages || 0;
-		bk.count += 1;
-		bk.pages += p;
-		if (b.category === 'fiction') { bk.fiction += 1; bk.fictionPages += p; }
-		else if (b.category === 'nonfiction') { bk.nonfiction += 1; bk.nonfictionPages += p; }
-		if (b.gender === 'female') { bk.female += 1; bk.femalePages += p; }
-		else if (b.gender === 'male') { bk.male += 1; bk.malePages += p; }
-		monthMap.set(key, bk);
+		for (const key of months) {
+			const bk = monthMap.get(key) || blank();
+			bk.count += 1;
+			bk.pages += p;
+			if (b.category === 'fiction') { bk.fiction += 1; bk.fictionPages += p; }
+			else if (b.category === 'nonfiction') { bk.nonfiction += 1; bk.nonfictionPages += p; }
+			if (b.gender === 'female') { bk.female += 1; bk.femalePages += p; }
+			else if (b.gender === 'male') { bk.male += 1; bk.malePages += p; }
+			monthMap.set(key, bk);
+		}
 	}
 
+	// Span every month from the earliest to the latest actual read month (re-read months
+	// included, since they're already in monthMap), filling any gaps with blanks below.
+	const presentMonths = [...monthMap.keys()].sort();
 	const monthKeys: string[] = [];
-	for (let y = firstYear; y <= lastYear; y++) {
-		for (let m = 1; m <= 12; m++) {
-			const key = `${y}-${String(m).padStart(2, '0')}`;
-			if (y === firstYear && m < parseInt(firstDate.slice(5, 7), 10)) continue;
-			if (y === lastYear && m > parseInt(lastDate.slice(5, 7), 10)) continue;
-			monthKeys.push(key);
+	{
+		let [y, m] = presentMonths[0].split('-').map(Number);
+		const [ey, em] = presentMonths[presentMonths.length - 1].split('-').map(Number);
+		while (y < ey || (y === ey && m <= em)) {
+			monthKeys.push(`${y}-${String(m).padStart(2, '0')}`);
+			if (++m > 12) { m = 1; y++; }
 		}
 	}
 

@@ -45,6 +45,10 @@ const CURRENT_PATH = join(ROOT, 'src', 'data', 'currently-reading.json');
 const CONTENT_DIR = join(ROOT, 'src', 'content', 'blog');
 // Hidden per-book state (owner-edit detection + OpenLibrary cache). Not a column.
 const STATE_PATH = join(ROOT, 'book-analysis', '.covers-state.json');
+// Manual per-read months (YYYY-MM) for re-reads, keyed by Book Id. Goodreads exports
+// only one Date Read per book, so earlier re-read months are captured here by hand and
+// merged into shelf.json (used by the stats month view). See reread-dates.json.
+const REREAD_PATH = join(ROOT, 'book-analysis', 'reread-dates.json');
 
 const REFRESH = process.argv.includes('--refresh');
 const RESEED = process.argv.includes('--reseed');
@@ -270,6 +274,8 @@ async function main() {
 		for (const y of parseReadYears(r['Bookshelves'])) set.add(y);
 		yearsById.set(id, set);
 	}
+	// Manual re-read months (YYYY-MM per read), keyed by Book Id — merged into each record.
+	const rereadById = existsSync(REREAD_PATH) ? JSON.parse(readFileSync(REREAD_PATH, 'utf8')) : {};
 	const byId = new Map();
 	for (const r of readRows) {
 		const id = String(r['Book Id'] || '').trim();
@@ -289,6 +295,7 @@ async function main() {
 					const ys = [...(yearsById.get(id) || [])].sort();
 					return ys.length ? ys : (date ? [parseInt(date.slice(0, 4), 10)] : []);
 				})(),
+				readMonths: rereadById[id]?.readMonths || undefined,
 				pages: parseInt(String(r['Number of Pages'] || '0'), 10) || 0,
 				originalPubYear: parseInt(String(r['Original Publication Year'] ?? r['Year Published'] ?? ''), 10) || null,
 				category: normaliseCategory(r['Genre A']),
@@ -391,7 +398,9 @@ async function main() {
 	books.sort((a, b) => (b.dateRead || '').localeCompare(a.dateRead || ''));
 	const output = books.map((b) => ({
 		goodreadsId: b.goodreadsId, title: b.title, author: b.author, isbn13: b.isbn13,
-		rating: b.rating, dateRead: b.dateRead, readCount: b.readCount, readYears: b.readYears, pages: b.pages,
+		rating: b.rating, dateRead: b.dateRead, readCount: b.readCount, readYears: b.readYears,
+		...(b.readMonths ? { readMonths: b.readMonths } : {}),
+		pages: b.pages,
 		originalPubYear: b.originalPubYear,
 		category: b.category, subgenres: b.subgenres, gender: b.gender, classic: b.classic, country: b.country, language: b.language,
 		coverUrl: b.coverUrl,
