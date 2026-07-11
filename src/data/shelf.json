@@ -755,7 +755,8 @@
 		"originalPubYear": 2002,
 		"category": "nonfiction",
 		"subgenres": [
-			"history"
+			"history",
+			"food"
 		],
 		"gender": "male",
 		"classic": false,
@@ -1279,7 +1280,8 @@
 		"originalPubYear": 2020,
 		"category": "fiction",
 		"subgenres": [
-			"literary fiction"
+			"literary fiction",
+			"food"
 		],
 		"gender": "female",
 		"classic": false,
