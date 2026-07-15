@@ -12,7 +12,7 @@ status: 'live'
 tags: ['literary-fiction', '2026']
 postType: 'review'
 ---
-Yesteryear hit all our shelves with a brilliant and sensational premise we all wanted to dig into: Natalie, a "tradwife" instagram influencer who fakes a picture perfect farm family lifestyle out in Idaho for social media gets sent back in time to 1855 American pioneer life where she has to actually endure the tradwife life she sold to her audience on social media. It's whole set up is meant to make you think, "Well, now the tables have turned!"
+Yesteryear hit all our shelves with a brilliant and sensational premise we all wanted to dig into: Natalie, a "tradwife" instagram influencer who fakes a picture perfect farm family lifestyle out in Idaho, for social media, gets sent back in time to 1855 American pioneer life, where she has to actually endure the tradwife life she sold to her audience. It's whole set up is meant to make you think, "Well, now the tables have turned!"
 
 So with a killer hook, we should expect a great story. However, the novel skims the surface on Natalie's career as an influencer. We get a few glimpses, but we don't really get immersed in it. How did she run her millions of follower empire? What was it like tending to a family, and being an influencer. We get some hints, but not enough to make us feel the weight of what she was going through. In fact, we're so distracted as readers with her father in law, her husband, political theater, and some other relationships of hers.
 
