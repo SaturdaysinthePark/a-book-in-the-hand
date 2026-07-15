@@ -15875,29 +15875,6 @@
 		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1550917827i/1202.jpg"
 	},
 	{
-		"goodreadsId": "30733458",
-		"title": "The Sign of Four (Sherlock Holmes, #2)",
-		"author": "Arthur Conan Doyle",
-		"isbn13": "9780241959848",
-		"rating": 3,
-		"dateRead": "2014-02-28",
-		"readCount": 1,
-		"readYears": [
-			2014
-		],
-		"pages": 160,
-		"originalPubYear": 1890,
-		"category": "fiction",
-		"subgenres": [
-			"mystery"
-		],
-		"gender": "male",
-		"classic": false,
-		"country": "United Kingdom",
-		"language": "English",
-		"coverUrl": "https://covers.openlibrary.org/b/id/9247987-L.jpg"
-	},
-	{
 		"goodreadsId": "37306046",
 		"title": "A Study in Scarlet",
 		"author": "Arthur Conan Doyle",
@@ -15942,6 +15919,29 @@
 		"country": "United Kingdom",
 		"language": "English",
 		"coverUrl": "https://covers.openlibrary.org/b/id/8063264-L.jpg"
+	},
+	{
+		"goodreadsId": "30733458",
+		"title": "The Sign of Four (Sherlock Holmes, #2)",
+		"author": "Arthur Conan Doyle",
+		"isbn13": "9780241959848",
+		"rating": 3,
+		"dateRead": "2014-02-27",
+		"readCount": 1,
+		"readYears": [
+			2014
+		],
+		"pages": 160,
+		"originalPubYear": 1890,
+		"category": "fiction",
+		"subgenres": [
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United Kingdom",
+		"language": "English",
+		"coverUrl": "https://covers.openlibrary.org/b/id/9247987-L.jpg"
 	},
 	{
 		"goodreadsId": "2612",
