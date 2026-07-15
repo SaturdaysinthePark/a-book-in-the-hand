@@ -1,5 +1,28 @@
 [
 	{
+		"goodreadsId": "35952941",
+		"title": "The Frolic of the Beasts",
+		"author": "Yukio Mishima",
+		"isbn13": "9780525434153",
+		"rating": 3,
+		"dateRead": "2026-07-15",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 166,
+		"originalPubYear": 1961,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Japan",
+		"language": "Japanese",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1513997033i/35952941.jpg"
+	},
+	{
 		"goodreadsId": "247522184",
 		"title": "Yesteryear",
 		"author": "Caro Claire Burke",
