@@ -1,5 +1,51 @@
 [
 	{
+		"goodreadsId": "13082436",
+		"title": "The Passion According to G.H.",
+		"author": "Clarice Lispector",
+		"isbn13": "9780811219686",
+		"rating": 3,
+		"dateRead": "2026-07-21",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 193,
+		"originalPubYear": 1964,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "female",
+		"classic": false,
+		"country": "Brazil",
+		"language": "Portuguese",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1655722528i/13082436.jpg"
+	},
+	{
+		"goodreadsId": "2784",
+		"title": "Ways of Seeing",
+		"author": "John Berger",
+		"isbn13": "9780140135152",
+		"rating": 3,
+		"dateRead": "2026-07-16",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 176,
+		"originalPubYear": 1972,
+		"category": "nonfiction",
+		"subgenres": [
+			"art criticism"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "UK",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1703328414i/2784.jpg"
+	},
+	{
 		"goodreadsId": "35952941",
 		"title": "The Frolic of the Beasts",
 		"author": "Yukio Mishima",
