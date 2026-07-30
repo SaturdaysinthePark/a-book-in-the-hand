@@ -50,5 +50,3 @@ Nuruddin's detachment doesn't fail him in any dramatic moment. He just gets pull
 *Death and the Dervish* can seem daunting with its density and obscurity. But the story is worth it, and I'm glad I ran into it. 
 
 If you've read Kafka, but want some more flavor and a different cultural lens, then this is definitely for you. 4 out of 5 — a must-read, even if it's not one you'll return to.
-
-**Rating: ★★★★☆**

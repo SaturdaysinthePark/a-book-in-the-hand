@@ -1,6 +1,7 @@
 ---
-// Colored editorial cell — the homepage §05–08 / my-lists card pattern, generalized.
-// § watermark numeral + italic title + blurb + a cover grid + a count/foot line.
+// Tiered editorial block for /my-lists (design_handoff_lists_page 3A/3B).
+// § watermark numeral + meta + italic title + blurb + read-link + a fixed-size cover row.
+// Cover box size is fixed per tier — never derived from how many books are in the list.
 import BookCover from './BookCover.astro';
 
 interface Pick { title: string; author?: string | null; cover?: string | null; }
@@ -9,48 +10,47 @@ interface Props {
 	title: string;
 	blurb?: string | null;
 	num?: string | null;
-	color?: 'green' | 'cream' | 'rust' | 'dark' | 'slate' | 'plum';
+	tier: 'hero' | 'half' | 'band';
+	color?: 'green' | 'rust' | 'brown' | 'paper2' | 'paper';
 	picks?: Pick[];
-	cols?: number;
-	maxPicks?: number;
-	captions?: boolean;
-	count?: number | null;
-	footRight?: string | null;
+	maxShown?: number;
+	/** Covers visible at the mobile breakpoint, when narrower than `maxShown` — the
+	 *  strip is capped so nothing bleeds past the viewport (design refinement, 3B). */
+	mobileMaxShown?: number;
+	meta?: string | null;
 	class?: string;
 }
 const {
-	href, title, blurb, num = null, color = 'green',
-	picks = [], cols = 4, maxPicks = 4, captions = false,
-	count = null, footRight = null, class: className = '',
+	href, title, blurb, num = null, tier, color = 'green',
+	picks = [], maxShown = 5, mobileMaxShown, meta = null, class: className = '',
 } = Astro.props;
-const shown = picks.slice(0, maxPicks);
+const shown = picks.slice(0, maxShown);
+// Band tier is a compact decorative row — no "+N" overflow tail, just as many as fit.
+const overflow = tier === 'band' ? 0 : Math.max(picks.length - shown.length, 0);
+const mobileShown = mobileMaxShown ?? maxShown;
+const overflowMobile = tier === 'band' ? 0 : Math.max(picks.length - mobileShown, 0);
+const hasMobileCap = mobileShown < maxShown;
 ---
 
-<a href={href} class:list={['ed-cell', `ed-cell--${color}`, 'mz-rise', className]}>
+<a
+	href={href}
+	class:list={['ed-cell', `ed-cell--${tier}`, `ed-cell--${color}`, 'mz-rise', className]}
+>
 	{num && <span class="wm-num" aria-hidden="true">{num}</span>}
 	<div class="ed-cell__head">
+		{meta && <p class="ed-cell__meta">{meta}</p>}
 		<h2>{title}</h2>
 		{blurb && <p class="ed-cell__blurb">{blurb}</p>}
+		<span class="ed-cell__read">Read the list</span>
 	</div>
 	<div class="ed-cell__books">
 		{shown.length > 0 && (
-			<div class="ed-cell__grid" style={`grid-template-columns:repeat(${cols},1fr)`}>
+			<div class:list={['ed-cell__grid', hasMobileCap && 'ed-cell__grid--capped', hasMobileCap && `ed-cell__grid--capped-${mobileShown}`]}>
 				{shown.map((p) => (
-					captions ? (
-						<div style="display:flex;flex-direction:column;gap:6px">
-							<BookCover title={p.title} author={p.author} cover={p.cover} />
-							<p class="ed-cell__cap">{p.author ?? p.title}</p>
-						</div>
-					) : (
-						<BookCover title={p.title} author={p.author} cover={p.cover} />
-					)
+					<BookCover title={p.title} author={p.author} cover={p.cover} class="cover-fit-contain" alt="" loading="lazy" />
 				))}
-			</div>
-		)}
-		{(count != null || footRight) && (
-			<div class="ed-cell__foot">
-				{count != null && <span class="ed-cell__count">{count} books</span>}
-				{footRight && <span>{footRight}</span>}
+				{overflow > 0 && <span class="ed-cell__more ed-cell__more--full">+ {overflow}</span>}
+				{hasMobileCap && overflowMobile > 0 && <span class="ed-cell__more ed-cell__more--mobile">+ {overflowMobile}</span>}
 			</div>
 		)}
 	</div>

@@ -2,7 +2,6 @@
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import PageMasthead from '../../components/PageMasthead.astro';
 import EditorialCell from '../../components/EditorialCell.astro';
 import { getCollection } from 'astro:content';
@@ -12,23 +11,21 @@ const allPosts = (await getCollection('blog', ({ data }) => data.status === 'liv
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const posts = allPosts.filter(p => p.data.postType === 'list');
 
-const featuredLists = posts.slice(0, 6);  // editorial cells
-const moreLists     = posts.slice(6);     // "more lists" table
-
-// Per-position cell styling, echoing the homepage §05–08 cells.
-const CELL_STYLES = [
-	{ color: 'green', cols: 6, max: 6, caps: false },
-	{ color: 'cream', cols: 5, max: 5, caps: true  },
-	{ color: 'rust',  cols: 4, max: 4, caps: false },
-	{ color: 'dark',  cols: 3, max: 3, caps: false },
-	{ color: 'slate', cols: 4, max: 4, caps: false },
-	{ color: 'plum',  cols: 4, max: 4, caps: false },
-] as const;
+// Tier assignment is positional (design_handoff_lists_page): newest = hero,
+// next two = half blocks, everything from the fourth list on = band rows.
+const hero = posts[0] ?? null;
+const halves = posts.slice(1, 3);
+const bandLists = posts.slice(3);
+const lastBand = bandLists.length > 0 ? bandLists[bandLists.length - 1] : null;
+const extraBandLists = bandLists.slice(0, -1);
 
 const cover = (url?: string | null) => (url && url !== 'TK' ? url : null);
 const mapPicks = (post: (typeof posts)[number]) =>
 	(post.data.picks ?? []).map((p) => ({ title: p.bookTitle, author: p.author ?? null, cover: cover(p.cover) }));
-const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase();
+const countLabel = (post: (typeof posts)[number]) => `${(post.data.picks ?? []).length} books`.toUpperCase();
+const heroMeta = hero ? `Latest · ${monthYear(hero.data.pubDate)} · ${countLabel(hero)}`.toUpperCase() : '';
+const meta = (post: (typeof posts)[number]) => `${monthYear(post.data.pubDate)} · ${countLabel(post)}`;
 ---
 
 <!doctype html>
@@ -41,55 +38,83 @@ const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', y
 		<main>
 			<PageMasthead eyebrow="All Lists" title="Curated reading lists." />
 
-			{featuredLists.length > 0 && (
-				<div class="cells-band">
-					{featuredLists.map((post, i) => {
-						const s = CELL_STYLES[i % CELL_STYLES.length];
-						return (
+			<div class="lists-tiers">
+				{hero && (
+					<div class="cells-band">
+						<EditorialCell
+							href={getBlogUrl(hero.id)}
+							title={hero.data.title}
+							blurb={hero.data.description}
+							num="01"
+							tier="hero"
+							color="green"
+							meta={heroMeta}
+							picks={mapPicks(hero)}
+							maxShown={5}
+							mobileMaxShown={3}
+						/>
+					</div>
+				)}
+
+				{halves.length > 0 && (
+					<div class:list={['cells-row--half', halves.length === 1 && 'is-solo']}>
+						{halves.map((post, i) => (
 							<EditorialCell
 								href={getBlogUrl(post.id)}
 								title={post.data.title}
 								blurb={post.data.description}
-								num={String(i + 1).padStart(2, '0')}
-								color={s.color}
+								num={String(i + 2).padStart(2, '0')}
+								tier="half"
+								color={i === 0 ? 'rust' : 'brown'}
+								meta={meta(post)}
 								picks={mapPicks(post)}
-								cols={s.cols}
-								maxPicks={s.max}
-								captions={s.caps}
-								count={(post.data.picks ?? []).length}
-								footRight={monthYear(post.data.pubDate)}
+								maxShown={5}
+								mobileMaxShown={4}
 							/>
-						);
-					})}
-				</div>
-			)}
-
-			{moreLists.length > 0 && (
-				<div class="bleed lists-more">
-					<div class="lists-more-heading">More lists</div>
-					<div class="lists-table">
-						{moreLists.map((post, i) => (
-							<a href={getBlogUrl(post.id)} class="lt-row">
-								<span class="lt-num">List {String(i + featuredLists.length + 1).padStart(2, '0')}</span>
-								<div class="lt-content">
-									<span class="lt-title">{post.data.title}</span>
-									{post.data.description && <span class="lt-blurb">{post.data.description}</span>}
-								</div>
-								<span class="lt-date"><FormattedDate date={post.data.pubDate} /></span>
-								<span class="lt-arrow-row">→</span>
-							</a>
 						))}
 					</div>
+				)}
+
+				{extraBandLists.map((post, i) => (
+					<div class="cells-row--band is-solo">
+						<EditorialCell
+							href={getBlogUrl(post.id)}
+							title={post.data.title}
+							num={String(i + 4).padStart(2, '0')}
+							tier="band"
+							color={i % 2 === 0 ? 'paper2' : 'paper'}
+							meta={meta(post)}
+							picks={mapPicks(post)}
+						/>
+					</div>
+				))}
+
+				<div class:list={['cells-row--band', !lastBand && 'is-solo']}>
+					{lastBand && (
+						<EditorialCell
+							href={getBlogUrl(lastBand.id)}
+							title={lastBand.data.title}
+							num={String(3 + bandLists.length).padStart(2, '0')}
+							tier="band"
+							color={extraBandLists.length % 2 === 0 ? 'paper2' : 'paper'}
+							meta={meta(lastBand)}
+							picks={mapPicks(lastBand)}
+						/>
+					)}
+					<div class="ed-cell ed-cell--empty">
+						<span class="wm-num" aria-hidden="true">{String(4 + bandLists.length).padStart(2, '0')}</span>
+						<div class="ed-cell--empty__box">
+							<p class="ed-cell--empty__eyebrow">§ Next list</p>
+							<h2>More to come.</h2>
+							<p class="ed-cell__blurb">New lists and recommendations to land soon.</p>
+						</div>
+					</div>
 				</div>
-			)}
+			</div>
 
 			{posts.length === 0 && (
 				<div class="bleed"><div class="empty">No lists yet — check back soon.</div></div>
 			)}
-
-			<div class="lists-teaser">
-				Stay tuned for more recommendations and lists...
-			</div>
 		</main>
 		<Footer />
 
@@ -102,17 +127,11 @@ const monthYear = (d: Date) => d.toLocaleDateString('en-US', { month: 'short', y
 </html>
 
 <style>
-.lists-more { margin-top: clamp(40px, 5vw, 72px); }
-.lists-teaser {
-	border-top: var(--seam) solid var(--ink);
-	padding: clamp(20px, 3vw, 36px) clamp(28px, 5vw, 80px);
-	font-family: var(--mono);
-	font-size: 10px;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
-	color: var(--muted);
-	text-align: center;
-}
+.lists-tiers { border-bottom: 3px solid var(--ink); }
+.cells-row--half.is-solo,
+.cells-row--band.is-solo { grid-template-columns: 1fr; }
+.cells-row--half.is-solo > :first-child,
+.cells-row--band.is-solo > :first-child { border-right: 0; }
 </style>
 
 <script>

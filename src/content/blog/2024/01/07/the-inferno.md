@@ -57,5 +57,3 @@ The final image of three-faced Satan, a twisted inversion of the Holy Trinity, d
 I might be slightly over-critical, but the bias and historical distance kept me from thinking this is a perfect piece of work, it felt like a hit piece at times. It has clearly lasted the test of time, and that's because its brilliant depsite that bias point of view that Dante seeped in, and I think it resonated well in the place and time it was written and published. My partiality to ancient Greek perspectives means I disagree with some of Dante's core judgments. That being said, I am glad I read it. The depiction of Hell, the structure of the descent, the imagery, the quality of the writing - it's impressive, even as a translation. This shaped Western culture's conception of damnation and moral judgment for seven centuries.
 
 My advice is to get a good annotated edition, and don't be afraid to brush up on some historical context as you read through to appreciate the cleverness and poetic.
-
-**Rating: ★★★★☆**

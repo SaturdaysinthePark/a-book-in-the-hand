@@ -76,5 +76,3 @@ The final section argues that vestiges of the bicameral mind are still with us. 
 This is a monumental book and one I expect to reference for a long time. The first half-ish is more propulsive, but the latter third had captured less of my attention. 
 
 If you have any interest in consciousness, language, or how the mind developed across history, this belongs on your list.
-
-**Rating: ★★★★☆**
