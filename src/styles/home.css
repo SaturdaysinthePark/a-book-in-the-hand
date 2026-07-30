@@ -405,6 +405,7 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 	.hx-s01 { grid-template-columns: 1fr; }
 	.hx-s01__right { border-left: 0; border-top: var(--seam) solid var(--seam-color); }
 	.hx-s01__cover { width: 40vw; height: auto; max-width: 200px; }
+	.hx-s01__text { gap: clamp(4px, 1vh, 10px); }
 	.hx-cell h2 { font-size: clamp(24px,7vw,34px); }
 
 	/* fx-on mobile footer */
