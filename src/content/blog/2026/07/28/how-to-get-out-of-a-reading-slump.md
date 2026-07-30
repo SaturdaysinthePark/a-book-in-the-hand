@@ -1,6 +1,6 @@
 ---
 title: "How to Get Out of a Reading Slump? It's a Mystery (Novel)!"
-description: "A reading slump isn't a reason to stop reading, it just means you need to pick up the right book. Mystery novels turn into the detective, collecting the facts, piecing the clues together and trying to solve the mystery. It's hard to put down because you want to solve it!"
+description: "A reading slump isn't a reason to stop reading, it just means you need to pick up the right book. Mystery novels turn you into the detective collecting the facts, piecing the clues together and trying to solve the mystery. It's hard to put down because you want to solve it!"
 pubDate: 2026-07-28
 bookTitle: "How to Get Out of a Reading Slump? Maybe it's a Mystery (Novel)!"
 author: "Sabtain"
