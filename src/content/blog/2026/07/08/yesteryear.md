@@ -6,6 +6,8 @@ bookTitle: 'Yesteryear'
 author: 'Caro Claire Burke'
 genre: 'Literary Fiction'
 rating: 2
+isbn: '9780008742768'
+publishYear: 2026
 goodreadsId: '247522184'
 heroImage: 'https://covers.openlibrary.org/b/id/15213215-L.jpg'
 status: 'live'

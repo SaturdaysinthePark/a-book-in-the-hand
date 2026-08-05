@@ -6,6 +6,8 @@ bookTitle: 'The Frolic of the Beasts'
 author: 'Yukio Mishima'
 genre: 'Literary Fiction'
 rating: 3
+isbn: '9780525434153'
+publishYear: 1961
 goodreadsId: '35952941'
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1513997033i/35952941.jpg'
 status: 'live'

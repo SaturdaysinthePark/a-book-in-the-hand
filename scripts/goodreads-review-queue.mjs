@@ -31,7 +31,8 @@ const CSV_PATH = join(ROOT, 'data', 'goodreads_library_export.csv');
 const OUT_PATH = join(ROOT, 'book-analysis', 'goodreads-review-queue.md');
 
 const SITE_URL = 'https://saturdaysinabook.com';
-const FOOTER_HTML = `<p><a href="${SITE_URL}/book-reviews/">See my other reviews on Saturdays in a Book</a></p>`;
+const footerHtml = (postUrl) =>
+	`<p><a href="${postUrl}">Originally posted on Saturdays in a Book</a> · <a href="${SITE_URL}/book-reviews/">all my reviews</a></p>`;
 
 const filterArg = (process.argv[2] || '').trim().toLowerCase();
 
@@ -162,7 +163,12 @@ function blockToParagraphs(lines) {
 	return paragraphs;
 }
 
-function bodyToHtml(body) {
+function postUrlFor(path) {
+	const rel = path.slice(CONTENT_DIR.length + 1).replace(/\.(md|mdx)$/, '');
+	return `${SITE_URL}/blog/${rel}/`;
+}
+
+function bodyToHtml(body, postUrl) {
 	const blocks = body.trim().split(/\n{2,}/).filter(Boolean);
 	const html = blocks.flatMap((block) => {
 		const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
@@ -173,8 +179,10 @@ function bodyToHtml(body) {
 		}
 		return blockToParagraphs(lines);
 	});
-	html.push(FOOTER_HTML);
-	return html.join('\n');
+	html.push(footerHtml(postUrl));
+	// Join with NO newlines: Goodreads converts raw newlines to <br> on top of
+	// rendering the tags, which doubles the spacing between paragraphs.
+	return html.join('');
 }
 
 // ── Write output ─────────────────────────────────────────────────────────────
@@ -184,7 +192,7 @@ const sections = queue.map((p) => {
 		`## ${p.title} — ${p.author} (rating ${stars})`,
 		`Goodreads: https://www.goodreads.com/book/show/${p.goodreadsId}`,
 		'',
-		bodyToHtml(p.body),
+		bodyToHtml(p.body, postUrlFor(p.path)),
 		'',
 		'---',
 	].join('\n');

@@ -6,6 +6,8 @@ bookTitle: 'Ways of Seeing'
 author: 'John Berger'
 genre: 'Art'
 rating: 3
+isbn: '9780140135152'
+publishYear: 1972
 goodreadsId: '2784'
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1703328414i/2784.jpg'
 status: 'live'

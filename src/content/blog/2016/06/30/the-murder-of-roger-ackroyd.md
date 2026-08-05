@@ -6,6 +6,7 @@ bookTitle: 'The Murder of Roger Ackroyd'
 author: 'Agatha Christie'
 genre: 'Mystery'
 rating: 5
+publishYear: 1926
 goodreadsId: '16328'
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1348020113i/9618464.jpg'
 status: 'live'

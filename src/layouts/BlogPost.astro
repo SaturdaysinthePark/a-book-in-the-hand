@@ -9,6 +9,7 @@ import { mdLite } from '../utils/blog';
 import BookCover from '../components/BookCover.astro';
 import SeriesNav from '../components/SeriesNav.astro';
 import RelatedByAuthor from '../components/RelatedByAuthor.astro';
+import RelatedByGenre from '../components/RelatedByGenre.astro';
 
 type Props = CollectionEntry<'blog'>['data'] & { ogImage?: string; body?: string; genres?: string[]; postId?: string };
 
@@ -193,6 +194,7 @@ function stars(n: number) {
 						</div>
 					{series && postId && <SeriesNav series={series} currentId={postId} />}
 					{author && postId && <RelatedByAuthor author={author} currentId={postId} series={series} />}
+					{genres.length > 0 && postId && <RelatedByGenre genres={genres} currentId={postId} author={author} series={series} />}
 					</div>
 				</div>
 			) : (

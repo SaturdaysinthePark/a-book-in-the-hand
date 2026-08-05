@@ -6,6 +6,8 @@ bookTitle: 'The Passion According to G.H.'
 author: 'Clarice Lispector'
 genre: 'Literary Fiction'
 rating: 3
+isbn: '9780811219686'
+publishYear: 1964
 goodreadsId: '13082436'
 heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1655722528i/13082436.jpg'
 status: 'live'
