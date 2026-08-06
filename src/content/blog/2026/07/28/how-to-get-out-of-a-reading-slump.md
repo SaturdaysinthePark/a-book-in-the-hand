@@ -42,7 +42,7 @@ picks:
     blurb: "An interesting take where the murder happens early in the novel, the killer is caught and then goes into complete silence. The mystery isn't about who committed the crime and more about why. It's short and punchy, more psychological since you're spending time with the killer and her therapist, trying to piece together what led to that night. You'll certainly start to form theories making it a great choice when you're trying to get out of a reading slump." 
 ---
 
-Recently, a friend mentioned they were in a reading slump and made a remark about my reading habit being so strong. What he didn't know, and what I ended up relaying to him, was that I often do hit a slump and at one point after college I had probably gone 3-4 years without really reading anything. The book that got me _back_ into reading was actually _The Girl with the Dragon Tattoo_. It was only later that I realized what helped me bring the habit back whenever it was starting to drift away was all down to selecting a certain kind of book. 
+Recently, a friend mentioned they were in a reading slump and made a remark about my reading habit being so strong. What he didn't know, and what I ended up relaying to him, was that I often do hit a slump and at one point after college I had probably gone 3-4 years without really reading anything. Sure I'm in my stride these days, but it took me a good book to build a good habit. The one that got me _back_ into reading was actually _The Girl with the Dragon Tattoo_. It was only later that I realized what helped me bring the habit back whenever it was starting to drift away was all down to selecting a certain kind of book. 
 
 A reading slump is a pretty normal experience, but it doesn't mean you want to stop reading. In fact, it's more likely the opposite, you want to read but just can't find yourself doing it. There have been times when I was simply stuck and tired, and I needed to start the reading engine back up and build momentum. Whenever that happens, I reach for a mystery novel. 
 
@@ -50,11 +50,14 @@ Most novels ask you to invest quite a bit into them and their characters, world 
 
 With a mystery novel, quite the opposite occurs. The reader is presented a problem: a misplaced body, a clue that doesn't fit, an obvious lie, something out of place. From the beginning you're more of a participant in the story and mystery than just reading it. Every chapter gives you a clue and something new to piece together, a contradiction in the facts, or a detail you missed before. Your brain is constantly slipping into its puzzle solving mode by building and testing theories or solutions to the mystery at hand. This in turn helps you build the reading momentum. It almost sounds like a cheat code, and I'm guilty of using it. Even better, it's rewarding while participating.
 
+There's actually a name for part of this: psychologists call it the ["information gap" theory of curiosity](https://psychologyfanatic.com/information-gap-theory/), the idea proposed by Loewenstein that curiosity kicks in the moment you notice a gap between what you know and what you want to know, and a small piece of information is enough to prime you to want the rest. A mystery novel is basically built to keep handing you these small pieces. Every clue partially closes one gap and opens another, so your brain never fully settles, it just keeps reaching for the next piece. That's also why the pleasure isn't only in the reveal at the end, it's in the process itself, your brain's ["seeking" system](https://www.psychologytoday.com/us/blog/common-sense-science/202503/why-we-love-a-good-mystery), the same one tied to curiosity and exploration, is actively engaged the whole way through, not just satisfied once the mystery is solved.
+
+
 Not every mystery novel works this well, for instance I'm a big fan of _The Name of the Rose_, it's an excellent mystery, but it's a slow burn that also gets into theology and other topics. Meanwhile, novels like _The Murder of Roger Ackroyd_ have a much punchier pace right from the start, and keep you guessing until the very end. 
 
 So when I hit the reading wall or slump, I tend to take a step back and pick up a mystery novel to help me bring that reading habit and momentum back. Once I start moving, it's easier to roll into more books and get into the rhythm.
 
-Below are a few recommendations, these have all pulled me out of a slump at one point or another!
+Below are a few recommendations, these have all pulled me out of a slump at one point or another! (Side note: I haven't gotten to writing a review of all the books below, but will eventually!)
 
 
 <!--picks-->
