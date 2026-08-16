@@ -1,5 +1,75 @@
 [
 	{
+		"goodreadsId": "12011902",
+		"title": "The Devotion of Suspect X (Detective Galileo, #1)",
+		"author": "Keigo Higashino",
+		"isbn13": "9781250002693",
+		"rating": 3,
+		"dateRead": "2026-08-14",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 312,
+		"originalPubYear": 2005,
+		"category": "fiction",
+		"subgenres": [
+			"crime",
+			"mystery"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Japan",
+		"language": "Japanese",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1495616958i/12011902.jpg"
+	},
+	{
+		"goodreadsId": "69819",
+		"title": "Steppenwolf",
+		"author": "Hermann Hesse",
+		"isbn13": "9780553131741",
+		"rating": 4,
+		"dateRead": "2026-08-10",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 248,
+		"originalPubYear": 1927,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Germany",
+		"language": "German",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1776505070i/69819.jpg"
+	},
+	{
+		"goodreadsId": "63033",
+		"title": "The Savage Detectives",
+		"author": "Roberto Bolaño",
+		"isbn13": "9780374191481",
+		"rating": 4,
+		"dateRead": "2026-08-08",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 577,
+		"originalPubYear": 1998,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Chile",
+		"language": "Spanish",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1342651149i/63033.jpg"
+	},
+	{
 		"goodreadsId": "13082436",
 		"title": "The Passion According to G.H.",
 		"author": "Clarice Lispector",
@@ -214,7 +284,7 @@
 		"title": "The Sword of the Lictor (The Book of the New Sun, #3)",
 		"author": "Gene Wolfe",
 		"isbn13": null,
-		"rating": 3,
+		"rating": 4,
 		"dateRead": "2026-06-05",
 		"readCount": 1,
 		"readYears": [
@@ -5562,7 +5632,7 @@
 		"title": "Secrets of Divine Love: A Spiritual Journey into the Heart of Islam",
 		"author": "A. Helwa",
 		"isbn13": null,
-		"rating": 5,
+		"rating": 4,
 		"dateRead": "2021-05-12",
 		"readCount": 1,
 		"readYears": [

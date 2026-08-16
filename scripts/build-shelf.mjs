@@ -147,6 +147,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const coverIdUrl = (id) => `https://covers.openlibrary.org/b/id/${id}-L.jpg`;
 const normAuthor = (s) => (s || '').toLowerCase().replace(/[^a-z]/g, '');
 const cleanTitle = (t) => (t || '').replace(/\([^)]*\)/g, '').replace(/:.*$/, '').trim();
+// Strip a trailing series suffix like " (Blacktongue, #1)" — keeps other parentheticals intact.
+const stripSeriesSuffix = (t) => (t || '').replace(/\s*\([^()]*#\d+\)\s*$/, '').trim();
 
 async function olSearch(params) {
 	const qs = new URLSearchParams({ limit: '3', fields: 'cover_i,author_name', ...params });
@@ -318,7 +320,7 @@ async function main() {
 		if (!id || currentById.has(id)) continue;
 		currentById.set(id, {
 			goodreadsId: id,
-			title: String(r['Title'] || '').trim(),
+			title: stripSeriesSuffix(String(r['Title'] || '').trim()),
 			author: String(r['Author'] || '').trim(),
 			isbn13: cleanIsbn(r['ISBN13']) || cleanIsbn(r['ISBN']) || null,
 			dateAdded: toIso(r['Date Added']),
