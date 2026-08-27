@@ -142,10 +142,21 @@ function localImageDimensions(url) {
 	const filePath = join(ROOT, 'public', url);
 	if (!existsSync(filePath)) return null;
 	try {
-		return readImageDimensions(readFileSync(filePath));
+		const dims = readImageDimensions(readFileSync(filePath));
+		return dims ? scaleToMaxWidth(dims) : null;
 	} catch {
 		return null;
 	}
+}
+
+// Goodreads' review column is narrow — a full-resolution image (e.g. a
+// screenshot-sized PNG) will blow way past it. Scale down to a display-sized
+// width, preserving aspect ratio, and never scale up a smaller image.
+const MAX_DISPLAY_WIDTH = 400;
+function scaleToMaxWidth({ width, height }) {
+	if (width <= MAX_DISPLAY_WIDTH) return { width, height };
+	const scale = MAX_DISPLAY_WIDTH / width;
+	return { width: MAX_DISPLAY_WIDTH, height: Math.round(height * scale) };
 }
 
 function inlineFormat(escaped) {
