@@ -174,7 +174,21 @@ function bodyToHtml(body, postUrl) {
 		const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
 		const isBlockquote = lines.every((l) => l.startsWith('>'));
 		if (isBlockquote) {
-			const inner = formatLine(lines.map((l) => l.replace(/^>\s?/, '')).join(' '));
+			// A blank `>` line marks a paragraph break inside one blockquote —
+			// split on those instead of flattening everything with a single space.
+			const stripped = lines.map((l) => l.replace(/^>\s?/, ''));
+			const paras = [];
+			let cur = [];
+			for (const l of stripped) {
+				if (l === '') {
+					if (cur.length) paras.push(cur.join(' '));
+					cur = [];
+				} else {
+					cur.push(l);
+				}
+			}
+			if (cur.length) paras.push(cur.join(' '));
+			const inner = paras.map(formatLine).join('<br><br>');
 			return [`<blockquote>${inner}</blockquote>`];
 		}
 		return blockToParagraphs(lines);
