@@ -104,12 +104,57 @@ function escapeHtml(s) {
 	return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+function escapeAttr(s) {
+	return s.replace(/"/g, '&quot;');
+}
+
 function resolveUrl(url) {
 	return url.startsWith('/') ? `${SITE_URL}${url}` : url;
 }
 
+// Minimal, dependency-free PNG/JPEG dimension reader — just enough to size an
+// <img> tag for Goodreads without pulling in an image library for one use.
+function readImageDimensions(buf) {
+	// PNG: 8-byte signature, then IHDR chunk (length, "IHDR", width, height).
+	if (buf.length >= 24 && buf.toString('ascii', 12, 16) === 'IHDR') {
+		return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
+	}
+	// JPEG: walk markers looking for a SOFn segment.
+	if (buf[0] === 0xff && buf[1] === 0xd8) {
+		let i = 2;
+		while (i + 9 < buf.length) {
+			if (buf[i] !== 0xff) { i++; continue; }
+			const marker = buf[i + 1];
+			const isSOF = marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc;
+			const len = buf.readUInt16BE(i + 2);
+			if (isSOF) return { height: buf.readUInt16BE(i + 5), width: buf.readUInt16BE(i + 7) };
+			i += 2 + len;
+		}
+	}
+	return null;
+}
+
+// Local images (referenced by site-relative path, e.g. /post-images/x.png) resolve to a
+// file under public/ — read it to get real width/height for the <img> tag. Remote images
+// (e.g. a Goodreads-hosted cover) are left without dimensions rather than fetched.
+function localImageDimensions(url) {
+	if (!url.startsWith('/')) return null;
+	const filePath = join(ROOT, 'public', url);
+	if (!existsSync(filePath)) return null;
+	try {
+		return readImageDimensions(readFileSync(filePath));
+	} catch {
+		return null;
+	}
+}
+
 function inlineFormat(escaped) {
 	return escaped
+		.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => {
+			const dims = localImageDimensions(url);
+			const dimAttrs = dims ? ` width="${dims.width}" height="${dims.height}"` : '';
+			return `<img src="${resolveUrl(url)}"${dimAttrs} alt="${escapeAttr(alt)}"/>`;
+		})
 		.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => `<a href="${resolveUrl(url)}">${text}</a>`)
 		.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
 		.replace(/__([^_]+)__/g, '<b>$1</b>')
