@@ -1,5 +1,52 @@
 [
 	{
+		"goodreadsId": "231387262",
+		"title": "Transcription",
+		"author": "Ben Lerner",
+		"isbn13": "9780374618599",
+		"rating": 3,
+		"dateRead": "2026-08-25",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 144,
+		"originalPubYear": 2026,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction",
+			"autofiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United States",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1754068063i/231387262.jpg"
+	},
+	{
+		"goodreadsId": "55077697",
+		"title": "The Blacktongue Thief (Blacktongue, #1)",
+		"author": "Christopher Buehlman",
+		"isbn13": "9781250621191",
+		"rating": 3,
+		"dateRead": "2026-08-22",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 416,
+		"originalPubYear": 2021,
+		"category": "fiction",
+		"subgenres": [
+			"fantasy"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United States",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1604069900i/55077697.jpg"
+	},
+	{
 		"goodreadsId": "12011902",
 		"title": "The Devotion of Suspect X (Detective Galileo, #1)",
 		"author": "Keigo Higashino",
@@ -2613,7 +2660,8 @@
 		"originalPubYear": 2014,
 		"category": "fiction",
 		"subgenres": [
-			"literary fiction"
+			"literary fiction",
+			"autofiction"
 		],
 		"gender": "female",
 		"classic": false,

@@ -12,7 +12,7 @@ goodreadsId: '40176913'
 isbn: '0571346766'
 publishYear: 2018
 status: 'draft'
-tags: ['rachel-cusk', 'general', '2024']
+tags: ['rachel-cusk', 'general', 'autofiction', '2024']
 postType: 'review'
 heroImage: 'https://images-na.ssl-images-amazon.com/images/P/0571346766.01.L.jpg'
 ---
