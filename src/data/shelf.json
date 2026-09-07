@@ -1,5 +1,74 @@
 [
 	{
+		"goodreadsId": "242693052",
+		"title": "Whistler",
+		"author": "Ann Patchett",
+		"isbn13": "9780063511637",
+		"rating": 3,
+		"dateRead": "2026-09-06",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 304,
+		"originalPubYear": 2026,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "female",
+		"classic": false,
+		"country": "USA",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1761863582i/242693052.jpg"
+	},
+	{
+		"goodreadsId": "1573373",
+		"title": "Demian: The Story of Emil Sinclair's Youth",
+		"author": "Hermann Hesse",
+		"isbn13": "9780553262469",
+		"rating": 4,
+		"dateRead": "2026-09-03",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 142,
+		"originalPubYear": 1919,
+		"category": "fiction",
+		"subgenres": [
+			"bildungsroman"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Germany",
+		"language": "German",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1669191812i/1573373.jpg"
+	},
+	{
+		"goodreadsId": "127278133",
+		"title": "Glorious Exploits",
+		"author": "Ferdia  Lennon",
+		"isbn13": "9781250893697",
+		"rating": 3,
+		"dateRead": "2026-08-31",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 304,
+		"originalPubYear": 2024,
+		"category": "fiction",
+		"subgenres": [
+			"historical fiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Ireland",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1691418622i/127278133.jpg"
+	},
+	{
 		"goodreadsId": "231387262",
 		"title": "Transcription",
 		"author": "Ben Lerner",
