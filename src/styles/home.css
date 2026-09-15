@@ -415,9 +415,9 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 
 	/* fx-on mobile: screen-01 cover sizing handled in JS; screen-03 becomes a carousel */
 	html.fx-on .hx-s01 { grid-template-rows: minmax(0,1fr) clamp(232px,44vh,360px); }
-	html.fx-on .hx-s01__left { padding: 48px 22px 16px; }
+	html.fx-on .hx-s01__left { padding: 22px 22px 16px; }
 	html.fx-on .hx-s01__main { gap: 20px; align-items: center; }
-	html.fx-on .hx-s01__text h1 { font-size: clamp(24px,7vw,36px); }
+	html.fx-on .hx-s01__text h1 { font-size: clamp(20px,6vw,30px); }
 	/* Phones use the body-level .hx-m-cue (pinned to the true bottom edge) instead of
 	   the in-cell hint, which on the split screen-01 grid floats mid-screen. */
 	html.fx-on .hx-scroll-hint { display: none; }
