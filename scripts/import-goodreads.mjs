@@ -116,7 +116,7 @@ rows.forEach((r, i) => {
 });
 
 // ── Read CSV ──────────────────────────────────────────────────────────────────
-const csvWb = XLSX.readFile(CSV_PATH, { cellDates: true });
+const csvWb = XLSX.readFile(CSV_PATH, { cellDates: true, codepage: 65001 });
 const csvRows = XLSX.utils.sheet_to_json(csvWb.Sheets[csvWb.SheetNames[0]], { defval: '' });
 console.log(`  csv: ${csvRows.length} rows`);
 

@@ -1,5 +1,51 @@
 [
 	{
+		"goodreadsId": "15719405",
+		"title": "By Night in Chile",
+		"author": "Roberto Bolaño",
+		"isbn13": null,
+		"rating": 2,
+		"dateRead": "2026-09-19",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 130,
+		"originalPubYear": 2000,
+		"category": "fiction",
+		"subgenres": [
+			"literary fiction"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "Chile",
+		"language": "Spanish",
+		"coverUrl": "https://covers.openlibrary.org/b/id/5381371-L.jpg"
+	},
+	{
+		"goodreadsId": "1932696",
+		"title": "The King Must Die",
+		"author": "Mary Renault",
+		"isbn13": null,
+		"rating": 4,
+		"dateRead": "2026-09-15",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 338,
+		"originalPubYear": 1958,
+		"category": "fiction",
+		"subgenres": [
+			"historical fiction"
+		],
+		"gender": "female",
+		"classic": false,
+		"country": "UK",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1347202341i/1932696.jpg"
+	},
+	{
 		"goodreadsId": "242693052",
 		"title": "Whistler",
 		"author": "Ann Patchett",
