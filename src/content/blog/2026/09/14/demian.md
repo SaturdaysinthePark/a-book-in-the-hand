@@ -1,7 +1,7 @@
 ---
 title: 'Review: Demian'
 description: 'Emil Sinclair is a youth struggling with straddling the world of light and dark, until he crosses paths with Demian who helps show him that embracing the duality of light and dark is the key to mastering the self.'
-pubDate: 2026-09-14
+pubDate: 2026-09-03
 bookTitle: "Demian: The Story of Emil Sinclair's Youth"
 author: 'Hermann Hesse'
 genre: 'Literary Fiction'

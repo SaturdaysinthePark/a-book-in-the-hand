@@ -1,7 +1,7 @@
 ---
 title: 'Review: Whistler'
 description: 'A chance reunion at the Met sends Daphne back to her half-understood childhood. Whistler explores how we suppress parts of our selfs, and try to bridge the gap into something understandable we can live with to move on.'
-pubDate: 2026-09-14
+pubDate: 2026-09-06
 bookTitle: 'Whistler'
 author: 'Ann Patchett'
 genre: 'Literary Fiction'
