@@ -7,7 +7,7 @@ author: 'Roberto Bolaño'
 genre: 'Literary Fiction'
 rating: 2
 goodreadsId: '15719405'
-heroImage: 'https://covers.openlibrary.org/b/id/5381371-L.jpg'
+heroImage: 'https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1340496323i/15719405.jpg'
 status: 'draft'
 tags: ['literary-fiction', '2026']
 postType: 'review'
