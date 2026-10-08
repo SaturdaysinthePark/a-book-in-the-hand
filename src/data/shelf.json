@@ -1,5 +1,29 @@
 [
 	{
+		"goodreadsId": "231127410",
+		"title": "Alexander: God, King, Man",
+		"author": "Edmund  Richardson",
+		"isbn13": "9781250285614",
+		"rating": 3,
+		"dateRead": "2026-09-30",
+		"readCount": 1,
+		"readYears": [
+			2026
+		],
+		"pages": 480,
+		"originalPubYear": 2026,
+		"category": "nonfiction",
+		"subgenres": [
+			"biography",
+			"history"
+		],
+		"gender": "male",
+		"classic": false,
+		"country": "United Kingdom",
+		"language": "English",
+		"coverUrl": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1745184317i/231127410.jpg"
+	},
+	{
 		"goodreadsId": "15719405",
 		"title": "By Night in Chile",
 		"author": "Roberto Bolaño",
