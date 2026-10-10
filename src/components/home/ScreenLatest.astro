@@ -1,14 +1,13 @@
 ---
 // Screen 01 — the opening spread: latest review (left) + currently-reading (§02)
-// and featured-list teaser (§03) stacked on the right.
+// and a featured-review teaser (§03) stacked on the right.
 import BookCover from '../BookCover.astro';
 import FormattedDate from '../FormattedDate.astro';
 
-interface Pick { title: string; author?: string | null; cover?: string | null; }
 interface Props {
 	latest: { title: string; author?: string | null; rating?: number | null; date: Date; blurb?: string | null; cover?: string | null; url: string };
 	current: { title: string; author?: string | null; cover?: string | null; coverBg?: string; coverInk?: string; progress?: string; url?: string } | null;
-	featured: { title: string; blurb?: string | null; picks: Pick[]; count: number; date: Date; url: string } | null;
+	featured: { title: string; author?: string | null; rating?: number | null; blurb?: string | null; cover?: string | null; url: string } | null;
 }
 const { latest, current, featured } = Astro.props;
 const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) : '');
@@ -63,19 +62,17 @@ const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) 
 		)}
 
 		{featured && (
-			<a class="hx-s01__rb" id="hx-s01-rb" href={featured.url} aria-label={featured.title}>
+			<a class="hx-s01__rb hx-s01__rb--book" id="hx-s01-rb" href={featured.url} aria-label={featured.title}>
 				<span class="hx-watermark" aria-hidden="true" style="font-size:clamp(34px,4.5vw,62px);color:rgba(243,236,224,.13);right:14px;top:14px;">03</span>
-				<h2>{featured.title}</h2>
-				{featured.blurb && <p class="hx-s01__rb-blurb">{featured.blurb}</p>}
 				<div class="hx-s01__rb-books">
-					{featured.picks.slice(0, 6).map((p) => (
-						<BookCover title={p.title} author={p.author} cover={p.cover} variant="block" />
-					))}
+					<BookCover title={featured.title} author={featured.author} cover={featured.cover} variant="block" />
 				</div>
+				<h2>{featured.title}</h2>
+				<p class="hx-s01__rb-byline">{featured.author}{featured.rating && <span class="hx-s01__rb-stars" aria-label={`${featured.rating} out of 5`}> · {stars(featured.rating)}</span>}</p>
+				{featured.blurb && <p class="hx-s01__rb-blurb">{featured.blurb}</p>}
 				<div class="hx-s01__rb-foot">
-					<span class="hx-s01__rb-meta"><span class="hx-meta-count">{featured.count} books</span><span class="hx-meta-date"> · {<FormattedDate date={featured.date} />}</span></span>
 					<span class="hx-cta hx-cta--light" style="font-size:10px;gap:7px">
-						See the list
+						Read the review
 						<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M6.5 2.5l4 3.5-4 3.5"/></svg>
 					</span>
 				</div>

@@ -54,4 +54,10 @@ const stars = (r?: number | null) => (r ? '★'.repeat(r) + '☆'.repeat(5 - r) 
 		</div>
 		<div class="hx-s02__progress"><div id="hx-progress"></div></div>
 	</div>
+
+	<!-- Scroll cue, centred on the seam between the two rows (shown only in the animated view) -->
+	<div class="hx-s02__cue" id="hx-s02-cue" aria-hidden="true">
+		<span>Scroll</span>
+		<div class="hx-drain-track"><div class="hx-drain"></div></div>
+	</div>
 </section>

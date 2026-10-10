@@ -14,7 +14,7 @@ interface Book { title: string; author?: string | null; rating?: number | null; 
 interface Props {
 	latest: { title: string; author?: string | null; rating?: number | null; date: Date; blurb?: string | null; cover?: string | null; url: string };
 	current: { title: string; author?: string | null; cover?: string | null; coverBg?: string; coverInk?: string; progress?: string; url?: string } | null;
-	featured: { title: string; blurb?: string | null; picks: Pick[]; count: number; date: Date; url: string } | null;
+	featured: { title: string; author?: string | null; rating?: number | null; blurb?: string | null; cover?: string | null; url: string } | null;
 	recentRow1: Book[];
 	recentRow2: Book[];
 	cells: any[];

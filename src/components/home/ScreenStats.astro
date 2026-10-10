@@ -21,7 +21,7 @@ const bars = years.map((y) => ({ ...y, h: Math.round((y.value / maxYear) * 100) 
 
 	<h2 class="hx-s04__title">Reading, by the numbers.</h2>
 
-	<div class="hx-s04__stats" id="hx-s04-stats">
+	<a class="hx-s04__stats" id="hx-s04-stats" href={statsUrl} aria-label="See all reading stats">
 		<div class="hx-stat">
 			<span class="hx-stat__num" data-count={uniqueBooks}>{uniqueBooks}</span>
 			<span class="hx-stat__label">Unique Books</span>
@@ -34,9 +34,9 @@ const bars = years.map((y) => ({ ...y, h: Math.round((y.value / maxYear) * 100) 
 			<span class="hx-stat__num" data-count={pagesK} data-dec="1" data-suffix="K">{pagesK}K</span>
 			<span class="hx-stat__label">Pages Read</span>
 		</div>
-	</div>
+	</a>
 
-	<div class="hx-s04__chartwrap" id="hx-s04-chartwrap">
+	<a class="hx-s04__chartwrap" id="hx-s04-chartwrap" href={statsUrl} aria-label="Books read by year, see all reading stats">
 		<div class="hx-s04__chart-label">
 			<i>Books read</i><span>By Year</span>
 		</div>
@@ -54,7 +54,7 @@ const bars = years.map((y) => ({ ...y, h: Math.round((y.value / maxYear) * 100) 
 				{bars.map((b) => <span>{b.label}</span>)}
 			</div>
 		</div>
-	</div>
+	</a>
 
 	<div class="hx-s04__foot">
 		<a href={shelfUrl} class="hx-cta hx-cta--ghost" style="color:var(--muted)">Browse the full shelf

@@ -148,16 +148,22 @@
 /* Mobile body-level scroll/swipe cue (fx-on phones) — replaces .hx-scroll-hint there.
    Anchored to <body> so the peel transforms on screen-01 never shift/clip it; a soft
    pill keeps the brown label legible over the dark §03 cells. Visibility/label driven
-   by the engine (see home-scroll.ts). */
+   by the engine (see home-scroll.ts). On screen-01 (.hx-m-cue--s01) it is lifted to sit centred at
+   the bottom of cell 01, just above the §02/§03 strip, so it never covers the §03 cell. */
 .hx-m-cue {
 	position: fixed; left: 50%; bottom: calc(var(--exp-foot) + 12px); transform: translateX(-50%);
-	z-index: 150; display: flex; flex-direction: column; align-items: center; gap: 5px;
+	z-index: 150; display: flex; flex-direction: row; align-items: center; gap: 7px;
 	pointer-events: none; transition: opacity 360ms;
-	background: rgba(254,252,249,.82); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
-	padding: 6px 11px 8px; border-radius: 999px;
+	background: rgba(254,252,249,.6); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
+	padding: 4px 11px; border-radius: 999px;
+}
+.hx-m-cue--s01 { bottom: calc(var(--exp-foot) + clamp(232px,44vh,360px) + 12px); }
+/* Short phones: cell 01 has little spare room under its CTA, so tuck it a little lower. */
+@media (max-height: 700px) {
+	.hx-m-cue--s01 { bottom: calc(var(--exp-foot) + clamp(232px,44vh,360px) + 6px); }
 }
 .hx-m-cue span { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(120,96,72,.7); }
-.hx-m-cue .hx-drain-track { width: 1px; height: 20px; overflow: hidden; }
+.hx-m-cue .hx-drain-track { width: 1px; height: 11px; overflow: hidden; }
 .hx-m-cue .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.55); animation: hxScrollDrain 2.2s ease-in-out infinite; }
 
 /* ── Screen 02 — Recent reading ────────────────────────────────────────── */
@@ -317,6 +323,8 @@ html.fx-on .hx-foot {
 html.fx-on .hx-foot a { color: var(--ink-2); transition: color 200ms; }
 html.fx-on .hx-foot a:hover { color: var(--accent); }
 html.fx-on .hx-foot__colophon { margin-left: auto; opacity: .7; }
+html.fx-on .hx-foot > * { white-space: nowrap; flex: 0 0 auto; }   /* never wrap a footer item onto 2 lines */
+html.fx-on .hx-foot { overflow: hidden; }
 /* Tablet (701–1024px): colophon is too long for the 34px fixed bar — hide it,
    matching what mobile already does. */
 @media (min-width: 701px) and (max-width: 1024px) {
@@ -410,7 +418,7 @@ html.fx-on .hx-col__val { opacity: 0; transition: opacity .5s; }
 
 	/* fx-on mobile footer */
 	html.fx-on { --exp-foot: 32px; }
-	html.fx-on .hx-foot { font-size: 9px; gap: 14px; padding: 0 18px; }
+	html.fx-on .hx-foot { font-size: 9px; letter-spacing: .08em; gap: 12px; padding: 0 14px; }
 	html.fx-on .hx-foot__colophon { display: none; }
 
 	/* fx-on mobile: screen-01 cover sizing handled in JS; screen-03 becomes a carousel */
@@ -593,3 +601,40 @@ html.fx-on .hx-cell__grid { justify-content: center; align-content: center; gap:
 	html.fx-on .hx-s01__rb-books .cover { width: 100%; height: auto; max-width: 100%; }
 	html.fx-on .hx-s01__rb-books > *:nth-child(n+5) { display: none; }
 }
+
+/* §03 single-review variant (.hx-s01__rb--book): big cover on top, then title, byline + stars,
+   description, CTA. Declared late so it wins over the list-grid rules and container queries above. */
+.hx-s01__rb--book { padding-top: clamp(34px,5vh,52px); }
+.hx-s01__rb--book .hx-s01__rb-books { display: flex; justify-content: center; align-items: center; flex: 1; min-height: 0; margin-bottom: clamp(10px,1.6vh,18px); }
+.hx-s01__rb--book .hx-s01__rb-books .cover { width: min(58%, 200px); height: auto; max-width: 100%; }
+html.fx-on .hx-s01__rb--book .hx-s01__rb-books .cover { width: min(72cqw, 33cqh); height: auto; max-width: none; }
+.hx-s01__rb--book h2 { font-size: clamp(18px,2vw,26px); margin: 0 0 4px; }
+.hx-s01__rb-byline { font-family: var(--mono); font-size: clamp(9px,.8vw,11px); letter-spacing: .14em; text-transform: uppercase; color: rgba(243,236,224,.62); margin: 0 0 clamp(6px,.9vh,10px); position: relative; z-index: 1; }
+.hx-s01__rb-stars { color: #d9b36f; letter-spacing: .1em; font-size: 1.25em; }
+.hx-s01__rb--book .hx-s01__rb-blurb { color: rgba(243,236,224,.72); font-size: clamp(11px,.95vw,13px); -webkit-line-clamp: 3; margin: 0 0 clamp(8px,1.1vh,14px); }
+html.fx-on .hx-s01__rb--book .hx-s01__rb-blurb { display: -webkit-box; -webkit-line-clamp: 3; }
+.hx-s01__rb--book .hx-s01__rb-foot { margin-top: 0; }
+@media (max-width: 820px) { html.fx-on .hx-s01__rb--book .hx-s01__rb-blurb { -webkit-line-clamp: 2; } }
+
+/* §09: the stat cards and the chart are whole-area links to /stats (the footer CTA stays too). */
+a.hx-s04__stats, a.hx-s04__chartwrap { color: inherit; text-decoration: none; cursor: pointer; }
+a.hx-s04__chartwrap:hover .hx-s04__chart-label i, a.hx-s04__stats:hover .hx-stat__num { color: var(--accent); }
+a.hx-s04__stats:focus-visible, a.hx-s04__chartwrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* Very narrow phones: tighten the footer further so all four items fit on one line. */
+@media (max-width: 380px) {
+	html.fx-on .hx-foot { font-size: 8px; letter-spacing: .04em; gap: 9px; padding: 0 10px; }
+}
+
+/* §04 scroll cue: centred on the seam between the two sliding rows. Only exists in the animated view;
+   the engine fades it in with the screen and out as the screen starts to split open (home-scroll.ts). */
+.hx-s02__cue { display: none; }
+html.fx-on .hx-s02__cue {
+	display: flex; flex-direction: row; align-items: center; gap: 7px;
+	position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 3;
+	pointer-events: none; opacity: 0; transition: opacity 280ms;
+	padding: 4px 11px; border-radius: 999px; background: rgba(254,252,249,.6);
+}
+.hx-s02__cue span { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(120,96,72,.7); }
+.hx-s02__cue .hx-drain-track { width: 1px; height: 11px; overflow: hidden; }
+.hx-s02__cue .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.55); animation: hxScrollDrain 2.2s ease-in-out infinite; }

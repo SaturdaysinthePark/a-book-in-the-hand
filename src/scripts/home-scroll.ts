@@ -34,6 +34,7 @@ export function initHomeScroll(): void {
 	const vcRt     = $('hx-s01-rt');
 	const vcRb     = $('hx-s01-rb');
 	const screen04 = $('hx-s04');
+	const s02Cue   = $('hx-s02-cue');
 
 	let target = 0, accum = 0, rafId: number | null = null;
 	let s03Animated = false, s04Animated = false;
@@ -42,7 +43,9 @@ export function initHomeScroll(): void {
 	let carVW = window.innerWidth;
 
 	const MAX_PEEL1 = 620;
-	const MAX_BOOK  = isMobile ? 1100 : 1400;
+	// §04's book sweep is the longest travel in px per scroll unit, so it needs the most scroll
+	// distance to feel calm (raise to slow it down, lower to speed it up).
+	const MAX_BOOK  = isMobile ? 1400 : 1800;
 	const MAX_PEEL2 = 500;
 	const N_S03     = Math.min(4, screen03 ? screen03.querySelectorAll('.hx-cell').length : 4) || 4;
 	// Desktop gets a dwell so §03 rests fully on screen (readable / clickable) before peel-3.
@@ -311,6 +314,12 @@ export function initHomeScroll(): void {
 			}
 		}
 
+		// ── §04 scroll cue (centre seam): in once §04 has settled, out as the screen splits open ──
+		if (s02Cue) {
+			const cueOn = a >= SWEEP_START - 2 && a < PEEL2_START + 30;
+			s02Cue.style.opacity = cueOn ? '1' : '0';
+		}
+
 		// ── Section indicator ──
 		if (secInd) {
 			if (p1 < 0.6) secInd.textContent = '01 — Latest Review';
@@ -329,12 +338,27 @@ export function initHomeScroll(): void {
 				const carP = Math.max(0, Math.min(1, (a - PEEL2_END) / MAX_S03));
 				vis = carP > 0.92 ? 0 : 1;                               // fade as the carousel ends
 			} else if (a >= S03_END) vis = 0;                            // peel-3 / stats
+			mScrollCue.classList.toggle('hx-m-cue--s01', a <= MAX_PEEL1 * 0.35);
 			mScrollCue.style.opacity = String(vis);
 		}
 	};
 
+	// A timed tween drives the stop-to-stop transitions (see "Page-style" below); the exponential
+	// follow below is kept as the generic fallback.
+	let ease_k = 0.11;
+	let tw: { from: number; to: number; t0: number; dur: number } | null = null;
+	const easeIO = (p: number) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
 	const smooth = () => {
-		accum += (target - accum) * 0.11;
+		if (tw) {
+			const p = Math.min(1, (performance.now() - tw.t0) / tw.dur);
+			accum = tw.from + (tw.to - tw.from) * easeIO(p);
+			if (p >= 1) { accum = tw.to; tw = null; }
+			applyAll(accum);
+			rafId = tw ? requestAnimationFrame(smooth) : null;
+			return;
+		}
+		accum += (target - accum) * ease_k;
+		if (Math.abs(target - accum) <= 0.5) accum = target; // land exactly so rest frames don't leave a hidden screen half-shown
 		applyAll(accum);
 		rafId = Math.abs(target - accum) > 0.5 ? requestAnimationFrame(smooth) : null;
 	};
@@ -345,51 +369,118 @@ export function initHomeScroll(): void {
 	// when they scroll back to the top. Resolves the end-of-experience / footer conflict.
 	const pinned = () => window.scrollY <= 2;
 
+	// ── Page-style stepping (with a scrubbed §04) ──
+	// STOPS are the screens that rest on their own: §01, §04 just revealed (SWEEP_START), §04 with the
+	// covers landed (PEEL2_START), §03 settled (on phones each carousel card is its own stop), and the
+	// stats screen. One deliberate swipe (or key) triggers one complete, timed transition to the next
+	// stop. The exception is the §04 book sweep between SWEEP_START and PEEL2_START: that follows your
+	// scroll gradually, bounded at both ends so a swipe can't spill into the next screen.
+	// Input is ignored until a transition ends AND the wheel (inertia included) has gone quiet.
+	const SWEEP_START = MAX_PEEL1 + 60;
+	const STOPS: number[] = [0, SWEEP_START, PEEL2_START];
+	if (isMobile && N_S03 > 1) for (let k = 0; k < N_S03; k++) STOPS.push(PEEL2_END + (k * MAX_S03) / (N_S03 - 1));
+	else STOPS.push(PEEL2_END);
+	STOPS.push(TOTAL);
+	const WHEEL_TRIGGER = 90;    // accumulated wheel units (after gain) that count as an intentional swipe
+	const TOUCH_TRIGGER = 28;    // finger travel in px that counts as an intentional swipe
+	const WHEEL_QUIET_MS = 120;  // a pause this long between wheel events starts a new gesture
+	const TWEEN_BASE_MS = 400, TWEEN_PER_UNIT = 1.5; // duration = base + distance × per-unit (longer hops get more time)
+	const stopBelow = (t: number) => [...STOPS].reverse().find((v) => v < t - 1) ?? 0;
+	const stopAbove = (t: number) => STOPS.find((v) => v > t + 1) ?? TOTAL;
+	const inSweepRange = (t: number) => t >= SWEEP_START - 1 && t <= PEEL2_START + 1;
+	// A direction scrubs (rather than steps) when it moves along the §04 sweep without leaving it.
+	const scrubs = (t: number, dir: number) =>
+		inSweepRange(t) && ((dir > 0 && t < PEEL2_START - 1) || (dir < 0 && t > SWEEP_START + 1));
+	const goTo = (to: number) => {
+		if (Math.abs(to - target) < 1 && !tw) return;
+		const from = accum;
+		tw = { from, to, t0: performance.now(), dur: TWEEN_BASE_MS + Math.abs(to - from) * TWEEN_PER_UNIT };
+		target = to;
+		if (!rafId) rafId = requestAnimationFrame(smooth);
+	};
+	const step = (dir: number) => goTo(dir > 0 ? stopAbove(target) : stopBelow(target));
+	// Follow the finger/wheel along the sweep, clamped to its ends.
+	const SWEEP_GAIN = 0.35; // the sweep covers a lot of ground per scroll unit, so scale input down to keep it gradual
+	const scrub = (d: number, gain = SWEEP_GAIN) => {
+		ease_k = 0.11;
+		const t = Math.max(SWEEP_START, Math.min(PEEL2_START, target + d * gain));
+		if (t !== target) { target = t; if (!rafId) rafId = requestAnimationFrame(smooth); }
+	};
+
 	// ── Wheel (desktop) ──
-	// Gear up the wheel so the full experience is a couple of swipes, not 3–4. (Touch
-	// already multiplies its delta below.) The 0.11 ease in smooth() keeps it from feeling
-	// jumpy. Raise toward ~2.4 for fewer swipes, lower toward 1 for more deliberate scroll.
-	const WHEEL_MULT = 1.9;
+	// Trackpads send a two-finger sideways swipe as wheel events with deltaX (not touch events),
+	// so read the dominant axis: right-to-left (+deltaX) or down (+deltaY) advances, the reverse goes back.
+	const WHEEL_MULT = 1.4;
+	const WHEEL_MULT_X = 0.9; // trackpad sideways swipes report deltas as large as vertical ones, so keep the gain a touch under WHEEL_MULT
+	const WHEEL_CLAMP = 100;
+	let lastWheel = 0, wAcc = 0, wDone = false, wScrub = false;
 	document.addEventListener('wheel', (e) => {
 		if (!pinned()) return;
-		const newT = Math.max(0, Math.min(TOTAL, target + e.deltaY * WHEEL_MULT));
-		if (newT === 0 && e.deltaY < 0) return;        // release upward at the top
-		if (newT >= TOTAL && e.deltaY > 0) return;     // release downward → footer
+		const horiz = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+		const raw = horiz ? e.deltaX : e.deltaY;
+		const now = performance.now();
+		const newGesture = now - lastWheel > WHEEL_QUIET_MS;
+		lastWheel = now;
+		if (newGesture) { wAcc = 0; wDone = false; wScrub = false; }
+		if (Math.abs(raw) < 4) { e.preventDefault(); return; }                       // sensor noise / tail
+		const d = Math.max(-WHEEL_CLAMP, Math.min(WHEEL_CLAMP, raw)) * (horiz ? WHEEL_MULT_X : WHEEL_MULT);
+		if (target <= 0 && d < 0 && !tw) { if (horiz) e.preventDefault(); return; }  // release upward at the top (swallow sideways so the browser doesn't navigate back)
+		if (target >= TOTAL && d > 0 && !tw) return;                                 // release downward → footer
 		e.preventDefault();
-		target = newT;
-		start();
+		if (tw) return;                                                              // mid-transition: ignore
+		if (wScrub) { scrub(d); return; }                                            // this gesture is scrubbing the sweep
+		if (wDone) return;                                                           // already stepped in this gesture
+		wAcc += d;
+		if (scrubs(target, d > 0 ? 1 : -1) && Math.abs(wAcc) > 0) { wScrub = true; scrub(wAcc); wAcc = 0; return; }
+		if (Math.abs(wAcc) >= WHEEL_TRIGGER) { wDone = true; step(wAcc > 0 ? 1 : -1); }
 	}, { passive: false });
 
 	// ── Touch (tablet + mobile) ──
-	let touchLastY = 0;
-	document.addEventListener('touchstart', (e) => { touchLastY = e.touches[0].clientY; }, { passive: true });
+	// Both axes work: swipe up OR right-to-left advances, swipe down OR left-to-right goes back.
+	// The dominant axis is locked once the finger has moved a few px.
+	const TOUCH_MULT = 1.35;
+	let touchLastD = 0, touchStartX = 0, touchStartY = 0, touchAxis: 'x' | 'y' | null = null, touchDone = false, touchScrub = false;
+	document.addEventListener('touchstart', (e) => {
+		touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+		touchAxis = null; touchDone = false; touchScrub = false; touchLastD = 0;
+	}, { passive: true });
 	document.addEventListener('touchmove', (e) => {
 		if (!pinned()) return;
-		const dy = touchLastY - e.touches[0].clientY;
-		touchLastY = e.touches[0].clientY;
-		const newT = Math.max(0, Math.min(TOTAL, target + dy * 1.8));
-		if ((target <= 0 && dy < 0) || (target >= TOTAL && dy > 0)) return; // release at edges
+		const dx = touchStartX - e.touches[0].clientX, dy = touchStartY - e.touches[0].clientY;
+		if (!touchAxis) {
+			if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+			touchAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+		}
+		const d = touchAxis === 'x' ? dx : dy; // right-to-left / up = forward
+		const inc = d - touchLastD; touchLastD = d;
+		if (!tw && ((target <= 0 && d < 0) || (target >= TOTAL && d > 0))) return; // release at edges
 		e.preventDefault();
-		if (newT !== target) { target = newT; start(); }
+		if (tw) return;
+		if (touchScrub) { scrub(inc * TOUCH_MULT); return; }
+		if (touchDone) return;
+		if (scrubs(target, d > 0 ? 1 : -1)) { touchScrub = true; scrub(d * TOUCH_MULT); return; }
+		if (Math.abs(d) >= TOUCH_TRIGGER) { touchDone = true; step(d > 0 ? 1 : -1); }
 	}, { passive: false });
 
 	// ── Keyboard ──
-	const STEP = 420;
+	// Page/arrow keys jump straight to the next (or previous) resting point; along the §04 sweep they
+	// move it in smaller increments instead.
+	const KEY_SWEEP_STEP = 330;
 	document.addEventListener('keydown', (e) => {
 		if (!pinned()) return;
 		const tag = (e.target as HTMLElement)?.tagName;
 		if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target as HTMLElement)?.isContentEditable) return;
-		let nt = target;
-		if (e.key === 'PageDown' || e.key === ' ' || e.key === 'ArrowDown') nt = target + STEP;
-		else if (e.key === 'PageUp' || e.key === 'ArrowUp') nt = target - STEP;
-		else if (e.key === 'Home') nt = 0;
-		else if (e.key === 'End') nt = TOTAL;
-		else return;
-		nt = Math.max(0, Math.min(TOTAL, nt));
-		if (nt === target) return; // at an edge → let the browser handle it (e.g. reach footer)
+		const fwd = e.key === 'PageDown' || e.key === ' ' || e.key === 'ArrowDown' || e.key === 'ArrowRight';
+		const back = e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'ArrowLeft';
+		const home = e.key === 'Home', end = e.key === 'End';
+		if (!fwd && !back && !home && !end) return;
+		if ((fwd && target >= TOTAL) || (back && target <= 0) || (end && target >= TOTAL) || (home && target <= 0)) return; // at an edge → browser default (footer)
 		e.preventDefault();
-		target = nt;
-		start();
+		if (tw) return;
+		if (home) goTo(0);
+		else if (end) goTo(TOTAL);
+		else if (scrubs(target, fwd ? 1 : -1)) scrub(fwd ? KEY_SWEEP_STEP : -KEY_SWEEP_STEP, 1);
+		else step(fwd ? 1 : -1);
 	});
 
 	// SSR renders §04's stats at their final values; zero them up front so they don't

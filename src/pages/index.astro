@@ -47,14 +47,15 @@ const current = crBook && crFallback ? {
 	url: crNotes.url ?? '',
 } : null;
 
-// ── Screen 01 §03 — featured-list teaser ────────────────────────────────────
-const featuredPost = lists[0];
+// ── Screen 01 §03 — featured review teaser (hand-picked by Goodreads id) ────
+const FEATURED_GID = '1932696'; // The King Must Die
+const featuredPost = reviews.find((p) => String(p.data.goodreadsId ?? '') === FEATURED_GID);
 const featured = featuredPost && {
-	title: featuredPost.data.title,
+	title: featuredPost.data.bookTitle || featuredPost.data.title,
+	author: featuredPost.data.author ?? null,
+	rating: featuredPost.data.rating ?? null,
 	blurb: featuredPost.data.description ?? null,
-	picks: mapPicks(featuredPost),
-	count: (featuredPost.data.picks ?? []).length,
-	date: featuredPost.data.pubDate,
+	cover: cover(featuredPost.data.heroImage),
 	url: getBlogUrl(featuredPost.id),
 };
 
@@ -93,13 +94,11 @@ const reviewBook = (p: (typeof reviews)[number]) => ({
 // Books already on screen 1/2, so the archive surfaces things you'd otherwise miss.
 const shown = new Set([latestPost, ...reviews.slice(1, 21)].filter(Boolean).map(gid));
 
-// Archive gems — top-rated reviewed books read in 2019, not already shown.
-const archivePool = reviews.filter((p) => {
-	const s = shelfByGid.get(gid(p));
-	return s && (s.readYears ?? []).includes(2019) && p.data.rating === 5 && !shown.has(gid(p));
-}).sort((a, b) => (b.body?.length ?? 0) - (a.body?.length ?? 0)); // most substantive reviews first
-const archiveGems = archivePool.slice(0, 2).map(reviewBook);
-const gemGids = new Set(archivePool.slice(0, 2).map(gid));
+// Hand-picked review cells (05 and 07), in cell order, by Goodreads id: Whistler, The Savage Detectives.
+const PINNED_GIDS = ['242693052', '63033'];
+const pinnedPosts = PINNED_GIDS.map((id) => reviews.find((p) => gid(p) === id)).filter((p): p is (typeof reviews)[number] => !!p);
+const archiveGems = pinnedPosts.map(reviewBook);
+const gemGids = new Set(pinnedPosts.map(gid));
 
 // The Five-Star Shelf — 5★ reviews not already featured.
 const fiveStarAll = reviews.filter((p) => p.data.rating === 5);
@@ -118,9 +117,9 @@ const listCell = listCellPost && {
 
 // Quadrant order = cell position 0..3 (tall-left, wide-top, bottom-mid, bottom-right).
 const quadCells = [
-	archiveGems[0] && { type: 'review' as const, href: archiveGems[0].url, kicker: 'From the archive · 2019', book: archiveGems[0] },
+	archiveGems[0] && { type: 'review' as const, href: archiveGems[0].url, kicker: 'Recent pick · 2026', book: archiveGems[0] },
 	listCell,
-	archiveGems[1] && { type: 'review' as const, href: archiveGems[1].url, kicker: 'From the archive · 2019', book: archiveGems[1] },
+	archiveGems[1] && { type: 'review' as const, href: archiveGems[1].url, kicker: 'Recent pick · 2026', book: archiveGems[1] },
 	fiveStarPicks.length ? { type: 'collection' as const, href: '/book-reviews?rating=5', title: 'The Five-Star Shelf', blurb: 'Every book I gave the full five stars.', count: fiveStarAll.length, picks: fiveStarPicks } : null,
 ].filter(Boolean);
 
