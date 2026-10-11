@@ -384,7 +384,8 @@ export function initHomeScroll(): void {
 	const WHEEL_TRIGGER = 90;    // accumulated wheel units (after gain) that count as an intentional swipe
 	const TOUCH_TRIGGER = 28;    // finger travel in px that counts as an intentional swipe
 	const WHEEL_QUIET_MS = 120;  // a pause this long between wheel events starts a new gesture
-	const TWEEN_BASE_MS = 400, TWEEN_PER_UNIT = 1.5; // duration = base + distance × per-unit (longer hops get more time)
+	const SWEEP_OVERFLOW = 150;  // pushing this much further past either end of the §04 sweep steps on to the next screen
+	const TWEEN_BASE_MS = 280, TWEEN_PER_UNIT = 1.0; // duration = base + distance × per-unit (longer hops get more time)
 	const stopBelow = (t: number) => [...STOPS].reverse().find((v) => v < t - 1) ?? 0;
 	const stopAbove = (t: number) => STOPS.find((v) => v > t + 1) ?? TOTAL;
 	const inSweepRange = (t: number) => t >= SWEEP_START - 1 && t <= PEEL2_START + 1;
@@ -398,40 +399,57 @@ export function initHomeScroll(): void {
 		target = to;
 		if (!rafId) rafId = requestAnimationFrame(smooth);
 	};
-	const step = (dir: number) => goTo(dir > 0 ? stopAbove(target) : stopBelow(target));
-	// Follow the finger/wheel along the sweep, clamped to its ends.
+	// Step to the next stop in a direction. Mid-transition a second swipe in the same direction skips
+	// ahead to the stop after the current destination; the opposite direction turns back from where we are.
+	const step = (dir: number) => {
+		const ref = tw && dir !== Math.sign(tw.to - tw.from) ? accum : target;
+		goTo(dir > 0 ? stopAbove(ref) : stopBelow(ref));
+	};
+	// Follow the finger/wheel along the sweep, clamped to its ends. Returns how much input (in raw
+	// units) was pushed past an end, so a hard push can carry on to the next screen.
 	const SWEEP_GAIN = 0.35; // the sweep covers a lot of ground per scroll unit, so scale input down to keep it gradual
-	const scrub = (d: number, gain = SWEEP_GAIN) => {
+	const scrub = (d: number, gain = SWEEP_GAIN): number => {
 		ease_k = 0.11;
-		const t = Math.max(SWEEP_START, Math.min(PEEL2_START, target + d * gain));
+		const want = target + d * gain;
+		const t = Math.max(SWEEP_START, Math.min(PEEL2_START, want));
 		if (t !== target) { target = t; if (!rafId) rafId = requestAnimationFrame(smooth); }
+		return Math.abs(want - t) / gain;
 	};
 
 	// ── Wheel (desktop) ──
 	// Trackpads send a two-finger sideways swipe as wheel events with deltaX (not touch events),
 	// so read the dominant axis: right-to-left (+deltaX) or down (+deltaY) advances, the reverse goes back.
+	// Inertia after a swipe is told apart from a NEW swipe by a pause, a change of direction, or the
+	// deltas jumping back up after they had decayed.
 	const WHEEL_MULT = 1.4;
 	const WHEEL_MULT_X = 0.9; // trackpad sideways swipes report deltas as large as vertical ones, so keep the gain a touch under WHEEL_MULT
 	const WHEEL_CLAMP = 100;
-	let lastWheel = 0, wAcc = 0, wDone = false, wScrub = false;
+	let lastWheel = 0, wAcc = 0, wDone = false, wScrub = false, wOver = 0, wPrevAbs = 0, wLowAbs = Infinity, wDir = 0;
 	document.addEventListener('wheel', (e) => {
 		if (!pinned()) return;
 		const horiz = Math.abs(e.deltaX) > Math.abs(e.deltaY);
 		const raw = horiz ? e.deltaX : e.deltaY;
 		const now = performance.now();
-		const newGesture = now - lastWheel > WHEEL_QUIET_MS;
+		const abs = Math.abs(raw), dir = Math.sign(raw);
+		const reaccel = abs >= 12 && wLowAbs < Infinity && abs > wLowAbs * 2 + 8;        // deltas climbed back up after decaying
+		const newGesture = now - lastWheel > WHEEL_QUIET_MS || (dir !== 0 && wDir !== 0 && dir !== wDir && abs >= 8) || reaccel;
 		lastWheel = now;
-		if (newGesture) { wAcc = 0; wDone = false; wScrub = false; }
-		if (Math.abs(raw) < 4) { e.preventDefault(); return; }                       // sensor noise / tail
+		if (newGesture) { wAcc = 0; wDone = false; wScrub = false; wOver = 0; wLowAbs = Infinity; }
+		if (abs < 4) { e.preventDefault(); return; }                                       // sensor noise / tail
+		if (abs < wPrevAbs) wLowAbs = Math.min(wLowAbs, abs); else if (newGesture) wLowAbs = Infinity;
+		wPrevAbs = abs; wDir = dir;
 		const d = Math.max(-WHEEL_CLAMP, Math.min(WHEEL_CLAMP, raw)) * (horiz ? WHEEL_MULT_X : WHEEL_MULT);
-		if (target <= 0 && d < 0 && !tw) { if (horiz) e.preventDefault(); return; }  // release upward at the top (swallow sideways so the browser doesn't navigate back)
-		if (target >= TOTAL && d > 0 && !tw) return;                                 // release downward → footer
+		if (target <= 0 && d < 0 && !tw) { if (horiz) e.preventDefault(); return; }        // release upward at the top (swallow sideways so the browser doesn't navigate back)
+		if (target >= TOTAL && d > 0 && !tw) return;                                       // release downward → footer
 		e.preventDefault();
-		if (tw) return;                                                              // mid-transition: ignore
-		if (wScrub) { scrub(d); return; }                                            // this gesture is scrubbing the sweep
-		if (wDone) return;                                                           // already stepped in this gesture
+		if (wDone) return;                                                                 // already stepped in this gesture
+		if (wScrub && !tw) {                                                               // this gesture is scrubbing the sweep
+			wOver += scrub(d);
+			if (wOver >= SWEEP_OVERFLOW) { wDone = true; step(d > 0 ? 1 : -1); }       // pushed hard past the end: carry on
+			return;
+		}
 		wAcc += d;
-		if (scrubs(target, d > 0 ? 1 : -1) && Math.abs(wAcc) > 0) { wScrub = true; scrub(wAcc); wAcc = 0; return; }
+		if (!tw && scrubs(target, d > 0 ? 1 : -1)) { wScrub = true; wOver = scrub(wAcc); wAcc = 0; return; }
 		if (Math.abs(wAcc) >= WHEEL_TRIGGER) { wDone = true; step(wAcc > 0 ? 1 : -1); }
 	}, { passive: false });
 
@@ -439,10 +457,10 @@ export function initHomeScroll(): void {
 	// Both axes work: swipe up OR right-to-left advances, swipe down OR left-to-right goes back.
 	// The dominant axis is locked once the finger has moved a few px.
 	const TOUCH_MULT = 1.35;
-	let touchLastD = 0, touchStartX = 0, touchStartY = 0, touchAxis: 'x' | 'y' | null = null, touchDone = false, touchScrub = false;
+	let touchLastD = 0, touchOver = 0, touchStartX = 0, touchStartY = 0, touchAxis: 'x' | 'y' | null = null, touchDone = false, touchScrub = false;
 	document.addEventListener('touchstart', (e) => {
 		touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
-		touchAxis = null; touchDone = false; touchScrub = false; touchLastD = 0;
+		touchAxis = null; touchDone = false; touchScrub = false; touchLastD = 0; touchOver = 0;
 	}, { passive: true });
 	document.addEventListener('touchmove', (e) => {
 		if (!pinned()) return;
@@ -455,10 +473,13 @@ export function initHomeScroll(): void {
 		const inc = d - touchLastD; touchLastD = d;
 		if (!tw && ((target <= 0 && d < 0) || (target >= TOTAL && d > 0))) return; // release at edges
 		e.preventDefault();
-		if (tw) return;
-		if (touchScrub) { scrub(inc * TOUCH_MULT); return; }
 		if (touchDone) return;
-		if (scrubs(target, d > 0 ? 1 : -1)) { touchScrub = true; scrub(d * TOUCH_MULT); return; }
+		if (touchScrub && !tw) {
+			touchOver += scrub(inc * TOUCH_MULT);
+			if (touchOver >= SWEEP_OVERFLOW) { touchDone = true; step(d > 0 ? 1 : -1); }
+			return;
+		}
+		if (!tw && scrubs(target, d > 0 ? 1 : -1)) { touchScrub = true; touchOver = scrub(d * TOUCH_MULT); return; }
 		if (Math.abs(d) >= TOUCH_TRIGGER) { touchDone = true; step(d > 0 ? 1 : -1); }
 	}, { passive: false });
 
@@ -474,12 +495,11 @@ export function initHomeScroll(): void {
 		const back = e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === 'ArrowLeft';
 		const home = e.key === 'Home', end = e.key === 'End';
 		if (!fwd && !back && !home && !end) return;
-		if ((fwd && target >= TOTAL) || (back && target <= 0) || (end && target >= TOTAL) || (home && target <= 0)) return; // at an edge → browser default (footer)
+		if (!tw && ((fwd && target >= TOTAL) || (back && target <= 0) || (end && target >= TOTAL) || (home && target <= 0))) return; // at an edge → browser default (footer)
 		e.preventDefault();
-		if (tw) return;
 		if (home) goTo(0);
 		else if (end) goTo(TOTAL);
-		else if (scrubs(target, fwd ? 1 : -1)) scrub(fwd ? KEY_SWEEP_STEP : -KEY_SWEEP_STEP, 1);
+		else if (!tw && scrubs(target, fwd ? 1 : -1)) scrub(fwd ? KEY_SWEEP_STEP : -KEY_SWEEP_STEP, 1);
 		else step(fwd ? 1 : -1);
 	});
 

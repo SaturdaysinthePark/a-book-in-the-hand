@@ -148,8 +148,8 @@
 /* Mobile body-level scroll/swipe cue (fx-on phones) — replaces .hx-scroll-hint there.
    Anchored to <body> so the peel transforms on screen-01 never shift/clip it; a soft
    pill keeps the brown label legible over the dark §03 cells. Visibility/label driven
-   by the engine (see home-scroll.ts). On screen-01 (.hx-m-cue--s01) it is lifted to sit centred at
-   the bottom of cell 01, just above the §02/§03 strip, so it never covers the §03 cell. */
+   by the engine (see home-scroll.ts). On screen-01 (.hx-m-cue--s01) it moves to the top of cell 03 (the strip's right
+   cell), clear of the §01 text, whose height varies a lot between phones. */
 .hx-m-cue {
 	position: fixed; left: 50%; bottom: calc(var(--exp-foot) + 12px); transform: translateX(-50%);
 	z-index: 150; display: flex; flex-direction: row; align-items: center; gap: 7px;
@@ -157,11 +157,7 @@
 	background: rgba(254,252,249,.6); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px);
 	padding: 4px 11px; border-radius: 999px;
 }
-.hx-m-cue--s01 { bottom: calc(var(--exp-foot) + clamp(232px,44vh,360px) + 12px); }
-/* Short phones: cell 01 has little spare room under its CTA, so tuck it a little lower. */
-@media (max-height: 700px) {
-	.hx-m-cue--s01 { bottom: calc(var(--exp-foot) + clamp(232px,44vh,360px) + 6px); }
-}
+.hx-m-cue--s01 { left: 70%; bottom: calc(var(--exp-foot) + clamp(232px,44vh,360px) - 34px); }   /* centred on cell 03, tucked into its top padding */
 .hx-m-cue span { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(120,96,72,.7); }
 .hx-m-cue .hx-drain-track { width: 1px; height: 11px; overflow: hidden; }
 .hx-m-cue .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.55); animation: hxScrollDrain 2.2s ease-in-out infinite; }
@@ -638,3 +634,6 @@ html.fx-on .hx-s02__cue {
 .hx-s02__cue span { font-family: var(--mono); font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: rgba(120,96,72,.7); }
 .hx-s02__cue .hx-drain-track { width: 1px; height: 11px; overflow: hidden; }
 .hx-s02__cue .hx-drain { width: 100%; height: 100%; background: rgba(120,96,72,.55); animation: hxScrollDrain 2.2s ease-in-out infinite; }
+
+/* Short phones: leave a little more room above the §03 cover for the scroll cue that sits there. */
+@media (max-width: 700px) and (max-height: 700px) { html.fx-on .hx-s01__rb--book { padding-top: 42px; } }
