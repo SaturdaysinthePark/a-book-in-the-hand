@@ -407,7 +407,7 @@ export function initHomeScroll(): void {
 	};
 	// Follow the finger/wheel along the sweep, clamped to its ends. Returns how much input (in raw
 	// units) was pushed past an end, so a hard push can carry on to the next screen.
-	const SWEEP_GAIN = 0.5;  // the sweep covers a lot of ground per scroll unit, so scale input down to keep it gradual
+	const SWEEP_GAIN = 0.85; // the sweep covers a lot of ground per scroll unit, so scale input down to keep it gradual
 	const scrub = (d: number, gain = SWEEP_GAIN): number => {
 		ease_k = 0.11;
 		const want = target + d * gain;
