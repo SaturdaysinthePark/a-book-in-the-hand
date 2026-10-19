@@ -129,7 +129,7 @@ const cover = (uri, w, ht, style = {}) => uri
 // Warm "Sonoma"-ish wallpaper built from the site palette.
 const wallpaper = () => h('div', {
 	position: 'absolute', top: 0, left: 0, width: W, height: H, display: 'flex',
-	backgroundImage: 'radial-gradient(circle at 15% 20%, #e7c9a1 0%, rgba(231,201,161,0) 45%), radial-gradient(circle at 90% 55%, #c98e62 0%, rgba(201,142,98,0) 50%), radial-gradient(circle at 30% 95%, #8b5a2b 0%, rgba(139,90,43,0) 55%), linear-gradient(180deg, #f3ece0 0%, #e2cfb2 100%)',
+	backgroundImage: 'radial-gradient(circle at 12% 18%, #f7dcc4 0%, rgba(247,220,196,0) 48%), radial-gradient(circle at 92% 42%, #f2d4d8 0%, rgba(242,212,216,0) 50%), radial-gradient(circle at 20% 88%, #f4e7c8 0%, rgba(244,231,200,0) 52%), radial-gradient(circle at 85% 96%, #dde6ec 0%, rgba(221,230,236,0) 48%), linear-gradient(180deg, #fdfaf4 0%, #f7f0e4 100%)',
 }, '');
 
 const menuBar = (app) => h('div', {
@@ -152,7 +152,7 @@ const lights = () => h('div', { display: 'flex', gap: 14 },
 const windowFrame = (title, children, { top = WIN_TOP, height, bar } = {}) => h('div', {
 	position: 'absolute', top, left: WIN_X, width: WIN_W, height, display: 'flex', flexDirection: 'column',
 	background: C.paper, borderRadius: 26, overflow: 'hidden',
-	boxShadow: '0 50px 90px -30px rgba(40,24,10,0.55)', border: '1px solid rgba(26,22,20,0.14)',
+	boxShadow: '0 40px 80px -30px rgba(120,80,50,0.35)', border: '1px solid rgba(26,22,20,0.14)',
 }, [
 	h('div', { display: 'flex', alignItems: 'center', height: 72, padding: '0 26px', background: C.chrome, borderBottom: `1px solid ${C.line}`, position: 'relative' }, [
 		lights(),
@@ -189,7 +189,6 @@ const desktop = (app, children, activeIndex) =>
 function hookSlide() {
 	const tile = (b) => h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', width: 270 }, [
 		cover(b.coverUri, 228, 342),
-		text(b.title.split(':')[0], { fontFamily: 'Geist', fontSize: 21, fontWeight: 500, color: C.ink2, marginTop: 18, maxWidth: 240, textAlign: 'center', justifyContent: 'center' }),
 	]);
 	return desktop('Finder', [
 		windowFrame(`${MONTH_LABEL} ${YEAR_LABEL}`, [
@@ -236,21 +235,15 @@ function outroSlide() {
 	]);
 	return desktop('Safari', [
 		windowFrame('', [
-			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '110px 60px 0' }, [
+			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flexGrow: 1, padding: '0 40px 60px' }, [
 				text('§', { fontFamily: 'Newsreader', fontSize: 110, color: C.accent, lineHeight: 1 }),
 				text('Full reviews of all five', { fontFamily: 'Newsreader', fontSize: 80, lineHeight: 1.02, letterSpacing: '-0.03em', color: C.ink, marginTop: 30, textAlign: 'center', justifyContent: 'center', maxWidth: 820 }),
 				text('and every book I’ve read, on the shelf at', { fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: 36, color: C.ink2, marginTop: 26 }),
 				text(SITE, { fontFamily: 'Geist', fontSize: 36, fontWeight: 600, letterSpacing: '0.04em', color: C.accent, marginTop: 18 }),
-				h('div', { display: 'flex', gap: 18, marginTop: 80 }, books.map((b, i) => cover(b.coverUri, 140, 210, { transform: `rotate(${[-6, -3, 0, 3, 6][i % 5]}deg)` }))),
-				text(`What should I read in ${nextMonth()}?`, { fontFamily: 'Geist', fontSize: 26, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: C.muted, marginTop: 90 }),
+				h('div', { display: 'flex', gap: 18, marginTop: 110 }, books.map((b, i) => cover(b.coverUri, 150, 225, { transform: `rotate(${[-6, -3, 0, 3, 6][i % 5]}deg)` }))),
 			]),
 		], { height: 1410, bar }),
 	], -1);
-}
-
-function nextMonth() {
-	const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-	return names[(Number(MONTH.split('-')[1]) % 12)];
 }
 
 async function render(node, out) {
