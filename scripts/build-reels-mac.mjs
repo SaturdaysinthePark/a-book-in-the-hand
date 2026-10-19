@@ -79,7 +79,11 @@ const C = {
 	card: '#efe6d6', line: 'rgba(26,22,20,0.10)', chrome: '#ebe2d2',
 };
 const W = 1080, H = 1920;
-const WIN_X = 60, WIN_W = W - 2 * WIN_X, WIN_TOP = 130;
+// TikTok's feed crops a 9:16 photo to roughly the middle 1080×1490 (the top
+// tabs and caption sit over the rest), so the window and Dock live inside
+// SAFE_TOP..SAFE_BOTTOM; only wallpaper and the menu bar fall outside it.
+const SAFE_TOP = 230, SAFE_BOTTOM = 1690;
+const WIN_X = 60, WIN_W = W - 2 * WIN_X, WIN_TOP = SAFE_TOP + 20, WIN_H = 1190;
 
 // ── satori vnode helpers ──────────────────────────────────────────────────────
 const h = (type, style, children) => ({ type, props: children === undefined ? { style } : { style, children } });
@@ -163,7 +167,7 @@ const windowFrame = (title, children, { top = WIN_TOP, height, bar } = {}) => h(
 ]);
 
 // The Dock: the month's covers, current one lifted with a dot under it.
-const DOCK_TOP = 1590;
+const DOCK_TOP = WIN_TOP + WIN_H + 42;
 function dock(activeIndex = -1) {
 	const items = books.map((b, i) => {
 		const on = i === activeIndex;
@@ -187,22 +191,22 @@ const desktop = (app, children, activeIndex) =>
 // ── Slides ────────────────────────────────────────────────────────────────────
 // Hook: Finder window of the month's covers.
 function hookSlide() {
-	const tile = (b) => h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', width: 270 }, [
-		cover(b.coverUri, 228, 342),
+	const tile = (b) => h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', width: 240 }, [
+		cover(b.coverUri, 200, 300),
 	]);
 	return desktop('Finder', [
 		windowFrame(`${MONTH_LABEL} ${YEAR_LABEL}`, [
-			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '64px 50px 0' }, [
+			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px 50px 0' }, [
 				text(`§ Saturdays in a Book`, { fontFamily: 'Geist', fontSize: 24, fontWeight: 600, letterSpacing: '0.2em', textTransform: 'uppercase', color: C.accent }),
 				text(`What I Read in ${MONTH_LABEL}`, { fontFamily: 'Newsreader', fontSize: 92, lineHeight: 1.0, letterSpacing: '-0.03em', color: C.ink, marginTop: 22, textAlign: 'center', justifyContent: 'center', maxWidth: 820 }),
-				h('div', { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', rowGap: 40, columnGap: 10, width: 840, marginTop: 56 }, books.map(tile)),
+				h('div', { display: 'flex', flexWrap: 'wrap', justifyContent: 'center', rowGap: 40, columnGap: 10, width: 760, marginTop: 50 }, books.map(tile)),
 			]),
 			h('div', { display: 'flex', flexGrow: 1 }, ''),
 			h('div', { display: 'flex', justifyContent: 'space-between', padding: '20px 34px', borderTop: `1px solid ${C.line}`, fontFamily: 'Geist', fontSize: 22, color: C.muted }, [
 				text(`${books.length} items`, {}),
 				text('Swipe →', { fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.accent }),
 			]),
-		], { height: 1410 }),
+		], { height: WIN_H }),
 	], -1);
 }
 
@@ -210,11 +214,11 @@ function hookSlide() {
 function bookSlide(b, i) {
 	return desktop('Preview', [
 		windowFrame(`${b.title.split(':')[0]} — ${b.author}`, [
-			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '40px 44px 0' }, [
-				h('div', { display: 'flex', justifyContent: 'center', alignItems: 'center', width: 872, height: 820, background: C.card, borderRadius: 30 }, [
-					cover(b.coverUri, 460, 690),
+			h('div', { display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '32px 44px 0' }, [
+				h('div', { display: 'flex', justifyContent: 'center', alignItems: 'center', width: 872, height: 620, background: C.card, borderRadius: 30 }, [
+					cover(b.coverUri, 380, 570),
 				]),
-				text(b.title, { fontFamily: 'Newsreader', fontSize: 60, lineHeight: 1.05, letterSpacing: '-0.02em', color: C.ink, marginTop: 40, textAlign: 'center', justifyContent: 'center', maxWidth: 860 }),
+				text(b.title, { fontFamily: 'Newsreader', fontSize: 58, lineHeight: 1.05, letterSpacing: '-0.02em', color: C.ink, marginTop: 32, textAlign: 'center', justifyContent: 'center', maxWidth: 860 }),
 				text(b.author, { fontFamily: 'Geist', fontSize: 23, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.muted, marginTop: 14 }),
 				b.blurb ? text(b.blurb, { fontFamily: 'Newsreader', fontStyle: 'italic', fontSize: 34, lineHeight: 1.34, color: C.ink2, marginTop: 26, textAlign: 'center', justifyContent: 'center', maxWidth: 800 }) : none(),
 			]),
@@ -224,7 +228,7 @@ function bookSlide(b, i) {
 				img(starsDataUri(b.rating), 200, 32),
 				text(`${i + 1} of ${books.length}`, {}),
 			]),
-		], { height: 1410 }),
+		], { height: WIN_H }),
 	], i);
 }
 
@@ -242,7 +246,7 @@ function outroSlide() {
 				text(SITE, { fontFamily: 'Geist', fontSize: 36, fontWeight: 600, letterSpacing: '0.04em', color: C.accent, marginTop: 18 }),
 				h('div', { display: 'flex', gap: 18, marginTop: 110 }, books.map((b, i) => cover(b.coverUri, 150, 225, { transform: `rotate(${[-6, -3, 0, 3, 6][i % 5]}deg)` }))),
 			]),
-		], { height: 1410, bar }),
+		], { height: WIN_H, bar }),
 	], -1);
 }
 
